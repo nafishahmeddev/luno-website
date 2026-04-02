@@ -13,7 +13,7 @@ include_once __DIR__ . '/includes/header.php';
     <div class="page-tag">Legal</div>
     <h1>Privacy Policy</h1>
     <p>How Luno handles your data — spoiler: it doesn't.</p>
-    <div class="effective">Effective: January 1, 2025 · Version 1.0</div>
+    <div class="effective">Effective: April 2, 2026 · Version 1.0.1</div>
   </div>
 
   <div class="highlight">
@@ -100,6 +100,7 @@ include_once __DIR__ . '/includes/header.php';
     <ul>
       <li><strong>Factory Reset:</strong> Navigate to Settings → Maintenance → Factory Reset within the app to wipe all locally stored data immediately.</li>
       <li><strong>Uninstall:</strong> Uninstalling the app from your device will remove all associated app data, subject to your device's storage management behavior.</li>
+      <li><strong>Google Play Account:</strong> You can also manage your purchased premium features through your Google Play Account settings.</li>
     </ul>
     <p>Since we do not hold any of your data on our servers, there is no need to contact us for data deletion.</p>
   </div>
@@ -107,27 +108,98 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>6. Children's Privacy</h2>
+    <h2>6. Data Security</h2>
+    <p>Luno implements security measures to protect your data:</p>
+    <ul>
+      <li>All data is stored locally on your device using SQLite with file-level encryption available through your device's OS</li>
+      <li>No data is transmitted to external servers</li>
+      <li>No network requests expose your financial information</li>
+      <li>Your device's built-in security features (lock screen, biometric authentication) protect access to Luno</li>
+    </ul>
+    <p>While we employ security measures, no method of electronic storage is 100% secure. Your device's security settings play a crucial role in protecting your data.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>7. Data Retention and Backups</h2>
+    <p><strong>Data Retention:</strong> Luno retains your data for as long as you keep the app installed on your device. You can delete all data at any time using the factory reset feature.</p>
+    <p><strong>Device Backups:</strong> If you use Android's automatic backup feature (Google Drive, other cloud services), your Luno data may be included based on your device settings. This is subject to those services' privacy policies, not ours.</p>
+    <p><strong>Luno-Operated Backups:</strong> Luno does not maintain backups of your data on any servers.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>8. Cookies and Tracking Technologies</h2>
+    <p>Luno does NOT use:</p>
+    <ul>
+      <li>Cookies</li>
+      <li>Web beacons or tracking pixels</li>
+      <li>Mobile identifiers or advertising IDs</li>
+      <li>Analytics libraries</li>
+      <li>Crash reporting tools that transmit data</li>
+    </ul>
+    <p>The app's only external network requests are to Google Fonts for font loading, which is governed by Google's privacy policies.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>9. Your Rights</h2>
+    <p><strong>Access:</strong> You have full access to all your data stored in Luno at any time through the app.</p>
+    <p><strong>Portability:</strong> You can export your data by using the app's data export features or accessing the SQLite database directly through your device's file system.</p>
+    <p><strong>Rectification:</strong> You can modify any data in the app directly.</p>
+    <p><strong>Erasure (Right to be Forgotten):</strong> You can delete all your data using the factory reset feature.</p>
+    <p><strong>Restriction:</strong> You control the scope of data collection by choosing what information you input into the app.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>10. International Data Transfers</h2>
+    <p>Since Luno operates entirely on your device, no data transfers occur internationally. Your data never leaves your device or local backups.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>11. Children's Privacy</h2>
     <p>Luno is not directed at children under the age of 13. We do not knowingly collect personal information from children. Since Luno collects no personal information from anyone, this applies equally to all users regardless of age.</p>
+    <p>If you believe a child has provided information to Luno, please contact us immediately at hello@nafish.me.</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>7. Changes to This Policy</h2>
+    <h2>12. Changes to This Policy</h2>
     <p>We may update this Privacy Policy from time to time. Any changes will be reflected with an updated effective date at the top of this page and within the app's update release notes. Continued use of the app after changes constitutes your acceptance of the revised policy.</p>
-    <p>Given the nature of Luno's local-first architecture, changes to this policy are expected to be minimal.</p>
+    <p>Given the nature of Luno's local-first architecture, changes to this policy are expected to be minimal. Significant changes will be communicated in advance.</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>8. Contact</h2>
-    <p>If you have any questions about this Privacy Policy, please reach out:</p>
+    <h2>13. Data Safety & Transparency</h2>
+    <p>As required by Google Play's Data Safety section, we confirm:</p>
+    <ul>
+      <li><strong>Data Collected:</strong> No personal, financial, or identifying data is collected by Luno or transmitted to any external service (except Google Play for in-app purchases)</li>
+      <li><strong>Data Sharing:</strong> No data is shared with third parties</li>
+      <li><strong>Data Security:</strong> Your data is protected by your device's security features and stored locally using SQLite</li>
+      <li><strong>User Controls:</strong> You can delete all app data using the factory reset feature at any time</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>14. Contact & Privacy Inquiries</h2>
+    <p>If you have any questions about this Privacy Policy or our privacy practices, please reach out:</p>
     <div class="contact-card">
-      <h3>Luno Support</h3>
-      <p>For privacy inquiries: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
-      <p>General support: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
+      <h3>Luno Privacy Contact</h3>
+      <p>Email: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
+      <p>Subject: Privacy Policy Inquiry</p>
+      <p>We will respond to privacy inquiries within 30 days.</p>
     </div>
   </div>
 </div>

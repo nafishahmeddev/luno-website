@@ -13,7 +13,7 @@ include_once __DIR__ . '/includes/header.php';
     <div class="page-tag">Legal</div>
     <h1>Terms of Service</h1>
     <p>The rules of engagement for using Luno — kept plain and honest.</p>
-    <div class="effective">Effective: January 1, 2025 · Version 1.0</div>
+    <div class="effective">Effective: April 2, 2026 · Version 1.0.1</div>
   </div>
 
   <div class="highlight">
@@ -29,7 +29,20 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>2. Description of Service</h2>
+    <h2>2. Eligibility</h2>
+    <p>By using Luno, you represent and warrant that:</p>
+    <ul>
+      <li>You are at least 18 years of age</li>
+      <li>You have the legal authority to enter into these Terms</li>
+      <li>You will comply with all applicable laws and regulations</li>
+    </ul>
+    <p>Luno is not intended for users under 13 years of age. Parental consent is required for users aged 13-18.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>3. Description of Service</h2>
     <p>Luno is a personal finance tracking application for Android devices. It provides tools to:</p>
     <ul>
       <li>Log and categorize income and expense transactions</li>
@@ -43,7 +56,7 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>3. License</h2>
+    <h2>4. License and Intellectual Property</h2>
     <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download and use Luno for your personal, non-commercial purposes on devices you own or control.</p>
     <p>You may not:</p>
     <ul>
@@ -53,12 +66,13 @@ include_once __DIR__ . '/includes/header.php';
       <li>Use the App for any commercial purpose without explicit written permission</li>
       <li>Remove or alter any proprietary notices or labels on the App</li>
     </ul>
+    <p><strong>Our Intellectual Property:</strong> All content, features, and functionality of the Luno app (including but not limited to software, text, graphics, logos, images, and sound) are owned by Luno, its content providers, or other providers of such material and are protected by international copyright, trademark, and other intellectual property laws.</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>4. Free and Premium Features</h2>
+    <h2>5. Free and Premium Features</h2>
     <p>Luno is offered in three tiers:</p>
     <h3>Free Tier</h3>
     <ul>
@@ -91,7 +105,7 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>5. In-App Purchases and Payments</h2>
+    <h2>6. In-App Purchases and Payments</h2>
     <p>Luno offers premium features through two payment models:</p>
     <h3>Subscription Model</h3>
     <ul>
@@ -120,7 +134,23 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>6. Your Data and Responsibilities</h2>
+    <h2>7. Subscription Cancellation & Management</h2>
+    <p><strong>How to Cancel:</strong></p>
+    <ul>
+      <li>Open Google Play Store app on your Android device</li>
+      <li>Go to "Manage my subscriptions"</li>
+      <li>Select Luno Premium</li>
+      <li>Tap "Cancel subscription"</li>
+      <li>Follow the prompts to confirm cancellation</li>
+    </ul>
+    <p><strong>Cancellation Effect:</strong> Cancellation takes effect at the end of your current billing period. Premium features will remain available until that date.</p>
+    <p><strong>Reactivation:</strong> You can reactivate your subscription anytime through Google Play.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>8. Your Data and Responsibilities</h2>
     <p>Since Luno operates entirely on-device, you are solely responsible for:</p>
     <ul>
       <li>The accuracy of the financial data you enter into the App</li>
@@ -134,7 +164,7 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>7. Disclaimer of Warranties</h2>
+    <h2>9. Disclaimer of Warranties</h2>
     <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that:</p>
     <ul>
       <li>The App will be error-free or uninterrupted</li>
@@ -148,7 +178,7 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>8. Limitation of Liability</h2>
+    <h2>10. Limitation of Liability</h2>
     <p>To the fullest extent permitted by law, the Luno team shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
     <ul>
       <li>Loss of data due to device failure, uninstall, or factory reset</li>
@@ -156,25 +186,43 @@ include_once __DIR__ . '/includes/header.php';
       <li>Any errors or inaccuracies in the App's computations</li>
       <li>Interruption or cessation of the App's availability</li>
     </ul>
-    <p>Our total liability to you for all claims shall not exceed the amount you paid for the App (which is zero, as Luno is free).</p>
+    <p>Our total liability to you for all claims shall not exceed the amount you paid for the App (which is zero for free users, or the premium purchase amount for premium users).</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>9. Acceptable Use</h2>
-    <p>You agree to use Luno only for lawful purposes and in a manner that does not infringe the rights of others. You agree not to use the App to:</p>
+    <h2>11. Prohibited Conduct & Acceptable Use</h2>
+    <p>You agree to use Luno only for lawful purposes and in a manner that does not infringe the rights of others. You agree not to:</p>
     <ul>
       <li>Facilitate illegal financial activity or tax evasion</li>
       <li>Violate any applicable local, national, or international law</li>
       <li>Attempt to probe, scan, or test the vulnerability of the App</li>
+      <li>Reverse engineer, decompile, or disassemble the App</li>
+      <li>Use the App to harass, abuse, or target individuals</li>
+      <li>Attempt to gain unauthorized access to the App or related systems</li>
+      <li>Circumvent security or usage limits of the App</li>
+      <li>Sell, transfer, or profit from the App or its content</li>
     </ul>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>10. Updates and Changes</h2>
+    <h2>12. Indemnification</h2>
+    <p>You agree to indemnify, defend, and hold harmless Luno and its operators from any claims, liabilities, damages, losses, costs, or expenses (including attorneys' fees) arising from:</p>
+    <ul>
+      <li>Your violation of these Terms</li>
+      <li>Your use of the App in violation of applicable law</li>
+      <li>Your financial data or transactions</li>
+      <li>Your actions or conduct related to the App</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>13. Updates and Changes</h2>
     <p>We may update the App from time to time to fix bugs, add features, or improve performance. We may also update these Terms. Continued use of the App after any changes constitutes acceptance of the revised Terms.</p>
     <p>We reserve the right to discontinue the App at any time without notice, though we will make reasonable efforts to communicate significant changes.</p>
   </div>
@@ -182,14 +230,34 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>11. Governing Law</h2>
+    <h2>14. Account Termination</h2>
+    <p>We reserve the right to terminate your access to Luno if you violate these Terms or engage in prohibited conduct. Upon termination:</p>
+    <ul>
+      <li>Your right to use the App immediately ceases</li>
+      <li>Any unused portions of a paid subscription are non-refundable (process refunds through Google Play)</li>
+      <li>You must delete the App from your device</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>15. Severability & Entire Agreement</h2>
+    <p><strong>Severability:</strong> If any provision of these Terms is found to be invalid or unenforceable, that provision will be modified to the minimum extent necessary to make it enforceable, and the remaining provisions will continue in full force.</p>
+    <p><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Luno regarding the App and supersede all prior negotiations, representations, and agreements.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>16. Governing Law</h2>
     <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts located in India.</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>12. Contact</h2>
+    <h2>17. Contact & Support</h2>
     <p>If you have questions about these Terms, please get in touch:</p>
     <div class="contact-card">
       <h3>Luno Support</h3>
