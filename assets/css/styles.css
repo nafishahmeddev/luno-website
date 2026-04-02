@@ -244,6 +244,11 @@ nav {
   opacity: 0.85;
 }
 
+.btn-primary i {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .btn-ghost {
   font-size: 14px;
   color: var(--muted);
@@ -466,14 +471,10 @@ nav {
   margin-bottom: 20px;
 }
 
-.feat-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--accent);
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.feat-icon i {
+  font-size: 20px;
+  color: var(--accent);
+  line-height: 1;
 }
 
 .feat-title {
@@ -691,6 +692,8 @@ nav {
 .playstore-icon {
   width: 28px;
   height: 28px;
+  font-size: 28px;
+  line-height: 1;
 }
 
 /* ========================

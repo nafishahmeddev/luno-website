@@ -18,6 +18,7 @@ $page_meta = isset($page_meta) ? $page_meta : $site_description;
     <meta name="description" content="<?php echo htmlspecialchars($page_meta); ?>"/>
     <title><?php echo htmlspecialchars($page_title); ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/styles.css"/>
 </head>
 <body>

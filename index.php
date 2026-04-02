@@ -34,7 +34,7 @@ include_once __DIR__ . '/includes/header.php';
   <p class="hero-sub">Luno is a privacy-first personal finance manager. Track every transaction, understand your runway, and keep 100% of your data on your device. Core features are free — unlock advanced analytics with premium.</p>
   <div class="hero-actions">
     <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="btn-primary">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l4 4 4-4M12 8v8"/></svg>
+      <i class="ph ph-download-simple" aria-hidden="true"></i>
       Download Free
     </a>
     <a href="#features" class="btn-ghost">See Features</a>
@@ -66,42 +66,42 @@ include_once __DIR__ . '/includes/header.php';
   <div class="features-grid">
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <i class="ph ph-wallet" aria-hidden="true"></i>
       </div>
       <div class="feat-title">Multi-Account Tracking</div>
       <p class="feat-desc">Track balances across wallets, banks, and cash accounts. See your total net position at a glance.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <i class="ph ph-chart-line-up" aria-hidden="true"></i>
       </div>
       <div class="feat-title">Advanced Analytics <span style="font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 600; margin-left: 8px;">Premium</span></div>
       <p class="feat-desc">Daily burn rate, savings rate, financial runway, and in/out ratio. Filter across 7D, 30D, 90D, or all time.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <i class="ph ph-stack" aria-hidden="true"></i>
       </div>
       <div class="feat-title">50+ Customizable Categories</div>
       <p class="feat-desc">Pre-seeded with categories across Essentials, Transport, Health, Lifestyle, and more. Fully customizable icons and colors.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <i class="ph ph-note-pencil" aria-hidden="true"></i>
       </div>
       <div class="feat-title">Precision Transaction Logging</div>
       <p class="feat-desc">Add notes, timestamps, and multi-account links to every transaction. Swipe to edit or delete with automatic balance reversal.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <i class="ph ph-shield-check" aria-hidden="true"></i>
       </div>
       <div class="feat-title">100% Local & Private</div>
       <p class="feat-desc">All data stays on your device via SQLite. No account required. No cloud sync. No tracking whatsoever. Your money, your device.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+        <i class="ph ph-palette" aria-hidden="true"></i>
       </div>
       <div class="feat-title">Light, Dark & System Themes</div>
       <p class="feat-desc">Full light, dark, and system-adaptive modes. Custom icons and color palettes for every account and category.</p>
@@ -164,11 +164,7 @@ include_once __DIR__ . '/includes/header.php';
   <h2 class="section-title">Download today.<br>No account needed.</h2>
   <p>Start tracking for free. Upgrade to premium anytime with a subscription or lifetime purchase.</p>
   <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="playstore-btn">
-    <svg class="playstore-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M3.18 23.76c.37.2.8.22 1.19.04L15.34 12 4.37.2C3.98.02 3.55.04 3.18.24 2.46.64 2 1.42 2 2.28v19.44c0 .86.46 1.64 1.18 2.04z"/>
-      <path d="M20.09 10.27L17.2 8.68 13.6 12l3.6 3.32 2.9-1.59c.83-.45 1.37-1.31 1.37-2.23 0-.92-.54-1.77-1.38-2.23z"/>
-      <path d="M4.37.2L15.34 12 4.37 23.8l11.9-6.51L13.6 12l2.67-5.29z" opacity=".6"/>
-    </svg>
+    <i class="ph ph-google-play-logo playstore-icon" aria-hidden="true"></i>
     Get it on Google Play
   </a>
   <p style="font-size:13px;color:var(--dim);margin-top:20px;font-family:var(--mono);">Android 8.0+ required · Free core features</p>
