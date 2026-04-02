@@ -72,8 +72,7 @@ include_once __DIR__ . '/includes/header.php';
     <p>Luno offers both free and premium features. Premium features include advanced analytics (daily burn rate, savings rate, financial runway, in/out ratio) and extended time-range filtering.</p>
     <p><strong>Pricing Options:</strong></p>
     <ul>
-      <li>Subscription plan: Recurring monthly or annual payment for continuous premium access</li>
-      <li>Lifetime purchase: One-time payment for permanent, lifetime premium access</li>
+      <li>Lifetime purchase: One-time payment for permanent premium access</li>
       <li>Free tier: Core features available at no cost</li>
     </ul>
     <p><strong>Payment Processing:</strong></p>
@@ -85,7 +84,7 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
     <p><strong>Purchase Data:</strong></p>
     <ul>
-      <li>We track whether you have an active premium subscription or lifetime access locally on your device</li>
+      <li>We track whether you have premium lifetime access locally on your device</li>
       <li>This information is stored only on your device</li>
       <li>Luno receives no information about your payment method or billing details</li>
       <li>Your purchase status is tied to your Google Play account, not to Luno's servers</li>

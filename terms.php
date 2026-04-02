@@ -73,7 +73,7 @@ include_once __DIR__ . '/includes/header.php';
 
   <div class="doc-section">
     <h2>5. Free and Premium Features</h2>
-    <p>Luno is offered in three tiers:</p>
+    <p>Luno is offered in two tiers:</p>
     <h3>Free Tier</h3>
     <ul>
       <li>Transaction tracking (unlimited)</li>
@@ -83,42 +83,27 @@ include_once __DIR__ . '/includes/header.php';
       <li>50+ pre-defined categories</li>
       <li>Theme support (light, dark, system)</li>
     </ul>
-    <h3>Premium Tier (Subscription)</h3>
+    <h3>Premium Tier (Lifetime Purchase)</h3>
     <ul>
       <li>All free features</li>
       <li>Advanced analytics (savings rate, daily burn rate, financial runway, in/out ratio)</li>
       <li>Extended time-range filtering (7D, 30D, 90D, All-time)</li>
       <li>Comparative insights (period vs. period analysis)</li>
       <li>Category breakdown analytics</li>
-      <li>Requires recurring monthly or annual subscription</li>
+      <li>Permanent premium access with a one-time purchase</li>
     </ul>
-    <h3>Premium Tier (Lifetime)</h3>
-    <ul>
-      <li>All free features</li>
-      <li>All premium analytics features</li>
-      <li>Permanent, lifetime access with a one-time purchase</li>
-      <li>No recurring charges</li>
-    </ul>
-    <p>Both premium options are available through in-app purchases processed via Google Play Billing.</p>
+    <p>Premium access is available through a one-time in-app purchase processed via Google Play Billing.</p>
   </div>
 
   <hr class="divider"/>
 
   <div class="doc-section">
     <h2>6. In-App Purchases and Payments</h2>
-    <p>Luno offers premium features through two payment models:</p>
-    <h3>Subscription Model</h3>
-    <ul>
-      <li>Recurring monthly or annual billing via Google Play Billing</li>
-      <li>You authorize Google to charge your payment method on a recurring basis</li>
-      <li>Subscription can be cancelled anytime through Google Play settings</li>
-      <li>Cancellation takes effect at the end of your current billing period</li>
-    </ul>
-    <h3>Lifetime Purchase Model</h3>
+    <p>Luno offers premium features through a one-time lifetime purchase model:</p>
     <ul>
       <li>One-time in-app purchase for permanent premium access</li>
-      <li>No recurring charges</li>
       <li>Lifetime access carries across device restores via Google Play account</li>
+      <li>No recurring charges</li>
     </ul>
     <h3>General Payment Terms</h3>
     <ul>
@@ -134,17 +119,15 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>7. Subscription Cancellation & Management</h2>
-    <p><strong>How to Cancel:</strong></p>
+    <h2>7. Purchase Restoration & Management</h2>
+    <p><strong>How to Restore Purchases:</strong></p>
     <ul>
       <li>Open Google Play Store app on your Android device</li>
-      <li>Go to "Manage my subscriptions"</li>
-      <li>Select Luno Premium</li>
-      <li>Tap "Cancel subscription"</li>
-      <li>Follow the prompts to confirm cancellation</li>
+      <li>Use the same Google account used for purchase</li>
+      <li>Reinstall Luno or use in-app purchase restore flow (if available)</li>
+      <li>Google Play will validate and restore premium entitlement</li>
     </ul>
-    <p><strong>Cancellation Effect:</strong> Cancellation takes effect at the end of your current billing period. Premium features will remain available until that date.</p>
-    <p><strong>Reactivation:</strong> You can reactivate your subscription anytime through Google Play.</p>
+    <p>For billing or entitlement issues, contact Google Play Support first, then contact Luno support if needed.</p>
   </div>
 
   <hr class="divider"/>
@@ -234,7 +217,7 @@ include_once __DIR__ . '/includes/header.php';
     <p>We reserve the right to terminate your access to Luno if you violate these Terms or engage in prohibited conduct. Upon termination:</p>
     <ul>
       <li>Your right to use the App immediately ceases</li>
-      <li>Any unused portions of a paid subscription are non-refundable (process refunds through Google Play)</li>
+      <li>Paid purchases remain subject to Google Play refund and entitlement policies</li>
       <li>You must delete the App from your device</li>
     </ul>
   </div>

@@ -61,7 +61,7 @@ include_once __DIR__ . '/includes/header.php';
 <div class="section">
   <div class="section-label">Features</div>
   <h2 class="section-title">Powerful features,<br>built for clarity.</h2>
-  <p class="section-sub">Free tier gives you everything you need for transaction tracking. Premium unlocks advanced analytics—choose subscription or lifetime purchase.</p>
+  <p class="section-sub">Free tier gives you everything you need for transaction tracking. Premium unlocks advanced analytics with a one-time lifetime purchase.</p>
 
   <div class="features-grid">
     <div class="feat-card">
@@ -162,7 +162,7 @@ include_once __DIR__ . '/includes/header.php';
   <div class="cta-glow"></div>
   <div class="section-label">Get Started</div>
   <h2 class="section-title">Download today.<br>No account needed.</h2>
-  <p>Start tracking for free. Upgrade to premium anytime with a subscription or lifetime purchase.</p>
+  <p>Start tracking for free. Upgrade to premium anytime with a one-time lifetime purchase.</p>
   <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="playstore-btn">
     <i class="ph ph-google-play-logo playstore-icon" aria-hidden="true"></i>
     Get it on Google Play
