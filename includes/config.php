@@ -21,7 +21,9 @@ define('CSS_URL', ASSETS_URL . '/css');
 define('IMG_URL', ASSETS_URL . '/images');
 
 // Current page for active nav highlighting
-$current_page = basename($_SERVER['PHP_SELF'], '.php');
+$request_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$request_path = rtrim($request_path, '/');
+$current_page = $request_path === '' ? 'home' : basename($request_path);
 
 // Site metadata
 $site_title = 'Luno — Personal Finance Manager';

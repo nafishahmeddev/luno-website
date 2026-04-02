@@ -3,6 +3,25 @@
  * Index Page - Home
  * =================
  */
+
+$request_path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$request_path = rtrim($request_path, '/');
+$route = $request_path === '' ? '/' : basename($request_path);
+
+if ($route === 'privacy') {
+  include __DIR__ . '/privacy.php';
+  exit;
+}
+
+if ($route === 'terms') {
+  include __DIR__ . '/terms.php';
+  exit;
+}
+
+if ($route !== '/' && $route !== 'index.php') {
+  http_response_code(404);
+}
+
 include_once __DIR__ . '/includes/header.php';
 ?>
 

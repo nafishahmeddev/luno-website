@@ -25,11 +25,11 @@ $page_meta = isset($page_meta) ? $page_meta : $site_description;
 <nav>
     <div class="nav-logo">LUNO<span>.</span></div>
     <div class="nav-links">
-        <a href="<?php echo BASE_URL; ?>/index.php">Home</a>
-        <a href="<?php echo BASE_URL; ?>/index.php#features">Features</a>
-        <a href="<?php echo BASE_URL; ?>/index.php#analytics">Analytics</a>
-        <a href="<?php echo BASE_URL; ?>/privacy.php">Privacy Policy</a>
-        <a href="<?php echo BASE_URL; ?>/terms.php">Terms</a>
+        <a href="<?php echo BASE_URL; ?>/">Home</a>
+        <a href="<?php echo BASE_URL; ?>/#features">Features</a>
+        <a href="<?php echo BASE_URL; ?>/#analytics">Analytics</a>
+        <a href="<?php echo BASE_URL; ?>/privacy">Privacy Policy</a>
+        <a href="<?php echo BASE_URL; ?>/terms">Terms</a>
     </div>
     <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="nav-btn">Get the App</a>
 </nav>

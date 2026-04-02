@@ -279,7 +279,8 @@ include_once __DIR__ . '/includes/header.php';
 
   <div class="doc-section">
     <h2>19. Compliance with Google Play Policies</h2>
-    <p>Luno complies with Google Play's Terms of Service and Developer Program Policies, including:</p>\n    <ul>
+    <p>Luno complies with Google Play's Terms of Service and Developer Program Policies, including:</p>
+    <ul>
       <li><strong>Families Policy:</strong> The app is rated for ages 3+ and complies with all Families Policy requirements. No inappropriate content or harmful features are included.</li>
       <li><strong>Data Security:</strong> All user data stays locally on the device. No external servers store or process your financial information.</li>
       <li><strong>Deceptive Practices:</strong> Luno does not engage in deceptive practices. We clearly communicate features and pricing.</li>
