@@ -257,7 +257,40 @@ include_once __DIR__ . '/includes/header.php';
   <hr class="divider"/>
 
   <div class="doc-section">
-    <h2>17. Contact & Support</h2>
+    <h2>17. Service Level & Availability</h2>
+    <p>Luno is provided "as is" and we do not guarantee any specific uptime or availability guarantees since it operates entirely on your device. However, the app strives for reliability and bug-free operation.</p>
+    <p><strong>No Warranty:</strong> We disclaim all warranties, express or implied, including merchantability and fitness for a particular purpose. Users are responsible for maintaining backups of their data.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>18. Content & Intellectual Property</h2>
+    <p>Luno contains proprietary content, including software, trademarks, logos, and design elements. You may not:</p>
+    <ul>
+      <li>Copy, modify, or distribute this content</li>
+      <li>Remove or alter copyright notices or other proprietary markings</li>
+      <li>Use Luno's branding without explicit permission</li>
+    </ul>
+    <p>Your personal financial data is yours — you retain all ownership and rights to the data you create within the app.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>19. Compliance with Google Play Policies</h2>
+    <p>Luno complies with Google Play's Terms of Service and Developer Program Policies, including:</p>\n    <ul>
+      <li><strong>Families Policy:</strong> The app is rated for ages 3+ and complies with all Families Policy requirements. No inappropriate content or harmful features are included.</li>
+      <li><strong>Data Security:</strong> All user data stays locally on the device. No external servers store or process your financial information.</li>
+      <li><strong>Deceptive Practices:</strong> Luno does not engage in deceptive practices. We clearly communicate features and pricing.</li>
+      <li><strong>API Compliance:</strong> The app uses Google Play Billing API for payments and Google Fonts for typography, both in compliance with their respective terms.</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>20. Contact & Support</h2>
     <p>If you have questions about these Terms, please get in touch:</p>
     <div class="contact-card">
       <h3>Luno Support</h3>

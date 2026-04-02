@@ -202,6 +202,33 @@ include_once __DIR__ . '/includes/header.php';
       <p>We will respond to privacy inquiries within 30 days.</p>
     </div>
   </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>15. Play Store Data Safety Compliance</h2>
+    <p>As required by Google Play's Data Safety section, Luno provides complete transparency:</p>
+    <ul>
+      <li><strong>Data Collected:</strong> None. Luno does not collect, access, or transmit any personal or financial data about you.</li>
+      <li><strong>Data Shared:</strong> No data is shared with any third party (except Google Play for in-app purchases, governed by Google's privacy policy).</li>
+      <li><strong>Data Retention:</strong> We do not retain any user data on external servers.</li>
+      <li><strong>Data Deletion:</strong> Use Factory Reset in Settings to permanently delete all your app data immediately.</li>
+      <li><strong>Data Encryption:</strong> Your device's SQLite encryption protects your data.</li>
+      <li><strong>Secure Transmission:</strong> No data is transmitted from your device for Luno purposes.</li>
+    </ul>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="doc-section">
+    <h2>16. California Consumer Privacy Act (CCPA)</h2>
+    <p>For California residents: Since Luno collects no personal information, CCPA rights to access, delete, or opt-out do not apply in the traditional sense. However:</p>
+    <ul>
+      <li><strong>Right to Know:</strong> You can see all data in the app — it's all yours, stored locally.</li>
+      <li><strong>Right to Delete:</strong> Use Factory Reset to delete all data immediately.</li>
+      <li><strong>Right to Opt-Out:</strong> N/A — we don't sell data because we don't collect it.</li>
+    </ul>
+  </div>
 </div>
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>
