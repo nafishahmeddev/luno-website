@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Update Portal — Product Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111114;
+    --surface2: #18181d;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0ede8;
+    --muted: #7a7872;
+    --accent: #c8ff00;
+    --accent2: #ff6b35;
+    --accent3: #4af0c4;
+    --accent4: #a78bfa;
+    --p1: #c8ff00;
+    --p2: #ff6b35;
+    --p3: #4af0c4;
+    --p4: #a78bfa;
+    --p5: #f59e0b;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    padding: 80px 60px 60px;
+    border-bottom: 0.5px solid var(--border2);
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute; top: -200px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-eyebrow {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .header-eyebrow::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--accent);
+  }
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800; line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    max-width: 800px;
+    margin-bottom: 24px;
+  }
+  .header h1 em {
+    font-style: normal;
+    color: var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+  .header-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .meta-value { font-size: 13px; color: var(--text); }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,11,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 60px;
+    display: flex; gap: 0; overflow-x: auto;
+  }
+  .nav a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 20px;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav a:hover { color: var(--text); border-color: var(--border2); }
+  .nav a.active { color: var(--accent); border-color: var(--accent); }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  section { padding: 80px 0; border-bottom: 0.5px solid var(--border); }
+  .section-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 40px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--border);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 13px;
+    margin-bottom: 48px; max-width: 600px;
+  }
+
+  /* ── PHASE CARDS ── */
+  .phases { display: flex; flex-direction: column; gap: 2px; }
+  .phase {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .phase:hover { border-color: var(--border2); }
+  .phase-header {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    padding: 24px 28px;
+    cursor: pointer;
+    gap: 24px;
+    background: var(--surface);
+  }
+  .phase-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px; font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .phase-info { display: flex; flex-direction: column; gap: 6px; }
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+  }
+  .phase-desc { font-size: 12px; color: var(--muted); }
+  .phase-meta { text-align: right; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .phase-duration {
+    font-size: 11px; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 4px;
+    border: 0.5px solid;
+  }
+  .phase-tag {
+    font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .phase-body {
+    padding: 28px;
+    border-top: 0.5px solid var(--border);
+    background: var(--bg);
+    display: none;
+  }
+  .phase.open .phase-body { display: block; }
+  .phase.open .phase-header { background: var(--surface2); }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-bottom: 32px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 16px;
+  }
+  .feature-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feature-icon { font-size: 16px; }
+  .feature-items { list-style: none; }
+  .feature-items li {
+    font-size: 12px; color: var(--muted); padding: 3px 0;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .feature-items li::before {
+    content: '→'; color: var(--border2); flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── TECH STACK ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .stack-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 16px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stack-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .stack-layer {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
+  }
+  .stack-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700; margin-bottom: 4px;
+  }
+  .stack-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* ── APP FLOW DIAGRAM ── */
+  .flow-wrapper {
+    overflow-x: auto; padding-bottom: 8px;
+  }
+  .flow-diagram {
+    min-width: 900px;
+    display: flex; flex-direction: column; gap: 40px;
+  }
+  .flow-layer {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .flow-layer-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); padding-left: 4px;
+  }
+  .flow-row {
+    display: flex; gap: 8px; align-items: stretch;
+  }
+  .flow-node {
+    flex: 1; min-width: 120px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 12px 14px;
+    position: relative;
+  }
+  .flow-node-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 600; margin-bottom: 4px;
+  }
+  .flow-node-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .flow-node.accent { border-color: var(--accent); }
+  .flow-node.accent .flow-node-title { color: var(--accent); }
+  .flow-node.orange { border-color: var(--accent2); }
+  .flow-node.orange .flow-node-title { color: var(--accent2); }
+  .flow-node.teal { border-color: var(--accent3); }
+  .flow-node.teal .flow-node-title { color: var(--accent3); }
+  .flow-node.purple { border-color: var(--accent4); }
+  .flow-node.purple .flow-node-title { color: var(--accent4); }
+
+  .flow-arrow {
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 32px; color: var(--muted); font-size: 16px;
+  }
+  .flow-connector {
+    display: flex; justify-content: center;
+    padding: 8px 0;
+    color: var(--muted); font-size: 20px; letter-spacing: 2px;
+  }
+
+  /* ── API ROUTES ── */
+  .api-table { width: 100%; border-collapse: collapse; }
+  .api-table th {
+    text-align: left; padding: 10px 14px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border-bottom: 0.5px solid var(--border2);
+  }
+  .api-table td {
+    padding: 10px 14px; font-size: 12px;
+    border-bottom: 0.5px solid var(--border);
+    vertical-align: middle;
+  }
+  .api-table tr:hover td { background: var(--surface); }
+  .method {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.05em;
+    padding: 2px 7px; border-radius: 3px; display: inline-block;
+    font-family: 'DM Mono', monospace;
+  }
+  .method.GET { background: rgba(74,240,196,0.12); color: var(--accent3); }
+  .method.POST { background: rgba(200,255,0,0.12); color: var(--accent); }
+  .method.PUT { background: rgba(245,158,11,0.1); color: var(--p5); }
+  .method.DELETE { background: rgba(255,107,53,0.12); color: var(--accent2); }
+  .method.PATCH { background: rgba(167,139,250,0.12); color: var(--accent4); }
+  .route { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); }
+  .auth-badge {
+    font-size: 10px; padding: 2px 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+  }
+  .auth-badge.required { background: rgba(200,255,0,0.08); color: var(--accent); }
+
+  /* ── DB SCHEMA ── */
+  .schema-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;
+  }
+  .schema-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .schema-header {
+    padding: 12px 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .schema-icon { font-size: 14px; }
+  .schema-body { padding: 8px 0; }
+  .schema-field {
+    display: grid; grid-template-columns: 1fr 80px 60px;
+    align-items: center;
+    padding: 5px 16px; gap: 8px;
+    font-size: 11px;
+  }
+  .schema-field:hover { background: var(--surface2); }
+  .field-name { color: var(--text); }
+  .field-type { color: var(--accent3); font-size: 10px; }
+  .field-flag { font-size: 10px; color: var(--muted); text-align: right; }
+  .field-pk { color: var(--accent); font-size: 10px; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 7px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--border2);
+  }
+  .timeline-item {
+    position: relative; padding: 0 0 36px 28px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: -25px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1.5px solid var(--border2);
+    background: var(--bg);
+  }
+  .timeline-item.done::before { background: var(--accent); border-color: var(--accent); }
+  .timeline-item.active::before { background: var(--accent2); border-color: var(--accent2); box-shadow: 0 0 8px rgba(255,107,53,0.5); }
+  .timeline-date {
+    font-size: 11px; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.05em;
+  }
+  .timeline-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700; margin-bottom: 8px;
+  }
+  .timeline-items { list-style: none; }
+  .timeline-items li {
+    font-size: 12px; color: var(--muted);
+    padding: 3px 0; display: flex; align-items: flex-start; gap: 8px;
+  }
+  .timeline-items li::before { content: '—'; color: var(--border2); flex-shrink: 0; }
+
+  /* ── CHIPS ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip {
+    font-size: 10px; letter-spacing: 0.05em;
+    padding: 3px 8px; border-radius: 20px;
+    border: 0.5px solid var(--border2);
+    color: var(--muted);
+  }
+
+  /* ── METRIC STRIP ── */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    border: 0.5px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    margin-top: 40px;
+  }
+  .metric-cell {
+    background: var(--surface);
+    padding: 20px; text-align: center;
+  }
+  .metric-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .metric-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ── COLLAPSIBLE TOGGLE ── */
+  .toggle-icon {
+    font-size: 16px; color: var(--muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .phase.open .toggle-icon { transform: rotate(45deg); }
+
+  /* ── PHASE COLORS ── */
+  .phase-1 .phase-num { color: var(--p1); }
+  .phase-1 .phase-duration { color: var(--p1); border-color: rgba(200,255,0,0.3); }
+  .phase-2 .phase-num { color: var(--p2); }
+  .phase-2 .phase-duration { color: var(--p2); border-color: rgba(255,107,53,0.3); }
+  .phase-3 .phase-num { color: var(--p3); }
+  .phase-3 .phase-duration { color: var(--p3); border-color: rgba(74,240,196,0.3); }
+  .phase-4 .phase-num { color: var(--p4); }
+  .phase-4 .phase-duration { color: var(--p4); border-color: rgba(167,139,250,0.3); }
+  .phase-5 .phase-num { color: var(--p5); }
+  .phase-5 .phase-duration { color: var(--p5); border-color: rgba(245,158,11,0.3); }
+
+  /* ── SUBSECTIONS ── */
+  .subsection-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); margin: 24px 0 12px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .subsection-title::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--border);
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 16px;
+    font-size: 12px; line-height: 1.6;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .code-block .kw { color: var(--accent4); }
+  .code-block .str { color: var(--accent3); }
+  .code-block .comment { color: var(--muted); font-style: italic; }
+  .code-block .fn { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 40px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 0.5px solid var(--border);
+    color: var(--muted); font-size: 11px;
+  }
+
+  /* ── ENTRY ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .header h1, .header-eyebrow, .header-meta {
+    animation: fadeUp 0.6s ease both;
+  }
+  .header-eyebrow { animation-delay: 0.1s; }
+  .header h1 { animation-delay: 0.2s; }
+  .header-meta { animation-delay: 0.35s; }
+
+  @media (max-width: 768px) {
+    .header, .container, .nav { padding-left: 24px; padding-right: 24px; }
+    .footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .phase-header { grid-template-columns: 56px 1fr auto; gap: 12px; }
+    .phase-num { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Product Roadmap — v1.0</div>
+  <h1>Client Update<br><em>Portal</em> — MERN Stack</h1>
+  <p style="color: var(--muted); font-size: 13px; max-width: 560px; line-height: 1.7;">
+    End-to-end technical blueprint. Phase-wise development plan covering frontend, backend, database schema, API design, and app flow for a client-facing project update portal.
+  </p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Tech Stack</span>
+      <span class="meta-value">MongoDB · Express · React · Node.js</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Phases</span>
+      <span class="meta-value">5 phases · ~32 weeks</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Target</span>
+      <span class="meta-value">Freelancers & Small Agencies</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Architecture</span>
+      <span class="meta-value">REST API · JWT Auth · Cloud-first</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#overview" class="active"><span class="nav-dot" style="background:var(--p1)"></span>Overview</a>
+  <a href="#techstack"><span class="nav-dot" style="background:var(--accent3)"></span>Tech Stack</a>
+  <a href="#phases"><span class="nav-dot" style="background:var(--p2)"></span>Phases</a>
+  <a href="#appflow"><span class="nav-dot" style="background:var(--accent4)"></span>App Flow</a>
+  <a href="#api"><span class="nav-dot" style="background:var(--p5)"></span>API Design</a>
+  <a href="#schema"><span class="nav-dot" style="background:var(--accent3)"></span>DB Schema</a>
+  <a href="#frontend"><span class="nav-dot" style="background:var(--p1)"></span>Frontend</a>
+  <a href="#timeline"><span class="nav-dot" style="background:var(--p4)"></span>Timeline</a>
+</nav>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="section-label">01 — Overview</div>
+    <div class="section-title">What we're building</div>
+    <p class="section-sub">A focused client update portal where freelancers post project progress, share files, and get approvals — and clients view everything through a clean shareable link.</p>
+
+    <div class="metrics-strip">
+      <div class="metric-cell">
+        <div class="metric-num" style="color:var(--p1)">5</div>
+        <div class="metric-lbl">Dev Phases</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-num" style="color:var(--p2)">32</div>
+        <div class="metric-lbl">Total Weeks</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-num" style="color:var(--p3)">18</div>
+        <div class="metric-lbl">API Endpoints</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-num" style="color:var(--p4)">6</div>
+        <div class="metric-lbl">DB Collections</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-num" style="color:var(--p5)">12</div>
+        <div class="metric-lbl">React Pages</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background:var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 24px;">
+        <div style="font-family:'Syne',sans-serif; font-size:14px; font-weight:700; margin-bottom:16px; color: var(--p1);">Provider (Freelancer/Agency)</div>
+        <ul class="feature-items">
+          <li>Register and create workspace</li>
+          <li>Create projects with client email/link</li>
+          <li>Post text + file update entries</li>
+          <li>Set project status (active, review, completed)</li>
+          <li>Manage multiple projects from dashboard</li>
+          <li>View client activity (seen, approved)</li>
+          <li>Upload files (images, PDFs, ZIPs)</li>
+          <li>Add milestone markers to updates</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 24px;">
+        <div style="font-family:'Syne',sans-serif; font-size:14px; font-weight:700; margin-bottom:16px; color: var(--p3);">Client (No login required)</div>
+        <ul class="feature-items">
+          <li>Access project via unique shareable link</li>
+          <li>View all project updates in timeline</li>
+          <li>Download shared files</li>
+          <li>Track progress bar and project status</li>
+          <li>Leave comments on specific updates</li>
+          <li>Approve or request revision on milestones</li>
+          <li>Optional: email login for persistent history</li>
+          <li>Mobile-friendly responsive view</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="techstack">
+  <div class="container">
+    <div class="section-label">02 — Stack</div>
+    <div class="section-title">Technology choices</div>
+    <p class="section-sub">MERN stack with carefully chosen supporting libraries for auth, file storage, email, and real-time features.</p>
+
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="stack-layer">Frontend</div>
+        <div class="stack-name" style="color:var(--accent3)">React 18</div>
+        <div class="stack-desc">Component framework with hooks, context API, and React Router v6 for routing.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">State Management</div>
+        <div class="stack-name" style="color:var(--accent3)">Zustand</div>
+        <div class="stack-desc">Lightweight global state for auth, projects, and notifications. Simpler than Redux for this scope.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Styling</div>
+        <div class="stack-name" style="color:var(--accent3)">Tailwind CSS</div>
+        <div class="stack-desc">Utility-first CSS. Fast prototyping, dark mode built-in, responsive by default.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Data Fetching</div>
+        <div class="stack-name" style="color:var(--accent3)">React Query</div>
+        <div class="stack-desc">Server state caching, background refetching, and optimistic updates for smooth UX.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Backend</div>
+        <div class="stack-name" style="color:var(--accent)">Node.js + Express</div>
+        <div class="stack-desc">REST API server. Express middlewares for routing, auth, file handling, and error management.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Authentication</div>
+        <div class="stack-name" style="color:var(--accent)">JWT + bcrypt</div>
+        <div class="stack-desc">Stateless auth with access + refresh token pattern. Passwords hashed with bcrypt (12 rounds).</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">File Uploads</div>
+        <div class="stack-name" style="color:var(--accent)">Multer + Cloudinary</div>
+        <div class="stack-desc">Multer handles multipart parsing; Cloudinary for cloud file storage, CDN delivery, and transformations.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Real-time</div>
+        <div class="stack-name" style="color:var(--accent)">Socket.io</div>
+        <div class="stack-desc">Phase 3+ live notifications when clients view, comment, or approve updates.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Database</div>
+        <div class="stack-name" style="color:var(--p5)">MongoDB Atlas</div>
+        <div class="stack-desc">Managed cloud MongoDB. Flexible documents for updates, nested comments, and file metadata.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">ODM</div>
+        <div class="stack-name" style="color:var(--p5)">Mongoose</div>
+        <div class="stack-desc">Schema validation, virtuals, middleware hooks (pre-save), and population for relational queries.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Email</div>
+        <div class="stack-name" style="color:var(--p4)">Nodemailer + Resend</div>
+        <div class="stack-desc">Transactional emails for client portal links, update notifications, and approval requests.</div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-layer">Deployment</div>
+        <div class="stack-name" style="color:var(--p4)">Vercel + Railway</div>
+        <div class="stack-desc">React on Vercel (edge CDN). Node/Express on Railway. MongoDB Atlas managed service.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section id="phases">
+  <div class="container">
+    <div class="section-label">03 — Development</div>
+    <div class="section-title">Phase-wise build plan</div>
+    <p class="section-sub">Five phases from MVP to production-ready product. Each phase is independently deployable.</p>
+
+    <div class="phases">
+
+      <!-- PHASE 1 -->
+      <div class="phase phase-1 open">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">01</div>
+          <div class="phase-info">
+            <div class="phase-name">Foundation & Auth</div>
+            <div class="phase-desc">Project scaffold, authentication system, and core data models</div>
+          </div>
+          <div class="phase-meta">
+            <span class="phase-duration">Weeks 1–4</span>
+            <span class="phase-tag">Backend + Frontend base</span>
+          </div>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="phase-body">
+          <div class="subsection-title">Backend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">⚙️</span> Project Setup</div>
+              <ul class="feature-items">
+                <li>Initialise Node + Express project</li>
+                <li>Configure ESLint, Prettier, Husky</li>
+                <li>Setup MongoDB Atlas connection via Mongoose</li>
+                <li>Environment config (.env, dotenv)</li>
+                <li>Express middleware: cors, helmet, morgan, express-rate-limit</li>
+                <li>Error handling middleware (centralised)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🔐</span> Auth System</div>
+              <ul class="feature-items">
+                <li>POST /api/auth/register — hash password, create user</li>
+                <li>POST /api/auth/login — verify, return JWT pair</li>
+                <li>POST /api/auth/refresh — rotate refresh token</li>
+                <li>POST /api/auth/logout — blacklist refresh token</li>
+                <li>protectRoute middleware (verify access token)</li>
+                <li>User schema: name, email, passwordHash, plan, createdAt</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📁</span> Project Model</div>
+              <ul class="feature-items">
+                <li>Project schema: title, description, status, slug, clientEmail, ownerId</li>
+                <li>CRUD routes: create, read, update, delete project</li>
+                <li>Unique shareable slug generation (nanoid)</li>
+                <li>Owner-only access middleware</li>
+                <li>GET /api/projects/:slug/public — unauthenticated client view</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subsection-title">Frontend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">⚛️</span> React Setup</div>
+              <ul class="feature-items">
+                <li>Vite + React 18 initialisation</li>
+                <li>React Router v6 route structure</li>
+                <li>Tailwind CSS configuration</li>
+                <li>Zustand store: auth slice</li>
+                <li>Axios instance with interceptors (auto-attach JWT, refresh on 401)</li>
+                <li>React Query setup + QueryClientProvider</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🖥️</span> Auth Pages</div>
+              <ul class="feature-items">
+                <li>Register page — form validation (react-hook-form + zod)</li>
+                <li>Login page — credential form, error states</li>
+                <li>Protected Route wrapper component</li>
+                <li>Persist auth with localStorage (access token in memory, refresh in cookie)</li>
+                <li>Auto-redirect on token expiry</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🗂️</span> Dashboard Shell</div>
+              <ul class="feature-items">
+                <li>Sidebar nav layout component</li>
+                <li>Projects list page — fetch + display projects</li>
+                <li>Create project modal with form</li>
+                <li>Project status pill component</li>
+                <li>Empty state illustrations</li>
+                <li>Responsive mobile nav</li>
+              </ul>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">nanoid</span><span class="chip">bcryptjs</span><span class="chip">jsonwebtoken</span><span class="chip">express-validator</span><span class="chip">react-hook-form</span><span class="chip">zod</span><span class="chip">react-router-dom v6</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase phase-2">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">02</div>
+          <div class="phase-info">
+            <div class="phase-name">Core Update Engine</div>
+            <div class="phase-desc">Project updates, file uploads, client portal view — the core product loop</div>
+          </div>
+          <div class="phase-meta">
+            <span class="phase-duration">Weeks 5–10</span>
+            <span class="phase-tag">Core feature set</span>
+          </div>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="phase-body">
+          <div class="subsection-title">Backend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📝</span> Update Model</div>
+              <ul class="feature-items">
+                <li>Update schema: projectId, type (text/file/milestone), content, files[], isMilestone, createdAt</li>
+                <li>POST /api/projects/:id/updates — create update</li>
+                <li>GET /api/projects/:id/updates — paginated list</li>
+                <li>PUT /api/updates/:id — edit update</li>
+                <li>DELETE /api/updates/:id — soft delete</li>
+                <li>Populate file metadata on read</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">☁️</span> File Upload Service</div>
+              <ul class="feature-items">
+                <li>Multer middleware — memory storage</li>
+                <li>Cloudinary SDK integration</li>
+                <li>POST /api/uploads — single/multi file upload</li>
+                <li>File type validation (image, PDF, zip, doc)</li>
+                <li>10MB per file limit, 50MB per project limit</li>
+                <li>File schema: url, publicId, name, size, type, uploadedAt</li>
+                <li>DELETE /api/uploads/:id — destroy from Cloudinary</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🔗</span> Public Client Route</div>
+              <ul class="feature-items">
+                <li>GET /api/public/:slug — project + updates (no auth)</li>
+                <li>Track "last viewed" client timestamp</li>
+                <li>Rate limit public routes (100 req/15min per IP)</li>
+                <li>Populate files, milestones on updates</li>
+                <li>PATCH /api/public/:slug/seen — mark as seen</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subsection-title">Frontend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">✏️</span> Update Composer</div>
+              <ul class="feature-items">
+                <li>Rich textarea (no heavy WYSIWYG — keep lean)</li>
+                <li>Drag-and-drop file attach zone</li>
+                <li>File preview before upload</li>
+                <li>Milestone toggle on update form</li>
+                <li>Submit with optimistic update (React Query mutation)</li>
+                <li>Upload progress indicator</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📋</span> Update Timeline</div>
+              <ul class="feature-items">
+                <li>Vertical timeline component with update cards</li>
+                <li>Milestone visual markers (distinct styling)</li>
+                <li>File attachment previews + download button</li>
+                <li>Infinite scroll or load-more pagination</li>
+                <li>Edit/Delete actions (owner only)</li>
+                <li>Relative timestamps (day.js)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">👤</span> Client Portal Page</div>
+              <ul class="feature-items">
+                <li>Public route /p/:slug — no auth needed</li>
+                <li>Project header: title, status, progress bar</li>
+                <li>Read-only timeline of all updates</li>
+                <li>File downloads from Cloudinary URLs</li>
+                <li>Branded/minimal design (no freelancer UI chrome)</li>
+                <li>"Seen" tracking on page load</li>
+              </ul>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">multer</span><span class="chip">cloudinary</span><span class="chip">nanoid</span><span class="chip">day.js</span><span class="chip">react-dropzone</span><span class="chip">react-query mutations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase phase-3">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">03</div>
+          <div class="phase-info">
+            <div class="phase-name">Collaboration Layer</div>
+            <div class="phase-desc">Comments, approvals, notifications, and real-time client activity</div>
+          </div>
+          <div class="phase-meta">
+            <span class="phase-duration">Weeks 11–18</span>
+            <span class="phase-tag">Engagement features</span>
+          </div>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="phase-body">
+          <div class="subsection-title">Backend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">💬</span> Comment System</div>
+              <ul class="feature-items">
+                <li>Comment schema: updateId, authorName, authorEmail, body, type (comment/approval/revision), createdAt</li>
+                <li>POST /api/updates/:id/comments</li>
+                <li>GET /api/updates/:id/comments</li>
+                <li>DELETE /api/comments/:id (owner only)</li>
+                <li>No auth for client comments (name + email required)</li>
+                <li>Basic profanity filter middleware</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">✅</span> Approval Workflow</div>
+              <ul class="feature-items">
+                <li>PATCH /api/milestones/:id/approve</li>
+                <li>PATCH /api/milestones/:id/request-revision</li>
+                <li>Approval status on milestone updates: pending / approved / revision</li>
+                <li>Trigger email on approval/revision event</li>
+                <li>Owner can reset milestone status</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🔔</span> Notifications</div>
+              <ul class="feature-items">
+                <li>Notification schema: userId, type, message, read, refId, refType</li>
+                <li>GET /api/notifications — paginated list</li>
+                <li>PATCH /api/notifications/read-all</li>
+                <li>Socket.io room per project (owner joins on dashboard load)</li>
+                <li>Emit events: client_viewed, comment_added, milestone_approved</li>
+                <li>Email fallback via Nodemailer/Resend if user offline</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subsection-title">Frontend Tasks</div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">💬</span> Comment Thread UI</div>
+              <ul class="feature-items">
+                <li>Comment thread below each update card</li>
+                <li>Guest comment form (name + email) on client portal</li>
+                <li>Comment type badge: comment / approved / revision needed</li>
+                <li>Threaded display with avatar initials</li>
+                <li>Real-time new comment via socket</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">✅</span> Approval UI (Client)</div>
+              <ul class="feature-items">
+                <li>Approve / Request Revision buttons on milestone cards</li>
+                <li>Confirmation modal before approval</li>
+                <li>Visual status badge on milestone (green/yellow/gray)</li>
+                <li>Locked state after approval</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🔔</span> Notification Bell</div>
+              <ul class="feature-items">
+                <li>Bell icon in header with unread count badge</li>
+                <li>Dropdown list of recent notifications</li>
+                <li>Mark all read action</li>
+                <li>Real-time socket updates (toast + bell)</li>
+                <li>Click notification → navigate to project/update</li>
+              </ul>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">socket.io</span><span class="chip">nodemailer</span><span class="chip">resend</span><span class="chip">socket.io-client</span><span class="chip">react-hot-toast</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase phase-4">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">04</div>
+          <div class="phase-info">
+            <div class="phase-name">Polish & Power Features</div>
+            <div class="phase-desc">Branding, analytics, custom domains, and productivity enhancements</div>
+          </div>
+          <div class="phase-meta">
+            <span class="phase-duration">Weeks 19–26</span>
+            <span class="phase-tag">Differentiation layer</span>
+          </div>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="phase-body">
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🎨</span> Branding & White-label</div>
+              <ul class="feature-items">
+                <li>Upload logo + set brand colour per workspace</li>
+                <li>Client portal applies brand colours + logo</li>
+                <li>Custom "from" name in email notifications</li>
+                <li>Remove "Powered by" badge (paid tier)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📊</span> Analytics Dashboard</div>
+              <ul class="feature-items">
+                <li>Client last seen timestamp per project</li>
+                <li>View count per update</li>
+                <li>Time-to-approval tracking on milestones</li>
+                <li>Simple charts (Recharts) in provider dashboard</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📧</span> Email Templates</div>
+              <ul class="feature-items">
+                <li>Portal share email (with project link)</li>
+                <li>New update notification to client</li>
+                <li>Approval request email for milestones</li>
+                <li>Weekly summary digest (cron — node-cron)</li>
+                <li>Branded HTML email templates (React Email)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🔒</span> Portal Access Control</div>
+              <ul class="feature-items">
+                <li>Password-protect client portal (optional)</li>
+                <li>Set portal expiry date</li>
+                <li>Disable portal (revoke access)</li>
+                <li>Allow/block specific email addresses</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📦</span> Project Templates</div>
+              <ul class="feature-items">
+                <li>Save project as template (predefined milestones)</li>
+                <li>Create project from template</li>
+                <li>Community template gallery (Phase 5)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">👥</span> Team Members</div>
+              <ul class="feature-items">
+                <li>Invite team members to workspace via email</li>
+                <li>Role: Admin / Member</li>
+                <li>Members can post updates on any project</li>
+                <li>Activity log showing who posted what</li>
+              </ul>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">react-email</span><span class="chip">node-cron</span><span class="chip">recharts</span><span class="chip">sharp</span><span class="chip">cloudinary transforms</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="phase phase-5">
+        <div class="phase-header" onclick="togglePhase(this)">
+          <div class="phase-num">05</div>
+          <div class="phase-info">
+            <div class="phase-name">Monetisation & Scale</div>
+            <div class="phase-desc">Billing, subscription plans, performance optimisations, and growth infrastructure</div>
+          </div>
+          <div class="phase-meta">
+            <span class="phase-duration">Weeks 27–32</span>
+            <span class="phase-tag">Revenue ready</span>
+          </div>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="phase-body">
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">💳</span> Stripe Billing</div>
+              <ul class="feature-items">
+                <li>Free / Pro / Agency plan tiers</li>
+                <li>Stripe Checkout integration</li>
+                <li>Subscription webhooks: created, updated, canceled</li>
+                <li>Plan limits enforcement middleware</li>
+                <li>Billing portal (Stripe Customer Portal)</li>
+                <li>Plan feature gates in frontend</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🚀</span> Performance</div>
+              <ul class="feature-items">
+                <li>Redis caching for public project endpoints</li>
+                <li>Mongoose query indexing (projectId, slug, ownerId)</li>
+                <li>Lazy loading React pages (code splitting)</li>
+                <li>Cloudinary auto-format + quality compression</li>
+                <li>API response compression (compression middleware)</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">🛡️</span> Security Hardening</div>
+              <ul class="feature-items">
+                <li>OWASP checklist review</li>
+                <li>Input sanitisation (DOMPurify, express-mongo-sanitize)</li>
+                <li>XSS protection headers (helmet)</li>
+                <li>CSRF token for state-changing requests</li>
+                <li>Security audit + penetration test</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-title"><span class="feature-icon">📈</span> Growth Features</div>
+              <ul class="feature-items">
+                <li>Referral programme — unique referral links</li>
+                <li>Public project showcase (opt-in)</li>
+                <li>SEO-friendly project meta tags</li>
+                <li>Zapier / Webhook outbound integrations</li>
+              </ul>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">stripe</span><span class="chip">ioredis</span><span class="chip">express-mongo-sanitize</span><span class="chip">compression</span><span class="chip">DOMPurify</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- APP FLOW -->
+<section id="appflow">
+  <div class="container">
+    <div class="section-label">04 — App Flow</div>
+    <div class="section-title">End-to-end application flow</div>
+    <p class="section-sub">How data and users move through the entire system — from registration to client portal view.</p>
+
+    <div class="flow-wrapper">
+      <div class="flow-diagram">
+
+        <!-- PROVIDER FLOW -->
+        <div class="flow-layer">
+          <div class="flow-layer-label">Provider journey</div>
+          <div class="flow-row">
+            <div class="flow-node accent">
+              <div class="flow-node-title">1. Register / Login</div>
+              <div class="flow-node-desc">Email + password → JWT access & refresh tokens stored</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">2. Dashboard</div>
+              <div class="flow-node-desc">View all projects, status overview, notifications</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">3. Create Project</div>
+              <div class="flow-node-desc">Title, client email, description → unique slug generated</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">4. Share Portal Link</div>
+              <div class="flow-node-desc">Copy link or send via email to client directly</div>
+            </div>
+          </div>
+          <div class="flow-row" style="margin-top: 8px;">
+            <div class="flow-node accent">
+              <div class="flow-node-title">5. Post Update</div>
+              <div class="flow-node-desc">Text + optional files + milestone flag → saved to DB</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">6. File Upload</div>
+              <div class="flow-node-desc">Multer → Cloudinary → URL stored in update document</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">7. Email Trigger</div>
+              <div class="flow-node-desc">Client notified of new update via Nodemailer/Resend</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">
+              <div class="flow-node-title">8. Track Activity</div>
+              <div class="flow-node-desc">See when client viewed, commented, approved</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-connector">↕ shared project data ↕</div>
+
+        <!-- CLIENT FLOW -->
+        <div class="flow-layer">
+          <div class="flow-layer-label">Client journey (no login required)</div>
+          <div class="flow-row">
+            <div class="flow-node teal">
+              <div class="flow-node-title">1. Receive Link</div>
+              <div class="flow-node-desc">Email or shared URL: app.com/p/[slug]</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">2. Portal Page</div>
+              <div class="flow-node-desc">Project title, status, progress — public route, no auth</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">3. View Updates</div>
+              <div class="flow-node-desc">Chronological timeline, file previews, milestones</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">4. Download Files</div>
+              <div class="flow-node-desc">Cloudinary-signed URLs, direct browser download</div>
+            </div>
+          </div>
+          <div class="flow-row" style="margin-top: 8px;">
+            <div class="flow-node teal">
+              <div class="flow-node-title">5. Leave Comment</div>
+              <div class="flow-node-desc">Name + email form, comment saved, owner notified</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">6. Approve Milestone</div>
+              <div class="flow-node-desc">One-click approve or request revision on milestone cards</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">7. Real-time Echo</div>
+              <div class="flow-node-desc">Socket.io emits to owner: client_viewed, approved</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node teal">
+              <div class="flow-node-title">8. Owner Notified</div>
+              <div class="flow-node-desc">Toast + bell update + optional email to freelancer</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACKEND LAYER -->
+        <div class="flow-connector">↕ API layer ↕</div>
+        <div class="flow-layer">
+          <div class="flow-layer-label">Backend layers</div>
+          <div class="flow-row">
+            <div class="flow-node orange">
+              <div class="flow-node-title">Express Router</div>
+              <div class="flow-node-desc">Route definitions, middleware chain</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node orange">
+              <div class="flow-node-title">Auth Middleware</div>
+              <div class="flow-node-desc">Verify JWT, attach req.user</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node orange">
+              <div class="flow-node-title">Controller</div>
+              <div class="flow-node-desc">Business logic, validation, response shaping</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node orange">
+              <div class="flow-node-title">Mongoose Model</div>
+              <div class="flow-node-desc">Schema validation, pre-save hooks, queries</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node orange">
+              <div class="flow-node-title">MongoDB Atlas</div>
+              <div class="flow-node-desc">Persistent data storage, indexed queries</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API DESIGN -->
+<section id="api">
+  <div class="container">
+    <div class="section-label">05 — API</div>
+    <div class="section-title">REST API endpoints</div>
+    <p class="section-sub">Complete endpoint reference. All authenticated routes require <code style="font-size:12px; background: var(--surface); padding: 1px 6px; border-radius: 3px;">Authorization: Bearer &lt;token&gt;</code></p>
+
+    <div class="subsection-title">Auth routes</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Description</th><th>Auth</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/auth/register</td><td>Register new provider account</td><td><span class="auth-badge">public</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/auth/login</td><td>Login, receive access + refresh token</td><td><span class="auth-badge">public</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/auth/refresh</td><td>Rotate access token using refresh token</td><td><span class="auth-badge">public</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/auth/logout</td><td>Invalidate refresh token</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/auth/me</td><td>Get current user profile</td><td><span class="auth-badge required">JWT</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title" style="margin-top: 32px;">Project routes</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Description</th><th>Auth</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/projects</td><td>List all projects for current user</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/projects</td><td>Create new project, generate slug</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/projects/:id</td><td>Get single project (owner only)</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method PUT">PUT</span></td><td class="route">/api/projects/:id</td><td>Update project metadata, status</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method DELETE">DELETE</span></td><td class="route">/api/projects/:id</td><td>Soft-delete project and updates</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/public/:slug</td><td>Public project view — no auth, tracks view</td><td><span class="auth-badge">public</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title" style="margin-top: 32px;">Update routes</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Description</th><th>Auth</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/projects/:id/updates</td><td>Paginated updates list (?page=1&limit=10)</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/projects/:id/updates</td><td>Create text/file/milestone update</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method PUT">PUT</span></td><td class="route">/api/updates/:id</td><td>Edit update content</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method DELETE">DELETE</span></td><td class="route">/api/updates/:id</td><td>Delete update + associated files</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method PATCH">PATCH</span></td><td class="route">/api/updates/:id/milestone</td><td>Approve or request revision on milestone</td><td><span class="auth-badge">public</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title" style="margin-top: 32px;">Comments, files & notifications</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Description</th><th>Auth</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/updates/:id/comments</td><td>Add comment (client: no auth, name+email req)</td><td><span class="auth-badge">public</span></td></tr>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/updates/:id/comments</td><td>Get all comments for an update</td><td><span class="auth-badge">public</span></td></tr>
+        <tr><td><span class="method DELETE">DELETE</span></td><td class="route">/api/comments/:id</td><td>Delete comment (owner only)</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method POST">POST</span></td><td class="route">/api/uploads</td><td>Upload files to Cloudinary, returns URLs</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method DELETE">DELETE</span></td><td class="route">/api/uploads/:id</td><td>Delete file from Cloudinary + DB</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method GET">GET</span></td><td class="route">/api/notifications</td><td>Paginated notification list for user</td><td><span class="auth-badge required">JWT</span></td></tr>
+        <tr><td><span class="method PATCH">PATCH</span></td><td class="route">/api/notifications/read-all</td><td>Mark all notifications as read</td><td><span class="auth-badge required">JWT</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title" style="margin-top: 32px;">Example response shape</div>
+    <div class="code-block">
+<span class="comment">// GET /api/projects/:id/updates response</span>
+{
+  <span class="str">"success"</span>: <span class="kw">true</span>,
+  <span class="str">"data"</span>: {
+    <span class="str">"updates"</span>: [
+      {
+        <span class="str">"_id"</span>: <span class="str">"64c3f2..."</span>,
+        <span class="str">"content"</span>: <span class="str">"Completed the homepage design"</span>,
+        <span class="str">"type"</span>: <span class="str">"milestone"</span>,
+        <span class="str">"isMilestone"</span>: <span class="kw">true</span>,
+        <span class="str">"milestoneStatus"</span>: <span class="str">"pending"</span>,
+        <span class="str">"files"</span>: [{ <span class="str">"url"</span>: <span class="str">"https://res.cloudinary.com/..."</span>, <span class="str">"name"</span>: <span class="str">"design_v2.pdf"</span> }],
+        <span class="str">"createdAt"</span>: <span class="str">"2024-08-12T10:30:00Z"</span>
+      }
+    ],
+    <span class="str">"pagination"</span>: { <span class="str">"page"</span>: 1, <span class="str">"pages"</span>: 3, <span class="str">"total"</span>: 24 }
+  }
+}
+    </div>
+  </div>
+</section>
+
+<!-- DB SCHEMA -->
+<section id="schema">
+  <div class="container">
+    <div class="section-label">06 — Database</div>
+    <div class="section-title">MongoDB collections & schema</div>
+    <p class="section-sub">Six Mongoose collections. All documents include _id, createdAt, updatedAt by default.</p>
+
+    <div class="schema-grid">
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--p1)"><span class="schema-icon">👤</span> users</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">name</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">email</span><span class="field-type">String</span><span class="field-flag">unique</span></div>
+          <div class="schema-field"><span class="field-name">passwordHash</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">plan</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+          <div class="schema-field"><span class="field-name">brandColor</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">logoUrl</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">refreshTokens</span><span class="field-type">[String]</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">stripeCustomerId</span><span class="field-type">String</span><span class="field-flag"></span></div>
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--p2)"><span class="schema-icon">📁</span> projects</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">ownerId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: User</span></div>
+          <div class="schema-field"><span class="field-name">title</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">description</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">slug</span><span class="field-type">String</span><span class="field-flag">unique</span></div>
+          <div class="schema-field"><span class="field-name">status</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+          <div class="schema-field"><span class="field-name">clientEmail</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">clientLastSeen</span><span class="field-type">Date</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">passwordHash</span><span class="field-type">String</span><span class="field-flag">optional</span></div>
+          <div class="schema-field"><span class="field-name">expiresAt</span><span class="field-type">Date</span><span class="field-flag">optional</span></div>
+          <div class="schema-field"><span class="field-name">isDeleted</span><span class="field-type">Boolean</span><span class="field-flag">default: false</span></div>
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--p3)"><span class="schema-icon">📝</span> updates</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">projectId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: Project</span></div>
+          <div class="schema-field"><span class="field-name">authorId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: User</span></div>
+          <div class="schema-field"><span class="field-name">content</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">type</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+          <div class="schema-field"><span class="field-name">isMilestone</span><span class="field-type">Boolean</span><span class="field-flag">default: false</span></div>
+          <div class="schema-field"><span class="field-name">milestoneStatus</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+          <div class="schema-field"><span class="field-name">files</span><span class="field-type">[FileRef]</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">viewCount</span><span class="field-type">Number</span><span class="field-flag">default: 0</span></div>
+          <div class="schema-field"><span class="field-name">isDeleted</span><span class="field-type">Boolean</span><span class="field-flag">default: false</span></div>
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--p4)"><span class="schema-icon">💬</span> comments</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">updateId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: Update</span></div>
+          <div class="schema-field"><span class="field-name">projectId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: Project</span></div>
+          <div class="schema-field"><span class="field-name">authorName</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">authorEmail</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">body</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">type</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--p5)"><span class="schema-icon">☁️</span> files</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">ownerId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: User</span></div>
+          <div class="schema-field"><span class="field-name">projectId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: Project</span></div>
+          <div class="schema-field"><span class="field-name">url</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">publicId</span><span class="field-type">String</span><span class="field-flag">Cloudinary ID</span></div>
+          <div class="schema-field"><span class="field-name">originalName</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">mimeType</span><span class="field-type">String</span><span class="field-flag"></span></div>
+          <div class="schema-field"><span class="field-name">size</span><span class="field-type">Number</span><span class="field-flag">bytes</span></div>
+        </div>
+      </div>
+
+      <div class="schema-card">
+        <div class="schema-header" style="color:var(--accent4)"><span class="schema-icon">🔔</span> notifications</div>
+        <div class="schema-body">
+          <div class="schema-field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="field-pk">PK</span></div>
+          <div class="schema-field"><span class="field-name">userId</span><span class="field-type">ObjectId</span><span class="field-flag">ref: User</span></div>
+          <div class="schema-field"><span class="field-name">type</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+          <div class="schema-field"><span class="field-name">message</span><span class="field-type">String</span><span class="field-flag">required</span></div>
+          <div class="schema-field"><span class="field-name">read</span><span class="field-type">Boolean</span><span class="field-flag">default: false</span></div>
+          <div class="schema-field"><span class="field-name">refId</span><span class="field-type">ObjectId</span><span class="field-flag">dynamic ref</span></div>
+          <div class="schema-field"><span class="field-name">refType</span><span class="field-type">String</span><span class="field-flag">enum</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection-title" style="margin-top: 40px;">Mongoose indexes</div>
+    <div class="code-block">
+<span class="comment">// Key indexes for query performance</span>
+<span class="fn">ProjectSchema</span>.index({ ownerId: 1, isDeleted: 1 });  <span class="comment">// list user projects</span>
+<span class="fn">ProjectSchema</span>.index({ slug: 1 }, { unique: <span class="kw">true</span> });  <span class="comment">// public route lookup</span>
+<span class="fn">UpdateSchema</span>.index({ projectId: 1, isDeleted: 1, createdAt: -1 });  <span class="comment">// paginated updates</span>
+<span class="fn">CommentSchema</span>.index({ updateId: 1, createdAt: 1 });  <span class="comment">// comments per update</span>
+<span class="fn">NotificationSchema</span>.index({ userId: 1, read: 1, createdAt: -1 });  <span class="comment">// user inbox</span>
+    </div>
+  </div>
+</section>
+
+<!-- FRONTEND PAGES -->
+<section id="frontend">
+  <div class="container">
+    <div class="section-label">07 — Frontend</div>
+    <div class="section-title">React pages & components</div>
+    <p class="section-sub">12 core pages with route structure, component breakdown, and state management approach.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div style="background:var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 16px;">
+        <div style="font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--accent); margin-bottom:12px; letter-spacing:0.05em;">PROVIDER ROUTES (protected)</div>
+        <ul class="feature-items">
+          <li><code style="color:var(--accent3); font-size:11px">/dashboard</code> — projects overview, metrics strip</li>
+          <li><code style="color:var(--accent3); font-size:11px">/projects/new</code> — create project form</li>
+          <li><code style="color:var(--accent3); font-size:11px">/projects/:id</code> — update composer + timeline</li>
+          <li><code style="color:var(--accent3); font-size:11px">/projects/:id/settings</code> — portal config, access control</li>
+          <li><code style="color:var(--accent3); font-size:11px">/notifications</code> — full notification list</li>
+          <li><code style="color:var(--accent3); font-size:11px">/settings</code> — profile, branding, billing</li>
+          <li><code style="color:var(--accent3); font-size:11px">/settings/billing</code> — Stripe plan management</li>
+        </ul>
+      </div>
+      <div style="background:var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 16px;">
+        <div style="font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--accent3); margin-bottom:12px; letter-spacing:0.05em;">PUBLIC ROUTES (client)</div>
+        <ul class="feature-items">
+          <li><code style="color:var(--accent); font-size:11px">/</code> — landing page (marketing)</li>
+          <li><code style="color:var(--accent); font-size:11px">/register</code> — provider signup</li>
+          <li><code style="color:var(--accent); font-size:11px">/login</code> — provider login</li>
+          <li><code style="color:var(--accent); font-size:11px">/p/:slug</code> — client portal page (core)</li>
+          <li><code style="color:var(--accent); font-size:11px">/p/:slug/unlock</code> — password gate page</li>
+        </ul>
+        <div style="margin-top: 16px; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--muted); margin-bottom:12px; letter-spacing:0.05em;">SHARED COMPONENTS</div>
+        <ul class="feature-items">
+          <li>UpdateCard — timeline card with files, milestone badge</li>
+          <li>FileAttachment — preview + download handler</li>
+          <li>CommentThread — threaded with guest form</li>
+          <li>StatusBadge — project status pill</li>
+          <li>ProgressBar — visual project progress</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection-title" style="margin-top: 32px;">Zustand store structure</div>
+    <div class="code-block">
+<span class="comment">// stores/authStore.js</span>
+{
+  user: <span class="kw">null</span> | User,
+  accessToken: <span class="str">""</span>,
+  <span class="fn">login</span>: (credentials) => <span class="kw">async</span> () => { ... },
+  <span class="fn">logout</span>: () => { ... },
+  <span class="fn">refreshToken</span>: () => <span class="kw">async</span> () => { ... }
+}
+
+<span class="comment">// stores/notificationStore.js</span>
+{
+  notifications: [],
+  unreadCount: 0,
+  <span class="fn">addNotification</span>: (n) => { ... },   <span class="comment">// called by socket listener</span>
+  <span class="fn">markAllRead</span>: () => { ... }
+}
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-label">08 — Timeline</div>
+    <div class="section-title">Delivery calendar</div>
+    <p class="section-sub">Week-by-week delivery milestones across all 5 phases.</p>
+
+    <div class="timeline">
+      <div class="timeline-item done">
+        <div class="timeline-date">Week 1–2</div>
+        <div class="timeline-title">Environment & Foundation</div>
+        <ul class="timeline-items">
+          <li>Monorepo structure: /client (Vite+React), /server (Express)</li>
+          <li>MongoDB Atlas cluster provisioned</li>
+          <li>Cloudinary account + API keys</li>
+          <li>ESLint + Prettier + Husky pre-commit hooks</li>
+          <li>CI pipeline: GitHub Actions (lint + test on PR)</li>
+        </ul>
+      </div>
+      <div class="timeline-item done">
+        <div class="timeline-date">Week 3–4</div>
+        <div class="timeline-title">Auth System Complete</div>
+        <ul class="timeline-items">
+          <li>JWT register/login/refresh/logout working</li>
+          <li>React auth pages with validation</li>
+          <li>Protected Route component</li>
+          <li>Dashboard shell (sidebar + empty states)</li>
+        </ul>
+      </div>
+      <div class="timeline-item active">
+        <div class="timeline-date">Week 5–7</div>
+        <div class="timeline-title">Project CRUD + Slugs</div>
+        <ul class="timeline-items">
+          <li>Project model + API routes complete</li>
+          <li>Create/edit/delete projects from dashboard</li>
+          <li>Unique slug generation per project</li>
+          <li>Public /api/public/:slug endpoint tested</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 8–10</div>
+        <div class="timeline-title">Update Engine + File Uploads</div>
+        <ul class="timeline-items">
+          <li>Update model + pagination API</li>
+          <li>Cloudinary file upload pipeline (Multer → Cloudinary)</li>
+          <li>Update composer UI with drag-and-drop</li>
+          <li>Timeline view with milestone markers</li>
+          <li>Client portal /p/:slug page (read-only)</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 11–14</div>
+        <div class="timeline-title">Collaboration: Comments + Approvals</div>
+        <ul class="timeline-items">
+          <li>Comment API (guest-friendly, no auth needed)</li>
+          <li>Milestone approval/revision workflow</li>
+          <li>Email notifications via Nodemailer/Resend</li>
+          <li>Comment thread UI on client portal</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 15–18</div>
+        <div class="timeline-title">Real-time Notifications</div>
+        <ul class="timeline-items">
+          <li>Socket.io server rooms per project</li>
+          <li>Notification bell + dropdown in provider dashboard</li>
+          <li>Live toasts: client viewed, comment added, approved</li>
+          <li>Notification persistence + read-state</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 19–22</div>
+        <div class="timeline-title">Branding + Analytics</div>
+        <ul class="timeline-items">
+          <li>Logo upload + brand colour picker</li>
+          <li>Client portal applies brand identity</li>
+          <li>View count analytics dashboard (Recharts)</li>
+          <li>Weekly digest email (node-cron)</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 23–26</div>
+        <div class="timeline-title">Team + Access Control</div>
+        <ul class="timeline-items">
+          <li>Workspace team member invites</li>
+          <li>Portal password protection + expiry</li>
+          <li>Project templates system</li>
+          <li>Activity log per project</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 27–29</div>
+        <div class="timeline-title">Stripe Billing Integration</div>
+        <ul class="timeline-items">
+          <li>Free / Pro / Agency plan tiers defined</li>
+          <li>Stripe Checkout + Customer Portal</li>
+          <li>Subscription webhooks processing</li>
+          <li>Plan limit enforcement throughout app</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Week 30–32</div>
+        <div class="timeline-title">Security, Performance & Launch</div>
+        <ul class="timeline-items">
+          <li>Redis caching on public endpoints</li>
+          <li>Security hardening (OWASP checklist)</li>
+          <li>Load testing + performance tuning</li>
+          <li>Production deploy: Vercel + Railway + Atlas</li>
+          <li>Monitoring: Sentry (errors) + Datadog (infra)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span>Client Update Portal — MERN Stack Roadmap v1.0</span>
+  <span>32 weeks · 5 phases · Production-ready</span>
+</footer>
+
+<script>
+  function togglePhase(header) {
+    const phase = header.parentElement;
+    phase.classList.toggle('open');
+  }
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
