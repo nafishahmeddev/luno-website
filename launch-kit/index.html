@@ -1,1713 +1,1018 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luno — Launch Roadmap</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet" />
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg: #0A0F07;
-      --bg2: #0f1a0a;
-      --bg3: #141C0C;
-      --card: #18220F;
-      --border: rgba(134, 197, 60, 0.12);
-      --border2: rgba(134, 197, 60, 0.25);
-      --accent: #86C53C;
-      --accent-dim: rgba(134, 197, 60, 0.08);
-      --text: #EDF3E0;
-      --muted: rgba(237, 243, 224, 0.52);
-      --dim: rgba(237, 243, 224, 0.22);
-      --red: #FF5C4A;
-      --orange: #FF8C4A;
-      --blue: #4A9EFF;
-      --purple: #9B6EFF;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'Bricolage Grotesque', sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 15px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── TOP BAR ── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 15, 7, 0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-    }
-
-    .logo {
-      font-family: var(--mono);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    .store-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      padding: 5px 14px;
-      text-decoration: none;
-      transition: all .15s;
-    }
-
-    .store-link:hover {
-      background: var(--accent);
-      color: #0A0F07;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 60px 48px 0;
-    }
-
-    .hero h1 {
-      font-size: 40px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 12px;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 560px;
-    }
-
-    /* ── PHASE TIMELINE ── */
-    .phases {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 48px 80px;
-    }
-
-    .phase {
-      margin-bottom: 0;
-      position: relative;
-    }
-
-    .phase-line {
-      position: absolute;
-      left: 19px;
-      top: 42px;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, rgba(134, 197, 60, 0.2), rgba(134, 197, 60, 0.05) 90%, transparent);
-    }
-
-    .phase:last-child .phase-line {
-      display: none;
-    }
-
-    /* phase header */
-    .phase-head {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .phase-num {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 700;
-      flex-shrink: 0;
-      border: 2px solid;
-      position: relative;
-      z-index: 1;
-    }
-
-    .ph-0 {
-      background: #0A0F07;
-      border-color: var(--purple);
-      color: var(--purple);
-    }
-
-    .ph-1 {
-      background: #0A0F07;
-      border-color: var(--orange);
-      color: var(--orange);
-    }
-
-    .ph-2 {
-      background: #0A0F07;
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .ph-3 {
-      background: #0A0F07;
-      border-color: var(--blue);
-      color: var(--blue);
-    }
-
-    .ph-4 {
-      background: #0A0F07;
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .ph-done {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #0A0F07;
-    }
-
-    .phase-info {}
-
-    .phase-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-
-    .pl-0 {
-      color: var(--purple);
-    }
-
-    .pl-1 {
-      color: var(--orange);
-    }
-
-    .pl-2 {
-      color: var(--red);
-    }
-
-    .pl-3 {
-      color: var(--blue);
-    }
-
-    .pl-4 {
-      color: var(--accent);
-    }
-
-    .phase-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .phase-when {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--dim);
-      margin-top: 2px;
-    }
-
-    /* phase body */
-    .phase-body {
-      padding-left: 54px;
-      margin-bottom: 52px;
-    }
-
-    /* steps */
-    .step {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 12px;
-      overflow: hidden;
-    }
-
-    .step-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg3);
-    }
-
-    .step-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .step-n {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 2px 8px;
-    }
-
-    .step-when {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.05em;
-    }
-
-    .step-platform {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 4px;
-      border: 1px solid;
-    }
-
-    .sp-reddit {
-      color: #FF6314;
-      border-color: rgba(255, 99, 20, 0.3);
-      background: rgba(255, 99, 20, 0.08);
-    }
-
-    .sp-twitter {
-      color: #4A9EFF;
-      border-color: rgba(74, 158, 255, 0.3);
-      background: rgba(74, 158, 255, 0.08);
-    }
-
-    .sp-ph {
-      color: #DA552F;
-      border-color: rgba(218, 85, 47, 0.3);
-      background: rgba(218, 85, 47, 0.08);
-    }
-
-    .sp-dir {
-      color: var(--accent);
-      border-color: var(--border2);
-      background: var(--accent-dim);
-    }
-
-    .sp-email {
-      color: var(--purple);
-      border-color: rgba(155, 110, 255, 0.3);
-      background: rgba(155, 110, 255, 0.08);
-    }
-
-    .sp-store {
-      color: var(--muted);
-      border-color: var(--border);
-      background: var(--bg3);
-    }
-
-    .step-body {
-      padding: 14px 16px;
-    }
-
-    .step-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .step-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-bottom: 10px;
-    }
-
-    .step-action {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .step-action::before {
-      content: '→';
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      position: absolute;
-      left: 0;
-      top: 1px;
-    }
-
-    .step-action strong {
-      color: var(--text);
-    }
-
-    /* copy blocks */
-    .copy-block {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-
-    .copy-block-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .copy-block-label {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--dim);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .copy-btn {
-      font-family: var(--mono);
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--accent-dim);
-      color: var(--accent);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 3px 10px;
-      cursor: pointer;
-      transition: all .15s;
-    }
-
-    .copy-btn:hover {
-      background: var(--accent);
-      color: #0A0F07;
-    }
-
-    .copy-btn.copied {
-      background: rgba(74, 232, 122, 0.12);
-      color: #4AE87A;
-      border-color: rgba(74, 232, 122, 0.3);
-    }
-
-    .copy-text {
-      padding: 14px 16px;
-      font-size: 13px;
-      line-height: 1.75;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: var(--sans);
-    }
-
-    .copy-text.mono {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .char-note {
-      padding: 6px 16px 12px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--dim);
-    }
-
-    .char-note span {
-      color: var(--accent);
-    }
-
-    /* tweet thread */
-    .thread {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-top: 10px;
-    }
-
-    .tweet {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .tweet+.tweet {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      margin-top: 2px;
-    }
-
-    .tweet-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 7px 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .tweet-n {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--dim);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .tweet-body {
-      padding: 12px 16px;
-    }
-
-    .tweet-text {
-      font-size: 13px;
-      line-height: 1.72;
-      color: var(--text);
-      white-space: pre-wrap;
-    }
-
-    .tweet-count {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--dim);
-      margin-top: 6px;
-    }
-
-    /* checklist */
-    .checklist {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 10px 14px;
-    }
-
-    .check-box {
-      width: 17px;
-      height: 17px;
-      border: 1.5px solid var(--border2);
-      border-radius: 3px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .15s;
-    }
-
-    .check-box.done {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .check-box.done::after {
-      content: '';
-      width: 4px;
-      height: 8px;
-      border: 2px solid #0A0F07;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg) translateY(-1px);
-    }
-
-    .check-text {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .check-text strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* notice */
-    .notice {
-      background: var(--accent-dim);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .notice strong {
-      color: var(--accent);
-    }
-
-    .alert-orange {
-      background: rgba(255, 140, 74, 0.07);
-      border: 1px solid rgba(255, 140, 74, 0.22);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    .alert-orange strong {
-      color: var(--orange);
-    }
-
-    /* divider */
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 16px 0;
-    }
-
-    /* tags row */
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 2px 8px;
-    }
-
-    /* progress bar */
-    .progress-bar {
-      position: fixed;
-      top: 52px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--accent) var(--p, 0%), transparent var(--p, 0%));
-      z-index: 99;
-      transition: none;
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Luno — Launch Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0A0F07;--bg2:#0f1a0a;--bg3:#141C0C;--card:#18220F;
+  --border:rgba(134,197,60,0.12);--border2:rgba(134,197,60,0.25);
+  --accent:#86C53C;--accent-dim:rgba(134,197,60,0.08);
+  --text:#EDF3E0;--muted:rgba(237,243,224,0.52);--dim:rgba(237,243,224,0.22);
+  --red:#FF5C4A;--orange:#FF8C4A;--blue:#4A9EFF;--purple:#9B6EFF;
+  --mono:'JetBrains Mono',monospace;--sans:'Bricolage Grotesque',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+
+/* ── TOP BAR ── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,15,7,0.96);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+}
+.logo{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:0.06em;}
+.logo span{color:var(--accent);}
+.store-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:0.05em;
+  color:var(--accent);border:1px solid var(--border2);border-radius:6px;
+  padding:5px 14px;text-decoration:none;transition:all .15s;
+}
+.store-link:hover{background:var(--accent);color:#0A0F07;}
+
+/* ── HERO ── */
+.hero{max-width:760px;margin:0 auto;padding:60px 48px 0;}
+.hero h1{font-size:40px;font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;}
+
+/* ── PHASE TIMELINE ── */
+.phases{max-width:760px;margin:0 auto;padding:48px 48px 80px;}
+.phase{margin-bottom:0;position:relative;}
+.phase-line{position:absolute;left:19px;top:42px;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(134,197,60,0.2),rgba(134,197,60,0.05) 90%,transparent);}
+.phase:last-child .phase-line{display:none;}
+
+/* phase header */
+.phase-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.phase-num{
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:12px;font-weight:700;flex-shrink:0;
+  border:2px solid;position:relative;z-index:1;
+}
+.ph-0{background:#0A0F07;border-color:var(--purple);color:var(--purple);}
+.ph-1{background:#0A0F07;border-color:var(--orange);color:var(--orange);}
+.ph-2{background:#0A0F07;border-color:var(--red);color:var(--red);}
+.ph-3{background:#0A0F07;border-color:var(--blue);color:var(--blue);}
+.ph-4{background:#0A0F07;border-color:var(--accent);color:var(--accent);}
+.ph-done{background:var(--accent);border-color:var(--accent);color:#0A0F07;}
+.phase-info{}
+.phase-label{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;}
+.pl-0{color:var(--purple);}
+.pl-1{color:var(--orange);}
+.pl-2{color:var(--red);}
+.pl-3{color:var(--blue);}
+.pl-4{color:var(--accent);}
+.phase-title{font-size:18px;font-weight:800;letter-spacing:-0.02em;}
+.phase-when{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:2px;}
+
+/* phase body */
+.phase-body{padding-left:54px;margin-bottom:52px;}
+
+/* steps */
+.step{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.step-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg3);
+}
+.step-meta{display:flex;align-items:center;gap:10px;}
+.step-n{
+  font-family:var(--mono);font-size:10px;font-weight:700;color:var(--accent);
+  background:var(--accent-dim);border:1px solid var(--border2);
+  border-radius:4px;padding:2px 8px;
+}
+.step-when{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.05em;}
+.step-platform{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px solid;}
+.sp-reddit{color:#FF6314;border-color:rgba(255,99,20,0.3);background:rgba(255,99,20,0.08);}
+.sp-twitter{color:#4A9EFF;border-color:rgba(74,158,255,0.3);background:rgba(74,158,255,0.08);}
+.sp-ph{color:#DA552F;border-color:rgba(218,85,47,0.3);background:rgba(218,85,47,0.08);}
+.sp-dir{color:var(--accent);border-color:var(--border2);background:var(--accent-dim);}
+.sp-email{color:var(--purple);border-color:rgba(155,110,255,0.3);background:rgba(155,110,255,0.08);}
+.sp-store{color:var(--muted);border-color:var(--border);background:var(--bg3);}
+
+.step-body{padding:14px 16px;}
+.step-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.step-actions{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.step-action{font-size:13px;color:var(--muted);line-height:1.5;padding-left:16px;position:relative;}
+.step-action::before{content:'→';color:var(--accent);font-family:var(--mono);font-size:11px;position:absolute;left:0;top:1px;}
+.step-action strong{color:var(--text);}
+
+/* copy blocks */
+.copy-block{background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin-top:10px;overflow:hidden;}
+.copy-block-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;border-bottom:1px solid var(--border);
+}
+.copy-block-label{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase;}
+.copy-btn{
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  background:var(--accent-dim);color:var(--accent);border:1px solid var(--border2);
+  border-radius:4px;padding:3px 10px;cursor:pointer;transition:all .15s;
+}
+.copy-btn:hover{background:var(--accent);color:#0A0F07;}
+.copy-btn.copied{background:rgba(74,232,122,0.12);color:#4AE87A;border-color:rgba(74,232,122,0.3);}
+.copy-text{
+  padding:14px 16px;font-size:13px;line-height:1.75;color:var(--text);
+  white-space:pre-wrap;word-break:break-word;font-family:var(--sans);
+}
+.copy-text.mono{font-family:var(--mono);font-size:12px;color:var(--muted);}
+.char-note{padding:6px 16px 12px;font-family:var(--mono);font-size:10px;color:var(--dim);}
+.char-note span{color:var(--accent);}
+
+/* tweet thread */
+.thread{display:flex;flex-direction:column;gap:2px;margin-top:10px;}
+.tweet{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.tweet+.tweet{border-top-left-radius:0;border-top-right-radius:0;margin-top:2px;}
+.tweet-head{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;border-bottom:1px solid var(--border);}
+.tweet-n{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:0.06em;text-transform:uppercase;}
+.tweet-body{padding:12px 16px;}
+.tweet-text{font-size:13px;line-height:1.72;color:var(--text);white-space:pre-wrap;}
+.tweet-count{font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:6px;}
+
+/* checklist */
+.checklist{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.check-item{display:flex;align-items:flex-start;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 14px;}
+.check-box{
+  width:17px;height:17px;border:1.5px solid var(--border2);border-radius:3px;
+  flex-shrink:0;margin-top:1px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.check-box.done{background:var(--accent);border-color:var(--accent);}
+.check-box.done::after{content:'';width:4px;height:8px;border:2px solid #0A0F07;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px);}
+.check-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.check-text strong{color:var(--text);font-weight:600;}
+
+/* notice */
+.notice{background:var(--accent-dim);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.notice strong{color:var(--accent);}
+.alert-orange{background:rgba(255,140,74,0.07);border:1px solid rgba(255,140,74,0.22);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.alert-orange strong{color:var(--orange);}
+
+/* divider */
+hr{border:none;border-top:1px solid var(--border);margin:16px 0;}
+
+/* tags row */
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.tag{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border2);border-radius:4px;padding:2px 8px;}
+
+/* progress bar */
+.progress-bar{
+  position:fixed;top:52px;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--accent) var(--p,0%),transparent var(--p,0%));
+  z-index:99;transition:none;
+}
+</style>
 </head>
-
 <body>
 
-  <header>
-    <div class="logo">LUNO<span>.</span> Launch Roadmap</div>
-    <a class="store-link" href="https://play.google.com/store/apps/details?id=me.nafish.luno" target="_blank">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M3.18 23.76c.37.2.8.22 1.19.04L15.34 12 4.37.2C3.98.02 3.55.04 3.18.24 2.46.64 2 1.42 2 2.28v19.44c0 .86.46 1.64 1.18 2.04z" />
-        <path
-          d="M20.09 10.27L17.2 8.68 13.6 12l3.6 3.32 2.9-1.59c.83-.45 1.37-1.31 1.37-2.23 0-.92-.54-1.77-1.38-2.23z" />
-      </svg>
-      Live on Play Store
-    </a>
-  </header>
-  <div class="progress-bar" id="prog"></div>
+<header>
+  <div class="logo">LUNO<span>.</span> Launch Roadmap</div>
+  <a class="store-link" href="https://play.google.com/store/apps/details?id=me.nafish.luno" target="_blank">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.2.8.22 1.19.04L15.34 12 4.37.2C3.98.02 3.55.04 3.18.24 2.46.64 2 1.42 2 2.28v19.44c0 .86.46 1.64 1.18 2.04z"/><path d="M20.09 10.27L17.2 8.68 13.6 12l3.6 3.32 2.9-1.59c.83-.45 1.37-1.31 1.37-2.23 0-.92-.54-1.77-1.38-2.23z"/></svg>
+    Live on Play Store
+  </a>
+</header>
+<div class="progress-bar" id="prog"></div>
 
-  <div class="hero">
-    <h1>When. What. <em>Where.</em></h1>
-    <p>A linear step-by-step plan from today through Month 2. Every post, every platform, every piece of copy is right
-      here — no switching tabs, no losing context. Check items off as you go.</p>
-  </div>
+<div class="hero">
+  <h1>When. What. <em>Where.</em></h1>
+  <p>A linear step-by-step plan from today through Month 2. Every post, every platform, every piece of copy is right here — no switching tabs, no losing context. Check items off as you go.</p>
+</div>
 
-  <div class="phases">
+<div class="phases">
 
-    <!-- ══════════════════════════════════════════════════
+<!-- ══════════════════════════════════════════════════
      PHASE 0 — IMMEDIATE PREP
 ══════════════════════════════════════════════════ -->
-    <div class="phase">
-      <div class="phase-line"></div>
-      <div class="phase-head">
-        <div class="phase-num ph-done">✓</div>
-        <div class="phase-info">
-          <div class="phase-label pl-0">Phase 0</div>
-          <div class="phase-title">App is Live — Immediate Prep</div>
-          <div class="phase-when">Do today, before any posting</div>
-        </div>
+<div class="phase">
+  <div class="phase-line"></div>
+  <div class="phase-head">
+    <div class="phase-num ph-done">✓</div>
+    <div class="phase-info">
+      <div class="phase-label pl-0">Phase 0</div>
+      <div class="phase-title">App is Live — Immediate Prep</div>
+      <div class="phase-when">Do today, before any posting</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">01</span><span class="step-when">Today</span></div>
+        <span class="step-platform sp-store">Play Store</span>
       </div>
-      <div class="phase-body">
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">01</span><span class="step-when">Today</span></div>
-            <span class="step-platform sp-store">Play Store</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Verify your Play Store listing is complete</div>
-            <div class="step-desc">Traffic without a great listing = wasted effort. Check everything now.</div>
-            <div class="step-actions">
-              <div class="step-action">Feature graphic 1024×500 uploaded and visible in search results</div>
-              <div class="step-action">All 5 screenshots uploaded in order: Onboarding → Dashboard → Analytics →
-                Transactions → Categories</div>
-              <div class="step-action">Short description is exactly 80 chars or less (copy below is ready)</div>
-              <div class="step-action">Long description has the Play Store link in it:
-                <strong>play.google.com/store/apps/details?id=me.nafish.luno</strong>
-              </div>
-              <div class="step-action">Privacy policy URL is live and accessible</div>
-              <div class="step-action">App category set to <strong>Finance</strong></div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head">
-                <span class="copy-block-label">Short Description (79 chars)</span>
-                <button class="copy-btn" onclick="cp(this,'sd-short')">Copy</button>
-              </div>
-              <div class="copy-text" id="sd-short">Private, local-first finance tracker. Know where your money goes.
-              </div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head">
-                <span class="copy-block-label">Long Description</span>
-                <button class="copy-btn" onclick="cp(this,'sd-long')">Copy</button>
-              </div>
-              <div class="copy-text" id="sd-long">Luno is a personal finance manager built for people who want full
-                control over their money — without giving it away to the cloud.
-
-                Every transaction, every balance, every insight lives entirely on your device. No account sign-up. No
-                sync servers. No data collection. Just you and your finances.
-
-                TRACK EVERYTHING THAT MATTERS
-
-                Add income and expenses across multiple accounts — checking, savings, cash, wallets. Luno keeps a
-                running net position so you always know exactly where you stand.
-
-                INSIGHTS THAT ACTUALLY HELP
-
-                - Daily Burn Rate — what you spend on average each day
-                - Savings Rate — the percentage of income you're actually keeping
-                - Financial Runway — how many days your current balance lasts at your spend rate
-                - In/Out Ratio — a clear view of income vs. expenses
-
-                Filter across 7-day, 30-day, 90-day, or all-time windows. Compare periods automatically to see whether
-                you're trending up or down.
-
-                BUILT FOR DETAIL
-
-                Log transactions with notes, timestamps, and category tagging. Swipe to edit or delete. Filter by type,
-                account, or category. Luno automatically reverses account balances when you modify or remove a
-                transaction.
-
-                50+ CATEGORIES, READY TO GO
-
-                Pre-built income and expense categories across Essentials, Transport, Health, Lifestyle, and more.
-                Customize icons and colors to make them your own.
-
-                YOUR DATA STAYS ON YOUR DEVICE
-
-                All data is stored in SQLite on your device. No backend, no cloud sync, no third-party analytics. A full
-                factory reset option lets you wipe everything and start fresh.
-
-                Free to download. No subscription. No tracking. No compromise.</div>
-            </div>
-          </div>
+      <div class="step-body">
+        <div class="step-title">Verify your Play Store listing is complete</div>
+        <div class="step-desc">Traffic without a great listing = wasted effort. Check everything now.</div>
+        <div class="step-actions">
+          <div class="step-action">Feature graphic 1024×500 uploaded and visible in search results</div>
+          <div class="step-action">All 5 screenshots uploaded in order: Onboarding → Dashboard → Analytics → Transactions → Categories</div>
+          <div class="step-action">Short description is exactly 80 chars or less (copy below is ready)</div>
+          <div class="step-action">Long description has the Play Store link in it: <strong>play.google.com/store/apps/details?id=me.nafish.luno</strong></div>
+          <div class="step-action">Privacy policy URL is live and accessible</div>
+          <div class="step-action">App category set to <strong>Finance</strong></div>
         </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">02</span><span class="step-when">Today</span></div>
-            <span class="step-platform sp-dir">AlternativeTo</span>
+        <div class="copy-block">
+          <div class="copy-block-head">
+            <span class="copy-block-label">Short Description (79 chars)</span>
+            <button class="copy-btn" onclick="cp(this,'sd-short')">Copy</button>
           </div>
-          <div class="step-body">
-            <div class="step-title">Submit to AlternativeTo</div>
-            <div class="step-desc">Free long-tail organic installs forever. Takes 10 minutes. List Luno as an
-              alternative to: <strong>Mint, YNAB, Money Manager, Spendee</strong>.</div>
-            <div class="copy-block">
-              <div class="copy-block-head">
-                <span class="copy-block-label">AlternativeTo Description</span>
-                <button class="copy-btn" onclick="cp(this,'alt-desc')">Copy</button>
-              </div>
-              <div class="copy-text" id="alt-desc">Luno is a privacy-first personal finance manager for Android. Unlike
-                Mint, YNAB, or Money Manager, Luno stores all data exclusively on your device — no cloud sync, no
-                account required, no tracking of any kind.
-
-                Track income and expenses across multiple accounts, with 50+ built-in categories. Get practical
-                financial insights including daily burn rate, savings rate, financial runway, and in/out ratio. Filter
-                across 7D, 30D, 90D, or all-time windows.
-
-                Free tier includes full transaction tracking and account management. Premium unlocks the analytics
-                engine with a lifetime purchase option — no subscription.
-
-                Built with React Native, Expo, and SQLite (Drizzle ORM). All data lives locally on your device.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno</div>
-            </div>
-          </div>
+          <div class="copy-text" id="sd-short">Private, local-first finance tracker. Know where your money goes.</div>
         </div>
+        <div class="copy-block">
+          <div class="copy-block-head">
+            <span class="copy-block-label">Long Description</span>
+            <button class="copy-btn" onclick="cp(this,'sd-long')">Copy</button>
+          </div>
+          <div class="copy-text" id="sd-long">Luno is a personal finance manager built for people who want full control over their money — without giving it away to the cloud.
 
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">03</span><span class="step-when">Today</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Create your Twitter/X account if you haven't</div>
-            <div class="step-desc">Handle suggestion: <strong>@lunofin</strong> or <strong>@getluno</strong>. Bio copy
-              below. Pin your launch tweet the moment it goes live.</div>
-            <div class="copy-block">
-              <div class="copy-block-head">
-                <span class="copy-block-label">Twitter Bio</span>
-                <button class="copy-btn" onclick="cp(this,'tw-bio')">Copy</button>
-              </div>
-              <div class="copy-text" id="tw-bio">Local-first personal finance for Android. No cloud. No account. No
-                tracking. Your money stays on your phone. Free to download →
-                play.google.com/store/apps/details?id=me.nafish.luno</div>
-            </div>
-          </div>
+Every transaction, every balance, every insight lives entirely on your device. No account sign-up. No sync servers. No data collection. Just you and your finances.
+
+TRACK EVERYTHING THAT MATTERS
+
+Add income and expenses across multiple accounts — checking, savings, cash, wallets. Luno keeps a running net position so you always know exactly where you stand.
+
+INSIGHTS THAT ACTUALLY HELP
+
+- Daily Burn Rate — what you spend on average each day
+- Savings Rate — the percentage of income you're actually keeping
+- Financial Runway — how many days your current balance lasts at your spend rate
+- In/Out Ratio — a clear view of income vs. expenses
+
+Filter across 7-day, 30-day, 90-day, or all-time windows. Compare periods automatically to see whether you're trending up or down.
+
+BUILT FOR DETAIL
+
+Log transactions with notes, timestamps, and category tagging. Swipe to edit or delete. Filter by type, account, or category. Luno automatically reverses account balances when you modify or remove a transaction.
+
+50+ CATEGORIES, READY TO GO
+
+Pre-built income and expense categories across Essentials, Transport, Health, Lifestyle, and more. Customize icons and colors to make them your own.
+
+YOUR DATA STAYS ON YOUR DEVICE
+
+All data is stored in SQLite on your device. No backend, no cloud sync, no third-party analytics. A full factory reset option lets you wipe everything and start fresh.
+
+Free to download. No subscription. No tracking. No compromise.</div>
         </div>
-
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">02</span><span class="step-when">Today</span></div>
+        <span class="step-platform sp-dir">AlternativeTo</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Submit to AlternativeTo</div>
+        <div class="step-desc">Free long-tail organic installs forever. Takes 10 minutes. List Luno as an alternative to: <strong>Mint, YNAB, Money Manager, Spendee</strong>.</div>
+        <div class="copy-block">
+          <div class="copy-block-head">
+            <span class="copy-block-label">AlternativeTo Description</span>
+            <button class="copy-btn" onclick="cp(this,'alt-desc')">Copy</button>
+          </div>
+          <div class="copy-text" id="alt-desc">Luno is a privacy-first personal finance manager for Android. Unlike Mint, YNAB, or Money Manager, Luno stores all data exclusively on your device — no cloud sync, no account required, no tracking of any kind.
+
+Track income and expenses across multiple accounts, with 50+ built-in categories. Get practical financial insights including daily burn rate, savings rate, financial runway, and in/out ratio. Filter across 7D, 30D, 90D, or all-time windows.
+
+Free tier includes full transaction tracking and account management. Premium unlocks the analytics engine with a lifetime purchase option — no subscription.
+
+Built with React Native, Expo, and SQLite (Drizzle ORM). All data lives locally on your device.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">03</span><span class="step-when">Today</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Create your Twitter/X account if you haven't</div>
+        <div class="step-desc">Handle suggestion: <strong>@lunofin</strong> or <strong>@getluno</strong>. Bio copy below. Pin your launch tweet the moment it goes live.</div>
+        <div class="copy-block">
+          <div class="copy-block-head">
+            <span class="copy-block-label">Twitter Bio</span>
+            <button class="copy-btn" onclick="cp(this,'tw-bio')">Copy</button>
+          </div>
+          <div class="copy-text" id="tw-bio">Local-first personal finance for Android. No cloud. No account. No tracking. Your money stays on your phone. Free to download → play.google.com/store/apps/details?id=me.nafish.luno</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
      PHASE 1 — WARM UP (Days 1–5)
 ══════════════════════════════════════════════════ -->
-    <div class="phase">
-      <div class="phase-line"></div>
-      <div class="phase-head">
-        <div class="phase-num ph-1">1</div>
-        <div class="phase-info">
-          <div class="phase-label pl-1">Phase 1</div>
-          <div class="phase-title">Build-in-Public Warm-Up</div>
-          <div class="phase-when">Days 1–5 before your big Reddit push</div>
-        </div>
+<div class="phase">
+  <div class="phase-line"></div>
+  <div class="phase-head">
+    <div class="phase-num ph-1">1</div>
+    <div class="phase-info">
+      <div class="phase-label pl-1">Phase 1</div>
+      <div class="phase-title">Build-in-Public Warm-Up</div>
+      <div class="phase-when">Days 1–5 before your big Reddit push</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="notice"><strong>Why warm up?</strong> Cold accounts with no history get ignored. 3–4 dev log tweets spread over a few days make your launch thread land much better. Post these 1 per day.</div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">04</span><span class="step-when">Day 1</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
       </div>
-      <div class="phase-body">
+      <div class="step-body">
+        <div class="step-title">Dev log — The metric that started it all</div>
+        <div class="thread">
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn" onclick="cp(this,'tw-dev-1')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-dev-1">The metric I'm most proud of in Luno:
 
-        <div class="notice"><strong>Why warm up?</strong> Cold accounts with no history get ignored. 3–4 dev log tweets
-          spread over a few days make your launch thread land much better. Post these 1 per day.</div>
+Financial Runway = balance / avg daily spend
 
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">04</span><span class="step-when">Day 1</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Dev log — The metric that started it all</div>
-            <div class="thread">
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn"
-                    onclick="cp(this,'tw-dev-1')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-dev-1">The metric I'm most proud of in Luno:
+One number that tells you exactly how many days you could go without income.
 
-                    Financial Runway = balance / avg daily spend
+Most apps don't show this. I made it front and center.
 
-                    One number that tells you exactly how many days you could go without income.
-
-                    Most apps don't show this. I made it front and center.
-
-                    #buildinpublic #indiedev</div>
-                  <div class="tweet-count">251 / 280 chars</div>
-                </div>
-              </div>
-            </div>
+#buildinpublic #indiedev</div>
+            <div class="tweet-count">251 / 280 chars</div></div>
           </div>
         </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">05</span><span class="step-when">Day 2</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Dev log — Why local-first</div>
-            <div class="thread">
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn"
-                    onclick="cp(this,'tw-dev-2')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-dev-2">Building Luno local-first meant:
-
-                    — No auth system to build
-                    — No backend to maintain
-                    — No cloud costs ever
-                    — No GDPR headaches
-                    — No data breach risk
-
-                    The best privacy feature is not collecting data in the first place.
-
-                    #buildinpublic #privacy</div>
-                  <div class="tweet-count">258 / 280 chars</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">06</span><span class="step-when">Day 3</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Dev log — Freemium model explained</div>
-            <div class="thread">
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn"
-                    onclick="cp(this,'tw-dev-3')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-dev-3">The Luno freemium model in one line:
-
-                    Free = Tracking. Premium = Insights.
-
-                    You can log every transaction forever for free. The analytics engine (burn rate, savings rate,
-                    runway) is premium.
-
-                    Makes the paywall feel fair. Early feedback confirms it.
-
-                    #buildinpublic</div>
-                  <div class="tweet-count">272 / 280 chars</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">07</span><span class="step-when">Day 4</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Dev log — Stack reveal</div>
-            <div class="thread">
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn"
-                    onclick="cp(this,'tw-dev-4')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-dev-4">Built Luno with:
-
-                    React Native + Expo + Expo Router
-                    Drizzle ORM + Expo SQLite
-                    React Native Reanimated
-                    Bricolage Grotesque + JetBrains Mono
-
-                    The hardest part: a component-level paywall (PremiumGuard) that doesn't annoy users.
-
-                    #reactnative #expo #buildinpublic</div>
-                  <div class="tweet-count">269 / 280 chars</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">05</span><span class="step-when">Day 2</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Dev log — Why local-first</div>
+        <div class="thread">
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn" onclick="cp(this,'tw-dev-2')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-dev-2">Building Luno local-first meant:
+
+— No auth system to build
+— No backend to maintain
+— No cloud costs ever
+— No GDPR headaches
+— No data breach risk
+
+The best privacy feature is not collecting data in the first place.
+
+#buildinpublic #privacy</div>
+            <div class="tweet-count">258 / 280 chars</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">06</span><span class="step-when">Day 3</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Dev log — Freemium model explained</div>
+        <div class="thread">
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn" onclick="cp(this,'tw-dev-3')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-dev-3">The Luno freemium model in one line:
+
+Free = Tracking. Premium = Insights.
+
+You can log every transaction forever for free. The analytics engine (burn rate, savings rate, runway) is premium.
+
+Makes the paywall feel fair. Early feedback confirms it.
+
+#buildinpublic</div>
+            <div class="tweet-count">272 / 280 chars</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">07</span><span class="step-when">Day 4</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Dev log — Stack reveal</div>
+        <div class="thread">
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet — standalone</span><button class="copy-btn" onclick="cp(this,'tw-dev-4')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-dev-4">Built Luno with:
+
+React Native + Expo + Expo Router
+Drizzle ORM + Expo SQLite
+React Native Reanimated
+Bricolage Grotesque + JetBrains Mono
+
+The hardest part: a component-level paywall (PremiumGuard) that doesn't annoy users.
+
+#reactnative #expo #buildinpublic</div>
+            <div class="tweet-count">269 / 280 chars</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
      PHASE 2 — LAUNCH DAY
 ══════════════════════════════════════════════════ -->
-    <div class="phase">
-      <div class="phase-line"></div>
-      <div class="phase-head">
-        <div class="phase-num ph-2">2</div>
-        <div class="phase-info">
-          <div class="phase-label pl-2">Phase 2</div>
-          <div class="phase-title">Launch Day — Full Blast</div>
-          <div class="phase-when">Pick a Tuesday or Wednesday — execute in this exact order</div>
-        </div>
+<div class="phase">
+  <div class="phase-line"></div>
+  <div class="phase-head">
+    <div class="phase-num ph-2">2</div>
+    <div class="phase-info">
+      <div class="phase-label pl-2">Phase 2</div>
+      <div class="phase-title">Launch Day — Full Blast</div>
+      <div class="phase-when">Pick a Tuesday or Wednesday — execute in this exact order</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="notice"><strong>Best launch day:</strong> Tuesday or Wednesday. Post Reddit between 9–11 AM EST. Start Twitter thread same morning. Everything on the same day creates a traffic spike that feeds itself.</div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">08</span><span class="step-when">9 AM EST — First</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
       </div>
-      <div class="phase-body">
+      <div class="step-body">
+        <div class="step-title">Post launch thread (7 tweets, pin it immediately)</div>
+        <div class="step-desc">Post all 7 tweets back-to-back as a thread. Attach <strong>tw_1_launch.png</strong> to tweet 1, <strong>tw_2_privacy.png</strong> to tweet 6. Pin tweet 1.</div>
+        <div class="thread">
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 1 / 7 — Hook · attach tw_1_launch.png</span><button class="copy-btn" onclick="cp(this,'tw-1')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-1">Spent months building Luno — a personal finance tracker that stores everything on your device.
 
-        <div class="notice"><strong>Best launch day:</strong> Tuesday or Wednesday. Post Reddit between 9–11 AM EST.
-          Start Twitter thread same morning. Everything on the same day creates a traffic spike that feeds itself.</div>
+No cloud. No account. No tracking.
 
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">08</span><span class="step-when">9 AM EST — First</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
+Just launched on Android. Here's what I built and why. 🧵</div>
+            <div class="tweet-count">190 / 280 chars</div></div>
           </div>
-          <div class="step-body">
-            <div class="step-title">Post launch thread (7 tweets, pin it immediately)</div>
-            <div class="step-desc">Post all 7 tweets back-to-back as a thread. Attach <strong>tw_1_launch.png</strong>
-              to tweet 1, <strong>tw_2_privacy.png</strong> to tweet 6. Pin tweet 1.</div>
-            <div class="thread">
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 1 / 7 — Hook · attach tw_1_launch.png</span><button
-                    class="copy-btn" onclick="cp(this,'tw-1')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-1">Spent months building Luno — a personal finance tracker that stores
-                    everything on your device.
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 2 / 7 — The Problem</span><button class="copy-btn" onclick="cp(this,'tw-2')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-2">Most finance apps want your bank login. Or they sync to a cloud you don't control. Or they show you ads.
 
-                    No cloud. No account. No tracking.
+I wanted an app where my financial data never leaves my phone.
 
-                    Just launched on Android. Here's what I built and why. 🧵</div>
-                  <div class="tweet-count">190 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 2 / 7 — The Problem</span><button class="copy-btn"
-                    onclick="cp(this,'tw-2')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-2">Most finance apps want your bank login. Or they sync to a cloud you
-                    don't control. Or they show you ads.
+So I built it.</div>
+            <div class="tweet-count">185 / 280 chars</div></div>
+          </div>
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 3 / 7 — The Product</span><button class="copy-btn" onclick="cp(this,'tw-3')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-3">Luno tracks:
 
-                    I wanted an app where my financial data never leaves my phone.
+— Income + expenses across multiple accounts
+— 50+ built-in categories
+— Daily burn rate
+— Savings rate
+— Financial runway (days your balance lasts)
+— In/out ratio
 
-                    So I built it.</div>
-                  <div class="tweet-count">185 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 3 / 7 — The Product</span><button class="copy-btn"
-                    onclick="cp(this,'tw-3')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-3">Luno tracks:
+All calculated locally. All stored in SQLite on your device.</div>
+            <div class="tweet-count">248 / 280 chars</div></div>
+          </div>
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 4 / 7 — The Stack</span><button class="copy-btn" onclick="cp(this,'tw-4')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-4">Built with:
 
-                    — Income + expenses across multiple accounts
-                    — 50+ built-in categories
-                    — Daily burn rate
-                    — Savings rate
-                    — Financial runway (days your balance lasts)
-                    — In/out ratio
+React Native + Expo + Expo Router
+Drizzle ORM + Expo SQLite
+React Native Reanimated
+Bricolage Grotesque + JetBrains Mono
 
-                    All calculated locally. All stored in SQLite on your device.</div>
-                  <div class="tweet-count">248 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 4 / 7 — The Stack</span><button class="copy-btn"
-                    onclick="cp(this,'tw-4')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-4">Built with:
+The local-first architecture was the biggest challenge. Worth it.
 
-                    React Native + Expo + Expo Router
-                    Drizzle ORM + Expo SQLite
-                    React Native Reanimated
-                    Bricolage Grotesque + JetBrains Mono
+#reactnative #expo #buildinpublic</div>
+            <div class="tweet-count">267 / 280 chars</div></div>
+          </div>
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 5 / 7 — The Model</span><button class="copy-btn" onclick="cp(this,'tw-5')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-5">Free tier: full transaction tracking, accounts, categories.
 
-                    The local-first architecture was the biggest challenge. Worth it.
+Premium: analytics engine (burn rate, savings rate, runway, period comparisons).
 
-                    #reactnative #expo #buildinpublic</div>
-                  <div class="tweet-count">267 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 5 / 7 — The Model</span><button class="copy-btn"
-                    onclick="cp(this,'tw-5')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-5">Free tier: full transaction tracking, accounts, categories.
+Lifetime unlock available. No subscription ever.
 
-                    Premium: analytics engine (burn rate, savings rate, runway, period comparisons).
+Free = Tracking. Premium = Insights.</div>
+            <div class="tweet-count">232 / 280 chars</div></div>
+          </div>
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 6 / 7 — Privacy · attach tw_2_privacy.png</span><button class="copy-btn" onclick="cp(this,'tw-6')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-6">The privacy model is simple:
 
-                    Lifetime unlock available. No subscription ever.
+There are no servers.
 
-                    Free = Tracking. Premium = Insights.</div>
-                  <div class="tweet-count">232 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 6 / 7 — Privacy · attach
-                    tw_2_privacy.png</span><button class="copy-btn" onclick="cp(this,'tw-6')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-6">The privacy model is simple:
+No backend to breach. No account to hack. No data to sell.
 
-                    There are no servers.
+Factory reset wipes everything locally. Uninstall removes everything.
 
-                    No backend to breach. No account to hack. No data to sell.
+Your money. Your phone. Your data.</div>
+            <div class="tweet-count">212 / 280 chars</div></div>
+          </div>
+          <div class="tweet">
+            <div class="tweet-head"><span class="tweet-n">Tweet 7 / 7 — CTA</span><button class="copy-btn" onclick="cp(this,'tw-7')">Copy</button></div>
+            <div class="tweet-body"><div class="tweet-text" id="tw-7">Luno is live on Android. Free to download.
 
-                    Factory reset wipes everything locally. Uninstall removes everything.
+If you care about owning your financial data, I'd love for you to try it.
 
-                    Your money. Your phone. Your data.</div>
-                  <div class="tweet-count">212 / 280 chars</div>
-                </div>
-              </div>
-              <div class="tweet">
-                <div class="tweet-head"><span class="tweet-n">Tweet 7 / 7 — CTA</span><button class="copy-btn"
-                    onclick="cp(this,'tw-7')">Copy</button></div>
-                <div class="tweet-body">
-                  <div class="tweet-text" id="tw-7">Luno is live on Android. Free to download.
+play.google.com/store/apps/details?id=me.nafish.luno
 
-                    If you care about owning your financial data, I'd love for you to try it.
+Feedback welcome — I read everything.
 
-                    play.google.com/store/apps/details?id=me.nafish.luno
-
-                    Feedback welcome — I read everything.
-
-                    #indiedev #personalfinance #privacy #android</div>
-                  <div class="tweet-count">261 / 280 chars</div>
-                </div>
-              </div>
-            </div>
+#indiedev #personalfinance #privacy #android</div>
+            <div class="tweet-count">261 / 280 chars</div></div>
           </div>
         </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">09</span><span class="step-when">10 AM EST</span></div>
-            <span class="step-platform sp-reddit">r/androidapps</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Post on r/androidapps — highest install volume</div>
-            <div class="step-desc">Attach images: <strong>feature_graphic_1024x500.png</strong> +
-              <strong>screenshot_2_dashboard.png</strong> + <strong>screenshot_3_stats.png</strong>. No heavy text
-              overlays.
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn"
-                  onclick="cp(this,'r1-title')">Copy</button></div>
-              <div class="copy-text" id="r1-title">I built a personal finance tracker that stores everything locally —
-                no cloud, no account, no tracking. It's called Luno.</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn"
-                  onclick="cp(this,'r1-body')">Copy</button></div>
-              <div class="copy-text" id="r1-body">Hey r/androidapps,
-
-                I've been building Luno for the past few months — a personal finance manager for Android that takes
-                privacy seriously.
-
-                The core idea: your financial data should never leave your device. No sync servers, no accounts, no
-                analytics SDKs. Everything lives in SQLite on your phone.
-
-                What it does:
-                - Track income and expenses across multiple accounts
-                - 50+ built-in categories (Essentials, Transport, Health, Lifestyle, etc.)
-                - Advanced metrics: daily burn rate, savings rate, financial runway, in/out ratio
-                - 7D / 30D / 90D / All-time filters
-                - Period-over-period comparison
-                - Swipe to edit or delete transactions with automatic balance reversal
-                - Light, dark, and system themes
-
-                Free tier covers full transaction tracking and account management. Premium unlocks the analytics engine
-                (savings rate, runway, burn metrics) with a one-time lifetime purchase.
-
-                Built with React Native + Expo + Drizzle ORM + SQLite.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                Happy to answer any questions. Would love honest feedback from this community.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">10</span><span class="step-when">11 AM EST</span></div>
-            <span class="step-platform sp-reddit">r/privacy</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Post on r/privacy — high intent, privacy-first audience</div>
-            <div class="step-desc">Attach: <strong>reddit_privacy.png</strong>. This community cares deeply about the
-              local-first angle — lean into it hard.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn"
-                  onclick="cp(this,'r2-title')">Copy</button></div>
-              <div class="copy-text" id="r2-title">Built a finance tracker where your data never touches a server —
-                fully offline, SQLite on-device, no account required</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn"
-                  onclick="cp(this,'r2-body')">Copy</button></div>
-              <div class="copy-text" id="r2-body">I got frustrated with finance apps that require you to hand over bank
-                credentials or sync to some cloud you don't control. So I built Luno.
-
-                The privacy design is simple: there are no servers. Your transactions, balances, and categories live
-                exclusively in a SQLite database on your device. There's no backend to breach, no account to hack, no
-                company storing your financial life.
-
-                What this means practically:
-                - Zero network requests to any Luno infrastructure (ever)
-                - No account creation or sign-in required
-                - No analytics SDK, no crash reporter, no ad framework
-                - Full factory reset built-in to wipe everything locally
-                - Uninstalling removes everything
-
-                It's a fully functional finance tracker — multiple accounts, 50+ categories, analytics with burn rate /
-                savings rate / runway metrics.
-
-                Free to download. No subscription. Lifetime premium option for the advanced analytics.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                Would genuinely appreciate feedback from people who care about this stuff.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">11</span><span class="step-when">2 PM EST</span></div>
-            <span class="step-platform sp-reddit">r/SideProject</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Post on r/SideProject — builder community, text only</div>
-            <div class="step-desc">No images needed here. This community wants the story and the tech decisions.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn"
-                  onclick="cp(this,'r4-title')">Copy</button></div>
-              <div class="copy-text" id="r4-title">Launched Luno — a local-first finance tracker I built with React
-                Native + Expo + SQLite. Here's what I learned.</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn"
-                  onclick="cp(this,'r4-body')">Copy</button></div>
-              <div class="copy-text" id="r4-body">Just shipped v1.0 of Luno after several months of building. Here's a
-                quick post-mortem on the technical choices.
-
-                Stack:
-                - React Native + Expo + Expo Router
-                - Drizzle ORM + Expo SQLite
-                - React Native Reanimated for animations
-                - Bricolage Grotesque + JetBrains Mono for typography
-
-                The hardest part: building a freemium paywall system (PremiumGuard) that gates features at the component
-                level without being annoying. Usage-based triggers + non-intrusive upgrade prompts.
-
-                The most fun part: the analytics engine. Calculating burn rate, savings rate, runway, and in/out ratio
-                from raw transaction data and making it feel instant even with hundreds of records.
-
-                What I'd do differently: start with a design system earlier. I refactored spacing and typography three
-                times.
-
-                The app is live on Android. Local-first, no cloud, lifetime purchase option.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                Happy to talk tech with anyone building something similar.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">12</span><span class="step-when">Launch Day</span></div>
-            <span class="step-platform sp-ph">Product Hunt</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Submit to Product Hunt</div>
-            <div class="step-desc">Submit at <strong>12:01 AM PST</strong> on launch day for maximum 24-hour exposure.
-              Post your maker comment immediately after submission goes live. This is the most important comment you'll
-              write.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Tagline (use the shorter one)</span><button
-                  class="copy-btn" onclick="cp(this,'ph-tagline')">Copy</button></div>
-              <div class="copy-text" id="ph-tagline">Your money stays on your phone. No cloud, no account, no tracking.
-              </div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">PH Description</span><button class="copy-btn"
-                  onclick="cp(this,'ph-desc')">Copy</button></div>
-              <div class="copy-text" id="ph-desc">Luno is a personal finance manager built for people who want real
-                control over their money — without giving their data to anyone.
-
-                Everything you track — transactions, balances, categories — lives in SQLite on your device. There are no
-                servers, no accounts, and no analytics. Just you and your finances.
-
-                Key features:
-                - Multi-account tracking with live net position
-                - 50+ built-in categories across Essentials, Transport, Health, Lifestyle
-                - Analytics: daily burn rate, savings rate, financial runway, in/out ratio
-                - Time filters: 7D, 30D, 90D, All-time
-                - Period-over-period delta tracking
-                - Swipe gestures with automatic balance reversal
-                - Full light/dark/system theme support
-
-                Free tier covers full transaction tracking. Premium unlocks the analytics engine with a lifetime
-                purchase option.
-
-                No subscription. No cloud. No compromise.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Maker Comment — post this immediately after
-                  going live</span><button class="copy-btn" onclick="cp(this,'ph-comment')">Copy</button></div>
-              <div class="copy-text" id="ph-comment">Hey Product Hunt — I'm the solo developer behind Luno.
-
-                I started building this because I was frustrated. Every finance app I tried either wanted my bank
-                credentials, pushed me toward a $10/month subscription, or quietly synced my spending data to servers
-                I'd never see.
-
-                I just wanted a simple answer to: how many days could I survive if I stopped earning tomorrow?
-
-                That number — financial runway — is what drove me to build Luno. It's the metric that makes abstract
-                savings feel real.
-
-                The app is local-first by design. No backend infrastructure exists. Your data never leaves your phone.
-                This was a conscious choice, not a limitation.
-
-                I built it solo with React Native + Expo + SQLite over several months of nights and weekends.
-
-                The free tier gives you full transaction tracking forever. Premium unlocks the analytics engine with a
-                one-time lifetime purchase — no subscription, ever.
-
-                I'd genuinely love your feedback — especially on the freemium split and the UX. Happy to answer
-                anything.</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Topics / Tags</span><button class="copy-btn"
-                  onclick="cp(this,'ph-tags')">Copy</button></div>
-              <div class="copy-text" id="ph-tags">Finance, Productivity, Android, Privacy</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">13</span><span class="step-when">All day</span></div>
-            <span class="step-platform sp-store">Respond</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Monitor and respond — reply within 2 hours all day</div>
-            <div class="step-actions">
-              <div class="step-action">Reply to every Reddit comment on your posts — especially early upvotes</div>
-              <div class="step-action">Reply to every PH comment — the maker activity score matters for ranking</div>
-              <div class="step-action">Notify your personal network — DM friends for honest Play Store reviews</div>
-              <div class="step-action">Check Play Store Console for any crashes or new reviews</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">09</span><span class="step-when">10 AM EST</span></div>
+        <span class="step-platform sp-reddit">r/androidapps</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Post on r/androidapps — highest install volume</div>
+        <div class="step-desc">Attach images: <strong>feature_graphic_1024x500.png</strong> + <strong>screenshot_2_dashboard.png</strong> + <strong>screenshot_3_stats.png</strong>. No heavy text overlays.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn" onclick="cp(this,'r1-title')">Copy</button></div>
+          <div class="copy-text" id="r1-title">I built a personal finance tracker that stores everything locally — no cloud, no account, no tracking. It's called Luno.</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn" onclick="cp(this,'r1-body')">Copy</button></div>
+          <div class="copy-text" id="r1-body">Hey r/androidapps,
+
+I've been building Luno for the past few months — a personal finance manager for Android that takes privacy seriously.
+
+The core idea: your financial data should never leave your device. No sync servers, no accounts, no analytics SDKs. Everything lives in SQLite on your phone.
+
+What it does:
+- Track income and expenses across multiple accounts
+- 50+ built-in categories (Essentials, Transport, Health, Lifestyle, etc.)
+- Advanced metrics: daily burn rate, savings rate, financial runway, in/out ratio
+- 7D / 30D / 90D / All-time filters
+- Period-over-period comparison
+- Swipe to edit or delete transactions with automatic balance reversal
+- Light, dark, and system themes
+
+Free tier covers full transaction tracking and account management. Premium unlocks the analytics engine (savings rate, runway, burn metrics) with a one-time lifetime purchase.
+
+Built with React Native + Expo + Drizzle ORM + SQLite.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
+
+Happy to answer any questions. Would love honest feedback from this community.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">10</span><span class="step-when">11 AM EST</span></div>
+        <span class="step-platform sp-reddit">r/privacy</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Post on r/privacy — high intent, privacy-first audience</div>
+        <div class="step-desc">Attach: <strong>reddit_privacy.png</strong>. This community cares deeply about the local-first angle — lean into it hard.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn" onclick="cp(this,'r2-title')">Copy</button></div>
+          <div class="copy-text" id="r2-title">Built a finance tracker where your data never touches a server — fully offline, SQLite on-device, no account required</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn" onclick="cp(this,'r2-body')">Copy</button></div>
+          <div class="copy-text" id="r2-body">I got frustrated with finance apps that require you to hand over bank credentials or sync to some cloud you don't control. So I built Luno.
+
+The privacy design is simple: there are no servers. Your transactions, balances, and categories live exclusively in a SQLite database on your device. There's no backend to breach, no account to hack, no company storing your financial life.
+
+What this means practically:
+- Zero network requests to any Luno infrastructure (ever)
+- No account creation or sign-in required
+- No analytics SDK, no crash reporter, no ad framework
+- Full factory reset built-in to wipe everything locally
+- Uninstalling removes everything
+
+It's a fully functional finance tracker — multiple accounts, 50+ categories, analytics with burn rate / savings rate / runway metrics.
+
+Free to download. No subscription. Lifetime premium option for the advanced analytics.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
+
+Would genuinely appreciate feedback from people who care about this stuff.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">11</span><span class="step-when">2 PM EST</span></div>
+        <span class="step-platform sp-reddit">r/SideProject</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Post on r/SideProject — builder community, text only</div>
+        <div class="step-desc">No images needed here. This community wants the story and the tech decisions.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn" onclick="cp(this,'r4-title')">Copy</button></div>
+          <div class="copy-text" id="r4-title">Launched Luno — a local-first finance tracker I built with React Native + Expo + SQLite. Here's what I learned.</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn" onclick="cp(this,'r4-body')">Copy</button></div>
+          <div class="copy-text" id="r4-body">Just shipped v1.0 of Luno after several months of building. Here's a quick post-mortem on the technical choices.
+
+Stack:
+- React Native + Expo + Expo Router
+- Drizzle ORM + Expo SQLite
+- React Native Reanimated for animations
+- Bricolage Grotesque + JetBrains Mono for typography
+
+The hardest part: building a freemium paywall system (PremiumGuard) that gates features at the component level without being annoying. Usage-based triggers + non-intrusive upgrade prompts.
+
+The most fun part: the analytics engine. Calculating burn rate, savings rate, runway, and in/out ratio from raw transaction data and making it feel instant even with hundreds of records.
+
+What I'd do differently: start with a design system earlier. I refactored spacing and typography three times.
+
+The app is live on Android. Local-first, no cloud, lifetime purchase option.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
+
+Happy to talk tech with anyone building something similar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">12</span><span class="step-when">Launch Day</span></div>
+        <span class="step-platform sp-ph">Product Hunt</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Submit to Product Hunt</div>
+        <div class="step-desc">Submit at <strong>12:01 AM PST</strong> on launch day for maximum 24-hour exposure. Post your maker comment immediately after submission goes live. This is the most important comment you'll write.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Tagline (use the shorter one)</span><button class="copy-btn" onclick="cp(this,'ph-tagline')">Copy</button></div>
+          <div class="copy-text" id="ph-tagline">Your money stays on your phone. No cloud, no account, no tracking.</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">PH Description</span><button class="copy-btn" onclick="cp(this,'ph-desc')">Copy</button></div>
+          <div class="copy-text" id="ph-desc">Luno is a personal finance manager built for people who want real control over their money — without giving their data to anyone.
+
+Everything you track — transactions, balances, categories — lives in SQLite on your device. There are no servers, no accounts, and no analytics. Just you and your finances.
+
+Key features:
+- Multi-account tracking with live net position
+- 50+ built-in categories across Essentials, Transport, Health, Lifestyle
+- Analytics: daily burn rate, savings rate, financial runway, in/out ratio
+- Time filters: 7D, 30D, 90D, All-time
+- Period-over-period delta tracking
+- Swipe gestures with automatic balance reversal
+- Full light/dark/system theme support
+
+Free tier covers full transaction tracking. Premium unlocks the analytics engine with a lifetime purchase option.
+
+No subscription. No cloud. No compromise.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Maker Comment — post this immediately after going live</span><button class="copy-btn" onclick="cp(this,'ph-comment')">Copy</button></div>
+          <div class="copy-text" id="ph-comment">Hey Product Hunt — I'm the solo developer behind Luno.
+
+I started building this because I was frustrated. Every finance app I tried either wanted my bank credentials, pushed me toward a $10/month subscription, or quietly synced my spending data to servers I'd never see.
+
+I just wanted a simple answer to: how many days could I survive if I stopped earning tomorrow?
+
+That number — financial runway — is what drove me to build Luno. It's the metric that makes abstract savings feel real.
+
+The app is local-first by design. No backend infrastructure exists. Your data never leaves your phone. This was a conscious choice, not a limitation.
+
+I built it solo with React Native + Expo + SQLite over several months of nights and weekends.
+
+The free tier gives you full transaction tracking forever. Premium unlocks the analytics engine with a one-time lifetime purchase — no subscription, ever.
+
+I'd genuinely love your feedback — especially on the freemium split and the UX. Happy to answer anything.</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Topics / Tags</span><button class="copy-btn" onclick="cp(this,'ph-tags')">Copy</button></div>
+          <div class="copy-text" id="ph-tags">Finance, Productivity, Android, Privacy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">13</span><span class="step-when">All day</span></div>
+        <span class="step-platform sp-store">Respond</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Monitor and respond — reply within 2 hours all day</div>
+        <div class="step-actions">
+          <div class="step-action">Reply to every Reddit comment on your posts — especially early upvotes</div>
+          <div class="step-action">Reply to every PH comment — the maker activity score matters for ranking</div>
+          <div class="step-action">Notify your personal network — DM friends for honest Play Store reviews</div>
+          <div class="step-action">Check Play Store Console for any crashes or new reviews</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
      PHASE 3 — FINANCE COMMUNITY PUSH (Days 3–7)
 ══════════════════════════════════════════════════ -->
-    <div class="phase">
-      <div class="phase-line"></div>
-      <div class="phase-head">
-        <div class="phase-num ph-3">3</div>
-        <div class="phase-info">
-          <div class="phase-label pl-3">Phase 3</div>
-          <div class="phase-title">Finance Community Push</div>
-          <div class="phase-when">Days 3–7 after launch — don't rush this</div>
-        </div>
+<div class="phase">
+  <div class="phase-line"></div>
+  <div class="phase-head">
+    <div class="phase-num ph-3">3</div>
+    <div class="phase-info">
+      <div class="phase-label pl-3">Phase 3</div>
+      <div class="phase-title">Finance Community Push</div>
+      <div class="phase-when">Days 3–7 after launch — don't rush this</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="alert-orange"><strong>Wait at least 2 days</strong> after launch before posting in finance subreddits. Posting too soon looks desperate. Wait until you have some reviews and organic momentum first.</div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">14</span><span class="step-when">Day 3 — Tue/Wed/Thu 9 AM EST</span></div>
+        <span class="step-platform sp-reddit">r/personalfinance</span>
       </div>
-      <div class="phase-body">
-
-        <div class="alert-orange"><strong>Wait at least 2 days</strong> after launch before posting in finance
-          subreddits. Posting too soon looks desperate. Wait until you have some reviews and organic momentum first.
+      <div class="step-body">
+        <div class="step-title">Post on r/personalfinance — lead with the concept, not the app</div>
+        <div class="step-desc"><strong>No images here.</strong> This subreddit is strict about self-promotion. Lead with the financial concept of runway — the app mention comes at the end naturally.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn" onclick="cp(this,'r3-title')">Copy</button></div>
+          <div class="copy-text" id="r3-title">I built a free finance tracker because I wanted to know my "financial runway" — how many days my savings would last at my current spend rate</div>
         </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn" onclick="cp(this,'r3-body')">Copy</button></div>
+          <div class="copy-text" id="r3-body">The metric that changed how I think about money isn't net worth or monthly budget — it's financial runway.
 
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">14</span><span class="step-when">Day 3 — Tue/Wed/Thu 9 AM
-                EST</span></div>
-            <span class="step-platform sp-reddit">r/personalfinance</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Post on r/personalfinance — lead with the concept, not the app</div>
-            <div class="step-desc"><strong>No images here.</strong> This subreddit is strict about self-promotion. Lead
-              with the financial concept of runway — the app mention comes at the end naturally.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn"
-                  onclick="cp(this,'r3-title')">Copy</button></div>
-              <div class="copy-text" id="r3-title">I built a free finance tracker because I wanted to know my "financial
-                runway" — how many days my savings would last at my current spend rate</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn"
-                  onclick="cp(this,'r3-body')">Copy</button></div>
-              <div class="copy-text" id="r3-body">The metric that changed how I think about money isn't net worth or
-                monthly budget — it's financial runway.
+Runway = current balance / average daily spend
 
-                Runway = current balance / average daily spend
+It tells you exactly how many days you could survive without any income. It's the number that makes abstract "savings" feel real and urgent.
 
-                It tells you exactly how many days you could survive without any income. It's the number that makes
-                abstract "savings" feel real and urgent.
+I built Luno specifically because I couldn't find a simple app that showed me this, plus daily burn rate and savings rate, without requiring cloud sync or a subscription.
 
-                I built Luno specifically because I couldn't find a simple app that showed me this, plus daily burn rate
-                and savings rate, without requiring cloud sync or a subscription.
+The app tracks:
+- Daily burn rate (avg spend per day)
+- Savings rate (% of income retained)
+- Financial runway (days your balance lasts)
+- In/out ratio (income vs expenses)
 
-                The app tracks:
-                - Daily burn rate (avg spend per day)
-                - Savings rate (% of income retained)
-                - Financial runway (days your balance lasts)
-                - In/out ratio (income vs expenses)
+Everything works offline. No account needed. Data stays on your device.
 
-                Everything works offline. No account needed. Data stays on your device.
+Free to download on Android: https://play.google.com/store/apps/details?id=me.nafish.luno
 
-                Free to download on Android: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                Would love to know if this metric resonates with anyone else here.</div>
-            </div>
-          </div>
+Would love to know if this metric resonates with anyone else here.</div>
         </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">15</span><span class="step-when">Day 5 — Tue/Wed/Thu 9 AM
-                EST</span></div>
-            <span class="step-platform sp-reddit">r/financialindependence</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Post on r/financialindependence — FIRE angle</div>
-            <div class="step-desc">The FIRE community obsesses over runway, savings rate and burn rate. This is your
-              strongest audience fit. <strong>No images.</strong></div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn"
-                  onclick="cp(this,'r5-title')">Copy</button></div>
-              <div class="copy-text" id="r5-title">Built a local-first finance tracker that shows your "financial
-                runway" — the FIRE metric that makes your number feel real</div>
-            </div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn"
-                  onclick="cp(this,'r5-body')">Copy</button></div>
-              <div class="copy-text" id="r5-body">The number I care most about isn't my net worth — it's my runway.
-
-                Financial Runway = current balance / average daily spend = days until zero
-
-                It's the FIRE metric that makes everything concrete. Not "I have $200,000 saved." But "I have 847 days
-                of freedom." Those feel very different.
-
-                I couldn't find a simple, private app that surfaced this without requiring a subscription or cloud sync.
-                So I built Luno.
-
-                What it tracks:
-                - Financial runway (days your balance lasts at current burn)
-                - Avg daily burn rate
-                - Savings rate (% of income retained)
-                - In/out ratio
-                - Period-over-period delta (are you trending toward FI or away from it?)
-
-                Everything is calculated locally from your own data. No cloud. No account. No third party ever sees your
-                numbers. SQLite on-device only.
-
-                Free tier = full transaction tracking. Premium = the analytics layer. One-time lifetime purchase, no
-                subscription.
-
-                Android only right now: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                Curious if the runway framing resonates with people here, or if there's a different metric you find more
-                useful.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">16</span><span class="step-when">Day 7</span></div>
-            <span class="step-platform sp-email">Creator Outreach</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Send 5 personalised emails to privacy YouTubers</div>
-            <div class="step-desc">Target: <strong>Techlore, The Hated One, Rob Braxman, RationallyParanoid, Side Of
-                Burritos</strong>. Personalise the first line for each creator. Not asking for sponsorship — just a
-              mention.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Email Template</span><button class="copy-btn"
-                  onclick="cp(this,'outreach')">Copy</button></div>
-              <div class="copy-text" id="outreach">Subject: Privacy-first Android finance app — no cloud, no tracking,
-                might interest your audience
-
-                Hi [Name],
-
-                I've been following your content for a while — particularly [personalise: mention a specific video or
-                topic they covered].
-
-                I built something I think your audience would genuinely find useful.
-
-                Luno is a personal finance tracker for Android that stores everything locally. No cloud sync, no account
-                creation, no analytics SDK, no advertising framework. All financial data lives in SQLite on the user's
-                device.
-
-                It's fully functional — multiple accounts, 50+ categories, daily burn rate, savings rate, financial
-                runway metrics. Free tier for basic tracking, lifetime premium for the analytics layer. No subscription.
-
-                Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
-
-                I'm not asking for a sponsored segment — just thought it might be worth a mention if it fits your
-                content. Happy to provide a promo code for premium access or answer any technical questions.
-
-                Thanks for your time either way.
-
-                [Your name]</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">15</span><span class="step-when">Day 5 — Tue/Wed/Thu 9 AM EST</span></div>
+        <span class="step-platform sp-reddit">r/financialindependence</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Post on r/financialindependence — FIRE angle</div>
+        <div class="step-desc">The FIRE community obsesses over runway, savings rate and burn rate. This is your strongest audience fit. <strong>No images.</strong></div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Title</span><button class="copy-btn" onclick="cp(this,'r5-title')">Copy</button></div>
+          <div class="copy-text" id="r5-title">Built a local-first finance tracker that shows your "financial runway" — the FIRE metric that makes your number feel real</div>
+        </div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Body</span><button class="copy-btn" onclick="cp(this,'r5-body')">Copy</button></div>
+          <div class="copy-text" id="r5-body">The number I care most about isn't my net worth — it's my runway.
+
+Financial Runway = current balance / average daily spend = days until zero
+
+It's the FIRE metric that makes everything concrete. Not "I have $200,000 saved." But "I have 847 days of freedom." Those feel very different.
+
+I couldn't find a simple, private app that surfaced this without requiring a subscription or cloud sync. So I built Luno.
+
+What it tracks:
+- Financial runway (days your balance lasts at current burn)
+- Avg daily burn rate
+- Savings rate (% of income retained)
+- In/out ratio
+- Period-over-period delta (are you trending toward FI or away from it?)
+
+Everything is calculated locally from your own data. No cloud. No account. No third party ever sees your numbers. SQLite on-device only.
+
+Free tier = full transaction tracking. Premium = the analytics layer. One-time lifetime purchase, no subscription.
+
+Android only right now: https://play.google.com/store/apps/details?id=me.nafish.luno
+
+Curious if the runway framing resonates with people here, or if there's a different metric you find more useful.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">16</span><span class="step-when">Day 7</span></div>
+        <span class="step-platform sp-email">Creator Outreach</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Send 5 personalised emails to privacy YouTubers</div>
+        <div class="step-desc">Target: <strong>Techlore, The Hated One, Rob Braxman, RationallyParanoid, Side Of Burritos</strong>. Personalise the first line for each creator. Not asking for sponsorship — just a mention.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Email Template</span><button class="copy-btn" onclick="cp(this,'outreach')">Copy</button></div>
+          <div class="copy-text" id="outreach">Subject: Privacy-first Android finance app — no cloud, no tracking, might interest your audience
+
+Hi [Name],
+
+I've been following your content for a while — particularly [personalise: mention a specific video or topic they covered].
+
+I built something I think your audience would genuinely find useful.
+
+Luno is a personal finance tracker for Android that stores everything locally. No cloud sync, no account creation, no analytics SDK, no advertising framework. All financial data lives in SQLite on the user's device.
+
+It's fully functional — multiple accounts, 50+ categories, daily burn rate, savings rate, financial runway metrics. Free tier for basic tracking, lifetime premium for the analytics layer. No subscription.
+
+Play Store: https://play.google.com/store/apps/details?id=me.nafish.luno
+
+I'm not asking for a sponsored segment — just thought it might be worth a mention if it fits your content. Happy to provide a promo code for premium access or answer any technical questions.
+
+Thanks for your time either way.
+
+[Your name]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
      PHASE 4 — SUSTAIN & SECOND WAVE
 ══════════════════════════════════════════════════ -->
-    <div class="phase">
-      <div class="phase-head">
-        <div class="phase-num ph-4">4</div>
-        <div class="phase-info">
-          <div class="phase-label pl-4">Phase 4</div>
-          <div class="phase-title">Sustain + Second Wave</div>
-          <div class="phase-when">Week 2 through Month 2</div>
-        </div>
+<div class="phase">
+  <div class="phase-head">
+    <div class="phase-num ph-4">4</div>
+    <div class="phase-info">
+      <div class="phase-label pl-4">Phase 4</div>
+      <div class="phase-title">Sustain + Second Wave</div>
+      <div class="phase-when">Week 2 through Month 2</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">17</span><span class="step-when">Week 2</span></div>
+        <span class="step-platform sp-twitter">Twitter / X</span>
       </div>
-      <div class="phase-body">
+      <div class="step-body">
+        <div class="step-title">First-week numbers tweet</div>
+        <div class="step-desc">Transparency builds trust. Share your real install numbers — even if small. The builder community respects honesty more than polish.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">Template — fill in your real numbers</span><button class="copy-btn" onclick="cp(this,'tw-numbers')">Copy</button></div>
+          <div class="copy-text" id="tw-numbers">Luno — week 1 numbers:
 
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">17</span><span class="step-when">Week 2</span></div>
-            <span class="step-platform sp-twitter">Twitter / X</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">First-week numbers tweet</div>
-            <div class="step-desc">Transparency builds trust. Share your real install numbers — even if small. The
-              builder community respects honesty more than polish.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">Template — fill in your real
-                  numbers</span><button class="copy-btn" onclick="cp(this,'tw-numbers')">Copy</button></div>
-              <div class="copy-text" id="tw-numbers">Luno — week 1 numbers:
+→ [X] installs
+→ [X] Play Store reviews
+→ [X] premium conversions
 
-                → [X] installs
-                → [X] Play Store reviews
-                → [X] premium conversions
+What worked: [your honest take]
+What didn't: [your honest take]
 
-                What worked: [your honest take]
-                What didn't: [your honest take]
+Still building. Still shipping.
 
-                Still building. Still shipping.
-
-                #buildinpublic #indiedev</div>
-            </div>
-          </div>
+#buildinpublic #indiedev</div>
         </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">18</span><span class="step-when">Week 2</span></div>
-            <span class="step-platform sp-dir">AppBrain</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Submit to AppBrain directory</div>
-            <div class="step-desc">Submit at appbrain.com. Use the short description below.</div>
-            <div class="copy-block">
-              <div class="copy-block-head"><span class="copy-block-label">AppBrain / General Directory
-                  Description</span><button class="copy-btn" onclick="cp(this,'appbrain')">Copy</button></div>
-              <div class="copy-text" id="appbrain">Luno is a local-first personal finance tracker for Android. No cloud,
-                no account, no tracking. All data is stored on-device via SQLite. Track income, expenses, and accounts.
-                Get insights including burn rate, savings rate, and financial runway. Free with optional lifetime
-                premium.
-
-                https://play.google.com/store/apps/details?id=me.nafish.luno</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">19</span><span class="step-when">Ongoing — every week</span>
-            </div>
-            <span class="step-platform sp-store">Play Store</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Respond to every Play Store review</div>
-            <div class="step-actions">
-              <div class="step-action"><strong>1-star:</strong> "Thanks for the feedback. Can you tell me what went
-                wrong? I'd love to fix it — email me at [your email]"</div>
-              <div class="step-action"><strong>2–3 star:</strong> Acknowledge the specific complaint, mention if you're
-                working on it</div>
-              <div class="step-action"><strong>4–5 star:</strong> Thank them and mention one feature coming next — keeps
-                them engaged</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-head">
-            <div class="step-meta"><span class="step-n">20</span><span class="step-when">Month 2 — after Phase 3
-                ships</span></div>
-            <span class="step-platform sp-twitter">All Platforms</span>
-          </div>
-          <div class="step-body">
-            <div class="step-title">Second-wave launch — ship the Insights Layer update</div>
-            <div class="step-desc">Weekly summaries + spending alerts = a second launch moment. Repost everywhere with
-              "Luno just got a big update" framing.</div>
-            <div class="step-actions">
-              <div class="step-action">Post update Twitter thread starting with: <em>"Luno just got a big update. Weekly
-                  summaries. Spending alerts. Runway insights. Here's what shipped."</em></div>
-              <div class="step-action">Post on r/androidapps: <em>"[Update] Luno v1.1 — Added weekly summaries and
-                  spending alerts. Still local-first, still no cloud."</em></div>
-              <div class="step-action">Post a Product Hunt Update on your existing listing</div>
-              <div class="step-action">Consider raising the lifetime premium price — the update justifies it</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FINAL CHECKLIST -->
-        <div
-          style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:20px;">
-          <div
-            style="font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">
-            Master Checklist — check off as you go</div>
-          <div class="checklist">
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 01</strong> — Play Store listing verified (screenshots, descriptions,
-                icon)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 02</strong> — AlternativeTo submitted (Mint, YNAB, Money Manager,
-                Spendee)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 03</strong> — Twitter/X account created, bio set, Play Store link in
-                bio</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Steps 04–07</strong> — 4 warm-up tweets posted (1 per day over 4 days)
-              </div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 08</strong> — Launch thread posted (7 tweets), pinned, images
-                attached</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 09</strong> — r/androidapps post live with images</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 10</strong> — r/privacy post live</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 11</strong> — r/SideProject post live</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 12</strong> — Product Hunt submitted, maker comment posted</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 13</strong> — Monitoring and responding all day</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 14</strong> — r/personalfinance post (Day 3)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 15</strong> — r/financialindependence post (Day 5)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 16</strong> — 5 creator outreach emails sent (Day 7)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 17</strong> — Week 1 numbers tweet posted</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 18</strong> — AppBrain submitted</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 19</strong> — Responding to every Play Store review (ongoing)</div>
-            </div>
-            <div class="check-item">
-              <div class="check-box" onclick="this.classList.toggle('done')"></div>
-              <div class="check-text"><strong>Step 20</strong> — Second-wave launch after Insights Layer ships</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-  </div><!-- /phases -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">18</span><span class="step-when">Week 2</span></div>
+        <span class="step-platform sp-dir">AppBrain</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Submit to AppBrain directory</div>
+        <div class="step-desc">Submit at appbrain.com. Use the short description below.</div>
+        <div class="copy-block">
+          <div class="copy-block-head"><span class="copy-block-label">AppBrain / General Directory Description</span><button class="copy-btn" onclick="cp(this,'appbrain')">Copy</button></div>
+          <div class="copy-text" id="appbrain">Luno is a local-first personal finance tracker for Android. No cloud, no account, no tracking. All data is stored on-device via SQLite. Track income, expenses, and accounts. Get insights including burn rate, savings rate, and financial runway. Free with optional lifetime premium.
 
-  <script>
-    function cp(btn, id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      navigator.clipboard.writeText(el.innerText.trim()).then(() => {
-        const orig = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
-      });
-    }
+https://play.google.com/store/apps/details?id=me.nafish.luno</div>
+        </div>
+      </div>
+    </div>
 
-    // scroll progress bar
-    const prog = document.getElementById('prog');
-    window.addEventListener('scroll', () => {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      const p = Math.round((window.scrollY / h) * 100);
-      prog.style.setProperty('--p', p + '%');
-    }, { passive: true });
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">19</span><span class="step-when">Ongoing — every week</span></div>
+        <span class="step-platform sp-store">Play Store</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Respond to every Play Store review</div>
+        <div class="step-actions">
+          <div class="step-action"><strong>1-star:</strong> "Thanks for the feedback. Can you tell me what went wrong? I'd love to fix it — email me at [your email]"</div>
+          <div class="step-action"><strong>2–3 star:</strong> Acknowledge the specific complaint, mention if you're working on it</div>
+          <div class="step-action"><strong>4–5 star:</strong> Thank them and mention one feature coming next — keeps them engaged</div>
+        </div>
+      </div>
+    </div>
 
-    // persist checkboxes
-    document.querySelectorAll('.check-box').forEach((box, i) => {
-      const key = 'luno_check_' + i;
-      if (localStorage.getItem(key) === '1') box.classList.add('done');
-      box.addEventListener('click', () => {
-        localStorage.setItem(key, box.classList.contains('done') ? '1' : '0');
-      });
-    });
-  </script>
+    <div class="step">
+      <div class="step-head">
+        <div class="step-meta"><span class="step-n">20</span><span class="step-when">Month 2 — after Phase 3 ships</span></div>
+        <span class="step-platform sp-twitter">All Platforms</span>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Second-wave launch — ship the Insights Layer update</div>
+        <div class="step-desc">Weekly summaries + spending alerts = a second launch moment. Repost everywhere with "Luno just got a big update" framing.</div>
+        <div class="step-actions">
+          <div class="step-action">Post update Twitter thread starting with: <em>"Luno just got a big update. Weekly summaries. Spending alerts. Runway insights. Here's what shipped."</em></div>
+          <div class="step-action">Post on r/androidapps: <em>"[Update] Luno v1.1 — Added weekly summaries and spending alerts. Still local-first, still no cloud."</em></div>
+          <div class="step-action">Post a Product Hunt Update on your existing listing</div>
+          <div class="step-action">Consider raising the lifetime premium price — the update justifies it</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL CHECKLIST -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:20px;">
+      <div style="font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Master Checklist — check off as you go</div>
+      <div class="checklist">
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 01</strong> — Play Store listing verified (screenshots, descriptions, icon)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 02</strong> — AlternativeTo submitted (Mint, YNAB, Money Manager, Spendee)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 03</strong> — Twitter/X account created, bio set, Play Store link in bio</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Steps 04–07</strong> — 4 warm-up tweets posted (1 per day over 4 days)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 08</strong> — Launch thread posted (7 tweets), pinned, images attached</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 09</strong> — r/androidapps post live with images</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 10</strong> — r/privacy post live</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 11</strong> — r/SideProject post live</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 12</strong> — Product Hunt submitted, maker comment posted</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 13</strong> — Monitoring and responding all day</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 14</strong> — r/personalfinance post (Day 3)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 15</strong> — r/financialindependence post (Day 5)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 16</strong> — 5 creator outreach emails sent (Day 7)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 17</strong> — Week 1 numbers tweet posted</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 18</strong> — AppBrain submitted</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 19</strong> — Responding to every Play Store review (ongoing)</div></div>
+        <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Step 20</strong> — Second-wave launch after Insights Layer ships</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /phases -->
+
+<script>
+function cp(btn, id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// scroll progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const p = Math.round((window.scrollY / h) * 100);
+  prog.style.setProperty('--p', p + '%');
+}, { passive: true });
+
+// persist checkboxes
+document.querySelectorAll('.check-box').forEach((box, i) => {
+  const key = 'luno_check_' + i;
+  if (localStorage.getItem(key) === '1') box.classList.add('done');
+  box.addEventListener('click', () => {
+    localStorage.setItem(key, box.classList.contains('done') ? '1' : '0');
+  });
+});
+</script>
 </body>
-
 </html>
