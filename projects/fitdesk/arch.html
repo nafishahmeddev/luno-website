@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitDesk — Full Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090f;
+  --s1: #0f0f18;
+  --s2: #161622;
+  --s3: #1e1e2e;
+  --border: #ffffff0d;
+  --border2: #ffffff18;
+  --border3: #ffffff26;
+  --text: #e8e8f0;
+  --muted: #8888a0;
+  --muted2: #55556a;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --orange: #fb923c;
+  --purple: #c084fc;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:13px; line-height:1.6; }
+.wrap { max-width:1200px; margin:0 auto; padding:48px 24px 100px; }
+
+/* NAV */
+.nav { position:sticky; top:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--border2); display:flex; gap:0; overflow-x:auto; padding:0; }
+.nav a { padding:12px 16px; color:var(--muted); text-decoration:none; font-size:11px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; border-bottom:2px solid transparent; transition:all .15s; }
+.nav a:hover { color:var(--text); border-color:var(--muted2); }
+.nav a.active { color:var(--green); border-color:var(--green); }
+
+/* HEADER */
+.header { padding:48px 0 40px; border-bottom:1px solid var(--border2); margin-bottom:48px; }
+.badge { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border2); color:var(--green); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:4px 10px; margin-bottom:20px; }
+.badge::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green); animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:.2} }
+h1 { font-family:'Syne',sans-serif; font-size:clamp(28px,5vw,52px); font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--text); }
+h1 em { color:var(--green); font-style:normal; }
+.subtitle { color:var(--muted); margin-top:12px; font-size:13px; }
+.meta-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.pill { background:var(--s2); border:1px solid var(--border2); padding:4px 10px; font-size:11px; color:var(--muted); }
+.pill span { color:var(--text); }
+
+/* SECTION */
+.section { margin-bottom:64px; scroll-margin-top:60px; }
+.sh { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+.sn { font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted2); }
+.st { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; letter-spacing:-.02em; }
+.sline { flex:1; height:1px; background:var(--border); }
+
+/* TABS */
+.tabs { display:flex; gap:0; border-bottom:1px solid var(--border2); margin-bottom:20px; }
+.tab { padding:8px 16px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; }
+.tab.on { color:var(--blue); border-color:var(--blue); }
+
+/* CODE BLOCK */
+.code-wrap { background:var(--s1); border:1px solid var(--border2); overflow:auto; }
+.code-header { display:flex; align-items:center; justify-content:space-between; padding:8px 16px; border-bottom:1px solid var(--border); background:var(--s2); }
+.code-lang { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2); }
+.code-file { font-size:11px; color:var(--muted); font-family:'JetBrains Mono',monospace; }
+pre { padding:20px; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.7; overflow-x:auto; }
+.k { color:var(--purple); }   /* keyword */
+.t { color:var(--blue); }     /* type */
+.s { color:var(--green); }    /* string */
+.c { color:var(--muted2); }   /* comment */
+.n { color:var(--orange); }   /* number/constant */
+.p { color:var(--yellow); }   /* property */
+.fn { color:var(--cyan); }    /* function */
+.op { color:var(--pink); }    /* operator / decorator */
+
+/* SCHEMA CARD */
+.schema-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
+.schema-card { background:var(--s1); border:1px solid var(--border2); overflow:hidden; }
+.sc-head { padding:14px 16px; background:var(--s2); border-bottom:1px solid var(--border2); display:flex; align-items:center; justify-content:space-between; }
+.sc-name { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; }
+.sc-coll { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); }
+.sc-body { padding:0; }
+.field { display:grid; grid-template-columns:1fr auto auto; gap:8px; align-items:center; padding:7px 16px; border-bottom:1px solid var(--border); }
+.field:last-child { border:none; }
+.field-name { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text); }
+.field-type { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--blue); }
+.field-note { font-size:10px; color:var(--muted2); }
+.badge-pk { background:#4ade8020; border:1px solid #4ade8040; color:var(--green); font-size:9px; padding:1px 5px; letter-spacing:.05em; }
+.badge-fk { background:#60a5fa20; border:1px solid #60a5fa40; color:var(--blue); font-size:9px; padding:1px 5px; letter-spacing:.05em; }
+.badge-idx { background:#fbbf2420; border:1px solid #fbbf2440; color:var(--yellow); font-size:9px; padding:1px 5px; letter-spacing:.05em; }
+.badge-req { background:#f8717120; border:1px solid #f8717140; color:var(--red); font-size:9px; padding:1px 5px; letter-spacing:.05em; }
+.badge-uni { background:#c084fc20; border:1px solid #c084fc40; color:var(--purple); font-size:9px; padding:1px 5px; letter-spacing:.05em; }
+
+/* API TABLE */
+.api-table { width:100%; border-collapse:collapse; border:1px solid var(--border2); }
+.api-table th { background:var(--s2); padding:10px 14px; text-align:left; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2); border-bottom:1px solid var(--border2); font-weight:500; }
+.api-table td { padding:10px 14px; border-bottom:1px solid var(--border); background:var(--s1); vertical-align:top; font-size:12px; }
+.api-table tr:last-child td { border:none; }
+.method { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500; padding:2px 6px; }
+.m-get { background:#4ade8020; color:var(--green); border:1px solid #4ade8030; }
+.m-post { background:#60a5fa20; color:var(--blue); border:1px solid #60a5fa30; }
+.m-put { background:#fbbf2420; color:var(--yellow); border:1px solid #fbbf2430; }
+.m-patch { background:#fb923c20; color:var(--orange); border:1px solid #fb923c30; }
+.m-del { background:#f8717120; color:var(--red); border:1px solid #f8717130; }
+.route { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cyan); }
+.auth-tag { font-size:9px; padding:1px 5px; }
+.auth-pt { background:#c084fc20; border:1px solid #c084fc30; color:var(--purple); }
+.auth-cl { background:#f472b620; border:1px solid #f472b630; color:var(--pink); }
+.auth-pub { background:#8888a020; border:1px solid #8888a030; color:var(--muted); }
+
+/* SCREEN FLOW */
+.flow-section { margin-bottom:32px; }
+.flow-title { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted2); margin-bottom:12px; font-weight:500; }
+.screens-row { display:flex; flex-wrap:wrap; gap:8px; align-items:stretch; }
+.screen-box { background:var(--s2); border:1px solid var(--border2); padding:10px 14px; min-width:130px; position:relative; }
+.screen-box.active { border-color:var(--green); }
+.screen-box.modal { border-color:var(--purple); border-style:dashed; }
+.screen-name { font-size:12px; font-weight:500; color:var(--text); margin-bottom:4px; }
+.screen-file { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted2); }
+.screen-note { font-size:10px; color:var(--muted); margin-top:5px; line-height:1.4; }
+.arrow-right { color:var(--muted2); padding:0 4px; align-self:center; font-size:14px; }
+.arrow-right.cond { color:var(--yellow); }
+.group-label { font-size:10px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+
+/* FOLDER TREE */
+.tree { font-family:'JetBrains Mono',monospace; font-size:12px; line-height:2; background:var(--s1); border:1px solid var(--border2); padding:20px 24px; overflow-x:auto; }
+.tree .dir { color:var(--blue); }
+.tree .file { color:var(--text); }
+.tree .comment { color:var(--muted2); }
+.tree .important { color:var(--orange); }
+.tree .entry { color:var(--green); }
+
+/* GRID LAYOUTS */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.three-col { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+
+/* INFO BOX */
+.info-box { background:var(--s1); border:1px solid var(--border2); padding:16px 20px; }
+.info-box h4 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:12px; letter-spacing:-.01em; }
+.info-list { list-style:none; }
+.info-list li { font-size:11px; color:var(--muted); padding:4px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; }
+.info-list li:last-child { border:none; }
+.info-list li::before { content:'·'; color:var(--muted2); }
+
+/* NOTE */
+.note { border-left:2px solid var(--blue); padding:12px 16px; background:var(--s2); font-size:12px; color:var(--muted); margin-bottom:20px; line-height:1.7; }
+.note.warn { border-color:var(--orange); }
+.note.success { border-color:var(--green); }
+
+/* TAG */
+.tag { display:inline-block; font-size:9px; padding:1px 6px; letter-spacing:.06em; text-transform:uppercase; margin-right:4px; }
+.tag-get { background:#4ade8015; color:var(--green); border:1px solid #4ade8025; }
+.tag-post { background:#60a5fa15; color:var(--blue); border:1px solid #60a5fa25; }
+.tag-auth { background:#c084fc15; color:var(--purple); border:1px solid #c084fc25; }
+.tag-ws { background:#22d3ee15; color:var(--cyan); border:1px solid #22d3ee25; }
+
+/* API GROUP */
+.api-group { margin-bottom:12px; }
+.api-group-title { background:var(--s3); border:1px solid var(--border2); border-bottom:none; padding:8px 14px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:8px; }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .two-col, .three-col, .schema-grid { grid-template-columns:1fr; }
+  .screens-row { flex-direction:column; }
+  .arrow-right { transform:rotate(90deg); align-self:center; }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:var(--s1); }
+::-webkit-scrollbar-thumb { background:var(--border3); }
+
+/* ENV TABLE */
+.env-table { width:100%; border-collapse:collapse; }
+.env-table tr:nth-child(even) td { background:var(--s2); }
+.env-table td { padding:7px 12px; font-family:'JetBrains Mono',monospace; font-size:11px; border-bottom:1px solid var(--border); }
+.env-table td:first-child { color:var(--cyan); }
+.env-table td:last-child { color:var(--muted); font-family:'Inter',sans-serif; font-size:11px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#db" class="active">DB Schema</a>
+  <a href="#folder">Folder Structure</a>
+  <a href="#api">API Routes</a>
+  <a href="#screens">Screen Flows</a>
+  <a href="#env">Env & Config</a>
+  <a href="#middleware">Middleware</a>
+  <a href="#jobs">Background Jobs</a>
+</nav>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="badge">FitDesk · Full Architecture</div>
+  <h1>Full Stack<br><em>Architecture</em></h1>
+  <p class="subtitle">MongoDB Schemas · Node.js/TypeScript API · React Native + Expo Screens · All Flows</p>
+  <div class="meta-pills">
+    <div class="pill">Backend: <span>Node.js + Express + TypeScript</span></div>
+    <div class="pill">DB: <span>MongoDB + Mongoose</span></div>
+    <div class="pill">Mobile: <span>React Native + Expo</span></div>
+    <div class="pill">Auth: <span>JWT + Refresh Tokens</span></div>
+    <div class="pill">Payments: <span>Stripe Connect</span></div>
+    <div class="pill">Queue: <span>Bull + Redis</span></div>
+    <div class="pill">Storage: <span>AWS S3</span></div>
+    <div class="pill">Push: <span>FCM</span></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ DB SCHEMA -->
+<section class="section" id="db">
+  <div class="sh"><span class="sn">01</span><h2 class="st">MongoDB Schemas</h2><div class="sline"></div></div>
+
+  <div class="note">All schemas use TypeScript interfaces paired with Mongoose models. Every document has <code>createdAt</code> and <code>updatedAt</code> via <code>{ timestamps: true }</code>. Soft deletes via <code>isDeleted: Boolean</code> + <code>deletedAt: Date</code>.</div>
+
+  <!-- Schema Cards -->
+  <div class="schema-grid" style="margin-bottom:20px;">
+
+    <!-- USER (PT) -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">User (PT)</div>
+        <div class="sc-coll">collection: users</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">name</span><span class="field-type">String</span><span class="badge-req">required</span></div>
+        <div class="field"><span class="field-name">email</span><span class="field-type">String</span><span class="badge-uni">unique</span></div>
+        <div class="field"><span class="field-name">passwordHash</span><span class="field-type">String</span><span class="field-note">bcrypt</span></div>
+        <div class="field"><span class="field-name">googleId</span><span class="field-type">String?</span><span class="field-note">OAuth</span></div>
+        <div class="field"><span class="field-name">profilePhoto</span><span class="field-type">String?</span><span class="field-note">S3 URL</span></div>
+        <div class="field"><span class="field-name">bio</span><span class="field-type">String?</span><span class="field-note">max 500</span></div>
+        <div class="field"><span class="field-name">specializations</span><span class="field-type">String[]</span><span class="field-note">tags</span></div>
+        <div class="field"><span class="field-name">timezone</span><span class="field-type">String</span><span class="field-note">IANA tz</span></div>
+        <div class="field"><span class="field-name">stripeAccountId</span><span class="field-type">String?</span><span class="field-note">Stripe Connect</span></div>
+        <div class="field"><span class="field-name">stripeCustomerId</span><span class="field-type">String?</span><span class="field-note">FitDesk billing</span></div>
+        <div class="field"><span class="field-name">subscriptionId</span><span class="field-type">String?</span><span class="field-note">Stripe sub ID</span></div>
+        <div class="field"><span class="field-name">subscriptionStatus</span><span class="field-type">Enum</span><span class="field-note">trial|active|past_due|canceled</span></div>
+        <div class="field"><span class="field-name">trialEndsAt</span><span class="field-type">Date?</span><span class="field-note">14-day trial</span></div>
+        <div class="field"><span class="field-name">plan</span><span class="field-type">Enum</span><span class="field-note">starter|pro|business</span></div>
+        <div class="field"><span class="field-name">isEmailVerified</span><span class="field-type">Boolean</span><span class="field-note">default false</span></div>
+        <div class="field"><span class="field-name">emailVerifyToken</span><span class="field-type">String?</span><span class="field-note">hashed</span></div>
+        <div class="field"><span class="field-name">fcmTokens</span><span class="field-type">String[]</span><span class="field-note">push tokens</span></div>
+        <div class="field"><span class="field-name">onboardingComplete</span><span class="field-type">Boolean</span><span class="field-note">checklist done</span></div>
+        <div class="field"><span class="field-name">isDeleted</span><span class="field-type">Boolean</span><span class="field-note">soft delete</span></div>
+      </div>
+    </div>
+
+    <!-- CLIENT -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Client</div>
+        <div class="sc-coll">collection: clients</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">name</span><span class="field-type">String</span><span class="badge-req">required</span></div>
+        <div class="field"><span class="field-name">email</span><span class="field-type">String</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">phone</span><span class="field-type">String?</span><span class="field-note">E.164 format</span></div>
+        <div class="field"><span class="field-name">profilePhoto</span><span class="field-type">String?</span><span class="field-note">S3 URL</span></div>
+        <div class="field"><span class="field-name">dateOfBirth</span><span class="field-type">Date?</span><span class="field-note">birthday notif</span></div>
+        <div class="field"><span class="field-name">gender</span><span class="field-type">Enum?</span><span class="field-note">male|female|other</span></div>
+        <div class="field"><span class="field-name">goals</span><span class="field-type">String[]</span><span class="field-note">fat_loss|muscle...</span></div>
+        <div class="field"><span class="field-name">fitnessLevel</span><span class="field-type">Enum</span><span class="field-note">beginner|inter|advanced</span></div>
+        <div class="field"><span class="field-name">healthNotes</span><span class="field-type">String?</span><span class="field-note">private PT notes</span></div>
+        <div class="field"><span class="field-name">injuries</span><span class="field-type">String[]</span><span class="field-note">injury tags</span></div>
+        <div class="field"><span class="field-name">status</span><span class="field-type">Enum</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">inviteToken</span><span class="field-type">String?</span><span class="field-note">onboard link</span></div>
+        <div class="field"><span class="field-name">inviteAcceptedAt</span><span class="field-type">Date?</span><span class="field-note">activation</span></div>
+        <div class="field"><span class="field-name">userId</span><span class="field-type">ObjectId?</span><span class="badge-fk">FK→users</span></div>
+        <div class="field"><span class="field-name">parqCompleted</span><span class="field-type">Boolean</span><span class="field-note">health questionnaire</span></div>
+        <div class="field"><span class="field-name">parqAnswers</span><span class="field-type">Object?</span><span class="field-note">PAR-Q responses</span></div>
+        <div class="field"><span class="field-name">activePackageId</span><span class="field-type">ObjectId?</span><span class="badge-fk">FK→packages</span></div>
+        <div class="field"><span class="field-name">sessionCount</span><span class="field-type">Number</span><span class="field-note">remaining in pkg</span></div>
+        <div class="field"><span class="field-name">totalSessionsDone</span><span class="field-type">Number</span><span class="field-note">lifetime count</span></div>
+        <div class="field"><span class="field-name">engagementScore</span><span class="field-type">Number</span><span class="field-note">0-100 computed</span></div>
+        <div class="field"><span class="field-name">lastCheckInAt</span><span class="field-type">Date?</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">lastSessionAt</span><span class="field-type">Date?</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">fcmTokens</span><span class="field-type">String[]</span><span class="field-note">client push</span></div>
+        <div class="field"><span class="field-name">isDeleted</span><span class="field-type">Boolean</span><span class="field-note">soft delete</span></div>
+      </div>
+    </div>
+
+    <!-- WORKOUT PLAN -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">WorkoutPlan</div>
+        <div class="sc-coll">collection: workout_plans</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId?</span><span class="badge-fk">FK (if assigned)</span></div>
+        <div class="field"><span class="field-name">name</span><span class="field-type">String</span><span class="badge-req">required</span></div>
+        <div class="field"><span class="field-name">description</span><span class="field-type">String?</span><span class="field-note">plan overview</span></div>
+        <div class="field"><span class="field-name">durationWeeks</span><span class="field-type">Number</span><span class="field-note">4|8|12|16</span></div>
+        <div class="field"><span class="field-name">daysPerWeek</span><span class="field-type">Number</span><span class="field-note">1-7</span></div>
+        <div class="field"><span class="field-name">startDate</span><span class="field-type">Date?</span><span class="field-note">assignment date</span></div>
+        <div class="field"><span class="field-name">isTemplate</span><span class="field-type">Boolean</span><span class="field-note">reusable plan</span></div>
+        <div class="field"><span class="field-name">isAiGenerated</span><span class="field-type">Boolean</span><span class="field-note">Phase 3 flag</span></div>
+        <div class="field"><span class="field-name">status</span><span class="field-type">Enum</span><span class="field-note">draft|active|completed</span></div>
+        <div class="field"><span class="field-name">weeks</span><span class="field-type">Week[]</span><span class="field-note">embedded array</span></div>
+        <div class="field" style="padding-left:32px;"><span class="field-name">  week.weekNumber</span><span class="field-type">Number</span><span class="field-note">1-based</span></div>
+        <div class="field" style="padding-left:32px;"><span class="field-name">  week.isDeload</span><span class="field-type">Boolean</span><span class="field-note">deload week</span></div>
+        <div class="field" style="padding-left:32px;"><span class="field-name">  week.days</span><span class="field-type">Day[]</span><span class="field-note">array</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    day.dayNumber</span><span class="field-type">Number</span><span class="field-note">1-7</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    day.name</span><span class="field-type">String</span><span class="field-note">Push A, Legs...</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    day.exercises</span><span class="field-type">ExSet[]</span><span class="field-note">embedded</span></div>
+        <div class="field"><span class="field-name">isMarketplaceListed</span><span class="field-type">Boolean</span><span class="field-note">Phase 4</span></div>
+        <div class="field"><span class="field-name">marketplacePrice</span><span class="field-type">Number?</span><span class="field-note">USD cents</span></div>
+      </div>
+    </div>
+
+    <!-- EXERCISE LIBRARY -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Exercise</div>
+        <div class="sc-coll">collection: exercises</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">name</span><span class="field-type">String</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">slug</span><span class="field-type">String</span><span class="badge-uni">unique</span></div>
+        <div class="field"><span class="field-name">category</span><span class="field-type">Enum</span><span class="field-note">strength|cardio|mobility</span></div>
+        <div class="field"><span class="field-name">muscleGroups</span><span class="field-type">String[]</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">equipment</span><span class="field-type">String[]</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">difficulty</span><span class="field-type">Enum</span><span class="field-note">beginner|inter|advanced</span></div>
+        <div class="field"><span class="field-name">instructions</span><span class="field-type">String[]</span><span class="field-note">step by step</span></div>
+        <div class="field"><span class="field-name">videoUrl</span><span class="field-type">String?</span><span class="field-note">YouTube/S3</span></div>
+        <div class="field"><span class="field-name">thumbnailUrl</span><span class="field-type">String?</span><span class="field-note">S3</span></div>
+        <div class="field"><span class="field-name">isCustom</span><span class="field-type">Boolean</span><span class="field-note">PT created</span></div>
+        <div class="field"><span class="field-name">createdByTrainerId</span><span class="field-type">ObjectId?</span><span class="badge-fk">FK (custom only)</span></div>
+        <div class="field"><span class="field-name">alternativesToIds</span><span class="field-type">ObjectId[]</span><span class="field-note">substitute exercises</span></div>
+      </div>
+    </div>
+
+    <!-- SESSION LOG -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">SessionLog</div>
+        <div class="sc-coll">collection: session_logs</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">workoutPlanId</span><span class="field-type">ObjectId?</span><span class="badge-fk">FK</span></div>
+        <div class="field"><span class="field-name">weekNumber</span><span class="field-type">Number?</span><span class="field-note">from plan</span></div>
+        <div class="field"><span class="field-name">dayNumber</span><span class="field-type">Number?</span><span class="field-note">from plan</span></div>
+        <div class="field"><span class="field-name">sessionDate</span><span class="field-type">Date</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">durationMinutes</span><span class="field-type">Number?</span><span class="field-note">actual duration</span></div>
+        <div class="field"><span class="field-name">loggedBy</span><span class="field-type">Enum</span><span class="field-note">trainer|client</span></div>
+        <div class="field"><span class="field-name">exercises</span><span class="field-type">LoggedEx[]</span><span class="field-note">embedded</span></div>
+        <div class="field" style="padding-left:32px;"><span class="field-name">  exerciseId</span><span class="field-type">ObjectId</span><span class="badge-fk">FK</span></div>
+        <div class="field" style="padding-left:32px;"><span class="field-name">  sets</span><span class="field-type">Set[]</span><span class="field-note">array</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    setNumber</span><span class="field-type">Number</span><span class="field-note">1-based</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    repsCompleted</span><span class="field-type">Number?</span><span class="field-note">actual reps</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    weightKg</span><span class="field-type">Number?</span><span class="field-note">kg</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    rpe</span><span class="field-type">Number?</span><span class="field-note">1-10</span></div>
+        <div class="field" style="padding-left:48px;"><span class="field-name">    isCompleted</span><span class="field-type">Boolean</span><span class="field-note">set done</span></div>
+        <div class="field"><span class="field-name">ptNotes</span><span class="field-type">String?</span><span class="field-note">private PT notes</span></div>
+        <div class="field"><span class="field-name">clientNotes</span><span class="field-type">String?</span><span class="field-note">client feedback</span></div>
+        <div class="field"><span class="field-name">overallRating</span><span class="field-type">Number?</span><span class="field-note">1-5 client rating</span></div>
+        <div class="field"><span class="field-name">isCompleted</span><span class="field-type">Boolean</span><span class="field-note">session done</span></div>
+      </div>
+    </div>
+
+    <!-- BODY METRICS -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">BodyMetric</div>
+        <div class="sc-coll">collection: body_metrics</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">recordedAt</span><span class="field-type">Date</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">recordedBy</span><span class="field-type">Enum</span><span class="field-note">trainer|client</span></div>
+        <div class="field"><span class="field-name">weightKg</span><span class="field-type">Number?</span><span class="field-note">body weight</span></div>
+        <div class="field"><span class="field-name">bodyFatPercent</span><span class="field-type">Number?</span><span class="field-note">%</span></div>
+        <div class="field"><span class="field-name">muscleMassKg</span><span class="field-type">Number?</span><span class="field-note">kg</span></div>
+        <div class="field"><span class="field-name">measurements</span><span class="field-type">Object?</span><span class="field-note">chest/waist/hips cm</span></div>
+        <div class="field"><span class="field-name">progressPhotoUrls</span><span class="field-type">Object?</span><span class="field-note">front/back/side S3</span></div>
+        <div class="field"><span class="field-name">notes</span><span class="field-type">String?</span><span class="field-note">context notes</span></div>
+      </div>
+    </div>
+
+    <!-- PACKAGE -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Package</div>
+        <div class="sc-coll">collection: packages</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">name</span><span class="field-type">String</span><span class="field-note">e.g. "12 Sessions"</span></div>
+        <div class="field"><span class="field-name">totalSessions</span><span class="field-type">Number</span><span class="field-note">purchased count</span></div>
+        <div class="field"><span class="field-name">sessionsRemaining</span><span class="field-type">Number</span><span class="field-note">live count</span></div>
+        <div class="field"><span class="field-name">priceAmountCents</span><span class="field-type">Number</span><span class="field-note">in USD cents</span></div>
+        <div class="field"><span class="field-name">currency</span><span class="field-type">String</span><span class="field-note">ISO 4217</span></div>
+        <div class="field"><span class="field-name">status</span><span class="field-type">Enum</span><span class="field-note">unpaid|active|completed|expired</span></div>
+        <div class="field"><span class="field-name">stripePaymentIntentId</span><span class="field-type">String?</span><span class="field-note">Stripe PI</span></div>
+        <div class="field"><span class="field-name">stripePaymentLinkId</span><span class="field-type">String?</span><span class="field-note">payment link</span></div>
+        <div class="field"><span class="field-name">paidAt</span><span class="field-type">Date?</span><span class="field-note">payment timestamp</span></div>
+        <div class="field"><span class="field-name">expiresAt</span><span class="field-type">Date?</span><span class="field-note">optional expiry</span></div>
+        <div class="field"><span class="field-name">invoiceUrl</span><span class="field-type">String?</span><span class="field-note">Stripe hosted PDF</span></div>
+        <div class="field"><span class="field-name">platformFeePct</span><span class="field-type">Number</span><span class="field-note">3-5% FitDesk fee</span></div>
+      </div>
+    </div>
+
+    <!-- CHECK-IN -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">CheckIn</div>
+        <div class="sc-coll">collection: check_ins</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">weekOf</span><span class="field-type">Date</span><span class="badge-idx">IDX (Mon start)</span></div>
+        <div class="field"><span class="field-name">status</span><span class="field-type">Enum</span><span class="field-note">pending|submitted|reviewed</span></div>
+        <div class="field"><span class="field-name">sentAt</span><span class="field-type">Date?</span><span class="field-note">auto-sent time</span></div>
+        <div class="field"><span class="field-name">submittedAt</span><span class="field-type">Date?</span><span class="field-note">client response time</span></div>
+        <div class="field"><span class="field-name">weightKg</span><span class="field-type">Number?</span><span class="field-note">self-reported</span></div>
+        <div class="field"><span class="field-name">energyLevel</span><span class="field-type">Number?</span><span class="field-note">1-5</span></div>
+        <div class="field"><span class="field-name">sleepQuality</span><span class="field-type">Number?</span><span class="field-note">1-5</span></div>
+        <div class="field"><span class="field-name">stressLevel</span><span class="field-type">Number?</span><span class="field-note">1-5</span></div>
+        <div class="field"><span class="field-name">nutritionAdherence</span><span class="field-type">Number?</span><span class="field-note">1-5</span></div>
+        <div class="field"><span class="field-name">workoutAdherence</span><span class="field-type">Number?</span><span class="field-note">1-5</span></div>
+        <div class="field"><span class="field-name">clientNotes</span><span class="field-type">String?</span><span class="field-note">free text</span></div>
+        <div class="field"><span class="field-name">ptComment</span><span class="field-type">String?</span><span class="field-note">PT reply</span></div>
+        <div class="field"><span class="field-name">ptCommentedAt</span><span class="field-type">Date?</span><span class="field-note">reply time</span></div>
+        <div class="field"><span class="field-name">customAnswers</span><span class="field-type">Object?</span><span class="field-note">PT custom Qs</span></div>
+      </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Message</div>
+        <div class="sc-coll">collection: messages</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">conversationId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">senderId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">senderRole</span><span class="field-type">Enum</span><span class="field-note">trainer|client</span></div>
+        <div class="field"><span class="field-name">body</span><span class="field-type">String?</span><span class="field-note">text message</span></div>
+        <div class="field"><span class="field-name">attachments</span><span class="field-type">Attachment[]</span><span class="field-note">S3 URLs + type</span></div>
+        <div class="field"><span class="field-name">readAt</span><span class="field-type">Date?</span><span class="field-note">read receipt</span></div>
+        <div class="field"><span class="field-name">deletedAt</span><span class="field-type">Date?</span><span class="field-note">soft delete</span></div>
+      </div>
+    </div>
+
+    <!-- CONVERSATION -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Conversation</div>
+        <div class="sc-coll">collection: conversations</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">lastMessageAt</span><span class="field-type">Date</span><span class="badge-idx">IDX (sort)</span></div>
+        <div class="field"><span class="field-name">lastMessagePreview</span><span class="field-type">String</span><span class="field-note">50 char preview</span></div>
+        <div class="field"><span class="field-name">trainerUnreadCount</span><span class="field-type">Number</span><span class="field-note">badge count</span></div>
+        <div class="field"><span class="field-name">clientUnreadCount</span><span class="field-type">Number</span><span class="field-note">badge count</span></div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE SLOT -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Appointment</div>
+        <div class="sc-coll">collection: appointments</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">trainerId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">clientId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">startAt</span><span class="field-type">Date</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">endAt</span><span class="field-type">Date</span><span class="field-note">computed</span></div>
+        <div class="field"><span class="field-name">durationMinutes</span><span class="field-type">Number</span><span class="field-note">30|45|60|90</span></div>
+        <div class="field"><span class="field-name">sessionType</span><span class="field-type">Enum</span><span class="field-note">in_person|online</span></div>
+        <div class="field"><span class="field-name">status</span><span class="field-type">Enum</span><span class="field-note">scheduled|completed|cancelled|noshow</span></div>
+        <div class="field"><span class="field-name">notes</span><span class="field-type">String?</span><span class="field-note">session notes</span></div>
+        <div class="field"><span class="field-name">cancelledBy</span><span class="field-type">Enum?</span><span class="field-note">trainer|client</span></div>
+        <div class="field"><span class="field-name">cancelReason</span><span class="field-type">String?</span><span class="field-note">cancellation note</span></div>
+        <div class="field"><span class="field-name">reminder24Sent</span><span class="field-type">Boolean</span><span class="field-note">push sent flag</span></div>
+        <div class="field"><span class="field-name">reminder1hSent</span><span class="field-type">Boolean</span><span class="field-note">push sent flag</span></div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div class="schema-card">
+      <div class="sc-head">
+        <div class="sc-name">Notification</div>
+        <div class="sc-coll">collection: notifications</div>
+      </div>
+      <div class="sc-body">
+        <div class="field"><span class="field-name">_id</span><span class="field-type">ObjectId</span><span class="badge-pk">PK</span></div>
+        <div class="field"><span class="field-name">userId</span><span class="field-type">ObjectId</span><span class="badge-fk badge-idx">FK · IDX</span></div>
+        <div class="field"><span class="field-name">userRole</span><span class="field-type">Enum</span><span class="field-note">trainer|client</span></div>
+        <div class="field"><span class="field-name">type</span><span class="field-type">Enum</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">title</span><span class="field-type">String</span><span class="field-note">push title</span></div>
+        <div class="field"><span class="field-name">body</span><span class="field-type">String</span><span class="field-note">push body</span></div>
+        <div class="field"><span class="field-name">data</span><span class="field-type">Object?</span><span class="field-note">deep link data</span></div>
+        <div class="field"><span class="field-name">isRead</span><span class="field-type">Boolean</span><span class="badge-idx">IDX</span></div>
+        <div class="field"><span class="field-name">readAt</span><span class="field-type">Date?</span><span class="field-note">read timestamp</span></div>
+        <div class="field"><span class="field-name">sentVia</span><span class="field-type">String[]</span><span class="field-note">push|email|sms</span></div>
+      </div>
+    </div>
+
+  </div><!-- /schema-grid -->
+
+  <!-- Full Mongoose Schema Code -->
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">TypeScript / Mongoose</span>
+      <span class="code-file">src/models/client.model.ts (example full model)</span>
+    </div>
+    <pre><span class="k">import</span> { Schema, model, Document, Types } <span class="k">from</span> <span class="s">'mongoose'</span>;
+
+<span class="k">export interface</span> <span class="t">IClient</span> <span class="k">extends</span> Document {
+  trainerId: Types.ObjectId;
+  name: <span class="t">string</span>;
+  email: <span class="t">string</span>;
+  phone?: <span class="t">string</span>;
+  status: <span class="s">'invited'</span> | <span class="s">'active'</span> | <span class="s">'paused'</span> | <span class="s">'completed'</span>;
+  goals: <span class="t">string</span>[];
+  fitnessLevel: <span class="s">'beginner'</span> | <span class="s">'intermediate'</span> | <span class="s">'advanced'</span>;
+  sessionCount: <span class="t">number</span>;
+  engagementScore: <span class="t">number</span>;
+  lastCheckInAt?: <span class="t">Date</span>;
+  isDeleted: <span class="t">boolean</span>;
+}
+
+<span class="k">const</span> ClientSchema = <span class="k">new</span> <span class="fn">Schema</span>&lt;<span class="t">IClient</span>&gt;(
+  {
+    trainerId:  { type: Schema.Types.ObjectId, ref: <span class="s">'User'</span>, required: <span class="k">true</span>, index: <span class="k">true</span> },
+    name:       { type: <span class="t">String</span>, required: <span class="k">true</span>, trim: <span class="k">true</span> },
+    email:      { type: <span class="t">String</span>, required: <span class="k">true</span>, lowercase: <span class="k">true</span>, trim: <span class="k">true</span> },
+    phone:      { type: <span class="t">String</span> },
+    status:     { type: <span class="t">String</span>, enum: [<span class="s">'invited'</span>,<span class="s">'active'</span>,<span class="s">'paused'</span>,<span class="s">'completed'</span>],
+                  default: <span class="s">'invited'</span>, index: <span class="k">true</span> },
+    goals:      [{ type: <span class="t">String</span> }],
+    fitnessLevel: { type: <span class="t">String</span>, enum: [<span class="s">'beginner'</span>,<span class="s">'intermediate'</span>,<span class="s">'advanced'</span>] },
+    sessionCount:    { type: <span class="t">Number</span>, default: <span class="n">0</span> },
+    engagementScore: { type: <span class="t">Number</span>, default: <span class="n">100</span>, min: <span class="n">0</span>, max: <span class="n">100</span> },
+    lastCheckInAt:   { type: <span class="t">Date</span>, index: <span class="k">true</span> },
+    inviteToken:     { type: <span class="t">String</span>, index: <span class="k">true</span>, sparse: <span class="k">true</span> },
+    userId:          { type: Schema.Types.ObjectId, ref: <span class="s">'User'</span>, sparse: <span class="k">true</span> },
+    fcmTokens:       [{ type: <span class="t">String</span> }],
+    isDeleted:       { type: <span class="t">Boolean</span>, default: <span class="k">false</span>, index: <span class="k">true</span> },
+  },
+  { timestamps: <span class="k">true</span> }
+);
+
+<span class="c">// Compound indexes for common query patterns</span>
+ClientSchema.index({ trainerId: <span class="n">1</span>, status: <span class="n">1</span> });
+ClientSchema.index({ trainerId: <span class="n">1</span>, lastCheckInAt: <span class="n">1</span> });
+ClientSchema.index({ trainerId: <span class="n">1</span>, isDeleted: <span class="n">1</span> });
+
+<span class="k">export const</span> <span class="t">Client</span> = <span class="fn">model</span>&lt;<span class="t">IClient</span>&gt;(<span class="s">'Client'</span>, ClientSchema);</pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOLDER STRUCTURE -->
+<section class="section" id="folder">
+  <div class="sh"><span class="sn">02</span><h2 class="st">Folder Structure</h2><div class="sline"></div></div>
+
+  <div class="two-col">
+    <!-- BACKEND -->
+    <div>
+      <div class="note" style="margin-bottom:12px;">Backend: Node.js + Express + TypeScript</div>
+      <div class="tree">
+<span class="dir">fitdesk-api/</span>
+├── <span class="dir">src/</span>
+│   ├── <span class="dir">config/</span>
+│   │   ├── <span class="file">db.ts</span>         <span class="comment">← mongoose connect</span>
+│   │   ├── <span class="file">redis.ts</span>      <span class="comment">← bull queue redis</span>
+│   │   ├── <span class="file">stripe.ts</span>     <span class="comment">← stripe init</span>
+│   │   ├── <span class="file">s3.ts</span>         <span class="comment">← aws s3 client</span>
+│   │   └── <span class="file">firebase.ts</span>   <span class="comment">← fcm admin sdk</span>
+│   │
+│   ├── <span class="dir">models/</span>
+│   │   ├── <span class="important">user.model.ts</span>
+│   │   ├── <span class="important">client.model.ts</span>
+│   │   ├── <span class="important">workout-plan.model.ts</span>
+│   │   ├── <span class="important">exercise.model.ts</span>
+│   │   ├── <span class="important">session-log.model.ts</span>
+│   │   ├── <span class="important">body-metric.model.ts</span>
+│   │   ├── <span class="important">package.model.ts</span>
+│   │   ├── <span class="important">check-in.model.ts</span>
+│   │   ├── <span class="important">conversation.model.ts</span>
+│   │   ├── <span class="important">message.model.ts</span>
+│   │   ├── <span class="important">appointment.model.ts</span>
+│   │   └── <span class="important">notification.model.ts</span>
+│   │
+│   ├── <span class="dir">routes/</span>
+│   │   ├── <span class="file">auth.routes.ts</span>
+│   │   ├── <span class="file">trainer.routes.ts</span>
+│   │   ├── <span class="file">client.routes.ts</span>
+│   │   ├── <span class="file">workout.routes.ts</span>
+│   │   ├── <span class="file">exercise.routes.ts</span>
+│   │   ├── <span class="file">session.routes.ts</span>
+│   │   ├── <span class="file">metrics.routes.ts</span>
+│   │   ├── <span class="file">package.routes.ts</span>
+│   │   ├── <span class="file">checkin.routes.ts</span>
+│   │   ├── <span class="file">message.routes.ts</span>
+│   │   ├── <span class="file">appointment.routes.ts</span>
+│   │   ├── <span class="file">notification.routes.ts</span>
+│   │   ├── <span class="file">upload.routes.ts</span>
+│   │   ├── <span class="file">webhook.routes.ts</span>   <span class="comment">← stripe webhooks</span>
+│   │   └── <span class="file">analytics.routes.ts</span>
+│   │
+│   ├── <span class="dir">controllers/</span>
+│   │   ├── <span class="file">auth.controller.ts</span>
+│   │   ├── <span class="file">client.controller.ts</span>
+│   │   └── <span class="comment">... (1 per route file)</span>
+│   │
+│   ├── <span class="dir">services/</span>
+│   │   ├── <span class="important">auth.service.ts</span>      <span class="comment">← jwt, bcrypt</span>
+│   │   ├── <span class="important">stripe.service.ts</span>   <span class="comment">← all stripe logic</span>
+│   │   ├── <span class="important">notification.service.ts</span> <span class="comment">← fcm + email</span>
+│   │   ├── <span class="important">s3.service.ts</span>       <span class="comment">← upload/signed urls</span>
+│   │   ├── <span class="important">engagement.service.ts</span><span class="comment">← score calc</span>
+│   │   └── <span class="file">email.service.ts</span>    <span class="comment">← nodemailer/sg</span>
+│   │
+│   ├── <span class="dir">middleware/</span>
+│   │   ├── <span class="entry">auth.middleware.ts</span>   <span class="comment">← jwt verify</span>
+│   │   ├── <span class="entry">trainer.middleware.ts</span><span class="comment">← sub check</span>
+│   │   ├── <span class="entry">client.middleware.ts</span> <span class="comment">← ownership check</span>
+│   │   ├── <span class="entry">rate-limit.ts</span>
+│   │   ├── <span class="entry">validate.ts</span>          <span class="comment">← zod validation</span>
+│   │   └── <span class="entry">error.middleware.ts</span>
+│   │
+│   ├── <span class="dir">queues/</span>
+│   │   ├── <span class="file">queue.ts</span>             <span class="comment">← bull instances</span>
+│   │   ├── <span class="file">workers/</span>
+│   │   │   ├── <span class="important">checkin-sender.worker.ts</span>
+│   │   │   ├── <span class="important">reminder.worker.ts</span>
+│   │   │   ├── <span class="important">engagement.worker.ts</span>
+│   │   │   └── <span class="important">report.worker.ts</span>
+│   │   └── <span class="file">schedulers/</span>
+│   │       └── <span class="important">cron.ts</span>           <span class="comment">← bull-board crons</span>
+│   │
+│   ├── <span class="dir">validators/</span>          <span class="comment">← zod schemas</span>
+│   │   ├── <span class="file">auth.validator.ts</span>
+│   │   ├── <span class="file">client.validator.ts</span>
+│   │   └── <span class="comment">... (1 per entity)</span>
+│   │
+│   ├── <span class="dir">types/</span>
+│   │   ├── <span class="file">express.d.ts</span>         <span class="comment">← extend Request</span>
+│   │   └── <span class="file">index.ts</span>
+│   │
+│   ├── <span class="dir">utils/</span>
+│   │   ├── <span class="file">api-response.ts</span>      <span class="comment">← standard response</span>
+│   │   ├── <span class="file">api-error.ts</span>
+│   │   ├── <span class="file">token.util.ts</span>
+│   │   └── <span class="file">date.util.ts</span>
+│   │
+│   └── <span class="entry">app.ts</span>               <span class="comment">← express setup</span>
+│
+├── <span class="entry">server.ts</span>              <span class="comment">← entry point</span>
+├── <span class="file">tsconfig.json</span>
+├── <span class="file">package.json</span>
+├── <span class="file">.env.example</span>
+└── <span class="file">Dockerfile</span>
+      </div>
+    </div>
+
+    <!-- FRONTEND -->
+    <div>
+      <div class="note" style="margin-bottom:12px;">Frontend: React Native + Expo (TypeScript)</div>
+      <div class="tree">
+<span class="dir">fitdesk-app/</span>
+├── <span class="dir">app/</span>                    <span class="comment">← Expo Router (file-based)</span>
+│   ├── <span class="dir">(auth)/</span>
+│   │   ├── <span class="file">login.tsx</span>
+│   │   ├── <span class="file">register.tsx</span>
+│   │   ├── <span class="file">forgot-password.tsx</span>
+│   │   └── <span class="file">verify-email.tsx</span>
+│   │
+│   ├── <span class="dir">(trainer)/</span>             <span class="comment">← PT tabs</span>
+│   │   ├── <span class="file">_layout.tsx</span>           <span class="comment">← tab navigator</span>
+│   │   ├── <span class="file">index.tsx</span>             <span class="comment">← Dashboard</span>
+│   │   ├── <span class="dir">clients/</span>
+│   │   │   ├── <span class="file">index.tsx</span>         <span class="comment">← Client list</span>
+│   │   │   ├── <span class="file">add.tsx</span>           <span class="comment">← Add client</span>
+│   │   │   └── <span class="file">[id]/</span>
+│   │   │       ├── <span class="important">index.tsx</span>     <span class="comment">← Profile</span>
+│   │   │       ├── <span class="important">plan.tsx</span>      <span class="comment">← Active plan</span>
+│   │   │       ├── <span class="important">progress.tsx</span>  <span class="comment">← Charts</span>
+│   │   │       ├── <span class="important">payments.tsx</span>  <span class="comment">← Billing</span>
+│   │   │       └── <span class="important">checkins.tsx</span>  <span class="comment">← History</span>
+│   │   │
+│   │   ├── <span class="dir">plans/</span>
+│   │   │   ├── <span class="file">index.tsx</span>         <span class="comment">← Plan library</span>
+│   │   │   ├── <span class="file">create.tsx</span>        <span class="comment">← Plan builder</span>
+│   │   │   └── <span class="file">[id]/</span>
+│   │   │       ├── <span class="important">index.tsx</span>     <span class="comment">← Plan detail</span>
+│   │   │       └── <span class="important">edit.tsx</span>      <span class="comment">← Plan editor</span>
+│   │   │
+│   │   ├── <span class="dir">schedule/</span>
+│   │   │   └── <span class="file">index.tsx</span>         <span class="comment">← Calendar view</span>
+│   │   │
+│   │   ├── <span class="dir">messages/</span>
+│   │   │   ├── <span class="file">index.tsx</span>         <span class="comment">← Inbox list</span>
+│   │   │   └── <span class="file">[clientId].tsx</span>    <span class="comment">← Chat thread</span>
+│   │   │
+│   │   └── <span class="dir">settings/</span>
+│   │       ├── <span class="file">index.tsx</span>         <span class="comment">← Settings home</span>
+│   │       ├── <span class="file">billing.tsx</span>       <span class="comment">← Subscription</span>
+│   │       └── <span class="file">profile.tsx</span>       <span class="comment">← PT profile</span>
+│   │
+│   ├── <span class="dir">onboarding/</span>
+│   │   └── <span class="file">index.tsx</span>             <span class="comment">← Checklist</span>
+│   │
+│   └── <span class="file">_layout.tsx</span>             <span class="comment">← Root layout</span>
+│
+├── <span class="dir">components/</span>
+│   ├── <span class="dir">ui/</span>                     <span class="comment">← Design system</span>
+│   │   ├── <span class="file">Button.tsx</span>
+│   │   ├── <span class="file">Input.tsx</span>
+│   │   ├── <span class="file">Card.tsx</span>
+│   │   ├── <span class="file">Badge.tsx</span>
+│   │   ├── <span class="file">Avatar.tsx</span>
+│   │   └── <span class="file">BottomSheet.tsx</span>
+│   │
+│   ├── <span class="dir">client/</span>
+│   │   ├── <span class="important">ClientCard.tsx</span>
+│   │   ├── <span class="important">ClientStatusBadge.tsx</span>
+│   │   └── <span class="important">EngagementBar.tsx</span>
+│   │
+│   ├── <span class="dir">workout/</span>
+│   │   ├── <span class="important">ExerciseCard.tsx</span>
+│   │   ├── <span class="important">SetRow.tsx</span>
+│   │   └── <span class="important">PlanWeekView.tsx</span>
+│   │
+│   └── <span class="dir">charts/</span>
+│       ├── <span class="file">WeightChart.tsx</span>       <span class="comment">← victory-native</span>
+│       └── <span class="file">StrengthChart.tsx</span>
+│
+├── <span class="dir">store/</span>                   <span class="comment">← Zustand stores</span>
+│   ├── <span class="important">auth.store.ts</span>
+│   ├── <span class="important">client.store.ts</span>
+│   └── <span class="file">ui.store.ts</span>
+│
+├── <span class="dir">hooks/</span>
+│   ├── <span class="file">useClients.ts</span>          <span class="comment">← react-query</span>
+│   ├── <span class="file">usePlan.ts</span>
+│   └── <span class="file">useSession.ts</span>
+│
+├── <span class="dir">api/</span>
+│   ├── <span class="file">client.ts</span>              <span class="comment">← axios instance</span>
+│   ├── <span class="file">auth.api.ts</span>
+│   ├── <span class="file">clients.api.ts</span>
+│   ├── <span class="file">plans.api.ts</span>
+│   └── <span class="comment">... (1 per domain)</span>
+│
+├── <span class="dir">constants/</span>
+│   ├── <span class="file">theme.ts</span>               <span class="comment">← colors, spacing</span>
+│   └── <span class="file">endpoints.ts</span>
+│
+├── <span class="dir">utils/</span>
+│   ├── <span class="file">format.ts</span>
+│   └── <span class="file">validation.ts</span>
+│
+├── <span class="file">app.json</span>                 <span class="comment">← expo config</span>
+├── <span class="file">eas.json</span>                 <span class="comment">← eas build config</span>
+└── <span class="file">tsconfig.json</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ API ROUTES -->
+<section class="section" id="api">
+  <div class="sh"><span class="sn">03</span><h2 class="st">API Routes</h2><div class="sline"></div></div>
+
+  <div class="note">Base URL: <code>https://api.fitdesk.app/api/v1</code> &nbsp;·&nbsp; All routes return <code>{ success, data, message, meta? }</code> &nbsp;·&nbsp; Auth: Bearer JWT &nbsp;·&nbsp; Rate limit: 100 req/min per IP</div>
+
+  <!-- AUTH -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">🔐 Auth — /auth</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/register</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Register PT account</td><td>name, email, password</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/login</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Email + password login</td><td>email, password → tokens</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/google</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Google OAuth login/register</td><td>googleToken</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/refresh</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Refresh access token</td><td>refreshToken (httpOnly cookie)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/logout</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Invalidate refresh token</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/verify-email</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Verify email with token</td><td>token</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/forgot-password</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Send reset email</td><td>email</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/reset-password</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Reset password with token</td><td>token, newPassword</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/auth/fcm-token</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Register FCM push token</td><td>fcmToken, platform</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TRAINER PROFILE -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">👤 Trainer Profile — /trainer</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/me</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get own profile + subscription status</td><td>—</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/trainer/me</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Update profile fields</td><td>name, bio, specializations, timezone</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/trainer/me/photo</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Upload profile photo to S3</td><td>multipart/form-data: photo</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/dashboard</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Dashboard stats (clients, revenue, alerts)</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/analytics</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Business analytics (revenue, churn, LTV)</td><td>?from=&to= (date range)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/trainer/stripe/connect</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Generate Stripe Connect onboarding URL</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/stripe/status</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Check Stripe Connect account status</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CLIENTS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">👥 Clients — /clients</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List all clients (paginated)</td><td>?status=&search=&page=&limit=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Add new client + send invite</td><td>name, email, phone, goals, fitnessLevel</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get full client profile</td><td>—</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/clients/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Update client info</td><td>any Client fields</td></tr>
+        <tr><td><span class="method m-del">DELETE</span></td><td><span class="route">/clients/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Soft-delete client</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/reinvite</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Resend invite link</td><td>—</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/clients/:id/status</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Change status (active/paused/completed)</td><td>status</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/invite/:token</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Validate invite token (client onboard page)</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/invite/:token/accept</span></td><td><span class="auth-tag auth-pub">public</span></td><td>Client accepts invite + submits PAR-Q</td><td>parqAnswers, password (if new user)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/photo</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Upload client profile photo</td><td>multipart: photo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WORKOUT PLANS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">🏋️ Workout Plans — /plans</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/plans</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List PT's plan library (templates)</td><td>?search=&isTemplate=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/plans</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Create new plan</td><td>name, durationWeeks, daysPerWeek, weeks[]</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/plans/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get full plan with all weeks/days/exercises</td><td>—</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><span class="route">/plans/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Full update plan (replace all weeks)</td><td>Full plan object</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/plans/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Partial update (rename, description)</td><td>name?, description?, status?</td></tr>
+        <tr><td><span class="method m-del">DELETE</span></td><td><span class="route">/plans/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Delete plan (if not assigned)</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/plans/:id/duplicate</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Duplicate plan as new template</td><td>name (optional new name)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/plans/:id/assign</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Assign plan to client</td><td>clientId, startDate</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/plan</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get client's active plan</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/plan</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client views own assigned plan</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCISES -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">💪 Exercise Library — /exercises</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/exercises</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Search exercise library (300+ seeded)</td><td>?search=&muscle=&equipment=&difficulty=</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/exercises/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get exercise detail + alternatives</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/exercises</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Create custom exercise</td><td>name, muscleGroups, equipment, instructions, videoUrl?</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/exercises/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Update custom exercise (own only)</td><td>any Exercise fields</td></tr>
+        <tr><td><span class="method m-del">DELETE</span></td><td><span class="route">/exercises/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Delete custom exercise (own only)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SESSIONS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">📋 Session Logs — /sessions</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/sessions</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List client's session history</td><td>?from=&to=&page=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/sessions</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Log a new session (PT logs for client)</td><td>sessionDate, exercises[], ptNotes?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/sessions/self</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client self-logs a session</td><td>sessionDate, exercises[], clientNotes?</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/sessions/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get session detail</td><td>—</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/sessions/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Update session (add notes, fix sets)</td><td>ptNotes?, exercises?</td></tr>
+        <tr><td><span class="method m-del">DELETE</span></td><td><span class="route">/sessions/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Delete session log</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/sessions/today</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get today's workout from active plan</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- METRICS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">📊 Body Metrics — /metrics</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/metrics</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get body metric history</td><td>?from=&to=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/metrics</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Add body metric entry</td><td>recordedAt, weightKg?, bodyFatPercent?, measurements?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/metrics/photos</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Upload progress photos (S3)</td><td>multipart: front?, back?, side?</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/metrics/latest</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get most recent metric entry</td><td>—</td></tr>
+        <tr><td><span class="method m-del">DELETE</span></td><td><span class="route">/metrics/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Delete metric entry</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/metrics/self</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client views own metrics</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/metrics/self</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client logs own metric</td><td>weightKg?, measurements?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PACKAGES / PAYMENTS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">💳 Packages & Payments — /packages</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/packages</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List client's package history</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/packages</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Create package + generate Stripe payment link</td><td>name, totalSessions, priceAmountCents, currency</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/packages/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get package detail + payment status</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/packages/:id/resend</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Resend payment link to client</td><td>via (email|sms|link)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/packages/:id/mark-paid</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Mark as paid manually (cash/bank transfer)</td><td>paidAt, paymentMethod</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/payments</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Full payment history + summary</td><td>?from=&to=&status=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/stripe/billing-portal</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Redirect to Stripe self-service portal</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/stripe/webhooks</span></td><td><span class="auth-tag auth-pub">Stripe sig</span></td><td>Handle all Stripe webhook events</td><td>Raw body + stripe-signature header</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHECK-INS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">✅ Check-ins — /checkins</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/clients/:id/checkins</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List client's check-in history</td><td>?from=&to=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/clients/:id/checkins/send</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Manually send check-in to one client</td><td>customQuestions? (override template)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/checkins/send-all</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Send check-in to ALL active clients</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/checkins/:id/submit</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client submits check-in response</td><td>weightKg?, energyLevel?, sleepQuality?, clientNotes?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/checkins/:id/comment</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>PT replies to check-in</td><td>ptComment</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/checkins/overview</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>This week's check-in summary (who submitted, who hasn't)</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/checkins/pending</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client's pending check-in form</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MESSAGES -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">💬 Messages — /messages</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/conversations</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List all conversations (inbox)</td><td>?search= (client name)</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/conversations/:clientId/messages</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get conversation thread (paginated)</td><td>?page=&limit=20</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/conversations/:clientId/messages</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Send message to client</td><td>body, attachments? (S3 keys)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/conversations/:clientId/messages</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client sends message to PT</td><td>body, attachments?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/messages/broadcast</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Send message to all active clients</td><td>body (text only)</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/conversations/:clientId/read</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Mark all messages in thread as read</td><td>—</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/upload/attachment</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get S3 pre-signed URL for attachment upload</td><td>fileName, fileType, fileSize</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- APPOINTMENTS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">📅 Appointments — /appointments</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/appointments</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List PT's appointments (calendar range)</td><td>?from=&to=&clientId=</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/appointments</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Create appointment (PT books for client)</td><td>clientId, startAt, durationMinutes, sessionType</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/appointments/book</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client books from available slots</td><td>slotId, notes?</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/appointments/:id</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Update appointment (reschedule)</td><td>startAt?, durationMinutes?, notes?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/appointments/:id/cancel</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Cancel appointment (sends push to client)</td><td>cancelReason?</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/appointments/:id/complete</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Mark appointment completed + deduct session</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/availability</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get PT's weekly availability slots</td><td>—</td></tr>
+        <tr><td><span class="method m-put">PUT</span></td><td><span class="route">/trainer/availability</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Set/update weekly availability</td><td>slots[] (dayOfWeek, startTime, endTime)</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/trainer/availability/open</span></td><td><span class="auth-tag auth-cl">Client</span></td><td>Client views open booking slots</td><td>?from=&to=</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">🔔 Notifications — /notifications</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/notifications</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>List notifications (in-app bell)</td><td>?isRead=&page=</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/notifications/:id/read</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Mark single notification as read</td><td>—</td></tr>
+        <tr><td><span class="method m-patch">PATCH</span></td><td><span class="route">/notifications/read-all</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Mark all as read</td><td>—</td></tr>
+        <tr><td><span class="method m-get">GET</span></td><td><span class="route">/notifications/unread-count</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Badge count for bell icon</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- UPLOADS -->
+  <div class="api-group" style="margin-bottom:16px;">
+    <div class="api-group-title">📁 Uploads — /upload</div>
+    <table class="api-table">
+      <thead><tr><th>Method</th><th>Route</th><th>Auth</th><th>Description</th><th>Body / Params</th></tr></thead>
+      <tbody>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/upload/presigned</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Get S3 pre-signed PUT URL</td><td>fileName, contentType, folder (progress|profile|attachment)</td></tr>
+        <tr><td><span class="method m-post">POST</span></td><td><span class="route">/upload/confirm</span></td><td><span class="auth-tag auth-pt">PT</span></td><td>Confirm upload complete + save S3 key to record</td><td>s3Key, entityType, entityId, field</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ SCREEN FLOWS -->
+<section class="section" id="screens">
+  <div class="sh"><span class="sn">04</span><h2 class="st">Screen Flows</h2><div class="sline"></div></div>
+
+  <!-- AUTH FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">Auth Flow — App cold start</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Splash Screen</div><div class="screen-file">_layout.tsx</div><div class="screen-note">Check token in SecureStore</div></div>
+      <div class="arrow-right cond">→</div>
+      <div class="screen-box"><div class="screen-name">Login</div><div class="screen-file">(auth)/login.tsx</div><div class="screen-note">Email/pass + Google OAuth</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Verify Email</div><div class="screen-file">verify-email.tsx</div><div class="screen-note">If !isEmailVerified</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Onboarding</div><div class="screen-file">onboarding/index.tsx</div><div class="screen-note">If !onboardingComplete</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Dashboard</div><div class="screen-file">(trainer)/index.tsx</div><div class="screen-note">Main home screen</div></div>
+    </div>
+    <div style="margin-top:8px;" class="screens-row">
+      <div class="screen-box"><div class="screen-name">Register</div><div class="screen-file">(auth)/register.tsx</div><div class="screen-note">name, email, password</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Check Email</div><div class="screen-file">verify-email.tsx</div><div class="screen-note">Enter 6-digit OTP</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Onboarding</div><div class="screen-file">onboarding/index.tsx</div><div class="screen-note">5-step checklist wizard</div></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="flow-section">
+    <div class="flow-title">Dashboard → Client Profile (main daily flow)</div>
+    <div class="screens-row">
+      <div class="screen-box active"><div class="screen-name">Dashboard</div><div class="screen-file">index.tsx</div><div class="screen-note">Stats: revenue, active clients, at-risk alerts, today's sessions</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Clients List</div><div class="screen-file">clients/index.tsx</div><div class="screen-note">Search, filter by status, engagement bar per client</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Client Profile</div><div class="screen-file">clients/[id]/index.tsx</div><div class="screen-note">Header + 4 tabs: Plan / Progress / Payments / Check-ins</div></div>
+    </div>
+    <div style="margin-top:8px;" class="screens-row">
+      <div class="screen-box"><div class="screen-name">Active Plan Tab</div><div class="screen-file">[id]/plan.tsx</div><div class="screen-note">Weekly view of plan. Tap "Log Session" button</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Log Session</div><div class="screen-file">Modal sheet</div><div class="screen-note">Today's exercises load from plan. Enter weight + reps per set</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Session Complete</div><div class="screen-file">Success state</div><div class="screen-note">Session count decrements. Confetti animation. PR badge if new record</div></div>
+    </div>
+  </div>
+
+  <!-- ADD CLIENT FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">Add New Client → First Payment Flow</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Clients List</div><div class="screen-file">clients/index.tsx</div><div class="screen-note">FAB "+" button bottom right</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Add Client</div><div class="screen-file">clients/add.tsx</div><div class="screen-note">Step 1: name, email, phone, goals</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Create Package</div><div class="screen-file">Bottom sheet</div><div class="screen-note">Step 2: sessions count + price. Stripe link generated</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Send Invite</div><div class="screen-file">Share sheet</div><div class="screen-note">Step 3: share via WhatsApp/SMS/Copy link</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Client Profile</div><div class="screen-file">[id]/index.tsx</div><div class="screen-note">Status: "Invited" → waits for payment</div></div>
+    </div>
+  </div>
+
+  <!-- WORKOUT PLAN BUILDER -->
+  <div class="flow-section">
+    <div class="flow-title">Workout Plan Builder — Full flow</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Plan Library</div><div class="screen-file">plans/index.tsx</div><div class="screen-note">List of all PT's templates + assigned plans</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Create Plan</div><div class="screen-file">plans/create.tsx</div><div class="screen-note">Step 1: name, weeks, days/week, goals</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Week Builder</div><div class="screen-file">plans/create.tsx</div><div class="screen-note">Step 2: drag-drop days, name each day (Push A / Legs etc)</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Exercise Picker</div><div class="screen-file">Bottom sheet</div><div class="screen-note">Search library. Filter muscle/equip. Add to day with sets/reps/weight</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Plan Review</div><div class="screen-file">plans/create.tsx</div><div class="screen-note">Preview full plan. Save as template or assign to client</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box modal"><div class="screen-name">Assign to Client</div><div class="screen-file">Modal</div><div class="screen-note">Pick client + start date → PUT /plans/:id/assign</div></div>
+    </div>
+  </div>
+
+  <!-- PAYMENT FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">Payment Collection Flow (PT perspective)</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Client Profile</div><div class="screen-file">[id]/index.tsx</div><div class="screen-note">Payments tab → "New Package" button</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Create Package</div><div class="screen-file">Bottom sheet</div><div class="screen-note">Enter sessions, price, currency. Select package template or custom</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Share Payment Link</div><div class="screen-file">Share sheet</div><div class="screen-note">Stripe payment link copied/shared. PT can copy, share via WhatsApp</div></div>
+      <div class="arrow-right cond">→</div>
+      <div class="screen-box"><div class="screen-name">Awaiting Payment</div><div class="screen-file">[id]/payments.tsx</div><div class="screen-note">Status badge: "Unpaid". Resend button. Manual mark-paid option</div></div>
+      <div class="arrow-right cond">→</div>
+      <div class="screen-box active"><div class="screen-name">Payment Received</div><div class="screen-file">Push notification</div><div class="screen-note">Stripe webhook fires → push to PT. Invoice auto-sent to client email</div></div>
+    </div>
+  </div>
+
+  <!-- CHECKIN FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">Weekly Check-in Flow (automated)</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Every Monday</div><div class="screen-file">Bull cron job</div><div class="screen-note">Fires at 8am PT's timezone. Creates CheckIn docs, sends pushes</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">Client Push</div><div class="screen-file">FCM notification</div><div class="screen-note">"Time for your weekly check-in! Tap to fill it in"</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Check-in Form</div><div class="screen-file">Client app</div><div class="screen-note">Weight, energy 1-5, sleep 1-5, adherence 1-5, notes</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box"><div class="screen-name">PT Notified</div><div class="screen-file">Push + badge</div><div class="screen-note">"Sarah submitted her check-in". Engagement score updated</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Check-in Overview</div><div class="screen-file">Dashboard widget</div><div class="screen-note">PT sees 6/10 clients checked in. Tap to reply to each</div></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS FLOW -->
+  <div class="flow-section">
+    <div class="flow-title">Settings & Subscription Management</div>
+    <div class="screens-row">
+      <div class="screen-box"><div class="screen-name">Settings Home</div><div class="screen-file">settings/index.tsx</div><div class="screen-note">Profile, Billing, Notifications, Stripe Connect, Availability</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Billing</div><div class="screen-file">settings/billing.tsx</div><div class="screen-note">Current plan, next billing date, upgrade/downgrade options</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box modal"><div class="screen-name">Stripe Portal</div><div class="screen-file">WebView / deeplink</div><div class="screen-note">Stripe-hosted: change card, cancel, view invoices</div></div>
+    </div>
+    <div style="margin-top:8px;" class="screens-row">
+      <div class="screen-box"><div class="screen-name">Stripe Connect</div><div class="screen-file">settings/index.tsx</div><div class="screen-note">If !stripeAccountId → "Connect Stripe" button</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box modal"><div class="screen-name">Stripe Onboarding</div><div class="screen-file">WebView</div><div class="screen-note">Stripe hosted KYC flow. Redirects back to app on complete</div></div>
+      <div class="arrow-right">→</div>
+      <div class="screen-box active"><div class="screen-name">Connected ✓</div><div class="screen-file">settings/index.tsx</div><div class="screen-note">Green badge. Can now receive client payments</div></div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION STRUCTURE -->
+  <div class="note success" style="margin-top:24px;">
+    <strong>Tab Navigator (PT App):</strong> 5 tabs — Dashboard (🏠) · Clients (👥) · Plans (📋) · Schedule (📅) · Messages (💬) · Settings accessible via profile icon top-right
+  </div>
+
+  <div class="code-wrap" style="margin-top:16px;">
+    <div class="code-header">
+      <span class="code-lang">TypeScript / Expo Router</span>
+      <span class="code-file">app/(trainer)/_layout.tsx</span>
+    </div>
+    <pre><span class="k">import</span> { Tabs } <span class="k">from</span> <span class="s">'expo-router'</span>;
+<span class="k">import</span> { useAuthStore } <span class="k">from</span> <span class="s">'@/store/auth.store'</span>;
+
+<span class="k">export default function</span> <span class="fn">TrainerLayout</span>() {
+  <span class="k">return</span> (
+    &lt;Tabs screenOptions={{ tabBarActiveTintColor: <span class="s">'#4ade80'</span> }}&gt;
+      &lt;Tabs.Screen name=<span class="s">"index"</span>
+        options={{ title: <span class="s">'Dashboard'</span>, tabBarIcon: <span class="fn">HomeIcon</span> }} /&gt;
+      &lt;Tabs.Screen name=<span class="s">"clients"</span>
+        options={{ title: <span class="s">'Clients'</span>, tabBarIcon: <span class="fn">UsersIcon</span> }} /&gt;
+      &lt;Tabs.Screen name=<span class="s">"plans"</span>
+        options={{ title: <span class="s">'Plans'</span>, tabBarIcon: <span class="fn">ClipboardIcon</span> }} /&gt;
+      &lt;Tabs.Screen name=<span class="s">"schedule"</span>
+        options={{ title: <span class="s">'Schedule'</span>, tabBarIcon: <span class="fn">CalendarIcon</span> }} /&gt;
+      &lt;Tabs.Screen name=<span class="s">"messages"</span>
+        options={{ title: <span class="s">'Messages'</span>, tabBarBadge: unreadCount || <span class="k">undefined</span> }} /&gt;
+    &lt;/Tabs&gt;
+  );
+}</pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ENV -->
+<section class="section" id="env">
+  <div class="sh"><span class="sn">05</span><h2 class="st">Environment Variables</h2><div class="sline"></div></div>
+  <div class="two-col">
+    <div>
+      <div class="note" style="margin-bottom:12px;">Backend .env</div>
+      <table class="env-table" style="border:1px solid var(--border2);">
+        <tbody>
+          <tr><td>NODE_ENV</td><td>development | production</td></tr>
+          <tr><td>PORT</td><td>4000</td></tr>
+          <tr><td>MONGODB_URI</td><td>Atlas connection string</td></tr>
+          <tr><td>REDIS_URL</td><td>Redis (Railway / Upstash)</td></tr>
+          <tr><td>JWT_ACCESS_SECRET</td><td>min 64 chars random</td></tr>
+          <tr><td>JWT_REFRESH_SECRET</td><td>different from access</td></tr>
+          <tr><td>JWT_ACCESS_EXPIRES</td><td>15m</td></tr>
+          <tr><td>JWT_REFRESH_EXPIRES</td><td>30d</td></tr>
+          <tr><td>STRIPE_SECRET_KEY</td><td>sk_live_...</td></tr>
+          <tr><td>STRIPE_WEBHOOK_SECRET</td><td>whsec_...</td></tr>
+          <tr><td>STRIPE_PLATFORM_FEE_PCT</td><td>5</td></tr>
+          <tr><td>AWS_ACCESS_KEY_ID</td><td>IAM user key</td></tr>
+          <tr><td>AWS_SECRET_ACCESS_KEY</td><td>IAM user secret</td></tr>
+          <tr><td>AWS_REGION</td><td>ap-south-1</td></tr>
+          <tr><td>AWS_S3_BUCKET</td><td>fitdesk-media</td></tr>
+          <tr><td>FIREBASE_PROJECT_ID</td><td>FCM project</td></tr>
+          <tr><td>FIREBASE_PRIVATE_KEY</td><td>service account key</td></tr>
+          <tr><td>FIREBASE_CLIENT_EMAIL</td><td>service account email</td></tr>
+          <tr><td>SENDGRID_API_KEY</td><td>SG.xxx (email)</td></tr>
+          <tr><td>FROM_EMAIL</td><td>noreply@fitdesk.app</td></tr>
+          <tr><td>CLIENT_APP_URL</td><td>https://app.fitdesk.app</td></tr>
+          <tr><td>GOOGLE_CLIENT_ID</td><td>OAuth client ID</td></tr>
+          <tr><td>GOOGLE_CLIENT_SECRET</td><td>OAuth client secret</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="note" style="margin-bottom:12px;">Frontend app.env (Expo)</div>
+      <table class="env-table" style="border:1px solid var(--border2);">
+        <tbody>
+          <tr><td>EXPO_PUBLIC_API_URL</td><td>https://api.fitdesk.app/api/v1</td></tr>
+          <tr><td>EXPO_PUBLIC_STRIPE_PK</td><td>pk_live_... (publishable key)</td></tr>
+          <tr><td>EXPO_PUBLIC_GOOGLE_CLIENT_ID</td><td>Google OAuth (iOS + Android)</td></tr>
+          <tr><td>EXPO_PUBLIC_SENTRY_DSN</td><td>Error tracking</td></tr>
+          <tr><td>EXPO_PUBLIC_APP_ENV</td><td>development | production</td></tr>
+        </tbody>
+      </table>
+      <div class="note warn" style="margin-top:16px;">
+        ⚠️ Never prefix secrets with <code>EXPO_PUBLIC_</code> — only these vars are safe in mobile bundles. The Stripe publishable key is fine (it's meant to be public). Secret key stays in backend only.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ MIDDLEWARE -->
+<section class="section" id="middleware">
+  <div class="sh"><span class="sn">06</span><h2 class="st">Middleware Stack</h2><div class="sline"></div></div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">TypeScript</span>
+      <span class="code-file">src/middleware/auth.middleware.ts</span>
+    </div>
+    <pre><span class="k">import</span> { Request, Response, NextFunction } <span class="k">from</span> <span class="s">'express'</span>;
+<span class="k">import</span> jwt <span class="k">from</span> <span class="s">'jsonwebtoken'</span>;
+<span class="k">import</span> { User } <span class="k">from</span> <span class="s">'../models/user.model'</span>;
+<span class="k">import</span> { AppError } <span class="k">from</span> <span class="s">'../utils/api-error'</span>;
+
+<span class="c">// Extends Express Request to include authed user</span>
+<span class="k">declare global</span> {
+  <span class="k">namespace</span> Express {
+    <span class="k">interface</span> <span class="t">Request</span> {
+      user?: { id: <span class="t">string</span>; plan: <span class="t">string</span>; subscriptionStatus: <span class="t">string</span> };
+    }
+  }
+}
+
+<span class="k">export const</span> <span class="fn">requireAuth</span> = <span class="k">async</span> (req: Request, res: Response, next: NextFunction) => {
+  <span class="k">const</span> token = req.headers.authorization?.split(<span class="s">' '</span>)[<span class="n">1</span>];
+  <span class="k">if</span> (!token) <span class="k">return</span> <span class="fn">next</span>(<span class="k">new</span> <span class="fn">AppError</span>(<span class="s">'No token'</span>, <span class="n">401</span>));
+
+  <span class="k">try</span> {
+    <span class="k">const</span> decoded = jwt.<span class="fn">verify</span>(token, process.env.JWT_ACCESS_SECRET!) <span class="k">as</span> <span class="t">any</span>;
+    req.user = { id: decoded.sub, plan: decoded.plan, subscriptionStatus: decoded.status };
+    <span class="fn">next</span>();
+  } <span class="k">catch</span> {
+    <span class="fn">next</span>(<span class="k">new</span> <span class="fn">AppError</span>(<span class="s">'Token expired'</span>, <span class="n">401</span>));
+  }
+};
+
+<span class="c">// Ensures PT has active/trialing subscription</span>
+<span class="k">export const</span> <span class="fn">requireActiveSubscription</span> = (req: Request, res: Response, next: NextFunction) => {
+  <span class="k">const</span> allowed = [<span class="s">'active'</span>, <span class="s">'trialing'</span>];
+  <span class="k">if</span> (!allowed.<span class="fn">includes</span>(req.user?.subscriptionStatus ?? <span class="s">''</span>)) {
+    <span class="k">return</span> <span class="fn">next</span>(<span class="k">new</span> <span class="fn">AppError</span>(<span class="s">'Subscription required'</span>, <span class="n">402</span>));
+  }
+  <span class="fn">next</span>();
+};
+
+<span class="c">// Middleware chain for protected PT routes:</span>
+<span class="c">// router.use(requireAuth, requireActiveSubscription)</span></pre>
+  </div>
+
+  <div class="code-wrap" style="margin-top:12px;">
+    <div class="code-header">
+      <span class="code-lang">TypeScript</span>
+      <span class="code-file">src/middleware/validate.ts (Zod validation)</span>
+    </div>
+    <pre><span class="k">import</span> { Request, Response, NextFunction } <span class="k">from</span> <span class="s">'express'</span>;
+<span class="k">import</span> { AnyZodObject, ZodError } <span class="k">from</span> <span class="s">'zod'</span>;
+
+<span class="k">export const</span> <span class="fn">validate</span> = (schema: AnyZodObject) =>
+  <span class="k">async</span> (req: Request, res: Response, next: NextFunction) => {
+    <span class="k">try</span> {
+      <span class="k">await</span> schema.<span class="fn">parseAsync</span>({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+      });
+      <span class="fn">next</span>();
+    } <span class="k">catch</span> (err) {
+      <span class="k">if</span> (err <span class="k">instanceof</span> ZodError) {
+        res.<span class="fn">status</span>(<span class="n">400</span>).<span class="fn">json</span>({
+          success: <span class="k">false</span>,
+          message: <span class="s">'Validation failed'</span>,
+          errors: err.errors.<span class="fn">map</span>(e => ({ field: e.path.<span class="fn">join</span>(<span class="s">'.'</span>), message: e.message })),
+        });
+      }
+    }
+  };
+
+<span class="c">// Usage: router.post('/clients', validate(createClientSchema), createClient)</span></pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ BACKGROUND JOBS -->
+<section class="section" id="jobs">
+  <div class="sh"><span class="sn">07</span><h2 class="st">Background Jobs (Bull + Redis)</h2><div class="sline"></div></div>
+
+  <table class="api-table">
+    <thead><tr><th>Queue</th><th>Job Name</th><th>Trigger</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td><code>notifications</code></td><td>send-push</td><td>Any event that needs push</td><td>FCM send to device tokens (retry 3x)</td></tr>
+      <tr><td><code>notifications</code></td><td>send-email</td><td>Any event needing email</td><td>SendGrid send (retry 3x)</td></tr>
+      <tr><td><code>checkins</code></td><td>weekly-send</td><td>CRON: every Monday 08:00 per timezone</td><td>Create CheckIn docs, send push to all active clients of each PT</td></tr>
+      <tr><td><code>checkins</code></td><td>nudge-missing</td><td>CRON: every Wednesday 08:00</td><td>Find clients who haven't submitted this week → send reminder push</td></tr>
+      <tr><td><code>appointments</code></td><td>reminder-24h</td><td>CRON: every hour (check upcoming)</td><td>Find appointments starting in 24h → send push to PT + client</td></tr>
+      <tr><td><code>appointments</code></td><td>reminder-1h</td><td>CRON: every 15 min</td><td>Find appointments starting in 1h → send push to both</td></tr>
+      <tr><td><code>engagement</code></td><td>recalculate</td><td>After each session log or check-in submit</td><td>Recalculate client engagementScore based on last 4 weeks activity</td></tr>
+      <tr><td><code>engagement</code></td><td>churn-check</td><td>CRON: every Sunday midnight</td><td>Flag clients with no check-in OR no session in 14 days → push alert to PT</td></tr>
+      <tr><td><code>billing</code></td><td>trial-warning</td><td>CRON: daily</td><td>Warn PTs on day 7, 12 of trial via push + email</td></tr>
+      <tr><td><code>billing</code></td><td>package-expiry</td><td>CRON: daily</td><td>Alert PT 7 days before client package expires → suggest renewal</td></tr>
+      <tr><td><code>billing</code></td><td>birthday-greet</td><td>CRON: daily</td><td>Find clients with birthday today → send congrats push via PT notification</td></tr>
+    </tbody>
+  </table>
+
+  <div class="code-wrap" style="margin-top:16px;">
+    <div class="code-header">
+      <span class="code-lang">TypeScript</span>
+      <span class="code-file">src/queues/workers/checkin-sender.worker.ts</span>
+    </div>
+    <pre><span class="k">import</span> { checkinQueue } <span class="k">from</span> <span class="s">'../queue'</span>;
+<span class="k">import</span> { Client } <span class="k">from</span> <span class="s">'../../models/client.model'</span>;
+<span class="k">import</span> { CheckIn } <span class="k">from</span> <span class="s">'../../models/check-in.model'</span>;
+<span class="k">import</span> { notificationService } <span class="k">from</span> <span class="s">'../../services/notification.service'</span>;
+<span class="k">import</span> { startOfWeek } <span class="k">from</span> <span class="s">'date-fns'</span>;
+
+checkinQueue.<span class="fn">process</span>(<span class="s">'weekly-send'</span>, <span class="k">async</span> (job) => {
+  <span class="k">const</span> { trainerId } = job.data;
+
+  <span class="c">// Find all active clients for this trainer</span>
+  <span class="k">const</span> clients = <span class="k">await</span> Client.<span class="fn">find</span>({
+    trainerId, status: <span class="s">'active'</span>, isDeleted: <span class="k">false</span>
+  }).select(<span class="s">'_id name fcmTokens'</span>);
+
+  <span class="k">const</span> weekOf = <span class="fn">startOfWeek</span>(<span class="k">new</span> Date(), { weekStartsOn: <span class="n">1</span> });
+
+  <span class="k">for</span> (<span class="k">const</span> client <span class="k">of</span> clients) {
+    <span class="c">// Upsert to avoid duplicate check-ins</span>
+    <span class="k">await</span> CheckIn.<span class="fn">findOneAndUpdate</span>(
+      { trainerId, clientId: client._id, weekOf },
+      { $<span class="fn">setOnInsert</span>: { status: <span class="s">'pending'</span>, sentAt: <span class="k">new</span> Date() } },
+      { upsert: <span class="k">true</span>, new: <span class="k">true</span> }
+    );
+
+    <span class="c">// Send push notification to client</span>
+    <span class="k">if</span> (client.fcmTokens?.length) {
+      <span class="k">await</span> notificationService.<span class="fn">sendPush</span>(client.fcmTokens, {
+        title: <span class="s">'Weekly Check-in 📊'</span>,
+        body: <span class="s">`Time for your weekly check-in with your trainer!`</span>,
+        data: { screen: <span class="s">'checkin'</span>, weekOf: weekOf.<span class="fn">toISOString</span>() },
+      });
+    }
+  }
+});
+
+<span class="c">// This worker is spawned for each PT's timezone group</span>
+<span class="c">// Scheduled via Bull cron: '0 8 * * 1' (Every Monday 8am)</span></pre>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- NAV SCROLL JS -->
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>

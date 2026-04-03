@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitDesk — PT Client Manager · Full Product Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a25;
+    --border: #ffffff0f;
+    --border2: #ffffff18;
+    --accent: #7fff6a;
+    --accent2: #6ad4ff;
+    --accent3: #ff9f6a;
+    --accent4: #c46aff;
+    --text: #f0f0f0;
+    --muted: #888899;
+    --muted2: #555566;
+    --phase1: #7fff6a;
+    --phase2: #6ad4ff;
+    --phase3: #ff9f6a;
+    --phase4: #c46aff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 32px 120px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 48px;
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  h1 span {
+    color: var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted2);
+  }
+
+  .meta-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .meta-value.green { color: var(--accent); }
+  .meta-value.blue { color: var(--accent2); }
+  .meta-value.orange { color: var(--accent3); }
+
+  /* ── SECTION TITLES ── */
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .section-num {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    min-width: 32px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── WHY / WHAT / HOW GRID ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+  }
+
+  .insight-card {
+    background: var(--surface);
+    padding: 28px 24px;
+  }
+
+  .insight-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .insight-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .insight-card p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .tag-why { color: var(--accent3); }
+  .tag-what { color: var(--accent); }
+  .tag-how { color: var(--accent2); }
+
+  /* ── PROBLEM STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+    margin-bottom: 24px;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ── TECH STACK ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+  }
+
+  .stack-item {
+    background: var(--surface);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .stack-icon {
+    font-size: 20px;
+    min-width: 32px;
+    margin-top: 2px;
+  }
+
+  .stack-info h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .stack-info p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase-block {
+    border: 1px solid var(--border2);
+    margin-bottom: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phase-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+  }
+
+  .phase-block.p1::before { background: var(--phase1); }
+  .phase-block.p2::before { background: var(--phase2); }
+  .phase-block.p3::before { background: var(--phase3); }
+  .phase-block.p4::before { background: var(--phase4); }
+
+  .phase-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px 24px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .p1 .phase-tag { color: var(--phase1); background: #7fff6a15; border: 1px solid #7fff6a30; }
+  .p2 .phase-tag { color: var(--phase2); background: #6ad4ff15; border: 1px solid #6ad4ff30; }
+  .p3 .phase-tag { color: var(--phase3); background: #ff9f6a15; border: 1px solid #ff9f6a30; }
+  .p4 .phase-tag { color: var(--phase4); background: #c46aff15; border: 1px solid #c46aff30; }
+
+  .phase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .phase-duration {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .phase-goal-pill {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .phase-body {
+    background: var(--bg);
+    padding: 28px 32px;
+  }
+
+  .phase-desc {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 700px;
+    border-left: 2px solid var(--border2);
+    padding-left: 16px;
+  }
+
+  /* Feature Groups */
+  .feature-groups {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .feature-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .fg-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fg-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .p1 .fg-dot { background: var(--phase1); }
+  .p2 .fg-dot { background: var(--phase2); }
+  .p3 .fg-dot { background: var(--phase3); }
+  .p4 .fg-dot { background: var(--phase4); }
+
+  .feature-list {
+    list-style: none;
+  }
+
+  .feature-list li {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+
+  .feature-list li:last-child { border-bottom: none; }
+
+  .feature-list li::before {
+    content: '→';
+    flex-shrink: 0;
+    font-size: 10px;
+    margin-top: 2px;
+    opacity: 0.4;
+  }
+
+  /* Atomic flows */
+  .flow-section {
+    margin-bottom: 24px;
+  }
+
+  .flow-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .flow-step-inner {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 8px 14px;
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    color: var(--muted2);
+    font-size: 12px;
+    align-self: center;
+  }
+
+  .flow-sub {
+    font-size: 10px;
+    color: var(--muted2);
+    margin-top: 3px;
+    max-width: 120px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  /* Milestone row */
+  .milestone-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .milestone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+
+  .milestone-icon { font-size: 14px; }
+
+  /* ── MONETIZATION ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+    margin-bottom: 24px;
+  }
+
+  .pricing-card {
+    background: var(--surface);
+    padding: 28px 24px;
+    position: relative;
+  }
+
+  .pricing-card.featured {
+    background: var(--surface2);
+    outline: 1px solid var(--accent);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -1px; right: 16px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 3px 8px;
+  }
+
+  .pricing-tier {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+  }
+
+  .pricing-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .pricing-price sub {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .pricing-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .pricing-features {
+    list-style: none;
+  }
+
+  .pricing-features li {
+    font-size: 11px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+  }
+
+  .pricing-features li:last-child { border: none; }
+  .pricing-features li::before { content: '✓'; color: var(--accent); flex-shrink: 0; }
+
+  /* MRR Projections */
+  .mrr-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border2);
+  }
+
+  .mrr-table th {
+    background: var(--surface2);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    border-bottom: 1px solid var(--border2);
+    font-weight: 500;
+  }
+
+  .mrr-table td {
+    padding: 12px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .mrr-table tr:last-child td { border: none; }
+  .mrr-table .highlight { color: var(--accent); font-weight: 500; }
+  .mrr-table .phase-col { color: var(--muted2); font-size: 11px; }
+
+  /* ── GTM ── */
+  .gtm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+  }
+
+  .gtm-card {
+    background: var(--surface);
+    padding: 24px 20px;
+  }
+
+  .gtm-icon { font-size: 24px; margin-bottom: 12px; }
+
+  .gtm-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .gtm-card p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── RISK TABLE ── */
+  .risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border2);
+  }
+
+  .risk-table th {
+    background: var(--surface2);
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    border-bottom: 1px solid var(--border2);
+    font-weight: 500;
+  }
+
+  .risk-table td {
+    padding: 12px 16px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    vertical-align: top;
+  }
+
+  .risk-table tr:last-child td { border: none; }
+
+  .risk-high { color: #ff6a6a; }
+  .risk-med { color: var(--accent3); }
+  .risk-low { color: var(--accent); }
+
+  /* ── TIMELINE BAR ── */
+  .timeline-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .tl-segment {
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  .tl-segment.p1 { background: var(--phase1); }
+  .tl-segment.p2 { background: var(--phase2); }
+  .tl-segment.p3 { background: var(--phase3); }
+  .tl-segment.p4 { background: var(--phase4); }
+
+  .timeline-labels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 32px;
+  }
+
+  .tl-label {
+    font-size: 10px;
+    color: var(--muted2);
+    text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--muted2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .insight-grid, .stats-row, .pricing-grid, .gtm-grid { grid-template-columns: 1fr; }
+    .feature-groups, .stack-grid { grid-template-columns: 1fr; }
+    .phase-header { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .flow-steps { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+    .timeline-labels .tl-label { font-size: 9px; }
+    .mrr-table { font-size: 11px; }
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  .full-width-note {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent2);
+    padding: 16px 20px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .api-note {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent3);
+    padding: 16px 20px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 20px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 20px;
+  }
+
+  .info-box h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .info-box ul {
+    list-style: none;
+  }
+
+  .info-box ul li {
+    font-size: 11px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+  }
+
+  .info-box ul li:last-child { border: none; }
+  .info-box ul li::before { content: '·'; color: var(--muted2); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="badge">Product Roadmap · 2025–2026</div>
+    <h1>FitDesk<br><span>Personal Trainer</span><br>Client Manager</h1>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Target Market</span>
+        <span class="meta-value">Independent PTs · Global</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Revenue Model</span>
+        <span class="meta-value blue">SaaS · Monthly Subscription</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Build Time (MVP)</span>
+        <span class="meta-value orange">8–10 Weeks</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Target MRR (12mo)</span>
+        <span class="meta-value green">$9,500 / month</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Stack</span>
+        <span class="meta-value">Node.js · TypeScript · React Native</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Total Phases</span>
+        <span class="meta-value">4 Phases · 14 Months</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SECTION 0: WHY WHAT HOW ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <h2 class="section-title">Why · What · How</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-tag tag-why">Why This Exists</div>
+        <h3>The Problem is Real & Painful</h3>
+        <p>3M+ independent personal trainers globally are running their businesses on WhatsApp, Google Sheets, and paper notebooks. They lose clients because they forget follow-ups, lose revenue because they can't track payments, and burn out because admin eats 2–3 hours per day. Existing tools like Trainerize or PT Distinction cost $40–130/month and are bloated desktop-first products not built for a trainer who is always on the move with a phone.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag tag-what">What You're Building</div>
+        <h3>A Mobile-First Business OS for PTs</h3>
+        <p>FitDesk is a mobile-first client management platform — not just a workout builder. It handles the full PT business loop: onboard clients, write workout & nutrition plans, track client progress, collect payments, send automated check-ins, and get business analytics. Everything a PT needs to run a professional, growing business from their phone — in under 5 minutes per client per week.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-tag tag-how">How You Win</div>
+        <h3>Mobile-First + Price Disruption</h3>
+        <p>You win by being genuinely mobile-native (competitors are web apps with bad mobile UX), pricing aggressively ($9–19/mo vs $40–130/mo), and shipping fast as a solo dev. Your MERN + TypeScript stack lets you build the backend API fast, React Native gives you iOS + Android from one codebase. You don't need to be better than everyone in every way — you just need to be the best mobile experience at the lowest price. That gap is wide open.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 1: MARKET ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Market Opportunity</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--accent)">3M+</div>
+        <div class="stat-label">Independent Personal Trainers globally</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--accent2)">$40–130</div>
+        <div class="stat-label">What competitors charge per month</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--accent3)">2–3 hrs</div>
+        <div class="stat-label">Daily admin time lost by average PT</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--accent4)">$9,500</div>
+        <div class="stat-label">MRR target with just 500 subscribers</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-box">
+        <h4>🎯 Primary ICP (Ideal Customer)</h4>
+        <ul>
+          <li>Independent PT with 10–40 active clients</li>
+          <li>Earns $2,000–8,000/month from coaching</li>
+          <li>Currently uses WhatsApp + Google Sheets</li>
+          <li>Age 24–38, tech-comfortable but not tech-savvy</li>
+          <li>Lives on their phone, rarely uses desktop</li>
+          <li>Frustrated with losing clients from disorganization</li>
+          <li>Geography: US, UK, Australia, Canada (English-first)</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h4>⚔️ Competitive Landscape</h4>
+        <ul>
+          <li>Trainerize — $22–133/mo · Desktop-first · Complex UI</li>
+          <li>PT Distinction — $40–130/mo · Web app · Steep learning curve</li>
+          <li>TrueCoach — $19–69/mo · Limited mobile · No billing</li>
+          <li>My PT Hub — $25/mo · UK-focused · Clunky UX</li>
+          <li>Google Sheets — Free · Zero automation · Chaos</li>
+          <li><strong style="color:var(--accent)">FitDesk gap: Mobile-native + $9–19/mo + Simple UX</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: TECH STACK ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Tech Stack & Architecture</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-icon">📱</div>
+        <div class="stack-info">
+          <h4>React Native + Expo</h4>
+          <p>Single codebase for iOS + Android. Expo handles OTA updates, push notifications, camera access for progress photos. TypeScript throughout. React Navigation v6 for routing.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">⚙️</div>
+        <div class="stack-info">
+          <h4>Node.js + Express + TypeScript</h4>
+          <p>REST API backend. You already know this. JWT auth, role-based middleware, structured error handling. Modular route/controller/service pattern for clean scaling.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🗄️</div>
+        <div class="stack-info">
+          <h4>MongoDB + Mongoose</h4>
+          <p>Flexible schema fits workout/nutrition plan data perfectly. Atlas free tier for dev. Indexes on trainerId + clientId for fast queries. GridFS or S3 for progress photos.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">💳</div>
+        <div class="stack-info">
+          <h4>Stripe Billing</h4>
+          <p>Stripe Subscriptions API for your SaaS billing. Stripe Connect for PT-to-client payment collection (Phase 2). Webhooks for payment events. Stripe Customer Portal for self-service.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">🔔</div>
+        <div class="stack-info">
+          <h4>FCM + Bull Queue (Redis)</h4>
+          <p>Firebase Cloud Messaging for push notifications. Bull + Redis for background jobs: weekly check-in reminders, payment due alerts, scheduled report generation.</p>
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-icon">☁️</div>
+        <div class="stack-info">
+          <h4>Railway / Render + S3 + Cloudflare</h4>
+          <p>Railway for Node API (free tier → $5/mo). AWS S3 for progress photo storage. Cloudflare for CDN + DDoS. Total infra cost: ~$10–20/mo at early stage. Zero investment needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="api-note">
+      💡 <strong>Zero Investment Reality:</strong> Railway free tier + MongoDB Atlas free tier + Expo free tier + Stripe (pay per transaction) = $0 upfront cost to launch. Only pay as you earn. Your Apple Developer account ($99/yr) and Google Play ($25 one-time) are the only mandatory costs.
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: TIMELINE ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Master Timeline</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline-bar">
+      <div class="tl-segment p1"></div>
+      <div class="tl-segment p2"></div>
+      <div class="tl-segment p3"></div>
+      <div class="tl-segment p4"></div>
+    </div>
+    <div class="timeline-labels">
+      <div class="tl-label" style="color:var(--phase1)">Phase 1 · Wk 1–10<br>MVP + Launch</div>
+      <div class="tl-label" style="color:var(--phase2)">Phase 2 · Mo 3–6<br>Growth Features</div>
+      <div class="tl-label" style="color:var(--phase3)">Phase 3 · Mo 7–10<br>AI + Automation</div>
+      <div class="tl-label" style="color:var(--phase4)">Phase 4 · Mo 11–14<br>Scale + Platform</div>
+    </div>
+  </section>
+
+  <!-- ── PHASE 1 ── -->
+  <div class="phase-block p1">
+    <div class="phase-header">
+      <div class="phase-tag">Phase 1</div>
+      <div class="phase-title">MVP — Core Business Loop</div>
+      <div class="phase-duration">Weeks 1–10 · ~2.5 months</div>
+      <div class="phase-goal-pill">Goal: First 50 paying users</div>
+    </div>
+    <div class="phase-body">
+      <p class="phase-desc">
+        Build the smallest version that solves the core pain: a PT can onboard clients, assign workout plans, track progress, and collect payment — all from their phone. Nothing more. Ship this fast, get real PTs using it, and charge from day one. Validate before you over-build.
+      </p>
+
+      <div class="feature-groups">
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>Auth & Onboarding</div>
+          <ul class="feature-list">
+            <li>PT registration with email/password + Google OAuth</li>
+            <li>Profile setup: name, bio, specialization, profile photo</li>
+            <li>Business info: pricing, session types, timezone</li>
+            <li>Email verification flow with resend option</li>
+            <li>Onboarding checklist (add first client, create first plan)</li>
+            <li>JWT access token + refresh token rotation</li>
+          </ul>
+        </div>
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>Client Management</div>
+          <ul class="feature-list">
+            <li>Add client: name, email, phone, goals, health notes</li>
+            <li>Client status: Active / Paused / Completed</li>
+            <li>Send client invite link via SMS/WhatsApp/email</li>
+            <li>Client self-onboarding form (PAR-Q health questionnaire)</li>
+            <li>Client list with search + filter by status</li>
+            <li>Client profile view: full history, plans, payments</li>
+            <li>Archive/delete client with data retention</li>
+          </ul>
+        </div>
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>Workout Plan Builder</div>
+          <ul class="feature-list">
+            <li>Create plan: name, duration (weeks), days per week</li>
+            <li>Exercise library: 300+ exercises with muscle group tags</li>
+            <li>Search exercises by name / muscle / equipment</li>
+            <li>Add custom exercises with notes + video link</li>
+            <li>Per-exercise: sets, reps, weight, rest time, RPE</li>
+            <li>Duplicate plans + assign to multiple clients</li>
+            <li>Assign plan to client with start date</li>
+          </ul>
+        </div>
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>Progress Tracking</div>
+          <ul class="feature-list">
+            <li>Log client workout session (mark exercises complete)</li>
+            <li>Record weight lifted, reps completed per set</li>
+            <li>Body metrics: weight, body fat %, measurements</li>
+            <li>Progress photos: front/back/side with date</li>
+            <li>Client progress chart: weight over time, strength over time</li>
+            <li>PT notes per session (private, client-invisible)</li>
+          </ul>
+        </div>
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>Payments & Billing</div>
+          <ul class="feature-list">
+            <li>Stripe Connect integration — PT connects their Stripe account</li>
+            <li>Create packages: sessions × price (e.g. 12 sessions × $600)</li>
+            <li>Send payment request link to client via any channel</li>
+            <li>Client pays via Stripe-hosted checkout (card / Apple Pay)</li>
+            <li>PT receives payout minus platform fee (5% Phase 1)</li>
+            <li>Invoice generation (PDF) auto-sent to client on payment</li>
+            <li>Payment history tab per client</li>
+            <li>Unpaid / overdue alerts for PT</li>
+          </ul>
+        </div>
+        <div class="feature-group p1">
+          <div class="fg-title"><span class="fg-dot"></span>PT Subscription Billing</div>
+          <ul class="feature-list">
+            <li>Stripe Subscriptions for FitDesk's own billing</li>
+            <li>14-day free trial, no card required</li>
+            <li>Upgrade/downgrade plan from app</li>
+            <li>Trial expiry warning at day 7, 12, 14</li>
+            <li>Graceful downgrade on failed payment (read-only mode)</li>
+            <li>Stripe Customer Portal for self-service billing management</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Atomic Flows -->
+      <div class="flow-section">
+        <div class="flow-title">⚡ Atomic Flow: PT Onboards a New Client</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-inner">PT taps "Add Client"</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Fills name + contact</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Selects package</div>
+            <div class="flow-sub">e.g. 12 sessions $600</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Sends invite link</div>
+            <div class="flow-sub">WhatsApp / SMS / email</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Client fills PAR-Q</div>
+            <div class="flow-sub">Health questionnaire</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Client pays via Stripe</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT gets notified</div>
+            <div class="flow-sub">Push + email</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT assigns plan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-section" style="margin-top:16px;">
+        <div class="flow-title">⚡ Atomic Flow: Log a Session</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-inner">PT opens client profile</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Taps "Log Session"</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Today's workout auto-loads</div>
+            <div class="flow-sub">From assigned plan</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT enters weight + reps per set</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Adds session notes</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Marks session complete</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Session count decrements</div>
+            <div class="flow-sub">From purchased package</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-row">
+        <div class="milestone"><span class="milestone-icon">🚀</span> App live on iOS + Android</div>
+        <div class="milestone"><span class="milestone-icon">💳</span> First PT pays for subscription</div>
+        <div class="milestone"><span class="milestone-icon">👥</span> 10 PTs using free trial</div>
+        <div class="milestone"><span class="milestone-icon">💰</span> First $500 MRR</div>
+        <div class="milestone"><span class="milestone-icon">⭐</span> 5+ App Store reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div class="phase-block p2" style="margin-top:2px;">
+    <div class="phase-header">
+      <div class="phase-tag">Phase 2</div>
+      <div class="phase-title">Retention & Growth Features</div>
+      <div class="phase-duration">Months 3–6 · ~3 months</div>
+      <div class="phase-goal-pill">Goal: $3,000 MRR · 150 users</div>
+    </div>
+    <div class="phase-body">
+      <p class="phase-desc">
+        Phase 1 gets users in. Phase 2 keeps them. Churn is the killer of SaaS businesses. You add features that PTs use daily — check-ins, nutrition, scheduling — making FitDesk too sticky to cancel. You also add the Client App so clients have a reason to engage, which locks in the PT even harder.
+      </p>
+
+      <div class="feature-groups">
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>Client Mobile App (Separate App)</div>
+          <ul class="feature-list">
+            <li>Client-facing app: view their assigned workout plan</li>
+            <li>Log their own workout sessions between PT sessions</li>
+            <li>View progress charts (weight, lifts)</li>
+            <li>View and upload progress photos</li>
+            <li>Send messages to PT (simple in-app chat)</li>
+            <li>View upcoming session schedule</li>
+            <li>Receive push notifications from PT</li>
+          </ul>
+        </div>
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>Automated Check-ins</div>
+          <ul class="feature-list">
+            <li>PT creates weekly check-in form (custom questions)</li>
+            <li>Auto-send to client every Monday (configurable day)</li>
+            <li>Client fills: weight, energy, sleep, adherence rating</li>
+            <li>PT receives aggregated responses in dashboard</li>
+            <li>Highlight clients who missed check-in (at-risk)</li>
+            <li>Check-in history per client with trend visualization</li>
+            <li>PT can comment/reply to client's check-in</li>
+          </ul>
+        </div>
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>Nutrition Tracking</div>
+          <ul class="feature-list">
+            <li>PT creates nutrition plan: calories, protein, carbs, fat targets</li>
+            <li>Meal templates: breakfast / lunch / dinner / snacks</li>
+            <li>Client logs daily meals (simple free-text or from template)</li>
+            <li>PT views client's nutrition compliance rate</li>
+            <li>Weekly nutrition adherence summary in check-in</li>
+            <li>Water intake tracking goal</li>
+          </ul>
+        </div>
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>Session Scheduling</div>
+          <ul class="feature-list">
+            <li>PT sets available time slots (recurring weekly schedule)</li>
+            <li>Client books session from available slots</li>
+            <li>Google Calendar / Apple Calendar sync (iCal export)</li>
+            <li>Session reminders: 24h + 1h before (push + email)</li>
+            <li>PT can cancel/reschedule with notification to client</li>
+            <li>Upcoming sessions widget on PT dashboard</li>
+            <li>Session history log per client</li>
+          </ul>
+        </div>
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>In-App Messaging</div>
+          <ul class="feature-list">
+            <li>Direct message thread: PT ↔ Client</li>
+            <li>Text messages with read receipts</li>
+            <li>Photo/video attachment support (progress media)</li>
+            <li>Push notification on new message</li>
+            <li>PT can message all clients simultaneously (broadcast)</li>
+            <li>Message templates: "Great work today!", "Check-in reminder"</li>
+          </ul>
+        </div>
+        <div class="feature-group p2">
+          <div class="fg-title"><span class="fg-dot"></span>PT Dashboard & Analytics</div>
+          <ul class="feature-list">
+            <li>Monthly revenue chart (collected vs. outstanding)</li>
+            <li>Active client count with churn tracking</li>
+            <li>Client retention rate (3mo, 6mo)</li>
+            <li>Total sessions delivered this month</li>
+            <li>Client engagement score (check-ins completed, workouts logged)</li>
+            <li>At-risk clients (no check-in in 2 weeks, flagged in red)</li>
+            <li>Upcoming renewals / expiring packages alert</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flow-section">
+        <div class="flow-title">⚡ Atomic Flow: Weekly Automated Check-in Cycle</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-inner">Every Monday 8am</div>
+            <div class="flow-sub">Bull cron job fires</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Push sent to all active clients</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Client opens app, fills form</div>
+            <div class="flow-sub">Weight, sleep, adherence</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Response saved to DB</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT notified: "3/8 clients checked in"</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT reviews + comments</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Wednesday: nudge to non-responders</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-row">
+        <div class="milestone"><span class="milestone-icon">📱</span> Client app live on stores</div>
+        <div class="milestone"><span class="milestone-icon">🔄</span> Churn rate &lt; 8%/month</div>
+        <div class="milestone"><span class="milestone-icon">💰</span> $3,000 MRR</div>
+        <div class="milestone"><span class="milestone-icon">🌟</span> 4.5★ average App Store rating</div>
+        <div class="milestone"><span class="milestone-icon">📣</span> 3 PT influencer partnerships</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div class="phase-block p3" style="margin-top:2px;">
+    <div class="phase-header">
+      <div class="phase-tag">Phase 3</div>
+      <div class="phase-title">AI Layer + Automation</div>
+      <div class="phase-duration">Months 7–10 · ~3 months</div>
+      <div class="phase-goal-pill">Goal: $6,000 MRR · 300 users</div>
+    </div>
+    <div class="phase-body">
+      <p class="phase-desc">
+        By Month 7 you have real user data — workout logs, check-ins, progress photos, payment patterns. Now you layer AI on top of this data to create features competitors literally cannot ship: AI-generated workout plans from client goals, automated client progress reports, and smart business insights that tell PTs which clients are about to churn. This is your moat.
+      </p>
+
+      <div class="feature-groups">
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>AI Workout Plan Generator</div>
+          <ul class="feature-list">
+            <li>PT inputs: client goal, fitness level, equipment, days/week, injuries</li>
+            <li>Claude/GPT-4o API generates full periodized plan (4–12 weeks)</li>
+            <li>PT reviews + edits generated plan before assigning</li>
+            <li>Exercise substitution: "replace barbell squat with something" → AI suggests</li>
+            <li>Deload week auto-inserted every 4th week</li>
+            <li>Plan regeneration if client feedback is negative</li>
+          </ul>
+        </div>
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>AI Progress Reports</div>
+          <ul class="feature-list">
+            <li>Monthly auto-generated client progress report (PDF)</li>
+            <li>AI narrates: "Sarah lost 2.3kg this month, strength increased 15%..."</li>
+            <li>Charts: body weight trend, key lift progression, check-in scores</li>
+            <li>Before/after progress photos side by side</li>
+            <li>AI coaching notes: what's working, what to adjust next month</li>
+            <li>PT reviews before sending; one-tap share to client</li>
+            <li>Shareable client success story card for PT's social media</li>
+          </ul>
+        </div>
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>Smart Client Insights</div>
+          <ul class="feature-list">
+            <li>Churn prediction: "Client at 70% churn risk — hasn't logged in 10 days"</li>
+            <li>Engagement score per client (green / amber / red)</li>
+            <li>AI-suggested action: "Send Sarah a motivational message now"</li>
+            <li>Package renewal prediction: "Tom's 12-session pack ends in 3 weeks"</li>
+            <li>Auto-reminder to PT: suggest renewal conversation at right time</li>
+            <li>Client comparison: who progresses fastest (to replicate what works)</li>
+          </ul>
+        </div>
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>AI Nutrition Coach</div>
+          <ul class="feature-list">
+            <li>Client describes a meal in plain text → AI calculates macros</li>
+            <li>Food photo scan → AI estimates calories (GPT-4o vision)</li>
+            <li>Weekly nutrition summary auto-generated for PT review</li>
+            <li>AI suggests meal swap: "Replace this meal to hit protein target"</li>
+            <li>Nutrition compliance trend chart per client</li>
+          </ul>
+        </div>
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>Automation Engine</div>
+          <ul class="feature-list">
+            <li>Trigger-based automations: "If client misses 2 check-ins → send message"</li>
+            <li>Package expiry automation: 7 days before → send renewal offer</li>
+            <li>Birthday message auto-sent to client</li>
+            <li>Session milestone celebration: "You've done 50 sessions with me! 🎉"</li>
+            <li>PT-configurable automation templates</li>
+            <li>Automation activity log (what was sent, when)</li>
+          </ul>
+        </div>
+        <div class="feature-group p3">
+          <div class="fg-title"><span class="fg-dot"></span>PT Business Insights</div>
+          <ul class="feature-list">
+            <li>Revenue forecast: projected MRR next 3 months based on renewals</li>
+            <li>Best-performing service package (by retention + revenue)</li>
+            <li>Average client lifetime value (LTV)</li>
+            <li>Client acquisition trend (new clients per month)</li>
+            <li>Busiest day/time for sessions (optimize scheduling)</li>
+            <li>Exportable business report (PDF) for PT's own records</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flow-section">
+        <div class="flow-title">⚡ Atomic Flow: AI Plan Generation</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-inner">PT taps "Generate Plan with AI"</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Fills: goal, level, equipment, days, injuries</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">API call to Claude/GPT-4o</div>
+            <div class="flow-sub">Structured JSON response</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Plan preview shown to PT</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">PT edits / approves</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Saved to DB</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Assigned to client</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-row">
+        <div class="milestone"><span class="milestone-icon">🤖</span> AI plan generator live</div>
+        <div class="milestone"><span class="milestone-icon">📊</span> Auto reports shipping monthly</div>
+        <div class="milestone"><span class="milestone-icon">💰</span> $6,000 MRR</div>
+        <div class="milestone"><span class="milestone-icon">🏆</span> Pro plan hitting 100+ subscribers</div>
+        <div class="milestone"><span class="milestone-icon">📉</span> Churn rate &lt; 5%/month</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 4 ── -->
+  <div class="phase-block p4" style="margin-top:2px;">
+    <div class="phase-header">
+      <div class="phase-tag">Phase 4</div>
+      <div class="phase-title">Scale, Teams & Platform</div>
+      <div class="phase-duration">Months 11–14 · ~3 months</div>
+      <div class="phase-goal-pill">Goal: $9,500+ MRR · 500 users</div>
+    </div>
+    <div class="phase-body">
+      <p class="phase-desc">
+        You now have 300 paying PTs and real retention data. Phase 4 opens new revenue multipliers: a higher-priced Business plan for small gyms / PT studios (who manage multiple trainers), a marketplace where PTs can sell their plans as digital products, and white-label options. This is where MRR compounds and your individual solo app becomes a platform business.
+      </p>
+
+      <div class="feature-groups">
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>Gym / Studio Multi-Trainer Plan</div>
+          <ul class="feature-list">
+            <li>Studio owner account: add 2–10 trainers under one subscription</li>
+            <li>Owner dashboard: see all trainers' revenue, clients, activity</li>
+            <li>Trainer sub-accounts with permission scoping</li>
+            <li>Shared exercise library across studio</li>
+            <li>Studio branding: logo + color on client-facing screens</li>
+            <li>Centralized billing: owner pays one invoice for all trainers</li>
+            <li>Price: $49–99/month (vs. $19/mo × N trainers = huge savings)</li>
+          </ul>
+        </div>
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>Plan Marketplace</div>
+          <ul class="feature-list">
+            <li>PTs publish workout/nutrition plans for sale</li>
+            <li>Pricing: $9–99 one-time per plan</li>
+            <li>Buyers: other PTs, or direct end consumers</li>
+            <li>FitDesk takes 20% commission per sale</li>
+            <li>PT earns passive income on plans they built once</li>
+            <li>Plan ratings and reviews system</li>
+            <li>Featured plans curation (editorial picks)</li>
+            <li>Search + filter: goal, level, duration, price</li>
+          </ul>
+        </div>
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>Online Coaching Programme Builder</div>
+          <ul class="feature-list">
+            <li>PT creates a structured 8/12-week self-paced programme</li>
+            <li>Programme: video lessons + workouts + nutrition week by week</li>
+            <li>Clients pay once and self-complete (async coaching model)</li>
+            <li>PT grows income beyond 1:1 client hours (scalable revenue)</li>
+            <li>Programme landing page auto-generated for PT to share</li>
+            <li>Progress certificate for clients who complete</li>
+          </ul>
+        </div>
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>White-Label Option</div>
+          <ul class="feature-list">
+            <li>Studio gets their own branded iOS + Android app</li>
+            <li>Custom app name, icon, colors, splash screen</li>
+            <li>Powered by FitDesk infrastructure (Expo build config per customer)</li>
+            <li>Price: $199–399/month for white-label tier</li>
+            <li>Target: gyms with 50–200 members who want a branded app</li>
+          </ul>
+        </div>
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>Wearable + Health App Integrations</div>
+          <ul class="feature-list">
+            <li>Apple Health / Google Fit: auto-import steps, heart rate, sleep</li>
+            <li>Garmin / Fitbit API sync for workout data</li>
+            <li>Display wearable data alongside PT's logged session data</li>
+            <li>PT sees client's daily activity even outside sessions</li>
+            <li>Sleep quality + HRV data in check-in auto-populated</li>
+          </ul>
+        </div>
+        <div class="feature-group p4">
+          <div class="fg-title"><span class="fg-dot"></span>Referral & Affiliate Program</div>
+          <ul class="feature-list">
+            <li>PT gets unique referral link</li>
+            <li>Earn 30% recurring commission for every PT they refer</li>
+            <li>Referral dashboard: clicks, signups, earnings</li>
+            <li>Payout via Stripe every month</li>
+            <li>Top affiliates get featured in FitDesk blog / social</li>
+            <li>Double-sided: referring PT + new PT both get 1 month free</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flow-section">
+        <div class="flow-title">⚡ Atomic Flow: PT Sells a Plan on Marketplace</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-inner">PT opens existing plan</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Taps "Publish to Marketplace"</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Sets title, description, price, cover image</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">FitDesk reviews + approves</div>
+            <div class="flow-sub">Auto-review in Phase 5</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Plan listed publicly</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">Buyer purchases</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-inner">80% payout to PT via Stripe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-row">
+        <div class="milestone"><span class="milestone-icon">🏢</span> First gym studio account</div>
+        <div class="milestone"><span class="milestone-icon">🛒</span> Marketplace live with 20+ plans</div>
+        <div class="milestone"><span class="milestone-icon">💰</span> $9,500+ MRR</div>
+        <div class="milestone"><span class="milestone-icon">🤝</span> Referral program generating 20% of new signups</div>
+        <div class="milestone"><span class="milestone-icon">🌍</span> Users in 15+ countries</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MONETIZATION ── -->
+  <section class="section" style="margin-top:48px;">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Monetization Strategy</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">$9<sub>/mo</sub></div>
+        <div class="pricing-desc">For new PTs getting started. Up to 10 clients. Core features only.</div>
+        <ul class="pricing-features">
+          <li>Up to 10 active clients</li>
+          <li>Workout plan builder</li>
+          <li>Progress tracking</li>
+          <li>Payment collection (5% fee)</li>
+          <li>Basic dashboard</li>
+          <li>Email support</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">$19<sub>/mo</sub></div>
+        <div class="pricing-desc">For full-time PTs. Unlimited clients, AI features, client app, automation.</div>
+        <ul class="pricing-features">
+          <li>Unlimited clients</li>
+          <li>Client mobile app included</li>
+          <li>AI workout plan generator</li>
+          <li>Automated check-ins</li>
+          <li>Nutrition tracking</li>
+          <li>Payment collection (3% fee)</li>
+          <li>Scheduling + calendar sync</li>
+          <li>Monthly AI progress reports</li>
+          <li>Smart churn alerts</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Business</div>
+        <div class="pricing-price">$79<sub>/mo</sub></div>
+        <div class="pricing-desc">For studios and gyms. Up to 5 trainers, studio branding, owner analytics.</div>
+        <ul class="pricing-features">
+          <li>Up to 5 trainer accounts</li>
+          <li>Studio owner dashboard</li>
+          <li>Shared exercise library</li>
+          <li>Studio branding on client app</li>
+          <li>Payment collection (2% fee)</li>
+          <li>Marketplace access (sell plans)</li>
+          <li>Wearable integrations</li>
+          <li>Dedicated support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="full-width-note">
+      💡 <strong>Additional Revenue Streams:</strong> (1) Marketplace commission — 20% of every plan sold. (2) Payment processing fee (3–5% on PT-client transactions via Stripe Connect). (3) White-label tier at $199–399/month. (4) Referral affiliate 30% recurring (cost, not revenue — but drives acquisition at near-zero CAC).
+    </div>
+
+    <table class="mrr-table" style="margin-top:20px;">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Timeline</th>
+          <th>Subscribers</th>
+          <th>Avg Revenue/User</th>
+          <th>MRR</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="phase-col">Phase 1 End</td>
+          <td>Month 2–3</td>
+          <td>50</td>
+          <td>$12</td>
+          <td class="highlight">$600</td>
+          <td style="color:var(--muted)">Mostly Starter plan, early adopters</td>
+        </tr>
+        <tr>
+          <td class="phase-col">Phase 2 End</td>
+          <td>Month 6</td>
+          <td>150</td>
+          <td>$16</td>
+          <td class="highlight">$2,400</td>
+          <td style="color:var(--muted)">Mix shifting to Pro as features grow</td>
+        </tr>
+        <tr>
+          <td class="phase-col">Phase 3 End</td>
+          <td>Month 10</td>
+          <td>320</td>
+          <td>$18</td>
+          <td class="highlight">$5,760</td>
+          <td style="color:var(--muted)">AI features justify Pro upgrade</td>
+        </tr>
+        <tr>
+          <td class="phase-col">Phase 4 End</td>
+          <td>Month 14</td>
+          <td>500+</td>
+          <td>$19+</td>
+          <td class="highlight">$9,500+</td>
+          <td style="color:var(--muted)">Business accounts + marketplace income</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── GTM ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Go-to-Market Strategy</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="full-width-note">
+      🎯 <strong>Key insight:</strong> PTs are hyper-concentrated on Instagram, TikTok, and Reddit (r/personaltraining, r/fitness). They trust other PTs more than any ad. Your GTM is entirely organic and community-driven — zero paid ads needed.
+    </div>
+
+    <div class="gtm-grid">
+      <div class="gtm-card">
+        <div class="gtm-icon">🎁</div>
+        <h4>Beta Outreach (Month 1)</h4>
+        <p>DM 100 PTs on Instagram with 1k–50k followers. Offer lifetime 50% discount for beta feedback. Join r/personaltraining and r/fitness subreddits. Post genuine value posts, not ads. Get 10 beta users who give testimonials.</p>
+      </div>
+      <div class="gtm-card">
+        <div class="gtm-icon">📹</div>
+        <h4>Content Marketing (Month 2+)</h4>
+        <p>Create short TikTok / Reels showing FitDesk in action: "How I manage 30 clients from my phone." Demo videos of AI plan generation. These go viral in PT communities. No ad budget needed — real utility is the hook.</p>
+      </div>
+      <div class="gtm-card">
+        <div class="gtm-icon">🤝</div>
+        <h4>PT Influencer Partnerships</h4>
+        <p>Partner with 3–5 PT influencers (10k–100k followers). Offer 30% lifetime affiliate commission. They promote genuinely because they use it and earn recurring income. This is your primary acquisition channel at scale.</p>
+      </div>
+      <div class="gtm-card">
+        <div class="gtm-icon">🎓</div>
+        <h4>PT Certification Schools</h4>
+        <p>Partner with NASM, ACE, and online PT course providers. Offer newly certified PTs 3 months free. They become power users just as they launch their business. One email to a PT school = hundreds of new users.</p>
+      </div>
+      <div class="gtm-card">
+        <div class="gtm-icon">📝</div>
+        <h4>SEO Content (Month 3+)</h4>
+        <p>Blog posts targeting: "best personal trainer software 2025", "how to manage PT clients", "personal trainer app free trial". Long-tail keywords with low competition. PT-specific content ranks fast in a narrow niche.</p>
+      </div>
+      <div class="gtm-card">
+        <div class="gtm-icon">🏷️</div>
+        <h4>App Store Optimization</h4>
+        <p>Keywords: "personal trainer app", "pt client management", "fitness coach software". Request reviews at peak satisfaction moments (after first payment received, after first check-in completes). Reviews are your silent salespeople.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RISK ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Risk Register & Mitigations</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Risk</th>
+          <th>Level</th>
+          <th>Mitigation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Competitor copies your price</strong><br><span style="font-size:10px;color:var(--muted)">Trainerize drops to $9/mo</span></td>
+          <td class="risk-med">Medium</td>
+          <td>Your moat is mobile UX + community + data. A legacy desktop app can't rebuild mobile-first overnight. Speed and relationships matter more than features at early stage.</td>
+        </tr>
+        <tr>
+          <td><strong>Slow user acquisition</strong><br><span style="font-size:10px;color:var(--muted)">App Store discovery is hard</span></td>
+          <td class="risk-med">Medium</td>
+          <td>Don't rely on App Store discovery alone. Community + influencer strategy is primary channel. Target 100 DMs in week 1. Measure conversion, iterate messaging.</td>
+        </tr>
+        <tr>
+          <td><strong>PT churn after free trial</strong><br><span style="font-size:10px;color:var(--muted)">Low conversion from trial to paid</span></td>
+          <td class="risk-high">High</td>
+          <td>Activation is key: get PT to add 1 client + assign 1 plan within 48h of signup. Users who complete onboarding convert at 3× rate. In-app onboarding checklist + email nudges.</td>
+        </tr>
+        <tr>
+          <td><strong>Stripe/Apple 30% fee</strong><br><span style="font-size:10px;color:var(--muted)">Apple takes 30% of iOS subscriptions</span></td>
+          <td class="risk-med">Medium</td>
+          <td>Push annual billing hard (Apple fee drops to 15% after year 1). Offer web checkout alternative. Annual plan at $180/yr (saves PT $48) — most will choose it, bypassing Apple.</td>
+        </tr>
+        <tr>
+          <td><strong>AI API cost spikes</strong><br><span style="font-size:10px;color:var(--muted)">GPT-4o costs grow with scale</span></td>
+          <td class="risk-low">Low</td>
+          <td>AI features locked to Pro plan only. Rate-limit AI calls per user per month. Cache common plan templates. At 500 users, AI cost is ~$300–500/mo — easily covered by Pro pricing.</td>
+        </tr>
+        <tr>
+          <td><strong>Solo dev burnout</strong><br><span style="font-size:10px;color:var(--muted)">Building + supporting + marketing alone</span></td>
+          <td class="risk-high">High</td>
+          <td>Phase 1: build only. Hire a part-time VA for support at $500 MRR. At $3,000 MRR: hire a freelance marketer. At $6,000 MRR: hire a part-time dev. Revenue-funded hiring.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── WEEK-BY-WEEK PLAN ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Week-by-Week Build Plan (Phase 1)</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="two-col">
+      <div class="info-box">
+        <h4>🏗️ Weeks 1–5: Backend + Core API</h4>
+        <ul>
+          <li>Week 1: Project scaffold, MongoDB schema design, JWT auth API</li>
+          <li>Week 2: Client CRUD, Workout Plan API, Exercise library seed (300 exercises)</li>
+          <li>Week 3: Progress tracking API, photo upload to S3, session logging</li>
+          <li>Week 4: Stripe Connect setup, payment request API, webhook handlers</li>
+          <li>Week 5: Stripe Subscriptions (FitDesk billing), Bull queue setup, push notifications (FCM)</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <h4>📱 Weeks 6–10: React Native App + Launch</h4>
+        <ul>
+          <li>Week 6: RN project setup, navigation, auth screens, onboarding flow</li>
+          <li>Week 7: Client list, client profile, add client form, invite link flow</li>
+          <li>Week 8: Workout plan builder UI, exercise picker, plan assignment</li>
+          <li>Week 9: Session logging screen, progress charts, photo upload</li>
+          <li>Week 10: Payment flow, subscription paywall, PT dashboard, App Store submission</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="api-note" style="margin-top:20px;">
+      🛠️ <strong>Development Order Rule:</strong> Always build the backend API + test with Postman before touching the mobile UI. Never build UI for an endpoint that doesn't exist yet. This prevents the most common solo-dev time waste: building screens connected to nothing.
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-logo">Fit<span>Desk</span></div>
+    <div class="footer-note">Full Product Roadmap · Confidential · Built for solo MERN/TypeScript developer · Version 1.0</div>
+  </footer>
+
+</div>
+</body>
+</html>
