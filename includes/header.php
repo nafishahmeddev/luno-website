@@ -22,7 +22,7 @@ if ($raw_path === '/index.php') {
 }
 
 $canonical_url = BASE_URL . ($raw_path === '/' ? '/' : $raw_path);
-$favicon_url = BASE_URL . '/icon.png';
+$favicon_url = BASE_URL . '/favicon.png';
 $og_image_url = $favicon_url;
 ?><!DOCTYPE html>
 <html lang="en">
