@@ -34,7 +34,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,15,7,0.97);backdrop-fil
 .nav-logo{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:0.06em;}
 .nav-logo span{color:var(--accent);}
 .nav-tabs{display:flex;gap:6px;}
-.nav-tab{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:5px 12px;border-radius:6px;cursor:pointer;color:var(--muted);border:1px solid transparent;transition:all .15s;text-decoration:none;}
+.nav-tab{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:5px 12px;border-radius:6px;cursor:pointer;color:var(--muted);border:1px solid transparent;transition:all .15s;text-decoration:none;background:none;}
 .nav-tab:hover{color:var(--text);border-color:var(--border);}
 .nav-tab.active{color:var(--accent);border-color:var(--border2);background:var(--accent-dim);}
 
@@ -43,13 +43,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,15,7,0.97);backdrop-fil
 .sidebar{border-right:1px solid var(--border);padding:28px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
 .sidebar-group{margin-bottom:24px;}
 .sidebar-label{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);padding:0 20px;margin-bottom:8px;}
-.sidebar-link{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:13px;color:var(--muted);cursor:pointer;transition:all .15s;text-decoration:none;border-left:2px solid transparent;}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:13px;color:var(--muted);cursor:pointer;transition:all .15s;text-decoration:none;border-left:2px solid transparent;background:none;border-right:none;border-top:none;border-bottom:none;width:100%;text-align:left;font-family:var(--sans);}
 .sidebar-link:hover{color:var(--text);background:var(--accent-dim);}
 .sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim);}
 .platform-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
 /* MAIN */
-main{padding:40px 48px;max-width:860px;}
+main{padding:40px 48px;max-width:900px;}
 .page{display:none;}
 .page.active{display:block;}
 
@@ -80,8 +80,8 @@ main{padding:40px 48px;max-width:860px;}
 .char-count span{color:var(--accent);}
 
 /* THUMB SPECS */
-.thumb-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:16px;}
-.thumb-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.thumb-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;}
+.thumb-title{font-size:17px;font-weight:700;margin-bottom:4px;}
 .thumb-sub{font-size:13px;color:var(--muted);margin-bottom:16px;}
 .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .spec-row{background:var(--bg3);border-radius:8px;padding:10px 14px;}
@@ -91,6 +91,17 @@ main{padding:40px 48px;max-width:860px;}
 .copy-block:hover{border-color:var(--border2);}
 .copy-block-label{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
 .copy-block pre{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:pre-wrap;line-height:1.6;}
+
+/* THUMBNAIL GALLERY */
+.thumb-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px;}
+.thumb-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s;}
+.thumb-item:hover{border-color:var(--border2);}
+.thumb-img-wrap{background:#0A0F07;padding:8px;display:flex;align-items:center;justify-content:center;min-height:130px;}
+.thumb-img-wrap img{max-width:100%;max-height:160px;object-fit:contain;border-radius:4px;display:block;}
+.thumb-item-body{padding:10px 12px;border-top:1px solid var(--border);}
+.thumb-item-name{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.04em;margin-bottom:3px;word-break:break-all;}
+.thumb-item-desc{font-size:12px;color:var(--muted);margin-bottom:6px;line-height:1.4;}
+.thumb-item-dim{font-family:var(--mono);font-size:10px;color:var(--dim);}
 
 /* CHECKLIST */
 .checklist{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
@@ -111,6 +122,39 @@ main{padding:40px 48px;max-width:860px;}
 .tl-title{font-size:15px;font-weight:700;margin-bottom:4px;}
 .tl-desc{font-size:13px;color:var(--muted);line-height:1.6;}
 
+/* ROADMAP */
+.roadmap-phase{margin-bottom:40px;}
+.phase-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.phase-badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:5px;border:1px solid;flex-shrink:0;}
+.phase-badge.phase-prep{background:rgba(155,110,255,0.1);border-color:rgba(155,110,255,0.3);color:var(--purple);}
+.phase-badge.phase-warmup{background:rgba(255,140,74,0.1);border-color:rgba(255,140,74,0.3);color:var(--orange);}
+.phase-badge.phase-launch{background:rgba(255,92,74,0.1);border-color:rgba(255,92,74,0.3);color:var(--red);}
+.phase-badge.phase-post{background:rgba(74,158,255,0.1);border-color:rgba(74,158,255,0.3);color:var(--blue);}
+.phase-badge.phase-sustain{background:rgba(134,197,60,0.1);border-color:rgba(134,197,60,0.3);color:var(--accent);}
+.phase-title{font-size:20px;font-weight:800;letter-spacing:-0.02em;}
+.phase-meta{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.04em;margin-top:2px;}
+
+.step-list{display:flex;flex-direction:column;gap:12px;}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.step-card-head{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg3);}
+.step-number{width:22px;height:22px;border-radius:50%;background:var(--accent-dim);border:1px solid var(--border2);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-timing{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.06em;text-transform:uppercase;}
+.step-card-body{padding:14px 18px;}
+.step-title{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text);}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.step-actions{display:flex;flex-direction:column;gap:6px;}
+.step-action{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.5;}
+.step-action::before{content:'→';color:var(--accent);font-family:var(--mono);font-weight:600;flex-shrink:0;margin-top:1px;}
+.step-action strong{color:var(--text);}
+.step-refs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.step-ref{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border2);border-radius:4px;padding:3px 8px;cursor:pointer;text-decoration:none;transition:all .15s;}
+.step-ref:hover{background:var(--accent);color:#0A0F07;}
+.step-ref-label{font-size:9px;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;font-family:var(--mono);}
+.thumb-ref{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--purple);background:rgba(155,110,255,0.08);border:1px solid rgba(155,110,255,0.25);border-radius:4px;padding:3px 8px;cursor:pointer;text-decoration:none;transition:all .15s;}
+.thumb-ref:hover{background:var(--purple);color:#0A0F07;}
+.platform-ref{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--blue);background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);border-radius:4px;padding:3px 8px;cursor:pointer;text-decoration:none;transition:all .15s;}
+.platform-ref:hover{background:var(--blue);color:#0A0F07;}
+
 /* DIVIDER */
 .divider{border:none;border-top:1px solid var(--border);margin:36px 0;}
 
@@ -118,12 +162,22 @@ main{padding:40px 48px;max-width:860px;}
 .notice{background:var(--accent-dim);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--muted);line-height:1.6;}
 .notice strong{color:var(--accent);}
 
+/* ALERT */
+.alert{border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:13px;line-height:1.6;}
+.alert-warn{background:rgba(255,140,74,0.08);border:1px solid rgba(255,140,74,0.25);color:rgba(237,243,224,0.7);}
+.alert-warn strong{color:var(--orange);}
+.alert-red{background:rgba(255,92,74,0.08);border:1px solid rgba(255,92,74,0.25);color:rgba(237,243,224,0.7);}
+.alert-red strong{color:var(--red);}
+.alert-blue{background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);color:rgba(237,243,224,0.7);}
+.alert-blue strong{color:var(--blue);}
+
 @media(max-width:768px){
   .layout{grid-template-columns:1fr;}
   .sidebar{display:none;}
   main{padding:24px 20px;}
   nav{padding:0 20px;}
   .nav-tabs{display:none;}
+  .thumb-gallery{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
@@ -132,49 +186,613 @@ main{padding:40px 48px;max-width:860px;}
 <nav>
   <div class="nav-logo">LUNO<span>.</span> Launch Kit</div>
   <div class="nav-tabs">
-    <a class="nav-tab active" onclick="showPage('reddit')">Reddit</a>
-    <a class="nav-tab" onclick="showPage('twitter')">Twitter/X</a>
-    <a class="nav-tab" onclick="showPage('producthunt')">Product Hunt</a>
-    <a class="nav-tab" onclick="showPage('alternativeto')">Directories</a>
-    <a class="nav-tab" onclick="showPage('thumbs')">Thumbnails</a>
-    <a class="nav-tab" onclick="showPage('checklist')">Checklist</a>
+    <button class="nav-tab active" onclick="showPage('roadmap')">Roadmap</button>
+    <button class="nav-tab" onclick="showPage('reddit')">Reddit</button>
+    <button class="nav-tab" onclick="showPage('twitter')">Twitter/X</button>
+    <button class="nav-tab" onclick="showPage('producthunt')">Product Hunt</button>
+    <button class="nav-tab" onclick="showPage('alternativeto')">Directories</button>
+    <button class="nav-tab" onclick="showPage('thumbs')">Thumbnails</button>
+    <button class="nav-tab" onclick="showPage('checklist')">Checklist</button>
   </div>
 </nav>
 
 <div class="layout">
 <aside class="sidebar">
   <div class="sidebar-group">
-    <div class="sidebar-label">Platforms</div>
-    <a class="sidebar-link active" onclick="showPage('reddit')">
+    <div class="sidebar-label">Strategy</div>
+    <button class="sidebar-link active" onclick="showPage('roadmap')">
+      <span class="platform-dot" style="background:var(--accent);"></span>Full Roadmap
+    </button>
+    <button class="sidebar-link" onclick="showPage('checklist')">
+      <span class="platform-dot" style="background:var(--blue);"></span>Launch Checklist
+    </button>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-label">Post Content</div>
+    <button class="sidebar-link" onclick="showPage('reddit')">
       <span class="platform-dot" style="background:#FF4500;"></span>Reddit
-    </a>
-    <a class="sidebar-link" onclick="showPage('twitter')">
+    </button>
+    <button class="sidebar-link" onclick="showPage('twitter')">
       <span class="platform-dot" style="background:#1DA1F2;"></span>Twitter / X
-    </a>
-    <a class="sidebar-link" onclick="showPage('producthunt')">
+    </button>
+    <button class="sidebar-link" onclick="showPage('producthunt')">
       <span class="platform-dot" style="background:#DA552F;"></span>Product Hunt
-    </a>
-    <a class="sidebar-link" onclick="showPage('alternativeto')">
-      <span class="platform-dot" style="background:#86C53C;"></span>Directories
-    </a>
+    </button>
+    <button class="sidebar-link" onclick="showPage('alternativeto')">
+      <span class="platform-dot" style="background:var(--accent);"></span>Directories
+    </button>
   </div>
   <div class="sidebar-group">
     <div class="sidebar-label">Assets</div>
-    <a class="sidebar-link" onclick="showPage('thumbs')">
-      <span class="platform-dot" style="background:#9B6EFF;"></span>Thumbnail Specs
-    </a>
-    <a class="sidebar-link" onclick="showPage('checklist')">
-      <span class="platform-dot" style="background:#4A9EFF;"></span>Launch Checklist
-    </a>
+    <button class="sidebar-link" onclick="showPage('thumbs')">
+      <span class="platform-dot" style="background:var(--purple);"></span>Thumbnails
+    </button>
   </div>
 </aside>
 
 <main>
 
+<!-- ─── ROADMAP ────────────────────────────────────────────────────── -->
+<div id="page-roadmap" class="page active">
+  <div class="page-title">Launch Roadmap</div>
+  <p class="page-sub">Full execution plan — exactly what to do, when to do it, and which assets to use. Follow in order. Each step references the exact post content and thumbnails to use.</p>
+
+  <div class="notice"><strong>How to use:</strong> Start at Phase 0 and work through each step sequentially. Click the <span style="color:var(--accent);font-family:var(--mono);font-size:11px;">→ post refs</span> to jump directly to that post content. Click <span style="color:var(--purple);font-family:var(--mono);font-size:11px;">→ thumbnail refs</span> to jump to the thumbnail gallery.</div>
+
+  <!-- PHASE 0 -->
+  <div class="roadmap-phase">
+    <div class="phase-header">
+      <div class="phase-badge phase-prep">Phase 0</div>
+      <div>
+        <div class="phase-title">Store &amp; Asset Setup</div>
+        <div class="phase-meta">Do this first — before any public posting</div>
+      </div>
+    </div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">1</div>
+          <div class="step-timing">Right now</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Complete your Google Play Store listing</div>
+          <div class="step-desc">The Play Store listing is your conversion funnel. A bad listing kills downloads even with a great app. Get it right before you drive any traffic.</div>
+          <div class="step-actions">
+            <div class="step-action">Upload <strong>feature_graphic_1024x500.png</strong> as the Feature Graphic (required for search visibility)</div>
+            <div class="step-action">Upload all <strong>5 screenshots</strong> in order: Onboarding → Dashboard → Stats → Transactions → Categories</div>
+            <div class="step-action">Short description (80 chars max): use <strong>Product Hunt → Tagline</strong> content</div>
+            <div class="step-action">Long description: use <strong>Product Hunt → Description</strong> content — it's already Play Store optimised</div>
+            <div class="step-action">App icon: 512×512 PNG, no transparency border</div>
+            <div class="step-action">Category: Finance · Content Rating: Everyone · Privacy Policy URL: your domain/privacy</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('producthunt')">PH Tagline + Description</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">Play Store Assets</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">2</div>
+          <div class="step-timing">Right now</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Verify your landing page is live and correct</div>
+          <div class="step-desc">Every post you make will link here. A broken or slow landing page destroys trust. Check every page and every link.</div>
+          <div class="step-actions">
+            <div class="step-action">Load <strong>luno.nafish.lo</strong> — verify hero, features, analytics sections all render</div>
+            <div class="step-action">Test <strong>/privacy</strong> and <strong>/terms</strong> pages — Play Store and Product Hunt require these</div>
+            <div class="step-action">Click the <strong>Get it on Google Play</strong> button — verify it opens the correct Play Store page</div>
+            <div class="step-action">Open on mobile — verify responsive layout works</div>
+            <div class="step-action">Check page load speed — images should load fast (compress if over 200KB each)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">3</div>
+          <div class="step-timing">Right now</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Set up your Twitter/X account</div>
+          <div class="step-desc">You need at least a few tweets before launch so you don't look like a bot. Create the account now even if you don't start posting yet.</div>
+          <div class="step-actions">
+            <div class="step-action">Handle: <strong>@lunofin</strong> or <strong>@lunoapp</strong> — check availability at x.com</div>
+            <div class="step-action">Bio: <em>"Built Luno — local-first Android finance tracker. No cloud. No tracking. #buildinpublic"</em></div>
+            <div class="step-action">Website: link to your Play Store listing or landing page</div>
+            <div class="step-action">Profile image: your app icon (square, 400×400px)</div>
+            <div class="step-action">Banner: use <strong>tw_1_launch.png</strong> scaled to 1500×500px</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">Twitter Assets</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">4</div>
+          <div class="step-timing">Right now</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Submit to AlternativeTo</div>
+          <div class="step-desc">AlternativeTo drives long-tail installs for months after launch. Takes 10 minutes. Do it now so it's indexed before your launch.</div>
+          <div class="step-actions">
+            <div class="step-action">Go to <strong>alternativeto.net</strong> → Add App</div>
+            <div class="step-action">Copy the description from <strong>Directories → AlternativeTo Description</strong></div>
+            <div class="step-action">List as alternative to: <strong>Mint, YNAB, Money Manager, Spendee</strong></div>
+            <div class="step-action">Platform: Android · Category: Personal Finance · License: Freemium</div>
+            <div class="step-action">Icon: use your Play Store app icon</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('alternativeto')">AlternativeTo Description</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="roadmap-phase">
+    <div class="phase-header">
+      <div class="phase-badge phase-warmup">Phase 1</div>
+      <div>
+        <div class="phase-title">Build-in-Public Warm-Up</div>
+        <div class="phase-meta">Week −2 to −1 before launch — post 4–5 times to warm up the account</div>
+      </div>
+    </div>
+
+    <div class="alert alert-warn"><strong>Why this matters:</strong> An account with zero tweets looks like spam. 4–5 dev logs before launch day gives you credibility, builds a tiny audience, and means your launch thread won't be your first tweet.</div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">5</div>
+          <div class="step-timing">Day 1 (Monday) — Week −2</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post: Financial Runway Dev Log</div>
+          <div class="step-desc">Lead with the most interesting metric. This tweet teaches something useful and introduces your product naturally.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy from <strong>Twitter/X → Dev Log — Analytics</strong></div>
+            <div class="step-action">Attach image: <strong>tw_3_analytics.png</strong></div>
+            <div class="step-action">Add hashtags: <strong>#buildinpublic #indiedev</strong></div>
+            <div class="step-action">Post between <strong>9–11 AM your local time</strong></div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Dev Log — Analytics</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">tw_3_analytics.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">6</div>
+          <div class="step-timing">Day 3 (Wednesday) — Week −2</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post: Privacy Architecture Dev Log</div>
+          <div class="step-desc">The privacy angle resonates with a wide technical audience. The list format makes it highly shareable.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy from <strong>Twitter/X → Dev Log — Privacy</strong></div>
+            <div class="step-action">Attach image: <strong>tw_2_privacy.png</strong></div>
+            <div class="step-action">Add hashtags: <strong>#buildinpublic #privacy</strong></div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Dev Log — Privacy</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">tw_2_privacy.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">7</div>
+          <div class="step-timing">Day 5 (Friday) — Week −2</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post: Freemium Model Dev Log</div>
+          <div class="step-desc">Explaining your monetisation model openly builds trust and gets feedback before launch.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy from <strong>Twitter/X → Dev Log — Freemium</strong></div>
+            <div class="step-action">No image needed for this one — keep it text-only for variety</div>
+            <div class="step-action">Add hashtags: <strong>#buildinpublic</strong></div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Dev Log — Freemium</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">8</div>
+          <div class="step-timing">Day 8 (Thursday) — Week −1</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Set up Product Hunt "Coming Soon" page</div>
+          <div class="step-desc">PH lets you collect followers before launch. Those followers get notified on launch day, which boosts early upvotes.</div>
+          <div class="step-actions">
+            <div class="step-action">Go to <strong>producthunt.com/ship</strong> → Create Ship page</div>
+            <div class="step-action">Product name: <strong>Luno</strong></div>
+            <div class="step-action">Tagline: copy from <strong>Product Hunt → Tagline Alt (shorter)</strong></div>
+            <div class="step-action">Upload <strong>ph_1_dashboard.png</strong> as the preview image</div>
+            <div class="step-action">Share the coming soon link in your bio and in your next tweet</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('producthunt')">PH Tagline Alt</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">ph_1_dashboard.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">9</div>
+          <div class="step-timing">Day 10 (Saturday) — Week −1</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post: Milestone / "Going Live Soon" Tweet</div>
+          <div class="step-desc">Build anticipation. Mention you're launching soon to prime your followers for the launch day ask.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy from <strong>Twitter/X → Dev Log — Milestone</strong></div>
+            <div class="step-action">Attach image: <strong>tw_1_launch.png</strong></div>
+            <div class="step-action">Add hashtags from <strong>Twitter/X → Launch Day Tags</strong></div>
+            <div class="step-action">Include your Product Hunt coming soon link</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Dev Log — Milestone</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">tw_1_launch.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">10</div>
+          <div class="step-timing">Day 12 — Week −1</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Set up support email and pre-write responses</div>
+          <div class="step-desc">On launch day you'll be too busy to write replies from scratch. Set up your email and draft 3–4 canned responses now.</div>
+          <div class="step-actions">
+            <div class="step-action">Create <strong>support@[yourdomain]</strong> or use your personal email — pick one and commit</div>
+            <div class="step-action">Draft response for: <em>"How do I backup my data?"</em></div>
+            <div class="step-action">Draft response for: <em>"Is there an iOS version?"</em></div>
+            <div class="step-action">Draft response for: <em>"What does premium include?"</em></div>
+            <div class="step-action">Add support email to your Play Store listing, landing page, and Twitter bio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="roadmap-phase">
+    <div class="phase-header">
+      <div class="phase-badge phase-launch">Phase 2</div>
+      <div>
+        <div class="phase-title">Launch Day</div>
+        <div class="phase-meta">Execute in this exact order — timing matters</div>
+      </div>
+    </div>
+
+    <div class="alert alert-red"><strong>Critical:</strong> Launch day is a single day. PH resets at midnight PST. All your posts should go live within the same 12-hour window to cross-amplify each other. Have everything pre-written and ready to paste.</div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">11</div>
+          <div class="step-timing">12:01 AM PST — First thing</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Submit Product Hunt listing</div>
+          <div class="step-desc">PH day runs midnight–midnight PST. Submit right at 12:01 AM to maximise the full 24-hour window. The earlier in the day you launch, the more upvotes you can accumulate.</div>
+          <div class="step-actions">
+            <div class="step-action">Submit with: <strong>Product Name, Tagline, Description, Topics/Tags</strong> — all from Product Hunt section</div>
+            <div class="step-action">Upload gallery images in order: <strong>ph_1_dashboard → ph_2_analytics → ph_3_transactions → ph_4_categories</strong></div>
+            <div class="step-action"><strong>Immediately</strong> post your Maker Comment — this is your personal story, not a feature list</div>
+            <div class="step-action">Do NOT ask for upvotes yet — post the link to Twitter first so sharing feels natural</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('producthunt')">All PH Copy</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">Product Hunt Assets</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">12</div>
+          <div class="step-timing">9:00 AM EST — Twitter/X</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post the full 7-tweet launch thread</div>
+          <div class="step-desc">Post all 7 tweets back-to-back as a thread. Reply to your own first tweet to chain them. The thread format maximises reach because each tweet can be shared independently.</div>
+          <div class="step-actions">
+            <div class="step-action">Tweet 1 (Hook): attach <strong>tw_1_launch.png</strong> + hashtags from Launch Day Tags</div>
+            <div class="step-action">Tweet 2 (Problem): text only</div>
+            <div class="step-action">Tweet 3 (Product): text only</div>
+            <div class="step-action">Tweet 4 (Stack): text only</div>
+            <div class="step-action">Tweet 5 (Model): text only</div>
+            <div class="step-action">Tweet 6 (Privacy): attach <strong>tw_2_privacy.png</strong></div>
+            <div class="step-action">Tweet 7 (CTA): include your PH link + Play Store link</div>
+            <div class="step-action">Pin the first tweet to your profile immediately after posting</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Launch Thread (7 tweets)</button>
+            <button class="step-ref" onclick="showPage('twitter')">Hashtag Sets</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">tw_1_launch.png</button>
+            <button class="thumb-ref" onclick="showPage('thumbs')">tw_2_privacy.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">13</div>
+          <div class="step-timing">10:00 AM EST — Reddit</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post on r/androidapps</div>
+          <div class="step-desc">r/androidapps is the highest-intent community for install volume. This post will drive the most direct downloads. Use an image gallery — posts with images get more clicks.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy <strong>r/androidapps Title</strong> exactly as written — don't edit it</div>
+            <div class="step-action">Copy <strong>r/androidapps Body</strong> and paste as post text</div>
+            <div class="step-action">Add image gallery: <strong>feature_graphic_1024x500.png + screenshot_2_dashboard.png + screenshot_3_stats.png</strong></div>
+            <div class="step-action">Use "Link + Image" post type, not just text</div>
+            <div class="step-action">Stay online for 2 hours to respond to every comment — early engagement boosts ranking</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('reddit')">r/androidapps Post</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">Play Store Assets</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">14</div>
+          <div class="step-timing">11:00 AM EST — Reddit</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post on r/privacy</div>
+          <div class="step-desc">High-intent privacy-focused audience. These users actually care about local-first design — they're not casual readers. The post angle is already right for this community.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy <strong>r/privacy Title + Body</strong> exactly as written</div>
+            <div class="step-action">Attach image: <strong>reddit_privacy.png</strong> as the single post image</div>
+            <div class="step-action">Do NOT cross-post the r/androidapps text here — different angle required</div>
+            <div class="step-action">Read the top 3 pinned posts in r/privacy first so you understand tone expectations</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('reddit')">r/privacy Post</button>
+            <span class="step-ref-label">Thumbnails →</span>
+            <button class="thumb-ref" onclick="showPage('thumbs')">reddit_privacy.png</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">15</div>
+          <div class="step-timing">2:00 PM EST — Reddit</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post on r/SideProject</div>
+          <div class="step-desc">Community of builders. The builder-story angle works perfectly here — they care about the process, not just the product. No promotional images needed.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy <strong>r/SideProject Title + Body</strong> exactly as written</div>
+            <div class="step-action">No image needed for this post — text-only works better in this community</div>
+            <div class="step-action">At the end, add 1–2 sentences about what you'd do differently — r/SideProject loves retrospectives</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('reddit')">r/SideProject Post</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">16</div>
+          <div class="step-timing">All day — Monitor</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Respond to every comment within 2 hours</div>
+          <div class="step-desc">Early response rate is a ranking signal on both Reddit and Product Hunt. Being active in your own threads dramatically increases visibility.</div>
+          <div class="step-actions">
+            <div class="step-action">Check all three Reddit posts every 30 minutes for the first 6 hours</div>
+            <div class="step-action">On Product Hunt: reply to every comment, especially critical ones — show you read feedback</div>
+            <div class="step-action">On Twitter: retweet any shares, reply to quote tweets</div>
+            <div class="step-action">DM 5–10 friends who use Android — ask for an honest Play Store review (not a fake 5-star)</div>
+            <div class="step-action">Do NOT reply to criticism defensively — thank them and ask what would make it better</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="roadmap-phase">
+    <div class="phase-header">
+      <div class="phase-badge phase-post">Phase 3</div>
+      <div>
+        <div class="phase-title">Finance Community Push</div>
+        <div class="phase-meta">Days 3–7 after launch — don't post too soon</div>
+      </div>
+    </div>
+
+    <div class="alert alert-blue"><strong>Timing note:</strong> Wait at least 3 days after your r/androidapps post before hitting finance communities. Spacing prevents karma suspension and looks less spammy. These communities care about value, not virality.</div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">17</div>
+          <div class="step-timing">Day 3 post-launch — Reddit</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post on r/personalfinance</div>
+          <div class="step-desc">Largest relevant Reddit audience (18M+ members). The financial runway angle is genuinely useful and educational — not promotional. Lead with the concept, not the app.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy <strong>r/personalfinance Title + Body</strong> — this title asks a question, which performs well here</div>
+            <div class="step-action">No images — r/personalfinance prefers clean text posts</div>
+            <div class="step-action">The post naturally mentions Luno at the end — don't add more promotional language</div>
+            <div class="step-action">Post Tuesday or Wednesday, 9–11 AM EST</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('reddit')">r/personalfinance Post</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">18</div>
+          <div class="step-timing">Day 5 post-launch — Reddit</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post on r/financialindependence</div>
+          <div class="step-desc">The FIRE community deeply resonates with the "financial runway" concept — it maps directly to their "FI number" thinking. Adapt the r/personalfinance body slightly.</div>
+          <div class="step-actions">
+            <div class="step-action">Use <strong>r/personalfinance Body</strong> as the starting point</div>
+            <div class="step-action">Change the opener to: <em>"The metric at the core of FIRE thinking is financial runway..."</em></div>
+            <div class="step-action">Add a line connecting runway to FI number / FIRE date</div>
+            <div class="step-action">Title: <em>"I built a free app that calculates your financial runway — how many days you could survive without income"</em></div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('reddit')">r/personalfinance (adapt this)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">19</div>
+          <div class="step-timing">Day 7 post-launch — Outreach</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Send outreach to 5 privacy-focused creators</div>
+          <div class="step-desc">A single mention from Techlore, The Hated One, or a similar channel can drive thousands of installs. Use the outreach template — personalise the opener for each creator.</div>
+          <div class="step-actions">
+            <div class="step-action">Copy <strong>Creator Outreach Email</strong> template from Directories section</div>
+            <div class="step-action">For each email: change the opening line to reference their specific recent video</div>
+            <div class="step-action">Targets: Techlore, The Hated One, Rob Braxman, Side of Burritos, PrivacyGuides</div>
+            <div class="step-action">Find their contact via YouTube "About" tab or their personal site</div>
+            <div class="step-action">Do not send bulk — personalise each one, send over 2–3 days</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('alternativeto')">Outreach Email Template</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="roadmap-phase">
+    <div class="phase-header">
+      <div class="phase-badge phase-sustain">Phase 4</div>
+      <div>
+        <div class="phase-title">Sustain &amp; Second Wave</div>
+        <div class="phase-meta">Week 2–Month 2 — keep momentum, then re-launch with Phase 3 update</div>
+      </div>
+    </div>
+
+    <div class="step-list">
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">20</div>
+          <div class="step-timing">Week 2 — Twitter</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Post first-week numbers tweet</div>
+          <div class="step-desc">Share real metrics. Even if the numbers aren't huge, the transparency and #buildinpublic angle will perform well. Authenticity builds followers.</div>
+          <div class="step-actions">
+            <div class="step-action">Template: <em>"Luno — 1 week since launch. [X] installs. [X] Play Store reviews. Here's what I learned. 🧵"</em></div>
+            <div class="step-action">Thread: breakdown of what worked (Reddit? PH? Twitter?), what surprised you, what you're fixing next</div>
+            <div class="step-action">Attach a screenshot of your Play Store stats (crop out sensitive info)</div>
+            <div class="step-action">Add hashtags: <strong>#buildinpublic #indiedev</strong></div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Hashtags →</span>
+            <button class="step-ref" onclick="showPage('twitter')">Dev Log Tags</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">21</div>
+          <div class="step-timing">Week 2–4 — Ongoing</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Respond to every Play Store review</div>
+          <div class="step-desc">Play Store algorithm rewards response rate. A thoughtful reply to a 1-star review is more valuable than a generic 5-star response. Every reply is also public — other users read them.</div>
+          <div class="step-actions">
+            <div class="step-action">1-star reviews: thank them, ask what broke, offer to help via email</div>
+            <div class="step-action">2–3-star reviews: acknowledge the feedback, mention if you're working on the issue</div>
+            <div class="step-action">4–5-star reviews: thank them and mention a specific feature you're building next</div>
+            <div class="step-action">Check Play Store Console daily for the first month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-card-head">
+          <div class="step-number">22</div>
+          <div class="step-timing">Month 2 — Phase 3 Update</div>
+        </div>
+        <div class="step-card-body">
+          <div class="step-title">Re-launch with Phase 3 Insights Layer update</div>
+          <div class="step-desc">A major update gives you a second launch. Ship weekly summaries + spending alerts, then repeat the launch sequence with "Luno v2.0 — Insights Layer" framing.</div>
+          <div class="step-actions">
+            <div class="step-action">Post update Twitter thread: <em>"Luno just got a big update. Weekly summaries. Spending alerts. Runway insights. Here's what shipped. 🧵"</em></div>
+            <div class="step-action">Post update on r/androidapps: <em>"[Update] Luno v2 — Added weekly summaries and spending alerts. Still local-first."</em></div>
+            <div class="step-action">Post a Product Hunt "Post an Update" on your existing listing</div>
+            <div class="step-action">Submit to AppBrain — use <strong>Short Directory Description</strong> from Directories section</div>
+            <div class="step-action">Consider a small price increase on premium after this update</div>
+          </div>
+          <div class="step-refs">
+            <span class="step-ref-label">Post content →</span>
+            <button class="step-ref" onclick="showPage('alternativeto')">Short Directory Description</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ─── REDDIT ─────────────────────────────────────────────────────── -->
-<div id="page-reddit" class="page active">
+<div id="page-reddit" class="page">
   <div class="page-title">Reddit Posts</div>
-  <p class="page-sub">Post in r/androidapps, r/privacy, r/personalfinance, r/financialindependence, r/SideProject, r/IndieGaming. Use separate posts for each subreddit — never cross-post the same text.</p>
+  <p class="page-sub">Post in r/androidapps, r/privacy, r/personalfinance, r/financialindependence, r/SideProject. Use separate posts for each subreddit — never cross-post the same text.</p>
 
   <div class="notice"><strong>Timing:</strong> Post Tuesday–Thursday between 9–11 AM EST. Avoid weekends. Title is the most important element on Reddit — nail it before anything else.</div>
 
@@ -183,7 +801,7 @@ main{padding:40px 48px;max-width:860px;}
     <div class="platform-icon" style="background:rgba(255,69,0,0.15);">🟠</div>
     <div>
       <div class="platform-title">r/androidapps — Launch Post</div>
-      <div class="platform-meta">Best for initial install volume</div>
+      <div class="platform-meta">Best for initial install volume · Use with: feature_graphic_1024x500 + screenshot_2 + screenshot_3</div>
     </div>
   </div>
 
@@ -236,7 +854,7 @@ Happy to answer any questions. Would love honest feedback from this community.</
     <div class="platform-icon" style="background:rgba(255,69,0,0.15);">🟠</div>
     <div>
       <div class="platform-title">r/privacy — Privacy Angle</div>
-      <div class="platform-meta">High intent, privacy-first audience</div>
+      <div class="platform-meta">High intent, privacy-first audience · Use with: reddit_privacy.png</div>
     </div>
   </div>
 
@@ -282,7 +900,7 @@ Would genuinely appreciate feedback from people who care about this stuff.</div>
     <div class="platform-icon" style="background:rgba(255,69,0,0.15);">🟠</div>
     <div>
       <div class="platform-title">r/personalfinance — Value Angle</div>
-      <div class="platform-meta">Largest relevant audience. Be helpful, not salesy.</div>
+      <div class="platform-meta">Largest relevant audience. Be helpful, not salesy. No promotional images.</div>
     </div>
   </div>
 
@@ -329,7 +947,7 @@ Free to download on Android. Would love to know if this resonates with anyone el
     <div class="platform-icon" style="background:rgba(255,69,0,0.15);">🟠</div>
     <div>
       <div class="platform-title">r/SideProject — Builder Angle</div>
-      <div class="platform-meta">Community of makers. Be authentic about the journey.</div>
+      <div class="platform-meta">Community of makers. Be authentic about the journey. No images needed.</div>
     </div>
   </div>
 
@@ -381,7 +999,7 @@ Happy to talk tech with anyone building something similar.</div>
     <div class="platform-icon" style="background:rgba(29,161,242,0.15);">𝕏</div>
     <div>
       <div class="platform-title">Launch Thread — Day 1</div>
-      <div class="platform-meta">Pin this. Post all tweets back-to-back as a thread.</div>
+      <div class="platform-meta">Pin this. Post all tweets back-to-back as a thread. Tweet 1 → attach tw_1_launch.png · Tweet 6 → attach tw_2_privacy.png</div>
     </div>
   </div>
 
@@ -493,12 +1111,12 @@ Link in bio. Feedback welcome — I read everything.
     <div class="platform-icon" style="background:rgba(29,161,242,0.15);">𝕏</div>
     <div>
       <div class="platform-title">Build-in-Public Tweets</div>
-      <div class="platform-meta">Post 3–4x/week before and after launch</div>
+      <div class="platform-meta">Post 3–4x/week before and after launch · Use these to warm up your account</div>
     </div>
   </div>
 
   <div class="post-card">
-    <div class="post-card-head"><span class="post-label">Dev Log — Analytics</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-1')">Copy</button></div>
+    <div class="post-card-head"><span class="post-label">Dev Log — Analytics · Attach: tw_3_analytics.png</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-1')">Copy</button></div>
     <div class="post-body">
       <div class="post-text" id="tw-dev-1">The metric I'm most proud of in Luno:
 
@@ -514,7 +1132,7 @@ Most apps don't show this. I made it front and center.
   </div>
 
   <div class="post-card">
-    <div class="post-card-head"><span class="post-label">Dev Log — Privacy</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-2')">Copy</button></div>
+    <div class="post-card-head"><span class="post-label">Dev Log — Privacy · Attach: tw_2_privacy.png</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-2')">Copy</button></div>
     <div class="post-body">
       <div class="post-text" id="tw-dev-2">Building Luno local-first meant:
 
@@ -532,7 +1150,7 @@ The best privacy feature is not collecting data in the first place.
   </div>
 
   <div class="post-card">
-    <div class="post-card-head"><span class="post-label">Dev Log — Freemium</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-3')">Copy</button></div>
+    <div class="post-card-head"><span class="post-label">Dev Log — Freemium · No image needed</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-3')">Copy</button></div>
     <div class="post-body">
       <div class="post-text" id="tw-dev-3">The Luno freemium model in one line:
 
@@ -548,7 +1166,7 @@ Makes the paywall feel fair. Early feedback confirms it.
   </div>
 
   <div class="post-card">
-    <div class="post-card-head"><span class="post-label">Dev Log — Milestone</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-4')">Copy</button></div>
+    <div class="post-card-head"><span class="post-label">Dev Log — Milestone · Attach: tw_1_launch.png</span><button class="copy-btn" onclick="copyText(this, 'tw-dev-4')">Copy</button></div>
     <div class="post-body">
       <div class="post-text" id="tw-dev-4">Luno v1.0 is live.
 
@@ -608,7 +1226,7 @@ If you've ever wanted a finance app that respects your data — this is for you.
     <div class="platform-icon" style="background:rgba(218,85,47,0.15);">🏹</div>
     <div>
       <div class="platform-title">Listing Copy</div>
-      <div class="platform-meta">All fields for your Product Hunt submission</div>
+      <div class="platform-meta">All fields for your Product Hunt submission · Upload: ph_1 → ph_2 → ph_3 → ph_4 in gallery order</div>
     </div>
   </div>
 
@@ -733,7 +1351,7 @@ Luno is built with React Native, Expo, and SQLite (Drizzle ORM). All data lives 
     <div class="platform-icon" style="background:rgba(134,197,60,0.15);">📂</div>
     <div>
       <div class="platform-title">Outreach Template — YouTubers / Newsletters</div>
-      <div class="platform-meta">For Techlore, The Hated One, privacy-focused creators</div>
+      <div class="platform-meta">For Techlore, The Hated One, Rob Braxman, privacy-focused creators</div>
     </div>
   </div>
 
@@ -764,94 +1382,297 @@ Thanks for your time either way.
 
 <!-- ─── THUMBNAILS ─────────────────────────────────────────────────── -->
 <div id="page-thumbs" class="page">
-  <div class="page-title">Thumbnail Specs</div>
-  <p class="page-sub">Visual assets you need for each platform. All specs are exact requirements — wrong sizes get auto-cropped or rejected.</p>
+  <div class="page-title">Thumbnails &amp; Visual Assets</div>
+  <p class="page-sub">All 16 production assets across 4 platforms. Click any image to open full-size. Specs below each gallery.</p>
 
-  <div class="thumb-card">
-    <div class="thumb-title">Google Play Store</div>
-    <div class="thumb-sub">Required assets for your store listing</div>
-    <div class="spec-grid">
-      <div class="spec-row"><div class="spec-key">Feature Graphic</div><div class="spec-val">1024 x 500 px</div></div>
-      <div class="spec-row"><div class="spec-key">Screenshots</div><div class="spec-val">Min 320px, Max 3840px</div></div>
-      <div class="spec-row"><div class="spec-key">App Icon</div><div class="spec-val">512 x 512 px PNG</div></div>
-      <div class="spec-row"><div class="spec-key">Promo Video</div><div class="spec-val">YouTube link, 30–120s</div></div>
-    </div>
-    <div class="copy-block" onclick="copyBlock(this, 'spec-play')">
-      <div class="copy-block-label">Screenshot copy for Play Store listing <span>click to copy</span></div>
-      <pre id="spec-play">Screenshot captions (use these as on-image text):
-
-1. "Build your finance cockpit" — Onboarding screen
-2. "Everything at a glance" — Dashboard with net position
-3. "Know your runway" — Stats screen with burn rate + savings rate
-4. "Every transaction, tracked" — Transaction list view
-5. "Your data. Your device." — Privacy/settings screen</pre>
+  <!-- PLAY STORE -->
+  <div class="platform-header" style="margin-top:0;">
+    <div class="platform-icon" style="background:rgba(134,197,60,0.15);">▶</div>
+    <div>
+      <div class="platform-title">Google Play Store</div>
+      <div class="platform-meta">6 assets · Feature graphic + 5 screenshots</div>
     </div>
   </div>
 
-  <div class="thumb-card">
-    <div class="thumb-title">Product Hunt</div>
-    <div class="thumb-sub">Gallery images for your PH listing</div>
+  <div class="thumb-gallery">
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/feature_graphic_1024x500.png" target="_blank">
+          <img src="thumbnails/playstore/feature_graphic_1024x500.png" alt="Feature Graphic" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">feature_graphic_1024x500.png</div>
+        <div class="thumb-item-desc">Store header banner — required for Play Store search placement</div>
+        <div class="thumb-item-dim">1024 × 500 px · PNG</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/screenshot_1_onboarding.png" target="_blank">
+          <img src="thumbnails/playstore/screenshot_1_onboarding.png" alt="Onboarding" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">screenshot_1_onboarding.png</div>
+        <div class="thumb-item-desc">Caption: "Build your finance cockpit"</div>
+        <div class="thumb-item-dim">Screenshot 1 of 5</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/screenshot_2_dashboard.png" target="_blank">
+          <img src="thumbnails/playstore/screenshot_2_dashboard.png" alt="Dashboard" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">screenshot_2_dashboard.png</div>
+        <div class="thumb-item-desc">Caption: "Everything at a glance"</div>
+        <div class="thumb-item-dim">Screenshot 2 of 5 · Use in Reddit r/androidapps</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/screenshot_3_stats.png" target="_blank">
+          <img src="thumbnails/playstore/screenshot_3_stats.png" alt="Stats" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">screenshot_3_stats.png</div>
+        <div class="thumb-item-desc">Caption: "Know your runway"</div>
+        <div class="thumb-item-dim">Screenshot 3 of 5 · Use in Reddit r/androidapps</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/screenshot_4_transactions.png" target="_blank">
+          <img src="thumbnails/playstore/screenshot_4_transactions.png" alt="Transactions" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">screenshot_4_transactions.png</div>
+        <div class="thumb-item-desc">Caption: "Every transaction, tracked"</div>
+        <div class="thumb-item-dim">Screenshot 4 of 5</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/playstore/screenshot_5_categories.png" target="_blank">
+          <img src="thumbnails/playstore/screenshot_5_categories.png" alt="Categories" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">screenshot_5_categories.png</div>
+        <div class="thumb-item-desc">Caption: "Your data. Your device."</div>
+        <div class="thumb-item-dim">Screenshot 5 of 5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="thumb-card" style="margin-top:16px;">
+    <div class="thumb-sub" style="margin-bottom:10px;">Play Store specs</div>
     <div class="spec-grid">
-      <div class="spec-row"><div class="spec-key">Thumbnail</div><div class="spec-val">240 x 240 px</div></div>
-      <div class="spec-row"><div class="spec-key">Gallery Images</div><div class="spec-val">1270 x 760 px</div></div>
+      <div class="spec-row"><div class="spec-key">Feature Graphic</div><div class="spec-val">1024 × 500 px</div></div>
+      <div class="spec-row"><div class="spec-key">Screenshots</div><div class="spec-val">Min 320px, Max 3840px</div></div>
+      <div class="spec-row"><div class="spec-key">App Icon</div><div class="spec-val">512 × 512 px PNG</div></div>
+      <div class="spec-row"><div class="spec-key">Promo Video</div><div class="spec-val">YouTube link, 30–120s</div></div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- PRODUCT HUNT -->
+  <div class="platform-header">
+    <div class="platform-icon" style="background:rgba(218,85,47,0.15);">🏹</div>
+    <div>
+      <div class="platform-title">Product Hunt</div>
+      <div class="platform-meta">4 assets · Gallery images for PH listing</div>
+    </div>
+  </div>
+
+  <div class="thumb-gallery">
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/producthunt/ph_1_dashboard.png" target="_blank">
+          <img src="thumbnails/producthunt/ph_1_dashboard.png" alt="PH Dashboard" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">ph_1_dashboard.png</div>
+        <div class="thumb-item-desc">Gallery #1 — "Your net position, always visible"</div>
+        <div class="thumb-item-dim">Use as Coming Soon preview image</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/producthunt/ph_2_analytics.png" target="_blank">
+          <img src="thumbnails/producthunt/ph_2_analytics.png" alt="PH Analytics" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">ph_2_analytics.png</div>
+        <div class="thumb-item-desc">Gallery #2 — "Burn rate. Savings rate. Runway."</div>
+        <div class="thumb-item-dim">1270 × 760 px recommended</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/producthunt/ph_3_transactions.png" target="_blank">
+          <img src="thumbnails/producthunt/ph_3_transactions.png" alt="PH Transactions" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">ph_3_transactions.png</div>
+        <div class="thumb-item-desc">Gallery #3 — "Every transaction, every account"</div>
+        <div class="thumb-item-dim">1270 × 760 px recommended</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/producthunt/ph_4_categories.png" target="_blank">
+          <img src="thumbnails/producthunt/ph_4_categories.png" alt="PH Categories" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">ph_4_categories.png</div>
+        <div class="thumb-item-desc">Gallery #4 — "50+ categories, fully customisable"</div>
+        <div class="thumb-item-dim">1270 × 760 px recommended</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="thumb-card" style="margin-top:16px;">
+    <div class="thumb-sub" style="margin-bottom:10px;">Product Hunt specs</div>
+    <div class="spec-grid">
+      <div class="spec-row"><div class="spec-key">Thumbnail</div><div class="spec-val">240 × 240 px</div></div>
+      <div class="spec-row"><div class="spec-key">Gallery Images</div><div class="spec-val">1270 × 760 px</div></div>
       <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">PNG or JPG</div></div>
       <div class="spec-row"><div class="spec-key">Max per listing</div><div class="spec-val">8 images</div></div>
     </div>
-    <div class="copy-block" onclick="copyBlock(this, 'spec-ph')">
-      <div class="copy-block-label">Suggested gallery order <span>click to copy</span></div>
-      <pre id="spec-ph">Gallery image order for Product Hunt:
-1. Feature graphic (1024x500 scaled to 1270x760)
-2. Dashboard screenshot — "Your net position, always visible"
-3. Stats screen — "Burn rate. Savings rate. Runway."
-4. Transaction list — "Every transaction, every account"
-5. Onboarding — "Up and running in 60 seconds"
-6. Privacy callout card — "No cloud. No account. No tracking."</pre>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- TWITTER -->
+  <div class="platform-header">
+    <div class="platform-icon" style="background:rgba(29,161,242,0.15);">𝕏</div>
+    <div>
+      <div class="platform-title">Twitter / X</div>
+      <div class="platform-meta">4 assets · Attach to launch thread and dev logs</div>
     </div>
   </div>
 
-  <div class="thumb-card">
-    <div class="thumb-title">Twitter / X Media</div>
-    <div class="thumb-sub">For tweet images that drive clicks</div>
+  <div class="thumb-gallery">
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/twitter/tw_1_launch.png" target="_blank">
+          <img src="thumbnails/twitter/tw_1_launch.png" alt="Twitter Launch" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">tw_1_launch.png</div>
+        <div class="thumb-item-desc">Tweet 1 of launch thread + Milestone dev log</div>
+        <div class="thumb-item-dim">1600 × 900 px · Also use as Twitter banner</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/twitter/tw_2_privacy.png" target="_blank">
+          <img src="thumbnails/twitter/tw_2_privacy.png" alt="Twitter Privacy" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">tw_2_privacy.png</div>
+        <div class="thumb-item-desc">Tweet 6 of launch thread + Privacy dev log</div>
+        <div class="thumb-item-dim">1600 × 900 px</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/twitter/tw_3_analytics.png" target="_blank">
+          <img src="thumbnails/twitter/tw_3_analytics.png" alt="Twitter Analytics" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">tw_3_analytics.png</div>
+        <div class="thumb-item-desc">Analytics dev log (first warm-up tweet)</div>
+        <div class="thumb-item-dim">1600 × 900 px</div>
+      </div>
+    </div>
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/twitter/tw_4_buildinpublic.png" target="_blank">
+          <img src="thumbnails/twitter/tw_4_buildinpublic.png" alt="Build in Public" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">tw_4_buildinpublic.png</div>
+        <div class="thumb-item-desc">General #buildinpublic dev log posts</div>
+        <div class="thumb-item-dim">1600 × 900 px</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="thumb-card" style="margin-top:16px;">
+    <div class="thumb-sub" style="margin-bottom:10px;">Twitter / X specs</div>
     <div class="spec-grid">
-      <div class="spec-row"><div class="spec-key">Single image</div><div class="spec-val">1600 x 900 px</div></div>
-      <div class="spec-row"><div class="spec-key">2-image grid</div><div class="spec-val">700 x 800 px each</div></div>
-      <div class="spec-row"><div class="spec-key">Profile banner</div><div class="spec-val">1500 x 500 px</div></div>
+      <div class="spec-row"><div class="spec-key">Single image</div><div class="spec-val">1600 × 900 px</div></div>
+      <div class="spec-row"><div class="spec-key">2-image grid</div><div class="spec-val">700 × 800 px each</div></div>
+      <div class="spec-row"><div class="spec-key">Profile banner</div><div class="spec-val">1500 × 500 px</div></div>
       <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">PNG, max 5MB</div></div>
     </div>
-    <div class="copy-block" onclick="copyBlock(this, 'spec-tw')">
-      <div class="copy-block-label">Best image combos for launch tweets <span>click to copy</span></div>
-      <pre id="spec-tw">Tweet image combinations:
+  </div>
 
-Launch thread:
-- Tweet 1: Feature graphic (1600x900)
-- Tweet 3: Dashboard + Stats side by side (2-image)
-- Tweet 6: Dark background with "No cloud. No tracking." text card
+  <hr class="divider"/>
 
-Build-in-public:
-- Single screenshot per tweet, cropped to 1600x900
-- Add dark overlay text with the key metric being discussed</pre>
+  <!-- REDDIT -->
+  <div class="platform-header">
+    <div class="platform-icon" style="background:rgba(255,69,0,0.15);">🟠</div>
+    <div>
+      <div class="platform-title">Reddit</div>
+      <div class="platform-meta">2 assets · r/androidapps and r/privacy posts</div>
     </div>
   </div>
 
-  <div class="thumb-card">
-    <div class="thumb-title">Reddit</div>
-    <div class="thumb-sub">Images attached to Reddit posts</div>
-    <div class="spec-grid">
-      <div class="spec-row"><div class="spec-key">Max size</div><div class="spec-val">20 MB</div></div>
-      <div class="spec-row"><div class="spec-key">Recommended</div><div class="spec-val">1:1 or 4:3 ratio</div></div>
-      <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">PNG or JPG</div></div>
-      <div class="spec-row"><div class="spec-key">Max images</div><div class="spec-val">20 per post</div></div>
+  <div class="thumb-gallery">
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/reddit/reddit_androidapps.png" target="_blank">
+          <img src="thumbnails/reddit/reddit_androidapps.png" alt="Reddit androidapps" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">reddit_androidapps.png</div>
+        <div class="thumb-item-desc">r/androidapps launch post header image</div>
+        <div class="thumb-item-dim">Max 20MB · 1:1 or 4:3 ratio recommended</div>
+      </div>
     </div>
-    <div class="copy-block" onclick="copyBlock(this, 'spec-reddit')">
-      <div class="copy-block-label">Suggested image set for Reddit launch post <span>click to copy</span></div>
-      <pre id="spec-reddit">Reddit image gallery (attach to r/androidapps post):
-1. Feature graphic — establishes the brand
-2. Dashboard screenshot — shows core UI
-3. Stats screen — shows the premium analytics value
-4. Transaction list — shows daily usage
-5. Onboarding screen — shows ease of setup
+    <div class="thumb-item">
+      <div class="thumb-img-wrap">
+        <a href="thumbnails/reddit/reddit_privacy.png" target="_blank">
+          <img src="thumbnails/reddit/reddit_privacy.png" alt="Reddit privacy" loading="lazy"/>
+        </a>
+      </div>
+      <div class="thumb-item-body">
+        <div class="thumb-item-name">reddit_privacy.png</div>
+        <div class="thumb-item-desc">r/privacy post — attach as single image</div>
+        <div class="thumb-item-dim">Max 20MB · PNG or JPG</div>
+      </div>
+    </div>
+  </div>
 
-Keep images clean — no heavy marketing text overlays for r/androidapps.</pre>
+  <div class="thumb-card" style="margin-top:16px;">
+    <div class="thumb-sub" style="margin-bottom:10px;">Reddit image usage guide</div>
+    <div class="copy-block" onclick="copyBlock(this, 'spec-reddit')">
+      <div class="copy-block-label">r/androidapps image gallery order <span>click to copy</span></div>
+      <pre id="spec-reddit">Reddit image gallery (attach to r/androidapps post):
+1. feature_graphic_1024x500.png — establishes the brand
+2. screenshot_2_dashboard.png — shows core UI
+3. screenshot_3_stats.png — shows premium analytics value
+4. screenshot_4_transactions.png — shows daily usage
+5. screenshot_1_onboarding.png — shows ease of setup
+
+Keep images clean — no heavy marketing text overlays.</pre>
     </div>
   </div>
 </div>
@@ -859,68 +1680,95 @@ Keep images clean — no heavy marketing text overlays for r/androidapps.</pre>
 <!-- ─── CHECKLIST ─────────────────────────────────────────────────── -->
 <div id="page-checklist" class="page">
   <div class="page-title">Launch Checklist</div>
-  <p class="page-sub">Sequenced exactly in the order you should execute. Don't jump ahead. Check items off as you go.</p>
+  <p class="page-sub">Sequenced in execution order. Check items off as you go. For the full "what to do" instructions on each step, see the <button onclick="showPage('roadmap')" style="background:none;border:none;color:var(--accent);cursor:pointer;font-family:var(--sans);font-size:15px;padding:0;text-decoration:underline;">Roadmap</button>.</p>
 
   <div class="platform-header">
-    <div class="platform-icon" style="background:rgba(74,158,255,0.15);">📋</div>
+    <div class="platform-icon" style="background:rgba(155,110,255,0.15);">⚙</div>
     <div>
-      <div class="platform-title">Pre-Launch (2 Weeks Before)</div>
-      <div class="platform-meta">Do all of this before announcing publicly</div>
+      <div class="platform-title">Phase 0 — Setup (Do First)</div>
+      <div class="platform-meta">Before any public posting</div>
     </div>
   </div>
 
   <div class="checklist">
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Play Store listing complete</strong> — all screenshots, feature graphic, short desc, long desc uploaded</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Landing page live</strong> — index.html, privacy.html, terms.html deployed to a real domain</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Twitter/X account created</strong> — @lunofin or similar handle, bio with Play Store link</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Phase 3 Insights shipped</strong> — weekly summary, spending alerts, runway insights live before public launch</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Product Hunt pre-launch page</strong> — set up "coming soon" page and collect followers</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>5 build-in-public tweets posted</strong> — warm up the account before launch day</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>AlternativeTo listing submitted</strong> — list vs Mint, YNAB, Money Manager</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Support email active</strong> — support@lunofin.app (or your domain) responding</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Play Store listing complete</strong> — feature graphic, 5 screenshots, short desc, long desc, privacy policy URL</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Landing page live and verified</strong> — all pages load, Play Store button works, mobile responsive</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Twitter/X account created</strong> — handle, bio with Play Store link, profile image, banner set</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>AlternativeTo listing submitted</strong> — listed vs Mint, YNAB, Money Manager, Spendee</div></div>
   </div>
 
   <div class="platform-header" style="margin-top:36px;">
-    <div class="platform-icon" style="background:rgba(74,158,255,0.15);">🚀</div>
+    <div class="platform-icon" style="background:rgba(255,140,74,0.15);">📢</div>
     <div>
-      <div class="platform-title">Launch Day</div>
+      <div class="platform-title">Phase 1 — Warm-Up (Week −2 to −1)</div>
+      <div class="platform-meta">Build credibility before launch day</div>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Tweet 1 posted</strong> — Dev Log Analytics (attach tw_3_analytics.png)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Tweet 2 posted</strong> — Dev Log Privacy (attach tw_2_privacy.png)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Tweet 3 posted</strong> — Dev Log Freemium (text only)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Product Hunt "Coming Soon" page live</strong> — followers collecting</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Tweet 4 posted</strong> — Milestone / "Going Live Soon" (attach tw_1_launch.png, include PH link)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Support email set up</strong> — canned responses drafted for top 3 questions</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>All post content pre-written</strong> — open this kit, copy-paste ready for launch day</div></div>
+  </div>
+
+  <div class="platform-header" style="margin-top:36px;">
+    <div class="platform-icon" style="background:rgba(255,92,74,0.15);">🚀</div>
+    <div>
+      <div class="platform-title">Phase 2 — Launch Day</div>
       <div class="platform-meta">Execute in this exact order</div>
     </div>
   </div>
 
   <div class="checklist">
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>12:01 AM PST — Product Hunt goes live</strong> — post your maker comment immediately</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post launch thread on Twitter/X</strong> — all 7 tweets back to back as a thread</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post on r/androidapps</strong> — launch post with image gallery</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post on r/privacy</strong> — privacy angle post</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post on r/SideProject</strong> — builder story post</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Notify your personal network</strong> — DM friends and ask for honest reviews on Play Store</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Monitor and respond</strong> — reply to every comment on Reddit and PH within 2 hours</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>12:01 AM PST — Product Hunt live</strong> — listing submitted with all 4 gallery images (ph_1 → ph_4)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Maker comment posted immediately</strong> — personal story, not feature list</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>9 AM EST — Twitter launch thread</strong> — all 7 tweets, tw_1 on tweet 1, tw_2 on tweet 6, pinned</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>10 AM EST — r/androidapps post</strong> — with image gallery (feature_graphic + screenshot_2 + screenshot_3)</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>11 AM EST — r/privacy post</strong> — attach reddit_privacy.png</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>2 PM EST — r/SideProject post</strong> — text only, builder story</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Notify personal network</strong> — DM friends for honest Play Store reviews</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Monitor and respond all day</strong> — reply to every comment within 2 hours</div></div>
   </div>
 
   <div class="platform-header" style="margin-top:36px;">
     <div class="platform-icon" style="background:rgba(74,158,255,0.15);">📈</div>
     <div>
-      <div class="platform-title">Post-Launch (Week 1–4)</div>
-      <div class="platform-meta">Sustain momentum after the initial spike</div>
+      <div class="platform-title">Phase 3 — Finance Push (Days 3–7)</div>
+      <div class="platform-meta">Don't post too soon after launch day</div>
     </div>
   </div>
 
   <div class="checklist">
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post on r/personalfinance</strong> — wait 3 days after initial launch, use the financial runway angle</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Post on r/financialindependence</strong> — angle toward FIRE community and the runway metric</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Send outreach to 5 privacy YouTubers</strong> — use the email template in Directories section</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>3 more build-in-public tweets</strong> — share first week download numbers, first user feedback</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Respond to every Play Store review</strong> — 5-star or 1-star, respond thoughtfully</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Ship Phase 3 update</strong> — post an update thread on Twitter and Reddit showing new insight cards</div></div>
-    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>AppBrain listing submitted</strong> — secondary directory for long-tail organic</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Day 3 — r/personalfinance post</strong> — financial runway angle, no images, Tuesday–Thursday 9 AM EST</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Day 5 — r/financialindependence post</strong> — adapt r/personalfinance body with FIRE angle</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Day 7 — YouTuber outreach sent</strong> — 5 personalised emails using outreach template</div></div>
   </div>
 
   <div class="platform-header" style="margin-top:36px;">
-    <div class="platform-icon" style="background:rgba(74,158,255,0.15);">🌐</div>
+    <div class="platform-icon" style="background:rgba(134,197,60,0.15);">🌐</div>
     <div>
-      <div class="platform-title">Launch Timeline</div>
-      <div class="platform-meta">Rough week-by-week plan</div>
+      <div class="platform-title">Phase 4 — Sustain (Week 2–Month 2)</div>
+      <div class="platform-meta">Keep momentum, then re-launch with Phase 3 update</div>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Week 2 — first-week numbers tweet posted</strong> — installs, reviews, what worked</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Responding to every Play Store review</strong> — 1-star, 5-star, every review gets a reply</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>AppBrain listing submitted</strong> — use Short Directory Description</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Phase 3 Insights Layer shipped</strong> — weekly summaries + spending alerts</div></div>
+    <div class="check-item"><div class="check-box" onclick="this.classList.toggle('done')"></div><div class="check-text"><strong>Second-wave launch executed</strong> — update thread on Twitter + r/androidapps + PH update post</div></div>
+  </div>
+
+  <div class="platform-header" style="margin-top:36px;">
+    <div class="platform-icon" style="background:rgba(134,197,60,0.15);">🗓</div>
+    <div>
+      <div class="platform-title">Timeline at a Glance</div>
+      <div class="platform-meta">Week-by-week summary</div>
     </div>
   </div>
 
@@ -928,32 +1776,38 @@ Keep images clean — no heavy marketing text overlays for r/androidapps.</pre>
     <div class="tl-item">
       <div class="tl-dot done"></div>
       <div class="tl-week">Now</div>
-      <div class="tl-title">Store listing + assets ready</div>
-      <div class="tl-desc">Feature graphic, screenshots, long description, short description, privacy policy URL all submitted and approved.</div>
+      <div class="tl-title">Phase 0 — Store &amp; asset setup</div>
+      <div class="tl-desc">Play Store listing complete. Landing page live. Twitter account created. AlternativeTo submitted.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-week">Week 1–2</div>
-      <div class="tl-title">Build in public warm-up</div>
-      <div class="tl-desc">Post 5–6 dev log tweets. Set up PH coming soon page. Finish Phase 3 Insights Layer.</div>
+      <div class="tl-week">Week −2 to −1</div>
+      <div class="tl-title">Phase 1 — Build-in-public warm-up</div>
+      <div class="tl-desc">4–5 dev log tweets posted. PH coming soon page live. Support email ready. All post content pre-written.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-week">Week 3</div>
-      <div class="tl-title">Launch day</div>
-      <div class="tl-desc">Product Hunt + Reddit r/androidapps + r/privacy + Twitter thread. All on the same day.</div>
+      <div class="tl-week">Launch Day</div>
+      <div class="tl-title">Phase 2 — Full launch</div>
+      <div class="tl-desc">Product Hunt 12:01 AM PST. Twitter thread 9 AM EST. Reddit r/androidapps + r/privacy + r/SideProject same day.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-week">Week 4</div>
-      <div class="tl-title">Finance community push</div>
-      <div class="tl-desc">r/personalfinance + r/financialindependence posts. Begin YouTuber outreach.</div>
+      <div class="tl-week">Days 3–7</div>
+      <div class="tl-title">Phase 3 — Finance community push</div>
+      <div class="tl-desc">r/personalfinance + r/financialindependence + YouTuber outreach emails sent.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-week">Week 2–4</div>
+      <div class="tl-title">Phase 4 — Sustain</div>
+      <div class="tl-desc">First-week numbers tweet. Play Store review responses. AppBrain listing.</div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-week">Month 2</div>
-      <div class="tl-title">Phase 3 update launch</div>
-      <div class="tl-desc">Ship weekly summaries + spending alerts. Post update thread everywhere. Second wave of attention.</div>
+      <div class="tl-title">Phase 5 — Second wave</div>
+      <div class="tl-desc">Ship Phase 3 Insights Layer. Full re-launch on all platforms. Consider premium price increase.</div>
     </div>
   </div>
 </div>
@@ -966,18 +1820,28 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t => { if(t.getAttribute('onclick').includes("'"+id+"'")) t.classList.add('active'); });
-  document.querySelectorAll('.sidebar-link').forEach(l => { if(l.getAttribute('onclick') && l.getAttribute('onclick').includes("'"+id+"'")) l.classList.add('active'); });
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")) t.classList.add('active');
+  });
+  document.querySelectorAll('.sidebar-link').forEach(l => {
+    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) l.classList.add('active');
+  });
 }
 
 function copyText(btn, id) {
   const el = document.getElementById(id);
+  if (!el) return;
   const text = el.innerText;
   navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   });
 }
 
@@ -985,8 +1849,9 @@ function copyBlock(el, id) {
   const text = document.getElementById(id).innerText;
   navigator.clipboard.writeText(text).then(() => {
     const label = el.querySelector('.copy-block-label span');
+    const orig = label.textContent;
     label.textContent = 'Copied!';
-    setTimeout(() => { label.textContent = 'click to copy'; }, 2000);
+    setTimeout(() => { label.textContent = orig; }, 2000);
   });
 }
 </script>

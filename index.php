@@ -138,7 +138,7 @@ include_once __DIR__ . '/includes/header.php';
   <div class="split-phone">
     <div class="split-glow"></div>
     <div class="split-phone-frame">
-      <img src="assets/images/mint_fresh_4.png" alt="Luno Stats Screen"/>
+      <img src="<?php echo IMG_URL; ?>/mint_fresh_4.png" alt="Luno Stats Screen"/>
     </div>
   </div>
 </div>
