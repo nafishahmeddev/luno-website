@@ -481,15 +481,15 @@
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-eyebrow">Product Roadmap — v1.0</div>
-  <h1>Client Update<br><em>Portal</em> — MERN Stack</h1>
+  <div class="header-eyebrow">Product Roadmap — v2.0 · TypeScript-only · No backward compat</div>
+  <h1>Client Update<br><em>Portal</em> — TypeScript Full-Stack</h1>
   <p style="color: var(--muted); font-size: 13px; max-width: 560px; line-height: 1.7;">
     End-to-end technical blueprint. Phase-wise development plan covering frontend, backend, database schema, API design, and app flow for a client-facing project update portal.
   </p>
   <div class="header-meta">
     <div class="meta-item">
       <span class="meta-label">Tech Stack</span>
-      <span class="meta-value">MongoDB · Express · React · Node.js</span>
+      <span class="meta-value">Hono.js · React 19 · MongoDB · Node.js</span>
     </div>
     <div class="meta-item">
       <span class="meta-label">Phases</span>
@@ -501,7 +501,7 @@
     </div>
     <div class="meta-item">
       <span class="meta-label">Architecture</span>
-      <span class="meta-value">REST API · JWT Auth · Cloud-first</span>
+      <span class="meta-value">TypeScript · Edge-ready · Type-safe</span>
     </div>
   </div>
 </div>
@@ -584,18 +584,18 @@
   <div class="container">
     <div class="section-label">02 — Stack</div>
     <div class="section-title">Technology choices</div>
-    <p class="section-sub">MERN stack with carefully chosen supporting libraries for auth, file storage, email, and real-time features.</p>
+    <p class="section-sub">TypeScript-only stack, no backward compatibility. Hono.js backend, React 19 frontend, with TanStack for state and data, ImageKit for media, and AWS SES for email.</p>
 
     <div class="stack-grid">
       <div class="stack-card">
         <div class="stack-layer">Frontend</div>
-        <div class="stack-name" style="color:var(--accent3)">React 18</div>
-        <div class="stack-desc">Component framework with hooks, context API, and React Router v6 for routing.</div>
+        <div class="stack-name" style="color:var(--accent3)">React 19</div>
+        <div class="stack-desc">Latest stable React. Actions, useOptimistic, useActionState, and native ref-as-prop — no forwardRef needed.</div>
       </div>
       <div class="stack-card">
-        <div class="stack-layer">State Management</div>
-        <div class="stack-name" style="color:var(--accent3)">Zustand</div>
-        <div class="stack-desc">Lightweight global state for auth, projects, and notifications. Simpler than Redux for this scope.</div>
+        <div class="stack-layer">Global State</div>
+        <div class="stack-name" style="color:var(--accent3)">TanStack Store</div>
+        <div class="stack-desc">Type-safe reactive store from the TanStack ecosystem. Pairs naturally with TanStack Query for full server+client state coverage.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Styling</div>
@@ -603,14 +603,14 @@
         <div class="stack-desc">Utility-first CSS. Fast prototyping, dark mode built-in, responsive by default.</div>
       </div>
       <div class="stack-card">
-        <div class="stack-layer">Data Fetching</div>
-        <div class="stack-name" style="color:var(--accent3)">React Query</div>
-        <div class="stack-desc">Server state caching, background refetching, and optimistic updates for smooth UX.</div>
+        <div class="stack-layer">Server State</div>
+        <div class="stack-name" style="color:var(--accent3)">TanStack Query v5</div>
+        <div class="stack-desc">Infinite queries, optimistic updates, query key factories, and perfect TypeScript inference for all API calls.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Backend</div>
-        <div class="stack-name" style="color:var(--accent)">Node.js + Express</div>
-        <div class="stack-desc">REST API server. Express middlewares for routing, auth, file handling, and error management.</div>
+        <div class="stack-name" style="color:var(--accent)">Hono.js + Node.js</div>
+        <div class="stack-desc">TypeScript-native web framework. 5× faster than Express, built-in Zod validation via zValidator, edge-compatible.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Authentication</div>
@@ -618,14 +618,14 @@
         <div class="stack-desc">Stateless auth with access + refresh token pattern. Passwords hashed with bcrypt (12 rounds).</div>
       </div>
       <div class="stack-card">
-        <div class="stack-layer">File Uploads</div>
-        <div class="stack-name" style="color:var(--accent)">Multer + Cloudinary</div>
-        <div class="stack-desc">Multer handles multipart parsing; Cloudinary for cloud file storage, CDN delivery, and transformations.</div>
+        <div class="stack-layer">File Storage</div>
+        <div class="stack-name" style="color:var(--accent)">ImageKit</div>
+        <div class="stack-desc">Unified media platform. SDK for Node.js backend uploads + imagekitio-react for optimised delivery with real-time transformations and LQIP.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Real-time</div>
-        <div class="stack-name" style="color:var(--accent)">Socket.io</div>
-        <div class="stack-desc">Phase 3+ live notifications when clients view, comment, or approve updates.</div>
+        <div class="stack-name" style="color:var(--accent)">Hono WebSocket</div>
+        <div class="stack-desc">Native WebSocket via @hono/node-ws. Custom room manager replaces Socket.io — lighter, no dependency on Native WebSocket + custom wsClient singleton.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Database</div>
@@ -639,13 +639,13 @@
       </div>
       <div class="stack-card">
         <div class="stack-layer">Email</div>
-        <div class="stack-name" style="color:var(--p4)">Nodemailer + Resend</div>
-        <div class="stack-desc">Transactional emails for client portal links, update notifications, and approval requests.</div>
+        <div class="stack-name" style="color:var(--p4)">AWS SES</div>
+        <div class="stack-desc">@aws-sdk/client-ses for transactional email. Production-grade deliverability, domain verification, bounce/complaint handling via SNS.</div>
       </div>
       <div class="stack-card">
         <div class="stack-layer">Deployment</div>
         <div class="stack-name" style="color:var(--p4)">Vercel + Railway</div>
-        <div class="stack-desc">React on Vercel (edge CDN). Node/Express on Railway. MongoDB Atlas managed service.</div>
+        <div class="stack-desc">React 19 on Vercel (edge CDN). Hono.js on Railway/Fly.io. MongoDB Atlas managed service.</div>
       </div>
     </div>
   </div>
@@ -680,12 +680,13 @@
             <div class="feature-card">
               <div class="feature-card-title"><span class="feature-icon">⚙️</span> Project Setup</div>
               <ul class="feature-items">
-                <li>Initialise Node + Express project</li>
-                <li>Configure ESLint, Prettier, Husky</li>
-                <li>Setup MongoDB Atlas connection via Mongoose</li>
-                <li>Environment config (.env, dotenv)</li>
-                <li>Express middleware: cors, helmet, morgan, express-rate-limit</li>
-                <li>Error handling middleware (centralised)</li>
+                <li>Initialise Hono.js + Node.js project with TypeScript strict mode, no JS output in dev</li>
+                <li>tsx watch for dev server — no nodemon, no transpile step, native TS execution</li>
+                <li>Configure ESLint (typescript-eslint), Prettier, Husky</li>
+                <li>Setup MongoDB Atlas connection via Mongoose with typed IDocument interfaces</li>
+                <li>Environment config (.env, dotenv) — all env vars typed via process.env assertions</li>
+                <li>Hono middleware: cors, secureHeaders, logger, hono-rate-limiter</li>
+                <li>Error handling middleware (centralised ApiError class)</li>
               </ul>
             </div>
             <div class="feature-card">
@@ -695,8 +696,8 @@
                 <li>POST /api/auth/login — verify, return JWT pair</li>
                 <li>POST /api/auth/refresh — rotate refresh token</li>
                 <li>POST /api/auth/logout — blacklist refresh token</li>
-                <li>protectRoute middleware (verify access token)</li>
-                <li>User schema: name, email, passwordHash, plan, createdAt</li>
+                <li>protectRoute — Hono createMiddleware(), attaches user via c.set()</li>
+                <li>User schema with IUser TypeScript interface, strict types on all fields</li>
               </ul>
             </div>
             <div class="feature-card">
@@ -715,22 +716,22 @@
             <div class="feature-card">
               <div class="feature-card-title"><span class="feature-icon">⚛️</span> React Setup</div>
               <ul class="feature-items">
-                <li>Vite + React 18 initialisation</li>
-                <li>React Router v6 route structure</li>
-                <li>Tailwind CSS configuration</li>
-                <li>Zustand store: auth slice</li>
-                <li>Axios instance with interceptors (auto-attach JWT, refresh on 401)</li>
-                <li>React Query setup + QueryClientProvider</li>
+                <li>Vite 5 + React 19 + TypeScript strict mode (no @types/react — React 19 ships its own types)</li>
+                <li>React Router v7 with typed params</li>
+                <li>Tailwind CSS v3 configuration</li>
+                <li>TanStack Store: authStore with typed AuthState interface</li>
+                <li>Axios instance with TS-typed interceptors — auto-attach JWT, token refresh queue on 401</li>
+                <li>TanStack Query v5 setup + QueryClientProvider</li>
               </ul>
             </div>
             <div class="feature-card">
               <div class="feature-card-title"><span class="feature-icon">🖥️</span> Auth Pages</div>
               <ul class="feature-items">
-                <li>Register page — form validation (react-hook-form + zod)</li>
-                <li>Login page — credential form, error states</li>
+                <li>Register page — react-hook-form + zod + React 19 useActionState</li>
+                <li>Login page — useActionState for async form, typed error handling</li>
                 <li>Protected Route wrapper component</li>
-                <li>Persist auth with localStorage (access token in memory, refresh in cookie)</li>
-                <li>Auto-redirect on token expiry</li>
+                <li>TanStack Store persists accessToken in memory; refresh token in httpOnly cookie</li>
+                <li>Axios interceptor queues failed requests, retries after silent refresh</li>
               </ul>
             </div>
             <div class="feature-card">
@@ -746,7 +747,7 @@
             </div>
           </div>
           <div class="chips">
-            <span class="chip">nanoid</span><span class="chip">bcryptjs</span><span class="chip">jsonwebtoken</span><span class="chip">express-validator</span><span class="chip">react-hook-form</span><span class="chip">zod</span><span class="chip">react-router-dom v6</span>
+            <span class="chip">hono</span><span class="chip">@hono/zod-validator</span><span class="chip">bcryptjs</span><span class="chip">jsonwebtoken</span><span class="chip">@tanstack/store</span><span class="chip">@tanstack/react-query v5</span><span class="chip">react-hook-form</span><span class="chip">zod</span><span class="chip">typescript 5</span>
           </div>
         </div>
       </div>
@@ -782,13 +783,13 @@
             <div class="feature-card">
               <div class="feature-card-title"><span class="feature-icon">☁️</span> File Upload Service</div>
               <ul class="feature-items">
-                <li>Multer middleware — memory storage</li>
-                <li>Cloudinary SDK integration</li>
+                <li>Hono formData() — native multipart parsing, no Multer needed</li>
+                <li>imagekitio-node SDK integration</li>
                 <li>POST /api/uploads — single/multi file upload</li>
-                <li>File type validation (image, PDF, zip, doc)</li>
-                <li>10MB per file limit, 50MB per project limit</li>
-                <li>File schema: url, publicId, name, size, type, uploadedAt</li>
-                <li>DELETE /api/uploads/:id — destroy from Cloudinary</li>
+                <li>Server-side MIME type validation (not just extension)</li>
+                <li>10MB per file limit, 50MB per project limit (enforced in plan middleware)</li>
+                <li>File schema: url, fileId (ImageKit), name, size, mimeType — typed as IFileRef</li>
+                <li>DELETE /api/uploads/:fileId — imagekit.deleteFile(fileId)</li>
               </ul>
             </div>
             <div class="feature-card">
@@ -839,7 +840,7 @@
             </div>
           </div>
           <div class="chips">
-            <span class="chip">multer</span><span class="chip">cloudinary</span><span class="chip">nanoid</span><span class="chip">day.js</span><span class="chip">react-dropzone</span><span class="chip">react-query mutations</span>
+            <span class="chip">imagekitio-node</span><span class="chip">imagekitio-react</span><span class="chip">IKUpload</span><span class="chip">IKImage</span><span class="chip">nanoid</span><span class="chip">dayjs</span><span class="chip">useOptimistic (React 19)</span><span class="chip">useInfiniteQuery</span>
           </div>
         </div>
       </div>
@@ -889,8 +890,8 @@
                 <li>GET /api/notifications — paginated list</li>
                 <li>PATCH /api/notifications/read-all</li>
                 <li>Socket.io room per project (owner joins on dashboard load)</li>
-                <li>Emit events: client_viewed, comment_added, milestone_approved</li>
-                <li>Email fallback via Nodemailer/Resend if user offline</li>
+                <li>wsManager.emit() / wsManager.emitToProject() — typed event payloads</li>
+                <li>Email fallback via AWS SES SendEmailCommand if user offline</li>
               </ul>
             </div>
           </div>
@@ -927,7 +928,7 @@
             </div>
           </div>
           <div class="chips">
-            <span class="chip">socket.io</span><span class="chip">nodemailer</span><span class="chip">resend</span><span class="chip">socket.io-client</span><span class="chip">react-hot-toast</span>
+            <span class="chip">socket.io</span><span class="chip">nodemailer</span><span class="chip">resend</span><span class="chip">Native WebSocket + custom wsClient singleton</span><span class="chip">sonner</span>
           </div>
         </div>
       </div>
@@ -1004,7 +1005,7 @@
             </div>
           </div>
           <div class="chips">
-            <span class="chip">react-email</span><span class="chip">node-cron</span><span class="chip">recharts</span><span class="chip">sharp</span><span class="chip">cloudinary transforms</span>
+            <span class="chip">IKImage transformations</span><span class="chip">IKUpload auth signature</span><span class="chip">AWS SES HTML templates</span><span class="chip">recharts</span><span class="chip">node-cron</span>
           </div>
         </div>
       </div>
@@ -1067,7 +1068,7 @@
             </div>
           </div>
           <div class="chips">
-            <span class="chip">stripe</span><span class="chip">ioredis</span><span class="chip">express-mongo-sanitize</span><span class="chip">compression</span><span class="chip">DOMPurify</span>
+            <span class="chip">stripe</span><span class="chip">ioredis</span><span class="chip">@tanstack/react-virtual</span><span class="chip">useTransition (React 19)</span><span class="chip">TypeScript satisfies</span>
           </div>
         </div>
       </div>
@@ -1450,23 +1451,21 @@
       </div>
     </div>
 
-    <div class="subsection-title" style="margin-top: 32px;">Zustand store structure</div>
+    <div class="subsection-title" style="margin-top: 32px;">TanStack Store structure</div>
     <div class="code-block">
-<span class="comment">// stores/authStore.js</span>
+<span class="comment">// stores/authStore.ts</span>
 {
-  user: <span class="kw">null</span> | User,
+  user: <span class="kw">null</span> | User,  <span class="comment">// strict type from models.ts</span>
   accessToken: <span class="str">""</span>,
-  <span class="fn">login</span>: (credentials) => <span class="kw">async</span> () => { ... },
-  <span class="fn">logout</span>: () => { ... },
-  <span class="fn">refreshToken</span>: () => <span class="kw">async</span> () => { ... }
+  isLoading: <span class="kw">true</span>,
+  <span class="comment">// Actions are plain async functions (not store methods)</span>
 }
 
-<span class="comment">// stores/notificationStore.js</span>
+<span class="comment">// stores/notificationStore.ts</span>
 {
-  notifications: [],
+  notifications: <span class="kw">Notification</span>[],  <span class="comment">// typed array</span>
   unreadCount: 0,
-  <span class="fn">addNotification</span>: (n) => { ... },   <span class="comment">// called by socket listener</span>
-  <span class="fn">markAllRead</span>: () => { ... }
+  <span class="comment">// Actions imported separately: notificationActions.add(), .markAllRead()</span>
 }
     </div>
   </div>
@@ -1484,9 +1483,9 @@
         <div class="timeline-date">Week 1–2</div>
         <div class="timeline-title">Environment & Foundation</div>
         <ul class="timeline-items">
-          <li>Monorepo structure: /client (Vite+React), /server (Express)</li>
+          <li>Monorepo: /client (Vite+React 19+TS, no @types/react), /server (Hono+TypeScript, tsx watch)</li>
           <li>MongoDB Atlas cluster provisioned</li>
-          <li>Cloudinary account + API keys</li>
+          <li>ImageKit account + API keys (public, private, urlEndpoint)</li>
           <li>ESLint + Prettier + Husky pre-commit hooks</li>
           <li>CI pipeline: GitHub Actions (lint + test on PR)</li>
         </ul>
@@ -1495,10 +1494,10 @@
         <div class="timeline-date">Week 3–4</div>
         <div class="timeline-title">Auth System Complete</div>
         <ul class="timeline-items">
-          <li>JWT register/login/refresh/logout working</li>
-          <li>React auth pages with validation</li>
+          <li>JWT auth via Hono routes — typed via AppEnv Variables</li>
+          <li>React 19 auth pages — useActionState + react-hook-form + zod</li>
           <li>Protected Route component</li>
-          <li>Dashboard shell (sidebar + empty states)</li>
+          <li>Dashboard shell — TanStack Store authStore wired up</li>
         </ul>
       </div>
       <div class="timeline-item active">
@@ -1516,7 +1515,7 @@
         <div class="timeline-title">Update Engine + File Uploads</div>
         <ul class="timeline-items">
           <li>Update model + pagination API</li>
-          <li>Cloudinary file upload pipeline (Multer → Cloudinary)</li>
+          <li>ImageKit upload pipeline — Hono formData() → imagekitio-node → IFileRef</li>
           <li>Update composer UI with drag-and-drop</li>
           <li>Timeline view with milestone markers</li>
           <li>Client portal /p/:slug page (read-only)</li>
@@ -1526,9 +1525,9 @@
         <div class="timeline-date">Week 11–14</div>
         <div class="timeline-title">Collaboration: Comments + Approvals</div>
         <ul class="timeline-items">
-          <li>Comment API (guest-friendly, no auth needed)</li>
+          <li>Comment API — public Hono route, Zod validated body</li>
           <li>Milestone approval/revision workflow</li>
-          <li>Email notifications via Nodemailer/Resend</li>
+          <li>Email via AWS SES — SendEmailCommand with HTML templates</li>
           <li>Comment thread UI on client portal</li>
         </ul>
       </div>
@@ -1536,9 +1535,9 @@
         <div class="timeline-date">Week 15–18</div>
         <div class="timeline-title">Real-time Notifications</div>
         <ul class="timeline-items">
-          <li>Socket.io server rooms per project</li>
-          <li>Notification bell + dropdown in provider dashboard</li>
-          <li>Live toasts: client viewed, comment added, approved</li>
+          <li>Hono WebSocket rooms via custom WebSocketManager class</li>
+          <li>NotificationBell reads from TanStack Store notificationStore</li>
+          <li>Live toasts via sonner — triggered by wsClient.on() listeners</li>
           <li>Notification persistence + read-state</li>
         </ul>
       </div>
@@ -1546,10 +1545,10 @@
         <div class="timeline-date">Week 19–22</div>
         <div class="timeline-title">Branding + Analytics</div>
         <ul class="timeline-items">
-          <li>Logo upload + brand colour picker</li>
-          <li>Client portal applies brand identity</li>
-          <li>View count analytics dashboard (Recharts)</li>
-          <li>Weekly digest email (node-cron)</li>
+          <li>Logo upload via IKUpload (imagekitio-react) — auth signature from backend</li>
+          <li>IKImage transformation URL for logo resize (w-80,h-80,f-webp), CSS var for brand colour</li>
+          <li>View analytics with Recharts — typed data from aggregation endpoint</li>
+          <li>Weekly digest via AWS SES + node-cron (typed DigestStats interface)</li>
         </ul>
       </div>
       <div class="timeline-item">
@@ -1589,7 +1588,7 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span>Client Update Portal — MERN Stack Roadmap v1.0</span>
+  <span>Client Update Portal — TypeScript Full-Stack Roadmap v2.0</span>
   <span>32 weeks · 5 phases · Production-ready</span>
 </footer>
 

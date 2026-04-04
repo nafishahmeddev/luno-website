@@ -1,5 +1,5 @@
 # Client Update Portal — Frontend Roadmap
-### MERN Stack · React 18 + Vite + Tailwind CSS
+### TypeScript · React 19 · TanStack Store · TanStack Query · ImageKit · Tailwind CSS
 
 ---
 
@@ -7,19 +7,36 @@
 
 | | |
 |---|---|
-| **Framework** | React 18 |
+| **Framework** | React 19 (stable) |
+| **Language** | TypeScript 5.x (strict mode) |
 | **Build Tool** | Vite 5 |
-| **Routing** | React Router v6 |
-| **State** | Zustand (global) + React Query (server state) |
+| **Routing** | React Router v7 (or TanStack Router v1) |
+| **Global State** | TanStack Store |
+| **Server State** | TanStack Query v5 |
 | **Styling** | Tailwind CSS v3 |
 | **Forms** | react-hook-form + zod |
 | **HTTP** | Axios with interceptors |
-| **Real-time** | socket.io-client |
-| **Notifications** | react-hot-toast |
+| **Real-time** | Native WebSocket (Hono WS) |
+| **Images** | ImageKit React SDK (`imagekitio-react`) |
+| **Notifications** | sonner (toast library) |
 | **Charts** | Recharts (Phase 4) |
 | **Deployment** | Vercel |
 | **Total Phases** | 5 |
 | **Total Duration** | ~32 weeks |
+
+---
+
+## React 19 Key Changes Leveraged
+
+| Feature | How we use it |
+|---|---|
+| `use()` hook | Unwrap promises and context in render — data fetching in Suspense |
+| Actions | Form submissions as async functions — no manual `isPending` state |
+| `useActionState` | Form state + errors from server actions |
+| `useOptimistic` | Optimistic UI for posting updates without TanStack Query mutation boilerplate |
+| `useTransition` | Wrap non-urgent state updates (filter changes, search) |
+| `ref` as prop | No more `forwardRef` wrapper on components |
+| Improved Suspense | Sibling components no longer throttle each other |
 
 ---
 
@@ -31,915 +48,1317 @@
 │   └── favicon.svg
 ├── src/
 │   ├── api/
-│   │   ├── axios.js            # Axios instance + interceptors
-│   │   ├── auth.api.js
-│   │   ├── project.api.js
-│   │   ├── update.api.js
-│   │   ├── comment.api.js
-│   │   ├── upload.api.js
-│   │   └── notification.api.js
+│   │   ├── axios.ts              # Axios instance + interceptors
+│   │   ├── auth.api.ts
+│   │   ├── project.api.ts
+│   │   ├── update.api.ts
+│   │   ├── comment.api.ts
+│   │   ├── upload.api.ts
+│   │   └── notification.api.ts
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── AppLayout.jsx       # Sidebar + topbar shell
-│   │   │   ├── Sidebar.jsx
-│   │   │   ├── Topbar.jsx
-│   │   │   └── PublicLayout.jsx    # Minimal layout for client portal
+│   │   │   ├── AppLayout.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── Topbar.tsx
+│   │   │   └── PublicLayout.tsx
 │   │   ├── ui/
-│   │   │   ├── Button.jsx
-│   │   │   ├── Input.jsx
-│   │   │   ├── Modal.jsx
-│   │   │   ├── Badge.jsx
-│   │   │   ├── Avatar.jsx
-│   │   │   ├── Spinner.jsx
-│   │   │   ├── EmptyState.jsx
-│   │   │   └── ProgressBar.jsx
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── Spinner.tsx
+│   │   │   ├── EmptyState.tsx
+│   │   │   └── ProgressBar.tsx
 │   │   ├── project/
-│   │   │   ├── ProjectCard.jsx
-│   │   │   ├── ProjectStatusBadge.jsx
-│   │   │   └── CreateProjectModal.jsx
+│   │   │   ├── ProjectCard.tsx
+│   │   │   ├── ProjectStatusBadge.tsx
+│   │   │   └── CreateProjectModal.tsx
 │   │   ├── update/
-│   │   │   ├── UpdateCard.jsx
-│   │   │   ├── UpdateComposer.jsx
-│   │   │   ├── UpdateTimeline.jsx
-│   │   │   ├── MilestoneBadge.jsx
-│   │   │   └── FileAttachment.jsx
+│   │   │   ├── UpdateCard.tsx
+│   │   │   ├── UpdateComposer.tsx
+│   │   │   ├── UpdateTimeline.tsx
+│   │   │   ├── MilestoneBadge.tsx
+│   │   │   └── FileAttachment.tsx
 │   │   ├── comment/
-│   │   │   ├── CommentThread.jsx
-│   │   │   └── GuestCommentForm.jsx
+│   │   │   ├── CommentThread.tsx
+│   │   │   └── GuestCommentForm.tsx
 │   │   └── notifications/
-│   │       ├── NotificationBell.jsx
-│   │       └── NotificationItem.jsx
+│   │       ├── NotificationBell.tsx
+│   │       └── NotificationItem.tsx
 │   ├── pages/
 │   │   ├── auth/
-│   │   │   ├── RegisterPage.jsx
-│   │   │   └── LoginPage.jsx
+│   │   │   ├── RegisterPage.tsx
+│   │   │   └── LoginPage.tsx
 │   │   ├── dashboard/
-│   │   │   └── DashboardPage.jsx
+│   │   │   └── DashboardPage.tsx
 │   │   ├── projects/
-│   │   │   ├── ProjectListPage.jsx
-│   │   │   ├── ProjectDetailPage.jsx
-│   │   │   └── ProjectSettingsPage.jsx
+│   │   │   ├── ProjectListPage.tsx
+│   │   │   ├── ProjectDetailPage.tsx
+│   │   │   └── ProjectSettingsPage.tsx
 │   │   ├── portal/
-│   │   │   ├── ClientPortalPage.jsx
-│   │   │   └── PortalUnlockPage.jsx
+│   │   │   ├── ClientPortalPage.tsx
+│   │   │   └── PortalUnlockPage.tsx
 │   │   ├── notifications/
-│   │   │   └── NotificationsPage.jsx
+│   │   │   └── NotificationsPage.tsx
 │   │   ├── settings/
-│   │   │   ├── SettingsPage.jsx
-│   │   │   └── BillingPage.jsx
-│   │   └── LandingPage.jsx
+│   │   │   ├── SettingsPage.tsx
+│   │   │   └── BillingPage.tsx
+│   │   └── LandingPage.tsx
 │   ├── stores/
-│   │   ├── authStore.js
-│   │   └── notificationStore.js
+│   │   ├── authStore.ts          # TanStack Store
+│   │   └── notificationStore.ts  # TanStack Store
 │   ├── hooks/
-│   │   ├── useProjects.js
-│   │   ├── useUpdates.js
-│   │   ├── useComments.js
-│   │   ├── useSocket.js
-│   │   └── useUpload.js
+│   │   ├── useProjects.ts        # TanStack Query hooks
+│   │   ├── useUpdates.ts
+│   │   ├── useComments.ts
+│   │   ├── useWebSocket.ts
+│   │   └── useUpload.ts
 │   ├── lib/
-│   │   ├── queryClient.js      # React Query client config
-│   │   └── socket.js           # Socket.io client instance
+│   │   ├── queryClient.ts        # TanStack Query client
+│   │   └── websocket.ts          # WS singleton
+│   ├── types/
+│   │   ├── index.ts              # Shared type exports
+│   │   ├── api.ts                # API response shapes
+│   │   └── models.ts             # Domain model interfaces
 │   ├── utils/
-│   │   ├── formatDate.js       # day.js helpers
-│   │   ├── formatFileSize.js
-│   │   └── getFileIcon.js
+│   │   ├── formatDate.ts
+│   │   ├── formatFileSize.ts
+│   │   └── getFileIcon.ts
 │   ├── router/
-│   │   └── index.jsx           # Route definitions
-│   ├── App.jsx
-│   └── main.jsx
+│   │   └── index.tsx
+│   ├── App.tsx
+│   └── main.tsx
 ├── index.html
-├── vite.config.js
-├── tailwind.config.js
-├── postcss.config.js
+├── vite.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
 └── package.json
 ```
 
 ---
 
+## TypeScript Configuration
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["src"]
+}
+```
+
+---
+
+## Shared Types (`types/models.ts`)
+
+```typescript
+export type ProjectStatus = 'active' | 'on-hold' | 'in-review' | 'completed'
+export type MilestoneStatus = 'pending' | 'approved' | 'revision'
+export type UserPlan = 'free' | 'pro' | 'agency'
+
+export interface User {
+  id: string
+  name: string
+  email: string
+  plan: UserPlan
+  brandColor: string
+  logoUrl?: string
+}
+
+export interface Project {
+  _id: string
+  ownerId: string
+  title: string
+  description?: string
+  slug: string
+  status: ProjectStatus
+  clientEmail?: string
+  clientLastSeen?: string
+  viewCount: number
+  expiresAt?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface FileRef {
+  url: string
+  fileId: string
+  name: string
+  size: number
+  mimeType: string
+}
+
+export interface Update {
+  _id: string
+  projectId: string
+  authorId: string
+  content: string
+  type: 'text' | 'file' | 'milestone'
+  isMilestone: boolean
+  milestoneStatus: MilestoneStatus
+  files: FileRef[]
+  viewCount: number
+  createdAt: string
+}
+
+export interface Comment {
+  _id: string
+  updateId: string
+  authorName: string
+  authorEmail: string
+  body: string
+  type: 'comment' | 'approval' | 'revision'
+  createdAt: string
+}
+
+export interface Notification {
+  _id: string
+  type: 'client_viewed' | 'comment_added' | 'milestone_approved' | 'milestone_revision'
+  message: string
+  read: boolean
+  refId: string
+  refType: 'Project' | 'Update' | 'Comment'
+  createdAt: string
+}
+```
+
+---
+
 ## Phase 1 — Foundation & Auth
-**Duration:** Weeks 1–4  
-**Goal:** Vite + React scaffold, Axios + React Query setup, complete auth flow, and dashboard shell.
+**Duration:** Weeks 1–4
+**Goal:** Vite + React 19 scaffold, TanStack Store auth, Axios interceptors, auth pages, dashboard shell.
 
 ---
 
 ### Week 1–2 · Project Scaffold
 
-#### Tasks
-
-**1. Initialise Vite project**
+#### Install dependencies
 ```bash
-npm create vite@latest client -- --template react
+npm create vite@latest client -- --template react-ts
 cd client && npm install
-```
 
-**2. Install all Phase 1 dependencies**
-```bash
-npm install react-router-dom@6 axios zustand @tanstack/react-query
+# TanStack
+npm install @tanstack/react-query@5 @tanstack/store
+
+# Routing
+npm install react-router-dom@7
+
+# Forms & validation
 npm install react-hook-form zod @hookform/resolvers
-npm install dayjs react-hot-toast clsx
+
+# HTTP
+npm install axios
+
+# ImageKit
+npm install imagekitio-react
+
+# UI utilities
+npm install sonner dayjs clsx tailwind-merge
+
+# Tailwind
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+
+# Dev
+npm install -D vitest @testing-library/react @testing-library/user-event
 ```
 
-**3. Tailwind configuration (`tailwind.config.js`)**
-```javascript
-export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
-  theme: {
-    extend: {
-      colors: {
-        brand: {
-          50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 900: '#14532d'
-        }
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace']
-      }
-    }
-  }
-}
-```
+> **No `@types/react` or `@types/react-dom`** — React 19 ships its own TypeScript declarations. Installing the legacy `@types/react` packages alongside React 19 causes duplicate type conflicts. `react` and `react-dom` are already fully typed out of the box.
 
-**4. Axios instance (`api/axios.js`)**
-```javascript
+#### Axios instance (`api/axios.ts`)
+```typescript
+import axios from 'axios'
+import { authStore } from '../stores/authStore.ts'
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true,   // send cookies (refresh token)
-});
+  withCredentials: true,
+})
 
-// Request interceptor: attach access token from Zustand store
 api.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken;
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+  const token = authStore.state.accessToken
+  if (token) config.headers.Authorization = `Bearer ${token}`
+  return config
+})
 
-// Response interceptor: on 401, attempt token refresh, retry original request
+let isRefreshing = false
+let failedQueue: Array<{ resolve: (t: string) => void; reject: (e: unknown) => void }> = []
+
 api.interceptors.response.use(
   (res) => res,
   async (error) => {
-    const original = error.config;
+    const original = error.config
+
     if (error.response?.status === 401 && !original._retry) {
-      original._retry = true;
-      const newToken = await useAuthStore.getState().refreshAccessToken();
-      original.headers.Authorization = `Bearer ${newToken}`;
-      return api(original);
+      original._retry = true
+
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject })
+        }).then((token) => {
+          original.headers.Authorization = `Bearer ${token}`
+          return api(original)
+        })
+      }
+
+      isRefreshing = true
+      try {
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/auth/refresh`,
+          {},
+          { withCredentials: true }
+        )
+        const newToken: string = data.accessToken
+        authStore.setState((s) => ({ ...s, accessToken: newToken }))
+        failedQueue.forEach((p) => p.resolve(newToken))
+        failedQueue = []
+        original.headers.Authorization = `Bearer ${newToken}`
+        return api(original)
+      } catch (refreshErr) {
+        failedQueue.forEach((p) => p.reject(refreshErr))
+        failedQueue = []
+        authStore.setState((s) => ({ ...s, user: null, accessToken: '' }))
+        window.location.href = '/login'
+        return Promise.reject(refreshErr)
+      } finally {
+        isRefreshing = false
+      }
     }
-    return Promise.reject(error);
+
+    return Promise.reject(error)
   }
-);
+)
+
+export { api }
 ```
 
-**5. React Query client (`lib/queryClient.js`)**
-```javascript
+#### TanStack Query client (`lib/queryClient.ts`)
+```typescript
+import { QueryClient } from '@tanstack/react-query'
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60,        // 1 minute
-      retry: 1,
+      staleTime:            60_000,    // 1 min
+      gcTime:               5 * 60_000,
+      retry:                1,
       refetchOnWindowFocus: false,
+    },
+    mutations: {
+      onError: (err) => console.error('Mutation error:', err),
     }
   }
-});
-```
-
-**6. Router setup (`router/index.jsx`)**
-```jsx
-// All routes defined in one place
-// Protected routes wrapped in <ProtectedRoute>
-// Public client portal at /p/:slug — always accessible
-
-<Routes>
-  <Route path="/" element={<LandingPage />} />
-  <Route path="/login" element={<LoginPage />} />
-  <Route path="/register" element={<RegisterPage />} />
-  <Route path="/p/:slug" element={<ClientPortalPage />} />
-  <Route path="/p/:slug/unlock" element={<PortalUnlockPage />} />
-  <Route element={<ProtectedRoute />}>
-    <Route element={<AppLayout />}>
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/projects" element={<ProjectListPage />} />
-      <Route path="/projects/:id" element={<ProjectDetailPage />} />
-      <Route path="/projects/:id/settings" element={<ProjectSettingsPage />} />
-      <Route path="/notifications" element={<NotificationsPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/settings/billing" element={<BillingPage />} />
-    </Route>
-  </Route>
-  <Route path="*" element={<Navigate to="/dashboard" replace />} />
-</Routes>
-```
-
-**7. ProtectedRoute component**
-```jsx
-// Checks Zustand auth store
-// If no accessToken → redirect to /login
-// Attempts silent refresh on mount if token missing but refreshToken cookie exists
-function ProtectedRoute() {
-  const { accessToken, isLoading } = useAuthStore();
-  if (isLoading) return <FullPageSpinner />;
-  return accessToken ? <Outlet /> : <Navigate to="/login" replace />;
-}
+})
 ```
 
 ---
 
-### Week 3–4 · Auth Pages & Dashboard Shell
+### Week 3–4 · TanStack Store Auth & Auth Pages
 
-#### Auth Store (`stores/authStore.js`)
-```javascript
-// Zustand slice
-{
+#### Auth Store (`stores/authStore.ts`)
+```typescript
+import { Store } from '@tanstack/store'
+import { api } from '../api/axios.ts'
+import { queryClient } from '../lib/queryClient.ts'
+import type { User } from '../types/models.ts'
+
+interface AuthState {
+  user: User | null
+  accessToken: string
+  isLoading: boolean   // true during initial silent refresh on app boot
+}
+
+export const authStore = new Store<AuthState>({
   user: null,
   accessToken: '',
-  isLoading: true,           // true on initial app load while checking auth
+  isLoading: true,
+})
 
-  login: async (email, password) => {
-    const { data } = await authApi.login({ email, password });
-    set({ user: data.user, accessToken: data.accessToken });
+// Actions (plain async functions — TanStack Store has no built-in actions)
+export const authActions = {
+  async login(email: string, password: string) {
+    const { data } = await api.post('/auth/login', { email, password })
+    authStore.setState(() => ({
+      user: data.user,
+      accessToken: data.accessToken,
+      isLoading: false,
+    }))
   },
 
-  register: async (name, email, password) => { ... },
-
-  logout: async () => {
-    await authApi.logout();
-    set({ user: null, accessToken: '' });
-    queryClient.clear();       // clear all cached server state
+  async register(name: string, email: string, password: string) {
+    const { data } = await api.post('/auth/register', { name, email, password })
+    authStore.setState(() => ({
+      user: data.user,
+      accessToken: data.accessToken,
+      isLoading: false,
+    }))
   },
 
-  refreshAccessToken: async () => {
-    const { data } = await authApi.refresh();
-    set({ accessToken: data.accessToken });
-    return data.accessToken;
+  async logout() {
+    await api.post('/auth/logout').catch(() => {})
+    authStore.setState(() => ({ user: null, accessToken: '', isLoading: false }))
+    queryClient.clear()
   },
 
-  initAuth: async () => {
-    // Called once in App.jsx on mount
-    // Try to refresh access token silently using httpOnly cookie
-    // If succeeds → user is logged in; if fails → remain logged out
+  async initAuth() {
+    // Called once on app boot — attempt silent token refresh
     try {
-      await get().refreshAccessToken();
-      const { data } = await authApi.getMe();
-      set({ user: data.user, isLoading: false });
+      const { data } = await api.post('/auth/refresh')
+      authStore.setState((s) => ({ ...s, accessToken: data.accessToken }))
+      const meRes = await api.get('/auth/me')
+      authStore.setState((s) => ({ ...s, user: meRes.data.user, isLoading: false }))
     } catch {
-      set({ isLoading: false });
+      authStore.setState((s) => ({ ...s, isLoading: false }))
     }
   }
 }
 ```
 
-#### Register Page (`pages/auth/RegisterPage.jsx`)
+#### Using TanStack Store in components
+```typescript
+// Reading state — useStore is the React adapter
+import { useStore } from '@tanstack/react-store'
+import { authStore } from '../stores/authStore.ts'
 
-**Form fields:** Full name, Email, Password, Confirm password
+function Topbar() {
+  // Selector — only re-renders when `user` changes
+  const user = useStore(authStore, (s) => s.user)
+  return <span>{user?.name}</span>
+}
 
-**Validation schema (zod):**
-```javascript
-z.object({
-  name: z.string().min(2).max(100),
-  email: z.string().email(),
-  password: z.string().min(8)
-    .regex(/[A-Z]/, 'Must contain uppercase')
-    .regex(/[0-9]/, 'Must contain number'),
-  confirmPassword: z.string()
-}).refine(d => d.password === d.confirmPassword, {
+// Reading multiple fields with one subscription
+function ProtectedRoute() {
+  const { user, isLoading } = useStore(authStore)
+  if (isLoading) return <Spinner />
+  return user ? <Outlet /> : <Navigate to="/login" replace />
+}
+```
+
+#### Notification Store (`stores/notificationStore.ts`)
+```typescript
+import { Store } from '@tanstack/store'
+import type { Notification } from '../types/models.ts'
+
+interface NotificationState {
+  notifications: Notification[]
+  unreadCount: number
+}
+
+export const notificationStore = new Store<NotificationState>({
+  notifications: [],
+  unreadCount: 0,
+})
+
+export const notificationActions = {
+  add(n: Notification) {
+    notificationStore.setState((s) => ({
+      notifications: [n, ...s.notifications],
+      unreadCount: s.unreadCount + 1,
+    }))
+  },
+
+  setAll(list: Notification[]) {
+    notificationStore.setState(() => ({
+      notifications: list,
+      unreadCount: list.filter((n) => !n.read).length,
+    }))
+  },
+
+  markAllRead() {
+    notificationStore.setState((s) => ({
+      notifications: s.notifications.map((n) => ({ ...n, read: true })),
+      unreadCount: 0,
+    }))
+  },
+}
+```
+
+#### Register Page (`pages/auth/RegisterPage.tsx`)
+```typescript
+// Using React 19 Actions + useActionState for form handling
+import { useActionState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { authActions } from '../../stores/authStore.ts'
+
+const schema = z.object({
+  name:            z.string().min(2).max(100),
+  email:           z.string().email(),
+  password:        z.string().min(8)
+                     .regex(/[A-Z]/, 'Must contain uppercase')
+                     .regex(/[0-9]/, 'Must contain number'),
+  confirmPassword: z.string(),
+}).refine((d) => d.password === d.confirmPassword, {
   message: 'Passwords do not match',
-  path: ['confirmPassword']
-});
+  path: ['confirmPassword'],
+})
+
+type FormValues = z.infer<typeof schema>
+
+export function RegisterPage() {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  })
+
+  // React 19 useActionState — manages isPending, error from the action
+  const [error, submitAction, isPending] = useActionState(
+    async (_prev: string | null, formData: FormValues) => {
+      try {
+        await authActions.register(formData.name, formData.email, formData.password)
+        return null
+      } catch (err: unknown) {
+        return (err as { response?: { data?: { message?: string } } })
+          .response?.data?.message ?? 'Registration failed'
+      }
+    },
+    null
+  )
+
+  return (
+    <form onSubmit={handleSubmit((data) => submitAction(data))}>
+      {/* fields... */}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+      <button type="submit" disabled={isPending}>
+        {isPending ? 'Creating account...' : 'Create account'}
+      </button>
+    </form>
+  )
+}
 ```
-
-**UI details:**
-- Show/hide password toggle button
-- Loading spinner on submit button while API in flight
-- On success → navigate to `/dashboard`
-- Show server-side errors inline under relevant fields
-- Link to `/login` for existing users
-
-#### Login Page (`pages/auth/LoginPage.jsx`)
-
-**Form fields:** Email, Password
-
-**UI details:**
-- Remember email with localStorage (checkbox)
-- "Forgot password?" link (placeholder — Phase 4)
-- On success → navigate to redirect URL (stored before auth redirect) or `/dashboard`
-- Generic error message on 401 (don't reveal which field is wrong)
-
-#### App Layout (`components/layout/AppLayout.jsx`)
-
-**Structure:**
-```
-<div class="flex h-screen">
-  <Sidebar />                     ← fixed left, 240px wide
-  <div class="flex-1 flex flex-col overflow-hidden">
-    <Topbar />                    ← fixed top, 56px
-    <main class="flex-1 overflow-y-auto p-6">
-      <Outlet />                  ← page content rendered here
-    </main>
-  </div>
-</div>
-```
-
-**Sidebar content:**
-- App logo + name at top
-- Nav links: Dashboard, Projects, Notifications
-- User avatar + name at bottom
-- Logout button
-- Collapse to icon-only on mobile
-
-**Topbar content:**
-- Page title (from route context)
-- Notification bell with unread count
-- User avatar dropdown (profile, settings, logout)
-
-#### Dashboard Page (`pages/dashboard/DashboardPage.jsx`)
-
-**Sections:**
-- Stats strip: total projects, active projects, pending approvals, updates this week
-- Recent projects grid (last 6, showing status badge, client email, update count)
-- "Create Project" button → opens `CreateProjectModal`
-- Empty state if no projects yet
 
 ---
 
 ## Phase 2 — Core Update Engine
-**Duration:** Weeks 5–10  
-**Goal:** Projects CRUD, update composer with file uploads, update timeline, and client portal page.
+**Duration:** Weeks 5–10
+**Goal:** TanStack Query project/update hooks, update composer, ImageKit uploads, client portal page.
 
 ---
 
-### Week 5–7 · Projects
+### Week 5–7 · Projects with TanStack Query
 
-#### API layer (`api/project.api.js`)
-```javascript
+#### API layer (`api/project.api.ts`)
+```typescript
+import { api } from './axios.ts'
+import type { Project, Update } from '../types/models.ts'
+
 export const projectApi = {
-  getAll: () => api.get('/projects'),
-  getById: (id) => api.get(`/projects/${id}`),
-  create: (data) => api.post('/projects', data),
-  update: (id, data) => api.put(`/projects/${id}`, data),
-  delete: (id) => api.delete(`/projects/${id}`),
-  getPublic: (slug) => api.get(`/public/${slug}`),
-};
+  getAll:    ()           => api.get<{ data: Project[] }>('/projects').then(r => r.data.data),
+  getById:   (id: string) => api.get<{ data: Project }>(`/projects/${id}`).then(r => r.data.data),
+  create:    (body: Omit<Project, '_id' | 'ownerId' | 'slug' | 'viewCount' | 'createdAt' | 'updatedAt'>) =>
+                            api.post<{ data: Project }>('/projects', body).then(r => r.data.data),
+  update:    (id: string, body: Partial<Project>) =>
+                            api.put<{ data: Project }>(`/projects/${id}`, body).then(r => r.data.data),
+  remove:    (id: string) => api.delete(`/projects/${id}`),
+  getPublic: (slug: string) => api.get<{ data: { project: Project; updates: Update[] } }>(`/public/${slug}`).then(r => r.data.data),
+}
 ```
 
-#### useProjects hook (`hooks/useProjects.js`)
-```javascript
-// Wraps React Query queries and mutations
+#### TanStack Query v5 hooks (`hooks/useProjects.ts`)
+```typescript
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
+import { projectApi } from '../api/project.api.ts'
+import { toast } from 'sonner'
+
+// Query key factory — centralised, type-safe
+export const projectKeys = {
+  all:    ()  => ['projects']                    as const,
+  detail: (id: string) => ['projects', id]       as const,
+  portal: (slug: string) => ['portal', slug]     as const,
+}
+
 export function useProjects() {
-  return useQuery({ queryKey: ['projects'], queryFn: projectApi.getAll });
+  return useQuery({
+    queryKey: projectKeys.all(),
+    queryFn:  projectApi.getAll,
+  })
+}
+
+export function useProject(id: string) {
+  return useQuery({
+    queryKey: projectKeys.detail(id),
+    queryFn:  () => projectApi.getById(id),
+    enabled:  !!id,
+  })
+}
+
+export function usePublicProject(slug: string) {
+  return useQuery({
+    queryKey: projectKeys.portal(slug),
+    queryFn:  () => projectApi.getPublic(slug),
+    staleTime: 0,    // always fresh for client portal
+  })
 }
 
 export function useCreateProject() {
+  const qc = useQueryClient()
   return useMutation({
     mutationFn: projectApi.create,
-    onSuccess: () => queryClient.invalidateQueries(['projects']),
-    onError: (err) => toast.error(err.response?.data?.message),
-  });
+    onSuccess:  (newProject) => {
+      qc.setQueryData(projectKeys.all(), (old: Project[] = []) => [newProject, ...old])
+      toast.success('Project created')
+    },
+    onError: (err) => toast.error('Failed to create project'),
+  })
 }
 
 export function useDeleteProject() {
+  const qc = useQueryClient()
   return useMutation({
-    mutationFn: projectApi.delete,
+    mutationFn: projectApi.remove,
     onMutate: async (id) => {
-      // Optimistic update: remove from cache immediately
-      await queryClient.cancelQueries(['projects']);
-      const prev = queryClient.getQueryData(['projects']);
-      queryClient.setQueryData(['projects'], old =>
-        old.filter(p => p._id !== id)
-      );
-      return { prev };
+      await qc.cancelQueries({ queryKey: projectKeys.all() })
+      const prev = qc.getQueryData<Project[]>(projectKeys.all())
+      qc.setQueryData(projectKeys.all(), (old: Project[] = []) => old.filter(p => p._id !== id))
+      return { prev }
     },
-    onError: (err, id, ctx) => queryClient.setQueryData(['projects'], ctx.prev),
-    onSettled: () => queryClient.invalidateQueries(['projects']),
-  });
+    onError: (_err, _id, ctx) => {
+      if (ctx?.prev) qc.setQueryData(projectKeys.all(), ctx.prev)
+      toast.error('Failed to delete project')
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: projectKeys.all() }),
+  })
 }
 ```
 
-#### CreateProjectModal (`components/project/CreateProjectModal.jsx`)
-
-**Fields:** Project title (required), Client email (optional), Description (optional)
-
-**Behaviour:**
-- Opens as a centered modal with backdrop
-- Uses `react-hook-form` + `zod` validation
-- On submit → `useCreateProject()` mutation
-- On success → close modal + toast "Project created" + navigate to new project
-- Close on backdrop click or Escape key
-
-#### Project List Page (`pages/projects/ProjectListPage.jsx`)
-
-**Layout:**
-- Filter tabs: All · Active · In Review · Completed
-- Search input (client-side filter on project titles)
-- Grid of `ProjectCard` components (2 columns on desktop, 1 on mobile)
-- "New Project" button in top-right
-
-#### ProjectCard (`components/project/ProjectCard.jsx`)
-
-**Displays:**
-- Project title
-- `ProjectStatusBadge` (colour-coded pill)
-- Client email (if set)
-- Last update timestamp ("Updated 2 days ago")
-- Update count
-- Copy portal link button (copies `window.location.origin/p/:slug` to clipboard)
-- Dropdown menu: Edit, Settings, Delete
-
 ---
 
-### Week 8–10 · Updates & File Uploads
+### Week 8–10 · Updates, ImageKit & Client Portal
 
-#### Project Detail Page (`pages/projects/ProjectDetailPage.jsx`)
+#### Update hooks with infinite query
+```typescript
+// hooks/useUpdates.ts
+export const updateKeys = {
+  byProject: (projectId: string) => ['updates', projectId] as const,
+}
 
-**Structure:**
-```
-<div class="max-w-3xl mx-auto">
-  <ProjectHeader />           ← title, status selector, portal link button
-  <UpdateComposer />          ← always visible at top
-  <UpdateTimeline />          ← scrollable list of updates
-</div>
-```
-
-#### UpdateComposer (`components/update/UpdateComposer.jsx`)
-
-**State:**
-- `content` — textarea value
-- `files` — array of File objects (before upload)
-- `isMilestone` — boolean toggle
-- `isUploading` — boolean
-- `uploadProgress` — 0–100
-
-**UI elements:**
-- Textarea (auto-resizing with `react-textarea-autosize`)
-- File drop zone (using `react-dropzone`):
-  - Accepts: images, PDF, zip, docx
-  - Max 5 files, 10 MB each
-  - Shows file thumbnail/icon preview after selection
-  - Individual remove button on each file preview
-- "Mark as milestone" toggle (star icon, changes composer border to amber when on)
-- Submit button: "Post Update" — disabled when content empty and no files
-
-**Submit flow:**
-1. If files selected → `POST /api/uploads` (multipart), receive file URLs
-2. `POST /api/projects/:id/updates` with content + file references + isMilestone
-3. Optimistic update: prepend new update to timeline immediately
-4. On error: rollback optimistic update + show error toast
-5. On success: clear composer, show "Update posted" toast
-
-**Upload progress:**
-- Axios `onUploadProgress` callback → update `uploadProgress` state
-- Show progress bar below file previews during upload
-
-#### UpdateTimeline (`components/update/UpdateTimeline.jsx`)
-
-**Behaviour:**
-- Infinite scroll using `useInfiniteQuery` (React Query)
-- Intersection Observer on last item → fetch next page
-- Each update renders as `UpdateCard`
-
-#### UpdateCard (`components/update/UpdateCard.jsx`)
-
-**Displays:**
-- Author avatar (initials) + name + timestamp
-- Milestone badge (if `isMilestone: true`) with status colour:
-  - Pending → gray pill "Awaiting approval"
-  - Approved → green pill "Approved"
-  - Revision → amber pill "Revision requested"
-- Update content (text, line breaks preserved)
-- File attachments row (using `FileAttachment` component)
-- Comment count badge ("3 comments")
-- Edit / Delete dropdown (owner only — check `req.user._id`)
-
-#### FileAttachment (`components/update/FileAttachment.jsx`)
-
-**Per file displays:**
-- File type icon (PDF, ZIP, image thumbnail, generic doc)
-- Original filename (truncated at 30 chars)
-- File size (formatted: "2.4 MB")
-- Download button → opens Cloudinary URL in new tab
-- Image files: show 80×80 thumbnail with lightbox on click
-
-#### Client Portal Page (`pages/portal/ClientPortalPage.jsx`)
-
-**Route:** `/p/:slug` — completely public, no auth
-
-**Data fetching:**
-- `useQuery({ queryKey: ['portal', slug], queryFn: () => projectApi.getPublic(slug) })`
-- No token attached (public axios instance without interceptors)
-
-**UI structure:**
-```
-<PublicLayout>
-  <PortalHeader>               ← project title, status badge, progress bar, provider branding
-  <UpdateTimeline>             ← read-only, no edit/delete actions
-    <UpdateCard readonly />    ← no edit controls, comments visible
-      <CommentThread />        ← visible, with GuestCommentForm
-        <ApprovalButtons />    ← on milestone cards only
-</PublicLayout>
+export function useInfiniteUpdates(projectId: string) {
+  return useInfiniteQuery({
+    queryKey: updateKeys.byProject(projectId),
+    queryFn:  ({ pageParam = 1 }) =>
+                updateApi.getByProject(projectId, { page: pageParam, limit: 10 }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.pagination.page < lastPage.pagination.pages
+        ? lastPage.pagination.page + 1
+        : undefined,
+  })
+}
 ```
 
-**Seen tracking:**
-- `useEffect` on mount → `PATCH /api/public/:slug/seen` (silent fire-and-forget)
+#### Update Composer with React 19 `useOptimistic`
+```typescript
+// components/update/UpdateComposer.tsx
+import { useOptimistic, useTransition, useRef } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { updateApi } from '../../api/update.api.ts'
+import { uploadApi } from '../../api/upload.api.ts'
+import { updateKeys } from '../../hooks/useUpdates.ts'
+import type { Update, FileRef } from '../../types/models.ts'
 
-**PublicLayout:**
-- Minimal header: provider logo (if set) + provider name
-- No sidebar, no topbar nav
-- Footer: "Powered by Client Update Portal" (removable on paid plan — Phase 5)
+export function UpdateComposer({ projectId }: { projectId: string }) {
+  const qc = useQueryClient()
+  const [isPending, startTransition] = useTransition()
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const [optimisticUpdates, addOptimistic] = useOptimistic(
+    qc.getQueryData<{ pages: { updates: Update[] }[] }>(updateKeys.byProject(projectId))
+      ?.pages.flatMap(p => p.updates) ?? [],
+    (state, newUpdate: Update) => [newUpdate, ...state]
+  )
+
+  const handleSubmit = async (formData: FormData) => {
+    const content    = formData.get('content') as string
+    const files      = formData.getAll('files') as File[]
+    const isMilestone = formData.get('isMilestone') === 'on'
+
+    if (!content.trim() && !files.length) return
+
+    // Optimistic update
+    const tempUpdate: Update = {
+      _id: `temp-${Date.now()}`,
+      projectId,
+      authorId: '',
+      content,
+      type: isMilestone ? 'milestone' : files.length ? 'file' : 'text',
+      isMilestone,
+      milestoneStatus: 'pending',
+      files: [],
+      viewCount: 0,
+      createdAt: new Date().toISOString(),
+    }
+
+    startTransition(async () => {
+      addOptimistic(tempUpdate)
+
+      try {
+        let uploadedFiles: FileRef[] = []
+        if (files.length) {
+          const fd = new FormData()
+          files.forEach(f => fd.append('files', f))
+          uploadedFiles = await uploadApi.upload(fd)
+        }
+
+        await updateApi.create(projectId, { content, isMilestone, files: uploadedFiles })
+        qc.invalidateQueries({ queryKey: updateKeys.byProject(projectId) })
+        formRef.current?.reset()
+      } catch {
+        toast.error('Failed to post update')
+        qc.invalidateQueries({ queryKey: updateKeys.byProject(projectId) })
+      }
+    })
+  }
+
+  return (
+    <form ref={formRef} action={handleSubmit}>
+      {/* textarea, file drop, milestone toggle, submit button */}
+      <button type="submit" disabled={isPending}>
+        {isPending ? 'Posting...' : 'Post Update'}
+      </button>
+    </form>
+  )
+}
+```
+
+#### ImageKit integration (`components/update/FileAttachment.tsx`)
+```typescript
+import { IKImage } from 'imagekitio-react'
+import type { FileRef } from '../../types/models.ts'
+
+interface Props {
+  file: FileRef
+}
+
+const IMAGEKIT_ENDPOINT = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT
+
+export function FileAttachment({ file }: Props) {
+  const isImage = file.mimeType.startsWith('image/')
+
+  if (isImage) {
+    return (
+      <div className="relative group">
+        {/* IKImage applies transformations via URL params automatically */}
+        <IKImage
+          urlEndpoint={IMAGEKIT_ENDPOINT}
+          src={file.url}
+          transformation={[{ width: '200', height: '150', crop: 'at_max', format: 'webp' }]}
+          lqip={{ active: true, quality: 10 }}   // low-quality placeholder while loading
+          loading="lazy"
+          alt={file.name}
+          className="w-48 h-36 object-cover rounded-lg"
+        />
+        <a
+          href={file.url}
+          download={file.name}
+          className="absolute inset-0 flex items-center justify-center
+                     bg-black/50 opacity-0 group-hover:opacity-100
+                     rounded-lg transition-opacity"
+        >
+          <span className="text-white text-xs">Download</span>
+        </a>
+      </div>
+    )
+  }
+
+  return (
+    <a
+      href={file.url}
+      download={file.name}
+      className="flex items-center gap-2 p-2 border rounded-lg hover:bg-gray-50"
+    >
+      <FileIcon mimeType={file.mimeType} />
+      <div>
+        <p className="text-sm font-medium truncate max-w-[160px]">{file.name}</p>
+        <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
+      </div>
+    </a>
+  )
+}
+```
+
+#### ImageKit provider setup (`main.tsx`)
+```typescript
+import { IKContext } from 'imagekitio-react'
+
+root.render(
+  <IKContext
+    urlEndpoint={import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT}
+    publicKey={import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY}
+    authenticator={async () => {
+      // Fetch auth signature from backend for client-side uploads
+      const res = await api.get('/uploads/imagekit-auth')
+      return res.data   // { token, expire, signature }
+    }}
+  >
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </IKContext>
+)
+```
+
+#### Client Portal Page (`pages/portal/ClientPortalPage.tsx`)
+```typescript
+import { use, Suspense } from 'react'
+import { useParams } from 'react-router-dom'
+import { usePublicProject } from '../../hooks/useProjects.ts'
+import { IKImage } from 'imagekitio-react'
+
+export function ClientPortalPage() {
+  const { slug } = useParams<{ slug: string }>()
+  const { data, isLoading, error } = usePublicProject(slug!)
+
+  // Track "seen" on mount
+  useEffect(() => {
+    api.patch(`/public/${slug}/seen`).catch(() => {})
+  }, [slug])
+
+  if (isLoading) return <PortalSkeleton />
+  if (error)    return <PortalError />
+
+  const { project, updates } = data!
+
+  return (
+    <PublicLayout brandColor={project.brandColor} logoUrl={project.logoUrl}>
+      <PortalHeader project={project} />
+      <UpdateTimeline updates={updates} isReadOnly />
+    </PublicLayout>
+  )
+}
+
+// PublicLayout applies provider's brand colour via CSS custom property
+function PublicLayout({ children, brandColor, logoUrl }: PublicLayoutProps) {
+  return (
+    <div style={{ '--brand': brandColor } as React.CSSProperties}>
+      <header className="border-b p-4 flex items-center gap-3">
+        {logoUrl && (
+          <IKImage
+            src={logoUrl}
+            transformation={[{ width: '40', height: '40', format: 'webp' }]}
+            alt="Provider logo"
+            className="w-10 h-10 rounded object-cover"
+          />
+        )}
+      </header>
+      <main className="max-w-2xl mx-auto px-4 py-8">{children}</main>
+    </div>
+  )
+}
+```
 
 ---
 
 ## Phase 3 — Collaboration Layer
-**Duration:** Weeks 11–18  
-**Goal:** Comments UI, guest comment form, approval buttons, Socket.io integration, and notification bell.
+**Duration:** Weeks 11–18
+**Goal:** Comments, approval UI, Hono WebSocket client, notification store.
 
 ---
 
 ### Week 11–14 · Comments & Approvals
 
-#### CommentThread (`components/comment/CommentThread.jsx`)
+#### Comment hooks
+```typescript
+// hooks/useComments.ts
+export const commentKeys = {
+  byUpdate: (updateId: string) => ['comments', updateId] as const,
+}
 
-**Props:** `updateId`, `projectId`, `isReadOnly` (false for portal, owner can delete)
+export function useComments(updateId: string) {
+  return useQuery({
+    queryKey: commentKeys.byUpdate(updateId),
+    queryFn:  () => commentApi.getByUpdate(updateId),
+  })
+}
 
-**Behaviour:**
-- `useQuery` to fetch comments on mount
-- Mutation on submit → optimistic append → invalidate on settle
-- Renders list of comment bubbles
-- Each comment shows: avatar (initials from name), author name, timestamp, body
-- Type badge for approvals: ✓ Approved (green), ↩ Revision Requested (amber)
-- Owner can delete comments (trash icon on hover)
-
-#### GuestCommentForm (`components/comment/GuestCommentForm.jsx`)
-
-**Shown on:** Client portal page (always) and project detail page (for team comments — Phase 4)
-
-**Fields:**
-- Name (required, remembered in localStorage after first submit)
-- Email (required, remembered in localStorage)
-- Comment body textarea
-- Submit button: "Add Comment"
-
-**Zod schema:**
-```javascript
-z.object({
-  authorName: z.string().min(1).max(100),
-  authorEmail: z.string().email(),
-  body: z.string().min(1).max(2000),
-})
+export function useAddComment(updateId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (body: { authorName: string; authorEmail: string; body: string }) =>
+                  commentApi.create(updateId, body),
+    onSuccess: (newComment) => {
+      qc.setQueryData(commentKeys.byUpdate(updateId), (old: Comment[] = []) => [...old, newComment])
+    },
+  })
+}
 ```
 
-#### Approval Buttons (`components/update/MilestoneApproval.jsx`)
+#### GuestCommentForm — localStorage persistence
+```typescript
+// components/comment/GuestCommentForm.tsx
+export function GuestCommentForm({ updateId }: { updateId: string }) {
+  const addComment = useAddComment(updateId)
 
-**Shown on:** Milestone update cards in client portal only
+  const { register, handleSubmit, formState: { errors } } = useForm<CommentValues>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      authorName:  localStorage.getItem('guestName')  ?? '',
+      authorEmail: localStorage.getItem('guestEmail') ?? '',
+      body: '',
+    }
+  })
 
-**States:**
-- `pending` → Show "Approve" (green) + "Request Revision" (amber) buttons
-- `approved` → Show locked green "Approved" badge, no buttons
-- `revision` → Show locked amber "Revision Requested" badge + "Undo" (owner only)
+  const [error, submitAction, isPending] = useActionState(
+    async (_prev: string | null, values: CommentValues) => {
+      try {
+        await addComment.mutateAsync(values)
+        localStorage.setItem('guestName',  values.authorName)
+        localStorage.setItem('guestEmail', values.authorEmail)
+        return null
+      } catch {
+        return 'Failed to post comment'
+      }
+    },
+    null
+  )
 
-**Approve flow:**
-1. Click "Approve" → show confirmation modal
-2. Guest enters name + email (pre-filled from localStorage)
-3. `PATCH /api/updates/:id/milestone` with `{ status: 'approved', authorName, authorEmail }`
-4. Optimistic update of milestone status in cache
-5. Toast: "Milestone approved!"
+  return <form onSubmit={handleSubmit((d) => submitAction(d))}>...</form>
+}
+```
 
 ---
 
-### Week 15–18 · Socket.io & Notifications
+### Week 15–18 · WebSocket Client
 
-#### Socket client (`lib/socket.js`)
-```javascript
-// Single socket instance, created after login
-let socket = null;
-
-export function connectSocket(accessToken) {
-  socket = io(import.meta.env.VITE_API_URL, {
-    auth: { token: accessToken },
-    reconnection: true,
-    reconnectionAttempts: 5,
-    reconnectionDelay: 2000,
-  });
-  return socket;
+#### WebSocket singleton (`lib/websocket.ts`)
+```typescript
+type WSEvent = {
+  event: 'new_notification' | 'client_viewed' | 'comment_added' | 'milestone_status_changed'
+  payload: unknown
 }
 
-export function getSocket() { return socket; }
-export function disconnectSocket() { socket?.disconnect(); socket = null; }
+type Listener = (payload: unknown) => void
+
+class WebSocketClient {
+  private ws:         WebSocket | null = null
+  private listeners:  Map<string, Set<Listener>> = new Map()
+  private connectionId: string | null = null
+
+  connect(accessToken: string) {
+    const url = `${import.meta.env.VITE_WS_URL}?token=${accessToken}`
+    this.ws = new WebSocket(url)
+
+    this.ws.onmessage = (e) => {
+      const msg: WSEvent = JSON.parse(e.data)
+      if (msg.event === 'connected') {
+        this.connectionId = (msg.payload as { connectionId: string }).connectionId
+      }
+      this.listeners.get(msg.event)?.forEach(fn => fn(msg.payload))
+    }
+
+    this.ws.onclose = () => {
+      // Reconnect after 2s if connection dropped unexpectedly
+      setTimeout(() => this.connect(accessToken), 2000)
+    }
+  }
+
+  joinProject(projectId: string) {
+    this.send({ event: 'join_project', connectionId: this.connectionId, projectId })
+  }
+
+  leaveProject(projectId: string) {
+    this.send({ event: 'leave_project', connectionId: this.connectionId, projectId })
+  }
+
+  on(event: string, listener: Listener) {
+    if (!this.listeners.has(event)) this.listeners.set(event, new Set())
+    this.listeners.get(event)!.add(listener)
+    return () => this.listeners.get(event)?.delete(listener)   // returns cleanup fn
+  }
+
+  private send(data: unknown) {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify(data))
+    }
+  }
+
+  disconnect() {
+    this.ws?.close()
+    this.ws = null
+  }
+}
+
+export const wsClient = new WebSocketClient()
 ```
 
-#### useSocket hook (`hooks/useSocket.js`)
-```javascript
-export function useSocket() {
-  const { accessToken } = useAuthStore();
-  const addNotification = useNotificationStore(s => s.addNotification);
+#### useWebSocket hook
+```typescript
+// hooks/useWebSocket.ts
+import { useEffect } from 'react'
+import { useStore } from '@tanstack/react-store'
+import { authStore } from '../stores/authStore.ts'
+import { notificationActions } from '../stores/notificationStore.ts'
+import { wsClient } from '../lib/websocket.ts'
+import { queryClient } from '../lib/queryClient.ts'
+import { projectKeys } from './useProjects.ts'
+import { toast } from 'sonner'
+import type { Notification } from '../types/models.ts'
+
+export function useWebSocket() {
+  const accessToken = useStore(authStore, (s) => s.accessToken)
 
   useEffect(() => {
-    if (!accessToken) return;
-    const socket = connectSocket(accessToken);
+    if (!accessToken) return
 
-    socket.on('new_notification', (notification) => {
-      addNotification(notification);
-      toast.custom(<NotificationToast notification={notification} />);
-    });
+    wsClient.connect(accessToken)
 
-    socket.on('client_viewed', ({ projectId, timestamp }) => {
-      // Invalidate project query to refresh "last seen" field
-      queryClient.invalidateQueries(['project', projectId]);
-    });
+    const unsubNotif = wsClient.on('new_notification', (payload) => {
+      const n = payload as Notification
+      notificationActions.add(n)
+      toast(n.message, { duration: 4000 })
+    })
 
-    socket.on('connect_error', (err) => console.warn('Socket error:', err.message));
+    const unsubViewed = wsClient.on('client_viewed', (payload) => {
+      const { projectId } = payload as { projectId: string; timestamp: string }
+      queryClient.invalidateQueries({ queryKey: projectKeys.detail(projectId) })
+    })
 
-    return () => disconnectSocket();
-  }, [accessToken]);
+    return () => {
+      unsubNotif()
+      unsubViewed()
+      wsClient.disconnect()
+    }
+  }, [accessToken])
+}
+
+// In ProjectDetailPage — join/leave project room
+export function useProjectRoom(projectId: string) {
+  useEffect(() => {
+    wsClient.joinProject(projectId)
+    return () => wsClient.leaveProject(projectId)
+  }, [projectId])
 }
 ```
 
-**Call `useSocket()` once at the top level in `AppLayout.jsx`.**
-
-#### Join project room on project detail page
-```javascript
-// In ProjectDetailPage.jsx
-useEffect(() => {
-  const socket = getSocket();
-  socket?.emit('join_project', projectId);
-  return () => socket?.emit('leave_project', projectId);
-}, [projectId]);
-```
-
-#### Notification Store (`stores/notificationStore.js`)
-```javascript
-{
-  notifications: [],
-  unreadCount: 0,
-
-  addNotification: (n) => set(s => ({
-    notifications: [n, ...s.notifications],
-    unreadCount: s.unreadCount + 1,
-  })),
-
-  setNotifications: (list) => set({
-    notifications: list,
-    unreadCount: list.filter(n => !n.read).length,
-  }),
-
-  markAllRead: () => set(s => ({
-    notifications: s.notifications.map(n => ({ ...n, read: true })),
-    unreadCount: 0,
-  })),
-}
-```
-
-#### NotificationBell (`components/notifications/NotificationBell.jsx`)
-
-**Behaviour:**
-- Shows bell icon in Topbar
-- Red badge with `unreadCount` (hidden if 0)
-- Click → opens dropdown panel (max 5 recent notifications)
-- "Mark all read" button at top of dropdown
-- "See all" link → `/notifications`
-- Each item: icon for type + message text + relative time
-- Click notification → navigate to relevant project/update
-- Pulse animation on bell when new notification arrives (CSS keyframe, 1 second)
-
-#### Notifications Page (`pages/notifications/NotificationsPage.jsx`)
-
-**Behaviour:**
-- Fetches full paginated notification list via `GET /api/notifications`
-- Groups by date: "Today", "Yesterday", "Earlier"
-- Marks all as read on page mount (`PATCH /api/notifications/read-all`)
-- Empty state: "No notifications yet"
+**Call `useWebSocket()` once in `AppLayout.tsx` — it runs for the lifetime of the authenticated session.**
 
 ---
 
 ## Phase 4 — Polish & Power Features
-**Duration:** Weeks 19–26  
-**Goal:** Branding settings, analytics dashboard, access control UI, and team management.
+**Duration:** Weeks 19–26
+**Goal:** ImageKit branding UI, analytics, portal access control, project settings.
 
 ---
 
-### Week 19–22 · Branding & Analytics
+### Week 19–22 · Branding with ImageKit Upload
 
-#### Settings Page (`pages/settings/SettingsPage.jsx`)
+#### Logo uploader component
+```typescript
+// In SettingsPage.tsx — branding tab
+import { IKUpload } from 'imagekitio-react'
 
-**Tabs:** Profile · Branding · Notifications · Security
+export function BrandingSettings() {
+  const [logoUrl, setLogoUrl] = useState(user?.logoUrl)
+  const [brandColor, setBrandColor] = useState(user?.brandColor ?? '#6366f1')
 
-**Profile tab:**
-- Update name, email
-- Change password (current + new + confirm)
+  return (
+    <div className="space-y-6">
+      <div>
+        <label className="block text-sm font-medium mb-2">Logo</label>
 
-**Branding tab:**
-- Logo upload (image only, max 2 MB):
-  - `react-dropzone` with preview
-  - Shows current logo if set
-  - Upload → `POST /api/uploads` → `PATCH /api/settings/branding`
-- Brand colour picker:
-  - Native `<input type="color">` + hex text input (synced)
-  - Live preview: shows how client portal header will look with selected colour
-- "Save Branding" button with loading state
+        {/* Current logo preview using IKImage */}
+        {logoUrl && (
+          <IKImage
+            src={logoUrl}
+            transformation={[{ width: '80', height: '80', format: 'webp', crop: 'at_max' }]}
+            className="w-20 h-20 rounded-lg object-cover mb-3"
+            alt="Current logo"
+          />
+        )}
 
-#### Analytics section in Project Detail
+        {/* IKUpload handles auth signature automatically via IKContext authenticator */}
+        <IKUpload
+          fileName="logo"
+          folder="/branding"
+          tags={['logo', 'branding']}
+          onSuccess={(res) => {
+            setLogoUrl(res.url)
+            // Also persist to backend
+            api.patch('/settings/branding', { logoUrl: res.url, logoFileId: res.fileId })
+          }}
+          onError={(err) => toast.error('Logo upload failed')}
+          accept="image/*"
+          className="hidden"
+          id="logo-upload"
+        />
+        <label htmlFor="logo-upload" className="btn-secondary cursor-pointer">
+          Upload Logo
+        </label>
+      </div>
 
-**Added below project header, above composer:**
+      <div>
+        <label className="block text-sm font-medium mb-2">Brand Colour</label>
+        <div className="flex items-center gap-3">
+          <input
+            type="color"
+            value={brandColor}
+            onChange={(e) => setBrandColor(e.target.value)}
+            className="w-12 h-10 cursor-pointer rounded border"
+          />
+          <input
+            type="text"
+            value={brandColor}
+            onChange={(e) => setBrandColor(e.target.value)}
+            className="input font-mono text-sm w-28"
+            pattern="^#[0-9A-Fa-f]{6}$"
+          />
+          {/* Live preview of portal header */}
+          <div
+            className="flex items-center gap-2 px-4 py-2 rounded text-white text-sm"
+            style={{ background: brandColor }}
+          >
+            {logoUrl && (
+              <IKImage
+                src={logoUrl}
+                transformation={[{ width: '20', height: '20', format: 'webp' }]}
+                className="w-5 h-5 rounded"
+                alt=""
+              />
+            )}
+            <span>Portal preview</span>
+          </div>
+        </div>
+      </div>
 
-```jsx
-<ProjectAnalytics projectId={id} />
+      <button onClick={() => api.patch('/settings/branding', { brandColor })} className="btn-primary">
+        Save Branding
+      </button>
+    </div>
+  )
+}
 ```
 
-**Displays:**
-- Total views (update-level)
-- Unique commenters count
-- Milestone approval rate (X of Y approved)
-- Last client activity: "Client last viewed 2 hours ago" (or "Client hasn't viewed yet")
-- Small sparkline chart (Recharts `LineChart`) showing view activity over last 14 days
-
 ---
 
-### Week 23–26 · Access Control & Project Settings
+### Week 23–26 · Project Settings
 
-#### Project Settings Page (`pages/projects/ProjectSettingsPage.jsx`)
+#### Portal access control UI
+```typescript
+// pages/projects/ProjectSettingsPage.tsx — Portal Access tab
+export function PortalAccessSettings({ project }: { project: Project }) {
+  const [password, setPassword] = useState('')
+  const [expiryDate, setExpiryDate] = useState('')
 
-**Tabs:** General · Portal Access · Danger Zone
+  const portalUrl = `${window.location.origin}/p/${project.slug}`
 
-**General tab:**
-- Edit project title, description
-- Change project status
-- Update client email
+  return (
+    <div className="space-y-6">
+      {/* Portal link */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Portal link</label>
+        <div className="flex gap-2">
+          <input readOnly value={portalUrl} className="input flex-1 font-mono text-sm" />
+          <button onClick={() => navigator.clipboard.writeText(portalUrl)} className="btn-secondary">
+            Copy
+          </button>
+          <button onClick={() => window.open(portalUrl)} className="btn-secondary">
+            Open ↗
+          </button>
+        </div>
+      </div>
 
-**Portal Access tab:**
-- Portal link display with copy button + open-in-new-tab icon
-- Send link via email form (enter client email → triggers backend email)
-- Password protection toggle:
-  - Off by default
-  - Toggle on → text input for portal password → "Set Password" button
-  - Password stored hashed on backend
-- Expiry date picker:
-  - Optional date input
-  - If set, portal auto-locks on that date
-- Regenerate link button (creates new slug — old link breaks, confirm modal required)
+      {/* Send link via email */}
+      <SendPortalLinkForm projectId={project._id} />
 
-**Danger Zone tab:**
-- Delete project button → confirmation modal requiring user to type project title
-- Archive project (soft-delete, recoverable — Phase 5 feature)
+      {/* Password protection */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Password protection</label>
+        <div className="flex gap-2">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Set a portal password"
+            className="input flex-1"
+          />
+          <button
+            onClick={() => api.patch(`/projects/${project._id}/set-password`, { password })}
+            className="btn-secondary"
+          >
+            Set
+          </button>
+        </div>
+      </div>
+
+      {/* Expiry date */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Expiry date</label>
+        <input
+          type="date"
+          value={expiryDate}
+          onChange={(e) => setExpiryDate(e.target.value)}
+          min={new Date().toISOString().split('T')[0]}
+          className="input"
+        />
+        <button
+          onClick={() => api.patch(`/projects/${project._id}`, { expiresAt: expiryDate })}
+          className="btn-secondary mt-2"
+        >
+          Set Expiry
+        </button>
+      </div>
+    </div>
+  )
+}
+```
 
 ---
 
 ## Phase 5 — Monetisation & Scale
-**Duration:** Weeks 27–32  
-**Goal:** Stripe billing UI, plan gates, performance optimisations, and production-ready polish.
+**Duration:** Weeks 27–32
+**Goal:** Stripe billing, plan gates, performance, production polish.
 
 ---
 
-### Week 27–29 · Billing
+### Week 27–29 · Billing Page
 
-#### Billing Page (`pages/settings/BillingPage.jsx`)
+```typescript
+// pages/settings/BillingPage.tsx
+const PLAN_LIMITS = {
+  free:   { projects: 3,         storage: '500 MB', team: 1,  branding: false },
+  pro:    { projects: 25,        storage: '5 GB',   team: 3,  branding: true },
+  agency: { projects: Infinity,  storage: '20 GB',  team: 15, branding: true },
+} as const satisfies Record<string, { projects: number; storage: string; team: number; branding: boolean }>
 
-**Sections:**
-- Current plan card (name, renewal date, features list)
-- Plan comparison table:
+export function BillingPage() {
+  const user = useStore(authStore, (s) => s.user)
+  const currentPlan = user?.plan ?? 'free'
 
-| Feature | Free | Pro | Agency |
-|---|---|---|---|
-| Projects | 3 | 25 | Unlimited |
-| Storage | 500 MB | 5 GB | 20 GB |
-| Team members | 1 | 3 | 15 |
-| Branding | No | Yes | Yes |
-| Remove "Powered by" | No | No | Yes |
+  const handleUpgrade = async (priceId: string) => {
+    const { data } = await api.post('/billing/create-checkout', { priceId })
+    window.location.href = data.url
+  }
 
-- Upgrade/Downgrade buttons → `POST /api/billing/create-checkout` → redirect to Stripe Checkout
-- "Manage Subscription" button → `GET /api/billing/portal` → redirect to Stripe Customer Portal
+  const handleManage = async () => {
+    const { data } = await api.get('/billing/portal')
+    window.location.href = data.url
+  }
 
-#### Plan limit gates (throughout app)
+  return (
+    <div>
+      <h2>Current plan: <span className="capitalize font-semibold">{currentPlan}</span></h2>
+      {/* Plan cards... */}
+      <button onClick={handleManage}>Manage subscription</button>
+    </div>
+  )
+}
+```
 
-```jsx
-// usePlanLimit hook
-export function usePlanLimit(limitKey) {
-  const { user } = useAuthStore();
-  const limits = PLAN_LIMITS[user.plan];  // defined in constants
-  return { limit: limits[limitKey], isAtLimit: (current) => current >= limits[limitKey] };
+#### Plan limit hook
+```typescript
+// hooks/usePlanLimit.ts
+import { useStore } from '@tanstack/react-store'
+import { authStore } from '../stores/authStore.ts'
+
+const PLAN_LIMITS = {
+  free:   { projects: 3,        storage: 500,  team: 1  },
+  pro:    { projects: 25,       storage: 5000, team: 3  },
+  agency: { projects: Infinity, storage: 20000, team: 15 },
 }
 
-// Usage in ProjectListPage
-const { isAtLimit } = usePlanLimit('projects');
-const { data: projects } = useProjects();
-const atLimit = isAtLimit(projects?.length ?? 0);
-
-// "New Project" button
-<Button disabled={atLimit} onClick={openModal}>
-  {atLimit ? 'Upgrade to add more' : 'New Project'}
-</Button>
-{atLimit && <UpgradePrompt feature="more projects" />}
-```
-
-**UpgradePrompt component:**
-- Small banner with plan limit explanation
-- "Upgrade" button linking to `/settings/billing`
-
----
-
-### Week 30–32 · Performance & Production Polish
-
-#### Code splitting
-```javascript
-// All pages loaded lazily — bundle only what the current route needs
-const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage'));
-const ProjectDetailPage = lazy(() => import('./pages/projects/ProjectDetailPage'));
-const ClientPortalPage = lazy(() => import('./pages/portal/ClientPortalPage'));
-// etc.
-
-// Wrap router in <Suspense fallback={<PageSpinner />}>
-```
-
-#### Performance checklist
-
-- Images: use `loading="lazy"` on all non-critical images
-- Virtualize long update timelines with `@tanstack/react-virtual` if >100 items
-- Debounce search inputs (300ms) with `useDebounce` hook
-- Avoid unnecessary React Query refetches:
-  - `staleTime: 60_000` for project data (changes infrequently)
-  - `staleTime: 0` for notifications (always fresh)
-- Memoize expensive renders with `React.memo` and `useMemo` for ProjectCard and UpdateCard lists
-- Prefetch project detail on hover over ProjectCard:
-  ```javascript
-  onMouseEnter={() => queryClient.prefetchQuery(['project', id], () => projectApi.getById(id))
-  ```
-
-#### Error boundaries
-
-```jsx
-// Wrap each page in an ErrorBoundary
-// Shows friendly "Something went wrong" UI instead of white screen
-// Logs to Sentry
-
-class ErrorBoundary extends React.Component {
-  state = { hasError: false };
-  static getDerivedStateFromError() { return { hasError: true }; }
-  componentDidCatch(err) { Sentry.captureException(err); }
-  render() {
-    return this.state.hasError
-      ? <ErrorFallback onReset={() => this.setState({ hasError: false })} />
-      : this.props.children;
+export function usePlanLimit(key: keyof typeof PLAN_LIMITS['free']) {
+  const plan = useStore(authStore, (s) => s.user?.plan ?? 'free')
+  const limit = PLAN_LIMITS[plan][key]
+  return {
+    limit,
+    isAtLimit: (current: number) => current >= limit,
+    plan,
   }
 }
 ```
 
-#### Accessibility
+---
 
-- All interactive elements have `aria-label` or visible label
-- Modals trap focus (use `focus-trap-react`)
-- Skip-to-content link at top of document
-- Colour contrast ratio ≥ 4.5:1 for all text
-- Keyboard navigation tested for all flows: create project, post update, comment, approve milestone
+### Week 30–32 · Performance & Production
+
+#### Code splitting
+```typescript
+// router/index.tsx — all pages lazy-loaded
+import { lazy, Suspense } from 'react'
+
+const DashboardPage       = lazy(() => import('../pages/dashboard/DashboardPage.tsx'))
+const ProjectDetailPage   = lazy(() => import('../pages/projects/ProjectDetailPage.tsx'))
+const ClientPortalPage    = lazy(() => import('../pages/portal/ClientPortalPage.tsx'))
+const BillingPage         = lazy(() => import('../pages/settings/BillingPage.tsx'))
+
+// Wrap all routes in Suspense
+<Suspense fallback={<PageSpinner />}>
+  <Routes>...</Routes>
+</Suspense>
+```
+
+#### Performance checklist
+
+- Prefetch project detail on ProjectCard hover:
+  ```typescript
+  onMouseEnter={() =>
+    queryClient.prefetchQuery({
+      queryKey: projectKeys.detail(id),
+      queryFn:  () => projectApi.getById(id),
+    })
+  }
+  ```
+- Virtualise long timelines with `@tanstack/react-virtual` (>50 updates)
+- Debounce search with `useTransition` (React 19 — no `useDebounce` needed for filtering)
+- `staleTime` tuning: notifications `0`, project detail `60s`, portal `0`
+- ImageKit LQIP (low-quality placeholder) on all images — set `lqip={{ active: true }}`
+- `loading="lazy"` on all `IKImage` below the fold
+
+#### Error boundaries
+```typescript
+// React 19: error boundaries still use class components
+// But React 19 adds `onCaughtError` and `onUncaughtError` props to root
+
+root.render(
+  <ErrorBoundary fallback={<ErrorFallback />}>
+    <App />
+  </ErrorBoundary>
+)
+```
 
 #### Vercel deployment
-
-1. Connect GitHub repo to Vercel
+1. Connect GitHub repo → Vercel project
 2. Set environment variables:
    ```
-   VITE_API_URL=https://your-backend.railway.app
-   VITE_SOCKET_URL=https://your-backend.railway.app
+   VITE_API_URL=https://api.yourdomain.com
+   VITE_WS_URL=wss://api.yourdomain.com/ws
+   VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
+   VITE_IMAGEKIT_PUBLIC_KEY=public_...
    ```
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Configure `vercel.json` for SPA fallback:
+3. Build: `npm run build`, output: `dist`
+4. `vercel.json` for SPA:
    ```json
    { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
    ```
 
 ---
 
-## React Query Key Conventions
+## TanStack Query Key Convention
 
-```javascript
-// Consistent cache keys across the app
-['projects']                         // all user projects
-['project', id]                      // single project by id
-['portal', slug]                     // public project (no auth)
-['updates', projectId]               // updates for a project
-['updates', projectId, { page }]     // paginated
-['comments', updateId]               // comments for an update
-['notifications']                    // user notifications
-['analytics', projectId]             // project analytics
+```typescript
+// All query keys defined as factory functions — colocated with their hooks
+projectKeys.all()               → ['projects']
+projectKeys.detail(id)          → ['projects', id]
+projectKeys.portal(slug)        → ['portal', slug]
+updateKeys.byProject(projectId) → ['updates', projectId]
+commentKeys.byUpdate(updateId)  → ['comments', updateId]
+notificationKeys.all()          → ['notifications']
+analyticsKeys.byProject(id)     → ['analytics', id]
 ```
-
----
-
-## Component Props Reference
-
-| Component | Key Props |
-|---|---|
-| `UpdateCard` | `update`, `isOwner`, `isReadOnly`, `onDelete`, `onEdit` |
-| `UpdateComposer` | `projectId`, `onSuccess` |
-| `FileAttachment` | `file: { url, name, size, mimeType }`, `onRemove?` |
-| `CommentThread` | `updateId`, `projectId`, `isReadOnly` |
-| `GuestCommentForm` | `updateId`, `onSuccess` |
-| `ProjectCard` | `project`, `onDelete` |
-| `ProjectStatusBadge` | `status: 'active' \| 'on-hold' \| 'in-review' \| 'completed'` |
-| `NotificationBell` | _(no props — reads from notificationStore)_ |
-| `MilestoneBadge` | `status`, `isMilestone` |
-| `ProgressBar` | `value: number (0–100)`, `label?` |
-| `Modal` | `isOpen`, `onClose`, `title`, `children`, `size?` |
-| `EmptyState` | `title`, `description`, `action?` |
-| `UpgradePrompt` | `feature: string` |
 
 ---
 
@@ -947,7 +1366,9 @@ class ErrorBoundary extends React.Component {
 
 ```bash
 VITE_API_URL=http://localhost:5000
-VITE_SOCKET_URL=http://localhost:5000
+VITE_WS_URL=ws://localhost:5000/ws
+VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
+VITE_IMAGEKIT_PUBLIC_KEY=public_...
 ```
 
 ---
@@ -968,3 +1389,15 @@ VITE_SOCKET_URL=http://localhost:5000
 | Project Settings | `/projects/:id/settings` | JWT | 4 |
 | Settings | `/settings` | JWT | 4 |
 | Billing | `/settings/billing` | JWT | 5 |
+
+---
+
+## React 19 Migration Notes
+
+If upgrading from React 18:
+- Replace `forwardRef` wrappers with plain `ref` prop (supported natively in R19)
+- Replace `useCallback` for form handlers with `action` prop pattern where applicable
+- Replace manual `isPending` + `setError` state with `useActionState`
+- Replace optimistic update patterns using `setState` callback with `useOptimistic`
+- `ReactDOM.render` → `ReactDOM.createRoot` (already required from R18)
+- `use(promise)` replaces `useEffect` + `useState` for one-off async reads in Suspense

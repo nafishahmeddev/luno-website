@@ -1,5 +1,5 @@
 # Client Update Portal — Backend Roadmap
-### MERN Stack · Node.js + Express + MongoDB
+### TypeScript · Hono.js · MongoDB · AWS SES · ImageKit
 
 ---
 
@@ -8,15 +8,29 @@
 | | |
 |---|---|
 | **Runtime** | Node.js 20 LTS |
-| **Framework** | Express 4.x |
+| **Framework** | Hono.js (TypeScript-first, edge-compatible) |
+| **Language** | TypeScript 5.x (strict mode) |
 | **Database** | MongoDB Atlas + Mongoose 8.x |
 | **Auth** | JWT (access + refresh tokens) + bcryptjs |
-| **File Storage** | Multer + Cloudinary |
-| **Real-time** | Socket.io 4.x |
-| **Email** | Nodemailer + Resend |
-| **Deployment** | Railway (or Render) |
+| **File Storage** | ImageKit (upload, CDN, transformations) |
+| **Real-time** | Hono WebSocket helpers + ws library |
+| **Email** | AWS SES (Simple Email Service) via `@aws-sdk/client-ses` |
+| **Deployment** | Railway / Fly.io (Node adapter) |
 | **Total Phases** | 5 |
 | **Total Duration** | ~32 weeks |
+
+---
+
+## Why Hono over Express
+
+| | Express | Hono |
+|---|---|---|
+| TypeScript | Needs `@types/express` | Native TS, no extra types |
+| Validation | Manual / third-party | Built-in `zValidator` with Zod |
+| Performance | ~100k req/s | ~500k req/s (faster router) |
+| Edge runtime | No | Yes (Cloudflare Workers, Deno, Bun) |
+| Bundle size | Heavy | ~15 KB |
+| Middleware | `req, res, next` | `c: Context` — cleaner API |
 
 ---
 
@@ -25,758 +39,957 @@
 ```
 /server
 ├── src/
+│   ├── index.ts                    # Hono app entry, serve + WS adapter
+│   ├── app.ts                      # App factory, middleware registration
 │   ├── config/
-│   │   ├── db.js               # Mongoose connection
-│   │   ├── cloudinary.js       # Cloudinary SDK init
-│   │   └── socket.js           # Socket.io setup
+│   │   ├── db.ts                   # Mongoose connect
+│   │   ├── imagekit.ts             # ImageKit SDK init
+│   │   ├── ses.ts                  # AWS SES client init
+│   │   └── websocket.ts            # WS room manager
 │   ├── models/
-│   │   ├── User.js
-│   │   ├── Project.js
-│   │   ├── Update.js
-│   │   ├── Comment.js
-│   │   ├── File.js
-│   │   └── Notification.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── projectController.js
-│   │   ├── updateController.js
-│   │   ├── commentController.js
-│   │   ├── uploadController.js
-│   └── └── notificationController.js
+│   │   ├── User.ts
+│   │   ├── Project.ts
+│   │   ├── Update.ts
+│   │   ├── Comment.ts
+│   │   ├── File.ts
+│   │   └── Notification.ts
 │   ├── routes/
-│   │   ├── auth.routes.js
-│   │   ├── project.routes.js
-│   │   ├── update.routes.js
-│   │   ├── comment.routes.js
-│   │   ├── upload.routes.js
-│   └── └── notification.routes.js
+│   │   ├── auth.routes.ts
+│   │   ├── project.routes.ts
+│   │   ├── update.routes.ts
+│   │   ├── comment.routes.ts
+│   │   ├── upload.routes.ts
+│   │   ├── notification.routes.ts
+│   │   └── ws.routes.ts            # WebSocket upgrade route
+│   ├── controllers/
+│   │   ├── authController.ts
+│   │   ├── projectController.ts
+│   │   ├── updateController.ts
+│   │   ├── commentController.ts
+│   │   ├── uploadController.ts
+│   │   └── notificationController.ts
 │   ├── middleware/
-│   │   ├── protectRoute.js     # JWT verify
-│   │   ├── ownerOnly.js        # Resource ownership check
-│   │   ├── rateLimiter.js      # express-rate-limit configs
-│   │   ├── validate.js         # express-validator wrapper
-│   └── └── errorHandler.js     # Centralised error middleware
+│   │   ├── protectRoute.ts         # JWT verify — Hono middleware
+│   │   ├── ownerOnly.ts
+│   │   ├── rateLimiter.ts          # hono-rate-limiter
+│   │   └── checkPlanLimits.ts
 │   ├── services/
-│   │   ├── emailService.js     # Nodemailer/Resend abstraction
-│   │   ├── uploadService.js    # Cloudinary upload/delete
-│   └── └── notificationService.js
+│   │   ├── emailService.ts         # AWS SES abstraction
+│   │   ├── uploadService.ts        # ImageKit upload/delete
+│   │   ├── notificationService.ts
+│   │   └── cronService.ts          # node-cron jobs
+│   ├── validators/
+│   │   ├── auth.validators.ts      # Zod schemas for auth routes
+│   │   ├── project.validators.ts
+│   │   └── update.validators.ts
+│   ├── types/
+│   │   ├── index.ts                # Shared type exports
+│   │   ├── hono.ts                 # Hono env/variable types
+│   │   └── models.ts               # Mongoose document interfaces
 │   └── utils/
-│       ├── generateSlug.js     # nanoid slug generator
-│       ├── generateToken.js    # JWT sign helpers
-│       └── ApiError.js         # Custom error class
+│       ├── generateSlug.ts
+│       ├── generateToken.ts
+│       └── ApiError.ts
 ├── .env
 ├── .env.example
-├── server.js                   # Express app entry point
+├── tsconfig.json
 └── package.json
 ```
 
 ---
 
+## TypeScript Configuration
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+> **No `nodemon.json`** — `tsx` handles TypeScript-native watch mode directly. Dev script: `"dev": "tsx watch src/index.ts"`. No transpile step, no `.js` output needed in development.
+
+---
+
+```typescript
+// src/app.ts
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import { logger } from 'hono/logger'
+import { secureHeaders } from 'hono/secure-headers'
+import { rateLimiter } from 'hono-rate-limiter'
+import type { AppEnv } from './types/hono.ts'
+
+// Hono typed env — variables available via c.get('user')
+export type AppEnv = {
+  Variables: {
+    user: UserDocument
+    project: ProjectDocument
+  }
+}
+
+export function createApp() {
+  const app = new Hono<AppEnv>()
+
+  app.use('*', logger())
+  app.use('*', secureHeaders())
+  app.use('*', cors({
+    origin: process.env.CLIENT_URL!,
+    credentials: true,
+    allowMethods: ['GET','POST','PUT','PATCH','DELETE'],
+  }))
+  app.use('/api/*', rateLimiter({
+    windowMs: 15 * 60 * 1000,
+    limit: 200,
+    keyGenerator: (c) => c.req.header('x-forwarded-for') ?? 'anon',
+  }))
+
+  // Mount routes
+  app.route('/api/auth', authRoutes)
+  app.route('/api/projects', projectRoutes)
+  app.route('/api/updates', updateRoutes)
+  app.route('/api/comments', commentRoutes)
+  app.route('/api/uploads', uploadRoutes)
+  app.route('/api/notifications', notificationRoutes)
+  app.route('/api/public', publicRoutes)
+  app.get('/ws', wsHandler)
+  app.get('/health', (c) => c.json({ ok: true }))
+
+  app.onError((err, c) => {
+    if (err instanceof ApiError) {
+      return c.json({ success: false, message: err.message }, err.statusCode)
+    }
+    console.error(err)
+    return c.json({ success: false, message: 'Internal server error' }, 500)
+  })
+
+  return app
+}
+```
+
+```typescript
+// src/index.ts
+import { serve } from '@hono/node-server'
+import { createNodeWebSocket } from '@hono/node-ws'
+import { createApp } from './app.ts'
+import { connectDB } from './config/db.ts'
+
+const app = createApp()
+const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app })
+
+await connectDB()
+
+const server = serve({ fetch: app.fetch, port: Number(process.env.PORT) || 5000 })
+injectWebSocket(server)
+
+console.log(`Server running on port ${process.env.PORT || 5000}`)
+```
+
+---
+
 ## Phase 1 — Foundation & Auth
-**Duration:** Weeks 1–4  
-**Goal:** Working server, database connection, complete authentication system, and project CRUD skeleton.
+**Duration:** Weeks 1–4
+**Goal:** Hono server scaffold with full TypeScript, MongoDB connection, JWT auth system.
 
 ---
 
 ### Week 1–2 · Project Scaffold & Config
 
-#### Tasks
+#### Install dependencies
+```bash
+npm install hono @hono/node-server @hono/node-ws @hono/zod-validator
+npm install mongoose bcryptjs jsonwebtoken nanoid cookie-parser
+npm install @aws-sdk/client-ses imagekitio-node
+npm install hono-rate-limiter node-cron
+npm install -D typescript tsx @types/node @types/bcryptjs
+npm install -D @types/jsonwebtoken @types/cookie-parser @types/node-cron
+npm install -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
+npm install -D prettier husky lint-staged
+```
 
-**1. Initialise project**
-- `npm init -y` inside `/server`
-- Install core dependencies:
-  ```
-  express mongoose dotenv cors helmet morgan express-rate-limit
-  bcryptjs jsonwebtoken nanoid cookie-parser
-  ```
-- Install dev dependencies:
-  ```
-  nodemon eslint prettier eslint-config-prettier husky lint-staged
-  ```
-- Set up `.eslintrc.json` and `.prettierrc`
-- Configure Husky pre-commit hook to run `eslint` and `prettier --check`
+#### Hono middleware pattern
+```typescript
+// middleware/protectRoute.ts
+import { createMiddleware } from 'hono/factory'
+import jwt from 'jsonwebtoken'
+import { User } from '../models/User.ts'
+import { ApiError } from '../utils/ApiError.ts'
 
-**2. Express app setup (`server.js`)**
-- Create Express app instance
-- Register middleware in order:
-  1. `helmet()` — security headers
-  2. `cors({ origin: process.env.CLIENT_URL, credentials: true })` — allow frontend
-  3. `express.json()` and `express.urlencoded({ extended: true })` — body parsing
-  4. `morgan('dev')` — request logging (development only)
-  5. Global rate limiter: `express-rate-limit` — 200 req / 15 min per IP
-  6. Cookie parser for refresh token cookie
-- Mount route files (placeholder at this stage)
-- Register error handler middleware last
+export const protectRoute = createMiddleware<AppEnv>(async (c, next) => {
+  const authHeader = c.req.header('Authorization')
+  if (!authHeader?.startsWith('Bearer ')) {
+    throw new ApiError(401, 'No token provided')
+  }
+  const token = authHeader.slice(7)
+  try {
+    const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET!) as { id: string }
+    const user = await User.findById(payload.id)
+    if (!user) throw new ApiError(401, 'User not found')
+    c.set('user', user)
+    await next()
+  } catch {
+    throw new ApiError(401, 'Invalid or expired token')
+  }
+})
+```
 
-**3. MongoDB connection (`config/db.js`)**
-- `mongoose.connect(process.env.MONGO_URI)` with retry logic on failure
-- Log connection success/failure
-- Call `connectDB()` from `server.js` before `app.listen()`
-- Set up MongoDB Atlas cluster, create `clientportal` database
-- Create `.env` with:
-  ```
-  PORT=5000
-  MONGO_URI=mongodb+srv://...
-  JWT_ACCESS_SECRET=...
-  JWT_REFRESH_SECRET=...
-  CLIENT_URL=http://localhost:5173
-  NODE_ENV=development
-  ```
+#### MongoDB connection
+```typescript
+// config/db.ts
+import mongoose from 'mongoose'
 
-**4. Error handling infrastructure**
-- Create `utils/ApiError.js` — custom error class with `statusCode`, `message`, `isOperational`
-- Create `middleware/errorHandler.js`:
-  - Catch `ApiError` instances → send structured JSON response
-  - Catch Mongoose `ValidationError` → 400
-  - Catch Mongoose `CastError` (bad ObjectId) → 404
-  - Catch JWT errors → 401
-  - All others → 500 with generic message (don't leak stack in production)
-
-**5. CI pipeline**
-- GitHub Actions workflow: `.github/workflows/ci.yml`
-- Trigger on pull requests to `main`
-- Jobs: install deps, run ESLint, run tests (placeholder for now)
+export async function connectDB(): Promise<void> {
+  const uri = process.env.MONGO_URI
+  if (!uri) throw new Error('MONGO_URI not defined')
+  try {
+    await mongoose.connect(uri)
+    console.log('MongoDB connected')
+  } catch (err) {
+    console.error('MongoDB connection failed:', err)
+    process.exit(1)
+  }
+}
+```
 
 ---
 
-### Week 3–4 · Authentication System
+### Week 3–4 · Auth System
 
-#### Models
+#### Types (`types/models.ts`)
+```typescript
+import type { Document, Types } from 'mongoose'
 
-**User model (`models/User.js`)**
-```
-Fields:
-  name          String    required, trim, maxLength 100
-  email         String    required, unique, lowercase, trim
-  passwordHash  String    required, select: false
-  plan          String    enum: ['free', 'pro', 'agency'], default: 'free'
-  brandColor    String    default: '#6366f1'
-  logoUrl       String
-  refreshTokens [String]  array of active refresh token hashes
-  stripeCustomerId String
-  createdAt     Date      auto (timestamps: true)
-  updatedAt     Date      auto
+export interface IUser extends Document {
+  _id: Types.ObjectId
+  name: string
+  email: string
+  passwordHash: string
+  plan: 'free' | 'pro' | 'agency'
+  brandColor: string
+  logoUrl?: string
+  logoFileId?: string        // ImageKit file ID for deletion
+  refreshTokens: string[]   // hashed refresh tokens
+  stripeCustomerId?: string
+  lastActive?: Date
+  comparePassword(plain: string): Promise<boolean>
+}
 
-Mongoose hooks:
-  pre('save') → if passwordHash modified, bcrypt.hash(12 rounds)
+export interface IProject extends Document {
+  _id: Types.ObjectId
+  ownerId: Types.ObjectId
+  title: string
+  description?: string
+  slug: string
+  status: 'active' | 'on-hold' | 'in-review' | 'completed'
+  clientEmail?: string
+  clientLastSeen?: Date
+  viewCount: number
+  passwordHash?: string
+  expiresAt?: Date
+  isDeleted: boolean
+}
 
-Instance methods:
-  comparePassword(plain) → bcrypt.compare
-  
-Indexes:
-  email: unique
-```
+export interface IUpdate extends Document {
+  _id: Types.ObjectId
+  projectId: Types.ObjectId
+  authorId: Types.ObjectId
+  content: string
+  type: 'text' | 'file' | 'milestone'
+  isMilestone: boolean
+  milestoneStatus: 'pending' | 'approved' | 'revision'
+  files: IFileRef[]
+  viewCount: number
+  isDeleted: boolean
+}
 
-#### Controllers & Routes
-
-**Auth controller (`controllers/authController.js`)**
-
-`POST /api/auth/register`
-- Validate: name (required), email (valid format), password (min 8 chars, 1 uppercase, 1 number)
-- Check email not already taken → `ApiError(400, 'Email already in use')`
-- Create user document (passwordHash set via pre-save hook)
-- Generate access token (15 min expiry) + refresh token (7 days expiry)
-- Store hashed refresh token in `user.refreshTokens[]`
-- Set refresh token as `httpOnly; Secure; SameSite=Strict` cookie
-- Return `{ success: true, user: { id, name, email, plan }, accessToken }`
-
-`POST /api/auth/login`
-- Find user by email, include `passwordHash` (override `select: false`)
-- If not found or password mismatch → `ApiError(401, 'Invalid credentials')` (same message for both — prevents user enumeration)
-- Clear expired refresh tokens from array
-- Generate new token pair
-- Return same shape as register
-
-`POST /api/auth/refresh`
-- Read refresh token from `req.cookies.refreshToken`
-- Verify JWT signature with `JWT_REFRESH_SECRET`
-- Find user by id from token payload
-- Check hashed token exists in `user.refreshTokens[]`
-- Rotate: remove old token hash, generate new pair, store new hash
-- Return new `{ accessToken }`
-
-`POST /api/auth/logout`
-- Requires `protectRoute` middleware
-- Remove current refresh token hash from `user.refreshTokens[]`
-- Clear cookie
-- Return `{ success: true }`
-
-`GET /api/auth/me`
-- Requires `protectRoute`
-- Return `req.user` (attached by middleware)
-
-**protectRoute middleware (`middleware/protectRoute.js`)**
-- Extract `Authorization: Bearer <token>` header
-- `jwt.verify(token, JWT_ACCESS_SECRET)` — throw 401 on failure
-- Find user by `payload.id`, attach to `req.user`
-- Call `next()`
-
-#### Token Utilities (`utils/generateToken.js`)
-```javascript
-generateAccessToken(userId)  → jwt.sign({ id }, ACCESS_SECRET, { expiresIn: '15m' })
-generateRefreshToken(userId) → jwt.sign({ id }, REFRESH_SECRET, { expiresIn: '7d' })
-hashToken(token)             → crypto.createHash('sha256').update(token).digest('hex')
+export interface IFileRef {
+  url: string
+  fileId: string            // ImageKit fileId (for deletion)
+  name: string
+  size: number
+  mimeType: string
+}
 ```
 
-#### Validation
-- Use `express-validator` for all input
-- Create reusable validation chains: `validateRegister`, `validateLogin`
-- `middleware/validate.js` runs `validationResult(req)` and throws `ApiError(400)` with field errors array
+#### User model
+```typescript
+// models/User.ts
+import { Schema, model } from 'mongoose'
+import bcrypt from 'bcryptjs'
+import type { IUser } from '../types/models.ts'
+
+const UserSchema = new Schema<IUser>({
+  name:              { type: String, required: true, trim: true, maxlength: 100 },
+  email:             { type: String, required: true, unique: true, lowercase: true, trim: true },
+  passwordHash:      { type: String, required: true, select: false },
+  plan:              { type: String, enum: ['free','pro','agency'], default: 'free' },
+  brandColor:        { type: String, default: '#6366f1' },
+  logoUrl:           String,
+  logoFileId:        String,
+  refreshTokens:     [String],
+  stripeCustomerId:  String,
+  lastActive:        Date,
+}, { timestamps: true })
+
+UserSchema.pre('save', async function () {
+  if (this.isModified('passwordHash')) {
+    this.passwordHash = await bcrypt.hash(this.passwordHash, 12)
+  }
+})
+
+UserSchema.methods.comparePassword = function (plain: string) {
+  return bcrypt.compare(plain, this.passwordHash)
+}
+
+UserSchema.index({ email: 1 }, { unique: true })
+
+export const User = model<IUser>('User', UserSchema)
+```
+
+#### Zod validators
+```typescript
+// validators/auth.validators.ts
+import { z } from 'zod'
+
+export const registerSchema = z.object({
+  name:     z.string().min(2).max(100),
+  email:    z.string().email(),
+  password: z.string().min(8)
+    .regex(/[A-Z]/, 'Must contain uppercase')
+    .regex(/[0-9]/, 'Must contain number'),
+})
+
+export const loginSchema = z.object({
+  email:    z.string().email(),
+  password: z.string().min(1),
+})
+
+export type RegisterInput = z.infer<typeof registerSchema>
+export type LoginInput    = z.infer<typeof loginSchema>
+```
+
+#### Auth routes (Hono pattern)
+```typescript
+// routes/auth.routes.ts
+import { Hono } from 'hono'
+import { zValidator } from '@hono/zod-validator'
+import { registerSchema, loginSchema } from '../validators/auth.validators.ts'
+import * as authController from '../controllers/authController.ts'
+import { protectRoute } from '../middleware/protectRoute.ts'
+
+const auth = new Hono<AppEnv>()
+
+auth.post('/register', zValidator('json', registerSchema), authController.register)
+auth.post('/login',    zValidator('json', loginSchema),    authController.login)
+auth.post('/refresh',                                      authController.refresh)
+auth.post('/logout',   protectRoute,                       authController.logout)
+auth.get('/me',        protectRoute,                       authController.getMe)
+
+export default auth
+```
+
+#### Auth controller
+```typescript
+// controllers/authController.ts — register handler
+export const register = async (c: Context<AppEnv>) => {
+  const { name, email, password } = c.req.valid('json')
+
+  const exists = await User.findOne({ email })
+  if (exists) throw new ApiError(400, 'Email already in use')
+
+  const user = await User.create({ name, email, passwordHash: password })
+
+  const accessToken  = generateAccessToken(user._id.toString())
+  const refreshToken = generateRefreshToken(user._id.toString())
+  await User.findByIdAndUpdate(user._id, {
+    $push: { refreshTokens: hashToken(refreshToken) }
+  })
+
+  setCookie(c, 'refreshToken', refreshToken, {
+    httpOnly: true, secure: true, sameSite: 'Strict', maxAge: 7 * 24 * 60 * 60
+  })
+
+  return c.json({ success: true, accessToken, user: { id: user._id, name, email, plan: user.plan } }, 201)
+}
+```
 
 ---
 
 ## Phase 2 — Core Update Engine
-**Duration:** Weeks 5–10  
-**Goal:** Project CRUD with public slug access, update posting, file uploads to Cloudinary, and the client-facing public endpoint.
+**Duration:** Weeks 5–10
+**Goal:** Project CRUD, update posts, ImageKit file uploads, public client portal endpoint.
 
 ---
 
 ### Week 5–7 · Projects
 
-#### Models
+#### Project model
+```typescript
+// models/Project.ts
+const ProjectSchema = new Schema<IProject>({
+  ownerId:       { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  title:         { type: String, required: true, trim: true, maxlength: 150 },
+  description:   { type: String, trim: true, maxlength: 1000 },
+  slug:          { type: String, required: true, unique: true, immutable: true },
+  status:        { type: String, enum: ['active','on-hold','in-review','completed'], default: 'active' },
+  clientEmail:   { type: String, trim: true, lowercase: true },
+  clientLastSeen: Date,
+  viewCount:     { type: Number, default: 0 },
+  passwordHash:  { type: String, select: false },
+  expiresAt:     Date,
+  isDeleted:     { type: Boolean, default: false },
+}, { timestamps: true })
 
-**Project model (`models/Project.js`)**
-```
-Fields:
-  ownerId       ObjectId  required, ref: 'User'
-  title         String    required, trim, maxLength 150
-  description   String    trim, maxLength 1000
-  slug          String    required, unique, immutable after creation
-  status        String    enum: ['active', 'on-hold', 'in-review', 'completed'], default: 'active'
-  clientEmail   String    trim, lowercase
-  clientLastSeen Date
-  viewCount     Number    default: 0
-  passwordHash  String    select: false  (portal password protection — Phase 4)
-  expiresAt     Date      (portal expiry — Phase 4)
-  isDeleted     Boolean   default: false
-  
-Indexes:
-  { ownerId: 1, isDeleted: 1 }    (list user projects)
-  { slug: 1 }                      (unique, public route)
+ProjectSchema.index({ ownerId: 1, isDeleted: 1 })
+ProjectSchema.index({ slug: 1 }, { unique: true })
 ```
 
-**Slug generation (`utils/generateSlug.js`)**
-```javascript
-// Use nanoid for URL-safe 10-char slugs
-// Check uniqueness with retry loop (max 5 attempts)
-async function generateUniqueSlug() {
-  for (let i = 0; i < 5; i++) {
-    const slug = nanoid(10);
-    const exists = await Project.findOne({ slug });
-    if (!exists) return slug;
+#### Project routes
+```typescript
+// routes/project.routes.ts
+const projects = new Hono<AppEnv>()
+
+projects.use('*', protectRoute)
+
+projects.get('/',     projectController.getAll)
+projects.post('/',    zValidator('json', createProjectSchema), projectController.create)
+projects.get('/:id',  ownerOnly('Project'), projectController.getOne)
+projects.put('/:id',  ownerOnly('Project'), zValidator('json', updateProjectSchema), projectController.update)
+projects.delete('/:id', ownerOnly('Project'), projectController.remove)
+
+// Updates sub-resource
+projects.get('/:id/updates',  projectController.getUpdates)
+projects.post('/:id/updates', zValidator('json', createUpdateSchema), updateController.create)
+```
+
+#### Public route (no auth)
+```typescript
+// Separate public router — no protectRoute middleware
+const publicRoutes = new Hono()
+
+publicRoutes.use('/api/public/*', rateLimiter({ limit: 100, windowMs: 15 * 60 * 1000, ... }))
+
+publicRoutes.get('/:slug', async (c) => {
+  const { slug } = c.req.param()
+  const project = await Project.findOne({ slug, isDeleted: false })
+  if (!project) return c.json({ success: false, message: 'Not found' }, 404)
+
+  if (project.expiresAt && project.expiresAt < new Date()) {
+    return c.json({ success: false, expired: true }, 403)
   }
-  throw new ApiError(500, 'Could not generate unique slug');
-}
+
+  await Project.findByIdAndUpdate(project._id, {
+    $inc: { viewCount: 1 },
+    clientLastSeen: new Date(),
+  })
+
+  // Emit WS event to owner
+  wsManager.emit(`user:${project.ownerId}`, 'client_viewed', {
+    projectId: project._id,
+    timestamp: new Date(),
+  })
+
+  const updates = await Update.find({ projectId: project._id, isDeleted: false })
+    .sort({ createdAt: -1 })
+    .limit(20)
+
+  return c.json({ success: true, data: { project, updates } })
+})
 ```
-
-#### Controllers & Routes
-
-`GET /api/projects`
-- `protectRoute`
-- Query: `{ ownerId: req.user._id, isDeleted: false }`
-- Sort: `createdAt: -1`
-- Select: all fields except `passwordHash`
-- Return array of projects
-
-`POST /api/projects`
-- `protectRoute`
-- Validate: title required, clientEmail optional valid email
-- Generate slug via `generateUniqueSlug()`
-- Create project document
-- Return created project
-
-`GET /api/projects/:id`
-- `protectRoute` + `ownerOnly`
-- Populate owner name
-- Return project
-
-`PUT /api/projects/:id`
-- `protectRoute` + `ownerOnly`
-- Allow updating: title, description, status, clientEmail
-- Prevent updating: slug, ownerId
-- Return updated project
-
-`DELETE /api/projects/:id`
-- `protectRoute` + `ownerOnly`
-- Soft delete: `isDeleted: true`
-- Also soft-delete all associated updates
-- Return `{ success: true }`
-
-`GET /api/public/:slug`
-- No auth
-- Rate limit: 100 req / 15 min per IP (separate limiter for public routes)
-- Find project by slug where `isDeleted: false`
-- If `expiresAt` is set and past → return `{ expired: true }` (Phase 4)
-- Increment `viewCount`
-- Set `clientLastSeen: new Date()`
-- Fetch associated updates (published, sorted `createdAt: -1`, paginated)
-- Return `{ project, updates, pagination }`
-
-**ownerOnly middleware**
-- Find resource by `req.params.id`
-- Check `resource.ownerId.equals(req.user._id)`
-- Attach resource to `req.resource` for controller reuse
 
 ---
 
-### Week 8–10 · Updates & File Uploads
+### Week 8–10 · ImageKit File Upload
 
-#### Models
+#### ImageKit configuration
+```typescript
+// config/imagekit.ts
+import ImageKit from 'imagekitio-node'
 
-**Update model (`models/Update.js`)**
-```
-Fields:
-  projectId       ObjectId  required, ref: 'Project'
-  authorId        ObjectId  required, ref: 'User'
-  content         String    required, trim, maxLength 5000
-  type            String    enum: ['text', 'file', 'milestone'], default: 'text'
-  isMilestone     Boolean   default: false
-  milestoneStatus String    enum: ['pending', 'approved', 'revision'], default: 'pending'
-  files           [{ url, publicId, name, size, mimeType }]  (embedded sub-docs)
-  viewCount       Number    default: 0
-  isDeleted       Boolean   default: false
-  
-Indexes:
-  { projectId: 1, isDeleted: 1, createdAt: -1 }   (paginated update list)
+export const imagekit = new ImageKit({
+  publicKey:   process.env.IMAGEKIT_PUBLIC_KEY!,
+  privateKey:  process.env.IMAGEKIT_PRIVATE_KEY!,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,  // e.g. https://ik.imagekit.io/your_id
+})
 ```
 
-**File model (`models/File.js`)**
-```
-Fields:
-  ownerId       ObjectId  ref: 'User'
-  projectId     ObjectId  ref: 'Project'
-  url           String    required  (Cloudinary CDN URL)
-  publicId      String    required  (Cloudinary public_id for deletion)
-  originalName  String
-  mimeType      String
-  size          Number    (bytes)
-  
-Indexes:
-  { projectId: 1 }
-  { ownerId: 1 }
-```
+#### Upload service
+```typescript
+// services/uploadService.ts
+import { imagekit } from '../config/imagekit.ts'
+import type { IFileRef } from '../types/models.ts'
 
-#### File Upload Service (`services/uploadService.js`)
+export async function uploadFile(
+  buffer: Buffer,
+  fileName: string,
+  folder: string = 'client-portal'
+): Promise<IFileRef> {
+  const result = await imagekit.upload({
+    file: buffer.toString('base64'),
+    fileName,
+    folder,
+    useUniqueFileName: true,
+    tags: ['client-portal'],
+  })
 
-**Multer configuration**
-```javascript
-// Memory storage — pipe buffer directly to Cloudinary
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-  limits: { fileSize: 10 * 1024 * 1024 },  // 10MB per file
-  fileFilter: (req, file, cb) => {
-    const allowed = ['image/jpeg','image/png','image/gif','image/webp',
-                     'application/pdf','application/zip',
-                     'application/msword',
-                     'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    cb(null, allowed.includes(file.mimetype));
+  return {
+    url:      result.url,
+    fileId:   result.fileId,           // Store for deletion later
+    name:     result.name,
+    size:     result.size,
+    mimeType: result.fileType === 'image' ? 'image/*' : 'application/octet-stream',
   }
-});
-```
-
-**Cloudinary upload**
-```javascript
-async function uploadToCloudinary(buffer, originalname, mimetype) {
-  return new Promise((resolve, reject) => {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'client-portal', resource_type: 'auto' },
-      (error, result) => error ? reject(error) : resolve(result)
-    );
-    streamifier.createReadStream(buffer).pipe(uploadStream);
-  });
 }
 
-async function deleteFromCloudinary(publicId) {
-  return cloudinary.uploader.destroy(publicId);
+export async function deleteFile(fileId: string): Promise<void> {
+  await imagekit.deleteFile(fileId)
+}
+
+// ImageKit URL transformations — generate optimised URLs server-side
+export function getTransformedUrl(
+  url: string,
+  transforms: { width?: number; height?: number; quality?: number; format?: string }
+) {
+  return imagekit.url({
+    src: url,
+    transformation: [{ ...transforms }]
+  })
 }
 ```
 
-#### Upload Routes
+#### Upload route (Hono multipart)
+```typescript
+// routes/upload.routes.ts
+import { Hono } from 'hono'
+import { protectRoute } from '../middleware/protectRoute.ts'
 
-`POST /api/uploads`
-- `protectRoute`
-- `upload.array('files', 5)` middleware (max 5 files per request)
-- For each file: upload to Cloudinary, save File document to DB
-- Return array of `{ fileId, url, name, size, mimeType }`
+const uploads = new Hono<AppEnv>()
+uploads.use('*', protectRoute)
 
-`DELETE /api/uploads/:id`
-- `protectRoute`
-- Find File document, verify `ownerId === req.user._id`
-- `deleteFromCloudinary(file.publicId)`
-- Delete File document from DB
-- Return `{ success: true }`
+uploads.post('/', async (c) => {
+  const user = c.get('user')
+  const formData = await c.req.formData()
+  const files = formData.getAll('files') as File[]
 
-#### Update Routes
+  if (!files.length) throw new ApiError(400, 'No files provided')
+  if (files.length > 5) throw new ApiError(400, 'Max 5 files per upload')
 
-`GET /api/projects/:id/updates`
-- `protectRoute` + verify project ownership
-- Query params: `page` (default 1), `limit` (default 10), `type` filter
-- Mongoose `.find({ projectId, isDeleted: false }).sort({ createdAt: -1 }).skip().limit()`
-- Return `{ updates, pagination: { page, pages, total } }`
+  const ALLOWED_TYPES = [
+    'image/jpeg','image/png','image/gif','image/webp',
+    'application/pdf','application/zip',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ]
 
-`POST /api/projects/:id/updates`
-- `protectRoute` + verify project ownership
-- Validate: content required, type in enum
-- Create update document with `files[]` from uploaded file IDs
-- If `isMilestone: true`, set `type: 'milestone'`
-- Trigger email to `project.clientEmail` via `emailService.sendUpdateNotification()`
-- Return created update
+  const uploaded: IFileRef[] = []
 
-`PUT /api/updates/:id`
-- `protectRoute` + `ownerOnly`
-- Allow updating: content only (not files after posting — keep audit trail)
-- Return updated update
+  for (const file of files) {
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      throw new ApiError(400, `File type ${file.type} not allowed`)
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      throw new ApiError(400, `${file.name} exceeds 10 MB limit`)
+    }
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const fileRef = await uploadService.uploadFile(buffer, file.name)
 
-`DELETE /api/updates/:id`
-- `protectRoute` + `ownerOnly`
-- Soft delete
-- Return `{ success: true }`
+    // Persist file record
+    await FileModel.create({ ownerId: user._id, url: fileRef.url, ...fileRef })
+    uploaded.push(fileRef)
+  }
 
-`PATCH /api/updates/:id/milestone`
-- Public (no auth) — client action
-- Body: `{ status: 'approved' | 'revision', authorName, authorEmail }`
-- Update `milestoneStatus` field
-- Trigger `emailService.sendMilestoneStatusEmail()` to project owner
-- Emit socket event `milestone_status_changed` to owner's room (Phase 3)
-- Return updated milestone status
+  return c.json({ success: true, data: uploaded }, 201)
+})
+
+uploads.delete('/:fileId', async (c) => {
+  const user = c.get('user')
+  const { fileId } = c.req.param()
+  const file = await FileModel.findOne({ fileId, ownerId: user._id })
+  if (!file) throw new ApiError(404, 'File not found')
+  await uploadService.deleteFile(fileId)
+  await file.deleteOne()
+  return c.json({ success: true })
+})
+```
 
 ---
 
 ## Phase 3 — Collaboration Layer
-**Duration:** Weeks 11–18  
-**Goal:** Comment system, real-time notifications via Socket.io, and email event triggers.
+**Duration:** Weeks 11–18
+**Goal:** Comments, WebSocket real-time events, AWS SES email notifications.
 
 ---
 
-### Week 11–14 · Comments
+### Week 11–14 · Comments & Approvals
 
-#### Models
+#### Comment model
+```typescript
+// models/Comment.ts
+export interface IComment extends Document {
+  updateId:    Types.ObjectId
+  projectId:   Types.ObjectId
+  authorName:  string
+  authorEmail: string
+  body:        string
+  type:        'comment' | 'approval' | 'revision'
+  createdAt:   Date
+}
 
-**Comment model (`models/Comment.js`)**
+const CommentSchema = new Schema<IComment>({
+  updateId:    { type: Schema.Types.ObjectId, ref: 'Update', required: true },
+  projectId:   { type: Schema.Types.ObjectId, ref: 'Project', required: true },
+  authorName:  { type: String, required: true, trim: true, maxlength: 100 },
+  authorEmail: { type: String, required: true, trim: true, lowercase: true },
+  body:        { type: String, required: true, trim: true, maxlength: 2000 },
+  type:        { type: String, enum: ['comment','approval','revision'], default: 'comment' },
+}, { timestamps: true })
+
+CommentSchema.index({ updateId: 1, createdAt: 1 })
 ```
-Fields:
-  updateId      ObjectId  required, ref: 'Update'
-  projectId     ObjectId  required, ref: 'Project'
-  authorName    String    required, trim, maxLength 100
-  authorEmail   String    required, trim, lowercase
-  body          String    required, trim, maxLength 2000
-  type          String    enum: ['comment', 'approval', 'revision'], default: 'comment'
-  
-Indexes:
-  { updateId: 1, createdAt: 1 }
-  { projectId: 1, createdAt: -1 }
-```
-
-#### Routes
-
-`POST /api/updates/:id/comments`
-- No auth required
-- Validate: authorName, authorEmail (valid format), body (min 1 char, max 2000)
-- Find update, get associated project
-- Create comment document
-- Notify project owner: `notificationService.notify()` + email if owner offline
-- Emit socket event `comment_added` to project room
-- Return created comment
-
-`GET /api/updates/:id/comments`
-- No auth
-- Sort: `createdAt: 1` (oldest first — conversation order)
-- No pagination (comments expected to be few per update; if >50 add cursor pagination)
-- Return comment array
-
-`DELETE /api/comments/:id`
-- `protectRoute`
-- Find comment, verify associated project is owned by `req.user._id`
-- Hard delete (comments are not business records like updates)
-- Return `{ success: true }`
 
 ---
 
-### Week 15–18 · Socket.io & Notifications
+### Week 15–18 · WebSocket & AWS SES
 
-#### Socket.io Setup (`config/socket.js`)
+#### WebSocket manager (Hono + ws)
+```typescript
+// config/websocket.ts
+import type { ServerWebSocket } from '@hono/node-ws'
 
-```javascript
-// Attach Socket.io to HTTP server
-const io = new Server(httpServer, {
-  cors: { origin: process.env.CLIENT_URL, credentials: true }
-});
+type WSClient = { ws: ServerWebSocket; userId: string; projectIds: Set<string> }
 
-// Auth middleware for socket connections
-io.use((socket, next) => {
-  const token = socket.handshake.auth.token;
-  try {
-    const payload = jwt.verify(token, JWT_ACCESS_SECRET);
-    socket.userId = payload.id;
-    next();
-  } catch (err) {
-    next(new Error('Unauthorized'));
-  }
-});
+class WebSocketManager {
+  private clients = new Map<string, WSClient>()    // key = connectionId
 
-io.on('connection', (socket) => {
-  // Provider joins their own user room
-  socket.join(`user:${socket.userId}`);
-
-  // Provider joins a specific project room when viewing it
-  socket.on('join_project', (projectId) => {
-    socket.join(`project:${projectId}`);
-  });
-
-  socket.on('leave_project', (projectId) => {
-    socket.leave(`project:${projectId}`);
-  });
-});
-
-// Export io for use in controllers/services
-module.exports = io;
-```
-
-#### Notification Model (`models/Notification.js`)
-```
-Fields:
-  userId    ObjectId  required, ref: 'User'
-  type      String    enum: ['client_viewed', 'comment_added', 'milestone_approved',
-                             'milestone_revision', 'team_invite']
-  message   String    required
-  read      Boolean   default: false
-  refId     ObjectId  (points to project or update)
-  refType   String    enum: ['Project', 'Update', 'Comment']
-  
-Indexes:
-  { userId: 1, read: 1, createdAt: -1 }
-```
-
-#### Notification Service (`services/notificationService.js`)
-
-```javascript
-async function notify(userId, type, message, refId, refType) {
-  // 1. Persist notification to DB
-  const notification = await Notification.create({ userId, type, message, refId, refType });
-
-  // 2. Emit to user's socket room (if online, they receive it immediately)
-  io.to(`user:${userId}`).emit('new_notification', notification);
-
-  // 3. Check if user has been online in last 5 minutes (via lastActive timestamp)
-  //    If not → send email fallback
-  const user = await User.findById(userId).select('email lastActive');
-  const isOnline = user.lastActive && (Date.now() - user.lastActive) < 5 * 60 * 1000;
-  if (!isOnline) {
-    await emailService.sendNotificationEmail(user.email, type, message);
+  register(connectionId: string, userId: string, ws: ServerWebSocket) {
+    this.clients.set(connectionId, { ws, userId, projectIds: new Set() })
   }
 
-  return notification;
+  unregister(connectionId: string) {
+    this.clients.delete(connectionId)
+  }
+
+  joinProject(connectionId: string, projectId: string) {
+    this.clients.get(connectionId)?.projectIds.add(projectId)
+  }
+
+  leaveProject(connectionId: string, projectId: string) {
+    this.clients.get(connectionId)?.projectIds.delete(projectId)
+  }
+
+  // Emit to all connections belonging to a userId
+  emit(userId: string, event: string, payload: unknown) {
+    for (const client of this.clients.values()) {
+      if (client.userId === userId && client.ws.readyState === 1) {
+        client.ws.send(JSON.stringify({ event, payload }))
+      }
+    }
+  }
+
+  // Emit to all connections watching a project
+  emitToProject(projectId: string, event: string, payload: unknown) {
+    for (const client of this.clients.values()) {
+      if (client.projectIds.has(projectId) && client.ws.readyState === 1) {
+        client.ws.send(JSON.stringify({ event, payload }))
+      }
+    }
+  }
+}
+
+export const wsManager = new WebSocketManager()
+```
+
+#### WebSocket route
+```typescript
+// routes/ws.routes.ts
+import { createNodeWebSocket } from '@hono/node-ws'
+
+export const wsHandler = upgradeWebSocket((c) => {
+  const token = c.req.query('token')
+  let userId: string
+
+  return {
+    onOpen(_, ws) {
+      try {
+        const payload = jwt.verify(token!, process.env.JWT_ACCESS_SECRET!) as { id: string }
+        userId = payload.id
+        const connectionId = nanoid()
+        wsManager.register(connectionId, userId, ws)
+        ws.send(JSON.stringify({ event: 'connected', payload: { connectionId } }))
+      } catch {
+        ws.close(1008, 'Unauthorized')
+      }
+    },
+    onMessage(event, ws) {
+      const msg = JSON.parse(event.data.toString())
+      if (msg.event === 'join_project')  wsManager.joinProject(msg.connectionId, msg.projectId)
+      if (msg.event === 'leave_project') wsManager.leaveProject(msg.connectionId, msg.projectId)
+    },
+    onClose() {
+      wsManager.unregister(userId)
+    }
+  }
+})
+```
+
+#### AWS SES email service
+```typescript
+// config/ses.ts
+import { SESClient } from '@aws-sdk/client-ses'
+
+export const sesClient = new SESClient({
+  region: process.env.AWS_REGION!,          // e.g. 'us-east-1'
+  credentials: {
+    accessKeyId:     process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+})
+```
+
+```typescript
+// services/emailService.ts
+import { SendEmailCommand } from '@aws-sdk/client-ses'
+import { sesClient } from '../config/ses.ts'
+
+interface SendEmailOptions {
+  to: string | string[]
+  subject: string
+  htmlBody: string
+  textBody?: string
+}
+
+async function send(opts: SendEmailOptions): Promise<void> {
+  const toAddresses = Array.isArray(opts.to) ? opts.to : [opts.to]
+
+  await sesClient.send(new SendEmailCommand({
+    Source: `${process.env.EMAIL_FROM_NAME} <${process.env.EMAIL_FROM}>`,
+    Destination: { ToAddresses: toAddresses },
+    Message: {
+      Subject: { Data: opts.subject, Charset: 'UTF-8' },
+      Body: {
+        Html: { Data: opts.htmlBody, Charset: 'UTF-8' },
+        Text: { Data: opts.textBody ?? opts.subject, Charset: 'UTF-8' },
+      },
+    },
+  }))
+}
+
+// Named email functions used by controllers
+export async function sendPortalLink(clientEmail: string, project: IProject) {
+  const url = `${process.env.CLIENT_URL}/p/${project.slug}`
+  await send({
+    to: clientEmail,
+    subject: `You have a project update from ${project.title}`,
+    htmlBody: portalLinkTemplate(project, url),     // HTML template string
+  })
+}
+
+export async function sendUpdateNotification(clientEmail: string, project: IProject, update: IUpdate) {
+  await send({
+    to: clientEmail,
+    subject: `New update on "${project.title}"`,
+    htmlBody: updateNotificationTemplate(project, update),
+  })
+}
+
+export async function sendMilestoneStatusEmail(ownerEmail: string, project: IProject, status: string) {
+  await send({
+    to: ownerEmail,
+    subject: `Milestone ${status} on "${project.title}"`,
+    htmlBody: milestoneStatusTemplate(project, status),
+  })
+}
+
+export async function sendWeeklyDigest(ownerEmail: string, stats: DigestStats) {
+  await send({
+    to: ownerEmail,
+    subject: 'Your weekly Client Portal summary',
+    htmlBody: weeklyDigestTemplate(stats),
+  })
 }
 ```
 
-#### Socket events emitted by backend
-
-| Event | Payload | Emitted when |
-|---|---|---|
-| `new_notification` | notification object | Any notifiable event |
-| `client_viewed` | `{ projectId, timestamp }` | Client hits `GET /api/public/:slug` |
-| `comment_added` | `{ updateId, comment }` | New comment created |
-| `milestone_status_changed` | `{ updateId, status }` | Client approves/revises |
-| `update_posted` | `{ projectId, update }` | New update created (for team members) |
-
-#### Notification Routes
-
-`GET /api/notifications`
-- `protectRoute`
-- Query: `{ userId: req.user._id }`, sort `createdAt: -1`
-- Pagination: `page`, `limit` (default 20)
-- Return `{ notifications, unreadCount, pagination }`
-
-`PATCH /api/notifications/read-all`
-- `protectRoute`
-- `Notification.updateMany({ userId: req.user._id, read: false }, { read: true })`
-- Return `{ success: true, updated: count }`
-
-`PATCH /api/notifications/:id/read`
-- `protectRoute`
-- Find notification, verify `userId === req.user._id`
-- Set `read: true`
-- Return updated notification
-
-#### Email Service (`services/emailService.js`)
-
-```javascript
-// Abstract over Nodemailer (dev) / Resend (production)
-async function sendUpdateNotification(clientEmail, project, update) { ... }
-async function sendPortalLink(clientEmail, project) { ... }
-async function sendMilestoneStatusEmail(ownerEmail, project, status) { ... }
-async function sendNotificationEmail(ownerEmail, type, message) { ... }
-async function sendTeamInvite(email, workspace, inviteToken) { ... }  // Phase 4
-```
+**AWS SES setup checklist:**
+- Verify sender domain in SES console (add DNS TXT + DKIM records)
+- Request production access (exit sandbox) — sandbox only sends to verified addresses
+- Set up SES identity policy in IAM with `ses:SendEmail` permission
+- Store credentials in environment variables — never commit to repo
+- Add bounce + complaint SNS topic for delivery health monitoring
 
 ---
 
 ## Phase 4 — Polish & Power Features
-**Duration:** Weeks 19–26  
-**Goal:** Branding, analytics, access control, team members, email templates, and project templates.
+**Duration:** Weeks 19–26
+**Goal:** ImageKit branding transforms, analytics, access control, team members.
 
 ---
 
-### Week 19–22 · Branding & Analytics
+### Week 19–22 · Branding with ImageKit
 
-#### New routes
+#### Logo upload & transformation
+```typescript
+// In settings controller
+export const updateBranding = async (c: Context<AppEnv>) => {
+  const user = c.get('user')
+  const formData = await c.req.formData()
+  const logoFile = formData.get('logo') as File | null
 
-`PATCH /api/settings/branding`
-- `protectRoute`
-- Body: `{ brandColor, logoFile }`
-- If logo file: upload to Cloudinary via `uploadService`, store URL on user document
-- Update `user.brandColor`, `user.logoUrl`
-- Return updated user
+  let logoUrl = user.logoUrl
+  let logoFileId = user.logoFileId
 
-`GET /api/projects/:id/analytics`
-- `protectRoute` + `ownerOnly`
-- Aggregate: total update views, comment count, time-to-first-approval per milestone
-- Return analytics object
+  if (logoFile) {
+    // Delete old logo from ImageKit
+    if (logoFileId) await uploadService.deleteFile(logoFileId)
 
-#### Cron jobs (`services/cronService.js`)
-- Weekly digest email: every Monday 08:00 — aggregate last-week stats per user, send summary
-- Expired portal cleanup: daily — find projects where `expiresAt < now`, set `status: 'expired'`
-- Use `node-cron` library
+    const buffer = Buffer.from(await logoFile.arrayBuffer())
+    const uploaded = await uploadService.uploadFile(buffer, `logo-${user._id}`, 'branding')
+    logoUrl = uploaded.url
+    logoFileId = uploaded.fileId
+  }
+
+  const brandColor = formData.get('brandColor') as string | null
+
+  await User.findByIdAndUpdate(user._id, {
+    ...(logoUrl && { logoUrl, logoFileId }),
+    ...(brandColor && { brandColor }),
+  })
+
+  // Return ImageKit transformation URL for logo display
+  // e.g. 80×80 thumbnail, WebP format
+  const logoThumbUrl = logoUrl
+    ? uploadService.getTransformedUrl(logoUrl, { width: 80, height: 80, format: 'webp' })
+    : null
+
+  return c.json({ success: true, data: { logoUrl, logoThumbUrl, brandColor } })
+}
+```
+
+**ImageKit transformation patterns used:**
+```
+// Original logo → 80×80 avatar
+?tr=w-80,h-80,f-webp,q-80
+
+// File attachment thumbnail (images only)
+?tr=w-200,h-150,fo-auto,f-webp
+
+// Portal header logo → max 160px wide, maintain ratio
+?tr=w-160,f-webp
+```
 
 ---
 
-### Week 23–26 · Access Control & Team
+### Week 23–26 · Cron Jobs
 
-#### Portal access control
+```typescript
+// services/cronService.ts
+import cron from 'node-cron'
 
-`PATCH /api/projects/:id/set-password`
-- `protectRoute` + `ownerOnly`
-- Hash portal password with bcrypt
-- Store as `project.passwordHash`
+// Weekly digest — every Monday 08:00
+cron.schedule('0 8 * * 1', async () => {
+  const users = await User.find({ plan: { $ne: 'free' } })
+  for (const user of users) {
+    const stats = await aggregateWeeklyStats(user._id)
+    await emailService.sendWeeklyDigest(user.email, stats)
+  }
+})
 
-`POST /api/public/:slug/unlock`
-- No auth
-- Body: `{ password }`
-- Compare against `project.passwordHash`
-- On success: return short-lived portal access token (signed JWT, 1 hour, project-scoped)
-- Client includes this token on subsequent public requests
-
-`PATCH /api/projects/:id/expire`
-- Set `expiresAt` to given date
-- Set `isDeleted: true` to immediately disable
-
-#### Team members
-
-`POST /api/workspaces/invite`
-- `protectRoute`
-- Body: `{ email, role: 'member' | 'admin' }`
-- Generate invite token (crypto.randomBytes), store hashed on user with expiry
-- Send invite email with link `?inviteToken=...`
-- Return `{ success: true }`
-
-`POST /api/workspaces/accept-invite`
-- No auth
-- Body: `{ inviteToken, name, password }` (if new user) or `{ inviteToken }` (existing)
-- Verify token, add user to workspace's `members[]` with role
-- Return access token
+// Expired portal cleanup — daily at midnight
+cron.schedule('0 0 * * *', async () => {
+  await Project.updateMany(
+    { expiresAt: { $lt: new Date() }, isDeleted: false },
+    { $set: { status: 'completed', isDeleted: true } }
+  )
+})
+```
 
 ---
 
 ## Phase 5 — Monetisation & Scale
-**Duration:** Weeks 27–32  
-**Goal:** Stripe billing, Redis caching, security hardening, and production deployment.
+**Duration:** Weeks 27–32
+**Goal:** Stripe billing, Redis caching, security hardening, production deploy.
 
 ---
 
-### Week 27–29 · Stripe Billing
+### Week 27–29 · Stripe
 
-#### Plan tiers
+```typescript
+// routes/billing.routes.ts
+billing.post('/create-checkout', protectRoute, async (c) => {
+  const user = c.get('user')
+  const { priceId } = await c.req.json<{ priceId: string }>()
 
-| Plan | Projects | Storage | Team Members | Branding |
-|---|---|---|---|---|
-| Free | 3 | 500 MB | Solo only | "Powered by" shown |
-| Pro ($12/mo) | 25 | 5 GB | Up to 3 | Custom colours + logo |
-| Agency ($29/mo) | Unlimited | 20 GB | Up to 15 | Full white-label |
+  const session = await stripe.checkout.sessions.create({
+    customer_email: user.email,
+    mode: 'subscription',
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${process.env.CLIENT_URL}/settings/billing?success=true`,
+    cancel_url:  `${process.env.CLIENT_URL}/settings/billing`,
+    metadata: { userId: user._id.toString() },
+  })
 
-#### Routes
+  return c.json({ success: true, url: session.url })
+})
 
-`POST /api/billing/create-checkout`
-- `protectRoute`
-- Body: `{ priceId }` (Stripe Price ID for plan)
-- Create or retrieve Stripe Customer for user
-- Create Stripe Checkout Session with `success_url`, `cancel_url`
-- Return `{ url }` for frontend redirect
+// Webhook — raw body required
+billing.post('/webhook', async (c) => {
+  const sig  = c.req.header('stripe-signature')!
+  const body = await c.req.raw.arrayBuffer()
+  const event = stripe.webhooks.constructEvent(Buffer.from(body), sig, process.env.STRIPE_WEBHOOK_SECRET!)
 
-`POST /api/billing/webhook`
-- Raw body (no JSON parser — Stripe requires raw for signature verification)
-- Verify webhook signature with `stripe.webhooks.constructEvent()`
-- Handle events:
-  - `checkout.session.completed` → update user plan, store `stripeSubscriptionId`
-  - `customer.subscription.updated` → sync plan changes
-  - `customer.subscription.deleted` → downgrade to free
-- Return `{ received: true }`
+  switch (event.type) {
+    case 'checkout.session.completed':
+      await handleCheckoutComplete(event.data.object)
+      break
+    case 'customer.subscription.deleted':
+      await handleSubscriptionDeleted(event.data.object)
+      break
+  }
 
-`GET /api/billing/portal`
-- `protectRoute`
-- Create Stripe Customer Portal session
-- Return `{ url }` for redirect
-
-#### Plan enforcement middleware (`middleware/checkPlanLimits.js`)
-- Check `req.user.plan` against resource counts before creating
-- Example: before `POST /api/projects` → count user's projects, compare to plan limit
-- Throw `ApiError(403, 'Project limit reached. Upgrade to Pro.')` if exceeded
-
----
-
-### Week 30–32 · Performance, Security & Deploy
-
-#### Redis caching
-
-```javascript
-// Cache public project endpoint (most-read, rarely-written)
-// GET /api/public/:slug → cache for 60 seconds
-// Invalidate cache on: new update posted, project settings changed
-
-const redis = new Redis(process.env.REDIS_URL);
-
-async function getCachedOrFetch(key, ttl, fetchFn) {
-  const cached = await redis.get(key);
-  if (cached) return JSON.parse(cached);
-  const fresh = await fetchFn();
-  await redis.set(key, JSON.stringify(fresh), 'EX', ttl);
-  return fresh;
-}
+  return c.json({ received: true })
+})
 ```
 
-#### Security hardening checklist
+### Week 30–32 · Security & Deploy
 
-- `express-mongo-sanitize` — prevent NoSQL injection (`$` and `.` in keys)
-- `xss-clean` — sanitise HTML in request bodies
-- `hpp` — HTTP parameter pollution prevention
-- `helmet` — sets 11 security-related HTTP headers
-- CORS restricted to explicit origin list (no wildcard in production)
-- All ObjectIds validated as valid Mongoose ObjectIds before DB queries
-- Rate limit authentication routes more aggressively: 10 req / 15 min
-- Refresh tokens rotated on every use (detect theft via token reuse detection)
-- File upload: validate MIME type server-side (not just extension)
-- No stack traces in error responses in production (`NODE_ENV=production`)
+**Security middleware additions:**
+```typescript
+// Mongo sanitize — strip $ and . from keys
+app.use('*', async (c, next) => {
+  const body = await c.req.json().catch(() => null)
+  if (body) sanitizeMongoQuery(body)    // recursive key sanitizer
+  await next()
+})
 
-#### Mongoose indexes (final list)
-```javascript
-// Add to each model after final schema confirmation
-UserSchema.index({ email: 1 }, { unique: true });
-ProjectSchema.index({ ownerId: 1, isDeleted: 1 });
-ProjectSchema.index({ slug: 1 }, { unique: true });
-UpdateSchema.index({ projectId: 1, isDeleted: 1, createdAt: -1 });
-CommentSchema.index({ updateId: 1, createdAt: 1 });
-NotificationSchema.index({ userId: 1, read: 1, createdAt: -1 });
-FileSchema.index({ projectId: 1 });
+// Rate limit auth routes more aggressively
+const authLimiter = rateLimiter({ limit: 10, windowMs: 15 * 60 * 1000, ... })
+auth.use('/login', authLimiter)
+auth.use('/register', authLimiter)
 ```
 
-#### Production deployment (Railway)
-1. Set all environment variables in Railway dashboard
-2. Add `Procfile`: `web: node server.js`
-3. Configure `NODE_ENV=production`
-4. Enable Railway health check endpoint: `GET /health → 200 OK`
-5. Connect MongoDB Atlas IP whitelist to Railway outbound IPs
-6. Set up Sentry DSN for error tracking
-7. Configure log drain to external service (Papertrail or Logtail)
+**Production checklist:**
+- `NODE_ENV=production` — suppresses stack traces in error responses
+- All secrets loaded from Railway environment (never `.env` committed)
+- MongoDB Atlas network access: whitelist Railway outbound IPs only
+- SES in production mode (sandbox exited, domain verified)
+- ImageKit webhook URL configured for upload event logging
+- Sentry DSN set for exception tracking
+- Health check endpoint: `GET /health` returns `200 OK`
 
 ---
 
@@ -791,19 +1004,22 @@ NODE_ENV=development
 MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/clientportal
 
 # Auth
-JWT_ACCESS_SECRET=long-random-string-access
-JWT_REFRESH_SECRET=long-random-string-refresh
+JWT_ACCESS_SECRET=long-random-string-64-chars
+JWT_REFRESH_SECRET=different-long-random-string
 JWT_ACCESS_EXPIRY=15m
 JWT_REFRESH_EXPIRY=7d
 
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
+# ImageKit
+IMAGEKIT_PUBLIC_KEY=public_...
+IMAGEKIT_PRIVATE_KEY=private_...
+IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
 
-# Email
-RESEND_API_KEY=...
+# AWS SES
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=AKI...
+AWS_SECRET_ACCESS_KEY=...
 EMAIL_FROM=noreply@yourdomain.com
+EMAIL_FROM_NAME=Client Update Portal
 
 # Frontend
 CLIENT_URL=http://localhost:5173
@@ -812,7 +1028,7 @@ CLIENT_URL=http://localhost:5173
 REDIS_URL=redis://...
 
 # Stripe (Phase 5)
-STRIPE_SECRET_KEY=sk_...
+STRIPE_SECRET_KEY=sk_live_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
@@ -839,7 +1055,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 | DELETE | /api/updates/:id | JWT | 2 |
 | PATCH | /api/updates/:id/milestone | public | 2 |
 | POST | /api/uploads | JWT | 2 |
-| DELETE | /api/uploads/:id | JWT | 2 |
+| DELETE | /api/uploads/:fileId | JWT | 2 |
 | POST | /api/updates/:id/comments | public | 3 |
 | GET | /api/updates/:id/comments | public | 3 |
 | DELETE | /api/comments/:id | JWT | 3 |
@@ -852,3 +1068,4 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 | POST | /api/billing/create-checkout | JWT | 5 |
 | POST | /api/billing/webhook | public | 5 |
 | GET | /api/billing/portal | JWT | 5 |
+| GET | /ws | token query | 3 |
