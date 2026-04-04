@@ -16,6 +16,8 @@
 | **Real-time** | Hono WebSocket helpers + ws library |
 | **Email** | AWS SES (Simple Email Service) via `@aws-sdk/client-ses` |
 | **Deployment** | Railway / Fly.io (Node adapter) |
+| **Frontend** | Next.js 15 App Router — separate `apps/web` (no coupling) |
+| **Shared Contract** | `packages/types` — TypeScript interfaces only, zero runtime dep |
 | **Total Phases** | 5 |
 | **Total Duration** | ~32 weeks |
 
@@ -93,7 +95,8 @@
 ├── .env
 ├── .env.example
 ├── tsconfig.json
-└── package.json
+├── package.json
+└── nodemon.json
 ```
 
 ---
@@ -123,9 +126,9 @@
 }
 ```
 
-> **No `nodemon.json`** — `tsx` handles TypeScript-native watch mode directly. Dev script: `"dev": "tsx watch src/index.ts"`. No transpile step, no `.js` output needed in development.
-
 ---
+
+## Hono App Setup Pattern
 
 ```typescript
 // src/app.ts
@@ -150,7 +153,9 @@ export function createApp() {
   app.use('*', logger())
   app.use('*', secureHeaders())
   app.use('*', cors({
-    origin: process.env.CLIENT_URL!,
+    origin: [
+    process.env.CLIENT_URL!,      // Next.js frontend (http://localhost:3000 dev, https://yourdomain.com prod)
+  ],
     credentials: true,
     allowMethods: ['GET','POST','PUT','PATCH','DELETE'],
   }))
@@ -220,7 +225,7 @@ npm install hono-rate-limiter node-cron
 npm install -D typescript tsx @types/node @types/bcryptjs
 npm install -D @types/jsonwebtoken @types/cookie-parser @types/node-cron
 npm install -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
-npm install -D prettier husky lint-staged
+npm install -D prettier husky lint-staged nodemon
 ```
 
 #### Hono middleware pattern
@@ -1022,7 +1027,7 @@ EMAIL_FROM=noreply@yourdomain.com
 EMAIL_FROM_NAME=Client Update Portal
 
 # Frontend
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:3000   # Next.js dev server (was 5173 on Vite)
 
 # Redis (Phase 5)
 REDIS_URL=redis://...
