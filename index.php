@@ -170,5 +170,15 @@ include_once __DIR__ . '/includes/header.php';
   <p style="font-size:13px;color:var(--dim);margin-top:20px;font-family:var(--mono);">Android 8.0+ required · Free core features</p>
 </div>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L39J4VVHHC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-L39J4VVHHC');
+</script>
+
 <!-- FOOTER -->
 <?php include_once __DIR__ . '/includes/footer.php'; ?>
