@@ -33,7 +33,7 @@ $og_image_url = $favicon_url;
     <meta name="keywords" content="<?php echo htmlspecialchars($page_keywords); ?>"/>
     <meta name="author" content="Nafish Ahmed"/>
     <meta name="robots" content="index, follow, max-image-preview:large"/>
-    <meta name="theme-color" content="#0A0F07"/>
+    <meta name="theme-color" content="#000100"/>
 
     <link rel="canonical" href="<?php echo htmlspecialchars($canonical_url); ?>"/>
     <link rel="icon" type="image/png" href="<?php echo htmlspecialchars($favicon_url); ?>"/>
@@ -52,20 +52,53 @@ $og_image_url = $favicon_url;
     <meta name="twitter:image" content="<?php echo htmlspecialchars($og_image_url); ?>"/>
 
     <title><?php echo htmlspecialchars($page_title); ?></title>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Bricolage Grotesque', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/styles.css"/>
+    <!-- Prevent flash of unstyled theme -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('luno-theme') || 'system';
+            var root = document.documentElement;
+            root.classList.remove('dark', 'light');
+            if (saved === 'dark') {
+                root.classList.add('dark');
+            } else if (saved === 'light') {
+                root.classList.add('light');
+            } else {
+                root.classList.add(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
 
 <nav>
-    <div class="nav-logo">LUNO<span>.</span></div>
-    <div class="nav-links">
-        <a href="<?php echo BASE_URL; ?>/">Home</a>
-        <a href="<?php echo BASE_URL; ?>/#features">Features</a>
-        <a href="<?php echo BASE_URL; ?>/#analytics">Analytics</a>
-        <a href="<?php echo BASE_URL; ?>/privacy">Privacy Policy</a>
-        <a href="<?php echo BASE_URL; ?>/terms">Terms</a>
+    <div class="max-w-[1100px] mx-auto px-6 h-[60px] flex items-center justify-between gap-6">
+        <a href="<?php echo BASE_URL; ?>/" class="logo">LUNO<span class="dot">.</span></a>
+        <ul class="hide-mobile flex gap-7 list-none">
+            <li><a href="<?php echo BASE_URL; ?>/#features"  class="nav-link">Features</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#analytics" class="nav-link">Analytics</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#insights"  class="nav-link">Insights</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#privacy"   class="nav-link">Privacy</a></li>
+        </ul>
+        <div class="flex items-center gap-2">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">&#9728;</button>
+            <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="btn btn-fill btn-sm">Get the App</a>
+        </div>
     </div>
-    <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="nav-btn">Get the App</a>
 </nav>
