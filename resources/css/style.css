@@ -88,4 +88,13 @@
     from { opacity: 0; transform: translateY(22px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* Scroll animations */
+  .anim {
+    opacity: 0;
+  }
+
+  .anim.visible {
+    animation: fadeUp 0.55s ease forwards;
+  }
 }
