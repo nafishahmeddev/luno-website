@@ -54,20 +54,7 @@ $og_image_url = $favicon_url;
     <title><?php echo htmlspecialchars($page_title); ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Bricolage Grotesque', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"/>
     <link rel="stylesheet" href="<?php echo CSS_URL; ?>/styles.css"/>
     <!-- Prevent flash of unstyled theme -->
     <script>
@@ -87,18 +74,18 @@ $og_image_url = $favicon_url;
 </head>
 <body>
 
-<nav>
+<nav class="sticky top-0 z-40 bg-nav-bg backdrop-blur-[18px] backdrop-saturate-[1.5] border-b border-surface transition-colors duration-350">
     <div class="max-w-[1100px] mx-auto px-6 h-[60px] flex items-center justify-between gap-6">
-        <a href="<?php echo BASE_URL; ?>/" class="logo">LUNO<span class="dot">.</span></a>
-        <ul class="hide-mobile flex gap-7 list-none">
-            <li><a href="<?php echo BASE_URL; ?>/#features"  class="nav-link">Features</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/#analytics" class="nav-link">Analytics</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/#insights"  class="nav-link">Insights</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/#privacy"   class="nav-link">Privacy</a></li>
+        <a href="<?php echo BASE_URL; ?>/" class="font-mono font-bold text-[17px] tracking-[0.22em] uppercase text-fg leading-none">LUNO<span class="text-primary tracking-normal">.</span></a>
+        <ul class="hidden md:flex gap-7 list-none">
+            <li><a href="<?php echo BASE_URL; ?>/#features"  class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Features</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#analytics" class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Analytics</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#insights"  class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Insights</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#privacy"   class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Privacy</a></li>
         </ul>
         <div class="flex items-center gap-2">
-            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">&#9728;</button>
-            <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="btn btn-fill btn-sm">Get the App</a>
+            <button id="themeToggle" aria-label="Toggle theme" class="w-[34px] h-[34px] rounded-[9px] bg-surface text-muted border-none cursor-pointer text-[15px] flex items-center justify-center transition-colors duration-150 hover:bg-surf2 hover:text-fg">&#9728;</button>
+            <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="inline-flex items-center gap-[8px] font-sans font-bold tracking-[-0.01em] no-underline border-none cursor-pointer transition-all duration-180 whitespace-nowrap text-[13px] py-[9px] px-[18px] rounded-[10px] bg-primary text-bg hover:brightness-[1.08]">Get the App</a>
         </div>
     </div>
 </nav>

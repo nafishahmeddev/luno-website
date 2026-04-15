@@ -6,15 +6,15 @@
  */
 ?>
 
-<div class="div-line"></div>
+<div class="border-t border-surface"></div>
 <footer>
     <div class="max-w-[1100px] mx-auto px-6 py-6 flex items-center justify-between flex-wrap gap-4">
-        <div class="logo" style="font-size:14px;color:var(--dim);">LUNO<span class="dot" style="opacity:0.45;">.</span></div>
+        <div class="font-mono font-bold text-[14px] tracking-[0.22em] uppercase text-dim leading-none">LUNO<span class="text-primary opacity-45 tracking-normal">.</span></div>
         <div class="flex gap-6">
-            <a href="<?php echo BASE_URL; ?>/privacy" class="nav-link">Privacy Policy</a>
-            <a href="<?php echo BASE_URL; ?>/terms"   class="nav-link">Terms</a>
+            <a href="<?php echo BASE_URL; ?>/privacy" class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Privacy Policy</a>
+            <a href="<?php echo BASE_URL; ?>/terms"   class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Terms</a>
         </div>
-        <p class="font-mono" style="font-size:11px;color:var(--dim);letter-spacing:0.06em;">&copy; 2026 Luno. All rights reserved.</p>
+        <p class="font-mono text-[11px] text-dim tracking-[0.06em]">&copy; 2026 Luno. All rights reserved.</p>
     </div>
 </footer>
 

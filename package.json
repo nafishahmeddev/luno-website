@@ -1,0 +1,22 @@
+{
+  "name": "luno-website",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "github-nafish:nafishahmeddev/luno-website.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tailwindcss -i ./resources/css/style.css -o ./assets/css/styles.css --watch",
+    "build": "tailwindcss -i ./resources/css/style.css -o ./assets/css/styles.css --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "tailwindcss": "^4.2.2"
+  }
+}

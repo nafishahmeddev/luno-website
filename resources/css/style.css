@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: var(--bg-color);
+  --color-card: var(--card);
+  --color-surface: var(--surface);
+  --color-surf2: var(--surf2);
+  --color-primary: var(--primary);
+  --color-primary-l: var(--prim-l);
+  --color-primary-d: var(--prim-d);
+  --color-fg: var(--text-color);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-nav-bg: var(--nav-bg);
+  
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --animate-blink: blink 2.2s ease-in-out infinite;
+  --animate-fade-up: fadeUp 0.55s ease forwards;
+}
+
+@layer base {
+  :root {
+    --bg-color: #000100;
+    --card: rgba(255, 255, 255, 0.03);
+    --surface: rgba(255, 255, 255, 0.06);
+    --surf2: rgba(255, 255, 255, 0.09);
+    --primary: #B8D641;
+    --prim-l: #cae560;
+    --prim-d: #a0c119;
+    --text-color: #fbfff3;
+    --muted: #b2bb8b;
+    --dim: #5a6340;
+    --success: #6BD498;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --nav-bg: rgba(0, 1, 0, 0.82);
+  }
+
+  .light {
+    --bg-color: #F4FFF6;
+    --card: rgba(0, 0, 0, 0.025);
+    --surface: rgba(0, 0, 0, 0.055);
+    --surf2: rgba(0, 0, 0, 0.085);
+    --primary: #5e8c0a;
+    --prim-l: #72aa0d;
+    --prim-d: #4a7007;
+    --text-color: #0d1a04;
+    --muted: #4d5e30;
+    --dim: #9aad7a;
+    --success: #1d8a52;
+    --danger: #c42020;
+    --warning: #b36200;
+    --nav-bg: rgba(244, 255, 246, 0.88);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.35s, color 0.35s;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
