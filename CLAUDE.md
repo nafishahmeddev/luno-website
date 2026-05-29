@@ -96,15 +96,17 @@ Sections (tab-based SPA navigation via `showPage(id)`):
 
 ## App details (for writing copy)
 - **Name:** Luno
-- **Tagline:** "Your money. Your rules."
-- **Privacy model:** 100% local — SQLite on-device, zero network requests to Luno servers, no account
-- **Free tier:** full transaction tracking, multi-account, 50+ categories, themes
-- **Premium:** analytics engine — daily burn rate, savings rate, financial runway, in/out ratio, period comparison
-- **Premium model:** lifetime one-time purchase (no subscription)
-- **Stack (app):** React Native + Expo + Expo Router + Drizzle ORM + Expo SQLite + Reanimated
-- **Platforms:** Android only (Google Play). No iOS yet.
+- **Tagline (marketing headline):** "Your money. Your rules."
+- **Tagline (product tier):** "Free = Tracking. Premium = Insights + Control."
+- **Version:** 1.1.0
+- **Website:** tryluno.app
+- **Privacy model:** 100% local — SQLite on-device, zero network requests to Luno servers, no account required
+- **Free tier:** transaction tracking (income/expense/transfer), unlimited multi-account (160+ currencies), 44 default categories + unlimited custom, dashboard (net balance, recent txns, top expenses), 7-day analytics (net position, savings rate, income/expense summary), usage streak, daily reminders, dark/light/system theme, local encrypted SQLite storage
+- **Luno Pro:** Dashboard insights (spending spike alerts, saving trends, weekly summaries) · Extended analytics 30D/90D/12M (period flow chart, category breakdown donut, account split, weekday heatmap, behavioral metrics: burn rate + runway + in/out ratio + active days) · Global search (transactions, accounts, categories) · CSV export (filtered by date/account/type, save or share)
+- **Premium model:** lifetime one-time purchase (no subscription, all future updates included)
+- **Stack (app):** React Native + Expo + TypeScript + SQLite + Drizzle ORM + TanStack React Query
+- **Platforms:** iOS & Android (Google Play + App Store)
 - **Developer:** Nafish Ahmed (solo, indie)
-- **Phase:** Phase 2 — Premium Available
 
 ## Production deployment
 - Local dev: `/Users/ahmed/Documents/Projects/Personal/php/luno.nafish.lo`

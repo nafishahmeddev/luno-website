@@ -81,17 +81,22 @@ include_once __DIR__ . '/includes/header.php';
       <li>Basic dashboard (net position + recent activity)</li>
       <li>Basic filtering (by account, category, type)</li>
       <li>Account &amp; category management</li>
-      <li>50+ pre-defined categories</li>
+      <li>44 default categories + unlimited custom (with custom icons and colours)</li>
       <li>Theme support (light, dark, system)</li>
     </ul>
     <h3>Premium Tier (Lifetime Purchase)</h3>
     <ul>
       <li>All free features</li>
-      <li>Advanced analytics (savings rate, daily burn rate, financial runway, in/out ratio)</li>
-      <li>Extended time-range filtering (7D, 30D, 90D, All-time)</li>
-      <li>Comparative insights (period vs. period analysis)</li>
-      <li>Category breakdown analytics</li>
-      <li>Permanent premium access with a one-time purchase</li>
+      <li>Dashboard insights — spending spike alerts, saving trends, weekly summaries</li>
+      <li>Extended analytics — 30-day, 90-day, and 12-month time ranges (7D is free)</li>
+      <li>Period flow chart — side-by-side income vs expense bars over time</li>
+      <li>Category breakdown — donut chart of top expense categories</li>
+      <li>Account split — balance distribution across accounts</li>
+      <li>Weekday patterns — heatmap of spending by day of week</li>
+      <li>Behavioral insights — daily burn rate, financial runway, in/out ratio, active days</li>
+      <li>Global search — find any transaction, account, or category instantly</li>
+      <li>CSV export — export filtered transactions to a spreadsheet</li>
+      <li>Permanent access with a one-time purchase. All future updates included.</li>
     </ul>
     <p>Premium access is available through a one-time in-app purchase processed via Google Play Billing.</p>
   </div>

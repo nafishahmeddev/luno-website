@@ -33,9 +33,15 @@ Last updated: 2026-05-27
 
 | Feature | Gate |
 |---|---|
-| Unified analytics (trends, burn, runway, deltas, breakdowns) | `PremiumGuard` — Analytics screen + Dashboard insights |
+| Dashboard insights (spending spikes, saving alerts, weekly trends) | `PremiumGuard` |
+| Analytics — 30/90/12 month time ranges (7D is free) | Pill lock icon → premium page |
+| Analytics — Period flow chart | `PremiumGuard` |
+| Analytics — Category breakdown donut | `PremiumGuard` |
+| Analytics — Account split bars | `PremiumGuard` |
+| Analytics — Spending by weekday heatmap | `PremiumGuard` |
+| Analytics — Behavioral insights (burn, runway, ratio, active days) | `PremiumGuard` |
 | Global search (transactions, accounts, categories) | Route-level gate (`app/search.tsx`) |
-| CSV export (spreadsheet with filters) | `PremiumGuard` label="CSV Export" |
+| CSV export (spreadsheet with filters, save/share) | `PremiumGuard` |
 
 ## Pricing
 

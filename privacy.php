@@ -70,7 +70,7 @@ include_once __DIR__ . '/includes/header.php';
 
   <div class="legal-body">
     <h2>4. In-App Purchases and Premium Features</h2>
-    <p>Luno offers both free and premium features. Premium features include advanced analytics (daily burn rate, savings rate, financial runway, in/out ratio) and extended time-range filtering.</p>
+    <p>Luno offers both free and Luno Pro features. Luno Pro includes Dashboard insights (spending alerts, saving trends, weekly summaries), extended analytics (30-day, 90-day, 12-month ranges, period charts, category breakdowns, behavioral metrics), global search, and CSV export.</p>
     <p><strong>Pricing Options:</strong></p>
     <ul>
       <li>Lifetime purchase: One-time payment for permanent premium access</li>

@@ -65,7 +65,13 @@ One payment. Every pro feature. Forever. All future updates included.
 
 | Feature | What it does |
 |---|---|
-| Unified analytics | Visual charts — spending trends, burn velocity, runway forecasts, performance deltas, category breakdowns, weekday patterns |
+| Dashboard insights | Real-time spending spike alerts, saving trends, weekly summaries |
+| Extended analytics | 30-day, 90-day, and 12-month time ranges (7D is free) |
+| Period flow chart | Side-by-side income vs expense bars over time |
+| Category breakdown | Donut chart of top expense categories |
+| Account split | See how your balance is distributed across accounts |
+| Weekday patterns | Heatmap of spending by day of week |
+| Behavioral insights | Daily burn rate, financial runway, in/out ratio, active days count |
 | Global search | Find any transaction, account, or category instantly across your entire history |
 | CSV export | Export filtered transactions to a spreadsheet. Save to device or share to any app. |
 
