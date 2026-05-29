@@ -27,9 +27,6 @@ include_once __DIR__ . '/includes/header.php';
 
       <!-- Left: text -->
       <div class="anim">
-        <span class="badge" style="width:fit-content;margin-bottom:1.75rem">
-          <span class="badge-dot"></span>v1.1.0 &mdash; iOS &amp; Android
-        </span>
         <h1 class="hero-headline">Your money.<br><em>Your rules.</em></h1>
         <p class="hero-desc">Privacy-first personal finance for iOS and Android. Log transactions, manage accounts in 160+ currencies, and keep every byte on your device. Free for daily tracking — Pro adds analytics, search, and export.</p>
         <div class="hero-ctas">
