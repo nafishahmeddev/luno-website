@@ -6,24 +6,22 @@
  */
 ?>
 
-<div class="border-t border-surface"></div>
-<footer>
-    <div class="max-w-[1100px] mx-auto px-6 py-6 flex items-center justify-between flex-wrap gap-4">
-        <div class="font-mono font-bold text-[14px] tracking-[0.22em] uppercase text-dim leading-none">LUNO<span class="text-primary opacity-45 tracking-normal">.</span></div>
-        <div class="flex gap-6">
-            <a href="<?php echo BASE_URL; ?>/privacy" class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Privacy Policy</a>
-            <a href="<?php echo BASE_URL; ?>/terms"   class="font-mono text-[11px] tracking-[0.12em] uppercase text-muted hover:text-fg transition-colors duration-150">Terms</a>
-        </div>
-        <p class="font-mono text-[11px] text-dim tracking-[0.06em]">&copy; 2026 Luno. All rights reserved.</p>
+<footer class="footer">
+    <div class="wrap footer-inner">
+        <div class="footer-logo">LUNO<span class="dot">.</span></div>
+        <ul class="footer-links">
+            <li><a href="<?php echo BASE_URL; ?>/privacy">Privacy Policy</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/terms">Terms</a></li>
+        </ul>
+        <p class="footer-copy">&copy; 2026 Luno. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-    // Theme toggle — cycles: system → dark → light → system
     (function() {
-        var btn = document.getElementById('themeToggle');
+        var btn    = document.getElementById('themeToggle');
         if (!btn) return;
-        var root = document.documentElement;
+        var root   = document.documentElement;
         var themes = ['system', 'dark', 'light'];
         var icons  = {
             system: '<i class="ph ph-monitor" style="pointer-events:none;"></i>',
@@ -50,12 +48,11 @@
 
         btn.addEventListener('click', function() {
             var current = localStorage.getItem('luno-theme') || 'system';
-            var next = themes[(themes.indexOf(current) + 1) % themes.length];
+            var next    = themes[(themes.indexOf(current) + 1) % themes.length];
             localStorage.setItem('luno-theme', next);
             applyTheme(next);
         });
 
-        // Re-apply when OS preference changes while in system mode
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
             if ((localStorage.getItem('luno-theme') || 'system') === 'system') {
                 root.classList.remove('dark', 'light');
@@ -64,7 +61,6 @@
         });
     })();
 
-    // Intersection observer — fade-up on scroll
     (function() {
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
@@ -74,9 +70,7 @@
                 }
             });
         }, { threshold: 0.12 });
-        document.querySelectorAll('.anim').forEach(function(el) {
-            observer.observe(el);
-        });
+        document.querySelectorAll('.anim').forEach(function(el) { observer.observe(el); });
     })();
 </script>
 

@@ -4,31 +4,32 @@
  * ====================
  */
 $page_title = 'Terms of Service';
-$page_meta = 'The rules of engagement for using Luno — kept plain and honest.';
+$page_meta  = 'The rules of engagement for using Luno — kept plain and honest.';
 include_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="max-w-[740px] mx-auto px-[20px] sm:px-[32px] py-[60px] sm:py-[80px]">
-  <div class="mb-[60px] pb-[40px] border-b border-surface">
-    <div class="font-mono text-[11px] text-primary tracking-[0.1em] uppercase mb-[16px]">Legal</div>
-    <h1 class="text-[clamp(36px,5vw,52px)] font-extrabold tracking-[-0.03em] leading-[1.1] mb-[16px]">Terms of Service</h1>
-    <p class="text-[15px] text-muted">The rules of engagement for using Luno — kept plain and honest.</p>
-    <div class="inline-block font-mono text-[11px] text-dim bg-card border border-surface rounded-[6px] py-[5px] px-[12px] mt-[16px] tracking-[0.05em]">Effective: April 2, 2026 · Version 1.0.1</div>
+<div class="legal-wrap">
+
+  <div class="legal-head">
+    <span class="legal-tag">Legal</span>
+    <h1>Terms of Service</h1>
+    <p>The rules of engagement for using Luno — kept plain and honest.</p>
+    <span class="legal-version">Effective: April 2, 2026 &middot; Version 1.0.1</span>
   </div>
 
-  <div class="bg-[color-mix(in_srgb,var(--primary)_6%,transparent)] border border-[color-mix(in_srgb,var(--primary)_20%,transparent)] rounded-[12px] py-[24px] px-[28px] my-[36px] [&>p]:text-[15px] [&>p]:text-fg [&>p]:leading-[1.7] [&>p>strong]:text-primary">
+  <div class="legal-summary">
     <p><strong>The short version:</strong> Luno is free personal finance software. Use it honestly, don't try to break it, and understand that your financial data is your responsibility since we never touch it. These terms are straightforward because the product is.</p>
   </div>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>1. Acceptance of Terms</h2>
     <p>By downloading, installing, or using Luno ("the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.</p>
     <p>These Terms constitute the entire agreement between you and the Luno team regarding your use of the App.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>2. Eligibility</h2>
     <p>By using Luno, you represent and warrant that:</p>
     <ul>
@@ -36,12 +37,12 @@ include_once __DIR__ . '/includes/header.php';
       <li>You have the legal authority to enter into these Terms</li>
       <li>You will comply with all applicable laws and regulations</li>
     </ul>
-    <p>Luno is not intended for users under 13 years of age. Parental consent is required for users aged 13-18.</p>
+    <p>Luno is not intended for users under 13 years of age. Parental consent is required for users aged 13–18.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>3. Description of Service</h2>
     <p>Luno is a personal finance tracking application for Android devices. It provides tools to:</p>
     <ul>
@@ -53,9 +54,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>All functionality operates entirely on your device. Luno does not connect to any external servers, banking institutions, or financial services on your behalf (except for Google Play Billing for premium purchases).</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>4. License and Intellectual Property</h2>
     <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download and use Luno for your personal, non-commercial purposes on devices you own or control.</p>
     <p>You may not:</p>
@@ -69,9 +70,9 @@ include_once __DIR__ . '/includes/header.php';
     <p><strong>Our Intellectual Property:</strong> All content, features, and functionality of the Luno app (including but not limited to software, text, graphics, logos, images, and sound) are owned by Luno, its content providers, or other providers of such material and are protected by international copyright, trademark, and other intellectual property laws.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>5. Free and Premium Features</h2>
     <p>Luno is offered in two tiers:</p>
     <h3>Free Tier</h3>
@@ -79,7 +80,7 @@ include_once __DIR__ . '/includes/header.php';
       <li>Transaction tracking (unlimited)</li>
       <li>Basic dashboard (net position + recent activity)</li>
       <li>Basic filtering (by account, category, type)</li>
-      <li>Account & category management</li>
+      <li>Account &amp; category management</li>
       <li>50+ pre-defined categories</li>
       <li>Theme support (light, dark, system)</li>
     </ul>
@@ -95,9 +96,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>Premium access is available through a one-time in-app purchase processed via Google Play Billing.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>6. In-App Purchases and Payments</h2>
     <p>Luno offers premium features through a one-time lifetime purchase model:</p>
     <ul>
@@ -116,10 +117,10 @@ include_once __DIR__ . '/includes/header.php';
     <p>Luno maintains no payment records and cannot process refunds directly. All refund requests must be made through Google Play.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>7. Purchase Restoration & Management</h2>
+  <div class="legal-body">
+    <h2>7. Purchase Restoration &amp; Management</h2>
     <p><strong>How to Restore Purchases:</strong></p>
     <ul>
       <li>Open Google Play Store app on your Android device</li>
@@ -130,9 +131,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>For billing or entitlement issues, contact Google Play Support first, then contact Luno support if needed.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>8. Your Data and Responsibilities</h2>
     <p>Since Luno operates entirely on-device, you are solely responsible for:</p>
     <ul>
@@ -144,9 +145,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>Luno is a personal record-keeping tool, not a certified financial advisor. The insights and metrics displayed (such as savings rate, daily burn, and runway) are calculated from the data you provide and should not be treated as professional financial advice.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>9. Disclaimer of Warranties</h2>
     <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that:</p>
     <ul>
@@ -158,9 +159,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>To the maximum extent permitted by applicable law, we disclaim all warranties including merchantability, fitness for a particular purpose, and non-infringement.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>10. Limitation of Liability</h2>
     <p>To the fullest extent permitted by law, the Luno team shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
     <ul>
@@ -172,10 +173,10 @@ include_once __DIR__ . '/includes/header.php';
     <p>Our total liability to you for all claims shall not exceed the amount you paid for the App (which is zero for free users, or the premium purchase amount for premium users).</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>11. Prohibited Conduct & Acceptable Use</h2>
+  <div class="legal-body">
+    <h2>11. Prohibited Conduct &amp; Acceptable Use</h2>
     <p>You agree to use Luno only for lawful purposes and in a manner that does not infringe the rights of others. You agree not to:</p>
     <ul>
       <li>Facilitate illegal financial activity or tax evasion</li>
@@ -189,9 +190,9 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>12. Indemnification</h2>
     <p>You agree to indemnify, defend, and hold harmless Luno and its operators from any claims, liabilities, damages, losses, costs, or expenses (including attorneys' fees) arising from:</p>
     <ul>
@@ -202,17 +203,17 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>13. Updates and Changes</h2>
     <p>We may update the App from time to time to fix bugs, add features, or improve performance. We may also update these Terms. Continued use of the App after any changes constitutes acceptance of the revised Terms.</p>
     <p>We reserve the right to discontinue the App at any time without notice, though we will make reasonable efforts to communicate significant changes.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>14. Account Termination</h2>
     <p>We reserve the right to terminate your access to Luno if you violate these Terms or engage in prohibited conduct. Upon termination:</p>
     <ul>
@@ -222,33 +223,33 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>15. Severability & Entire Agreement</h2>
+  <div class="legal-body">
+    <h2>15. Severability &amp; Entire Agreement</h2>
     <p><strong>Severability:</strong> If any provision of these Terms is found to be invalid or unenforceable, that provision will be modified to the minimum extent necessary to make it enforceable, and the remaining provisions will continue in full force.</p>
     <p><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Luno regarding the App and supersede all prior negotiations, representations, and agreements.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>16. Governing Law</h2>
     <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts located in India.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>17. Service Level & Availability</h2>
+  <div class="legal-body">
+    <h2>17. Service Level &amp; Availability</h2>
     <p>Luno is provided "as is" and we do not guarantee any specific uptime or availability guarantees since it operates entirely on your device. However, the app strives for reliability and bug-free operation.</p>
     <p><strong>No Warranty:</strong> We disclaim all warranties, express or implied, including merchantability and fitness for a particular purpose. Users are responsible for maintaining backups of their data.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>18. Content & Intellectual Property</h2>
+  <div class="legal-body">
+    <h2>18. Content &amp; Intellectual Property</h2>
     <p>Luno contains proprietary content, including software, trademarks, logos, and design elements. You may not:</p>
     <ul>
       <li>Copy, modify, or distribute this content</li>
@@ -258,9 +259,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>Your personal financial data is yours — you retain all ownership and rights to the data you create within the app.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>19. Compliance with Google Play Policies</h2>
     <p>Luno complies with Google Play's Terms of Service and Developer Program Policies, including:</p>
     <ul>
@@ -271,17 +272,18 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>20. Contact & Support</h2>
+  <div class="legal-body">
+    <h2>20. Contact &amp; Support</h2>
     <p>If you have questions about these Terms, please get in touch:</p>
-    <div class="bg-card border border-surface rounded-[12px] py-[28px] px-[32px] mt-[40px] [&>h3]:text-[18px] [&>h3]:font-bold [&>h3]:mb-[8px] [&>p]:text-[14px] [&>p]:text-muted [&>p]:mb-[4px]">
+    <div class="legal-contact">
       <h3>Luno Support</h3>
       <p>For legal inquiries: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
       <p>General support: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
     </div>
   </div>
+
 </div>
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>

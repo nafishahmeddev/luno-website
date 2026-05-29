@@ -4,23 +4,24 @@
  * ===================
  */
 $page_title = 'Privacy Policy';
-$page_meta = 'How Luno handles your data — spoiler: it doesn\'t.';
+$page_meta  = 'How Luno handles your data — spoiler: it doesn\'t.';
 include_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="max-w-[740px] mx-auto px-[20px] sm:px-[32px] py-[60px] sm:py-[80px]">
-  <div class="mb-[60px] pb-[40px] border-b border-surface">
-    <div class="font-mono text-[11px] text-primary tracking-[0.1em] uppercase mb-[16px]">Legal</div>
-    <h1 class="text-[clamp(36px,5vw,52px)] font-extrabold tracking-[-0.03em] leading-[1.1] mb-[16px]">Privacy Policy</h1>
-    <p class="text-[15px] text-muted">How Luno handles your data — spoiler: it doesn't.</p>
-    <div class="inline-block font-mono text-[11px] text-dim bg-card border border-surface rounded-[6px] py-[5px] px-[12px] mt-[16px] tracking-[0.05em]">Effective: April 2, 2026 · Version 1.0.1</div>
+<div class="legal-wrap">
+
+  <div class="legal-head">
+    <span class="legal-tag">Legal</span>
+    <h1>Privacy Policy</h1>
+    <p>How Luno handles your data — spoiler: it doesn't.</p>
+    <span class="legal-version">Effective: April 2, 2026 &middot; Version 1.0.1</span>
   </div>
 
-  <div class="bg-[color-mix(in_srgb,var(--primary)_6%,transparent)] border border-[color-mix(in_srgb,var(--primary)_20%,transparent)] rounded-[12px] py-[24px] px-[28px] my-[36px] [&>p]:text-[15px] [&>p]:text-fg [&>p]:leading-[1.7] [&>p>strong]:text-primary">
+  <div class="legal-summary">
     <p><strong>The short version:</strong> Luno is built local-first. All your financial data is stored exclusively on your device using SQLite. We do not collect, transmit, store, or sell any personal or financial information. There are no servers, no accounts, and no tracking of any kind.</p>
   </div>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>1. Information We Collect</h2>
     <p>Luno does not collect any personal information. The app operates entirely offline and on-device. Specifically:</p>
     <ul>
@@ -32,9 +33,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>The only data that exists in relation to Luno is data you create yourself, stored locally on your device.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>2. How Your Data Is Stored</h2>
     <p>All data you enter into Luno — including transactions, account details, categories, and preferences — is stored in a SQLite database on your device. This data:</p>
     <ul>
@@ -46,9 +47,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>If you use your device's native backup features (such as Google Drive backup on Android), your app data may be included in those backups according to your device settings. This is governed by Google's privacy policy, not ours.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>3. Third-Party Services</h2>
     <p>Luno does not integrate with any third-party analytics, advertising, or data services for tracking. However, we do use:</p>
     <ul>
@@ -65,9 +66,9 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>4. In-App Purchases and Premium Features</h2>
     <p>Luno offers both free and premium features. Premium features include advanced analytics (daily burn rate, savings rate, financial runway, in/out ratio) and extended time-range filtering.</p>
     <p><strong>Pricing Options:</strong></p>
@@ -91,9 +92,9 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>5. Data Deletion</h2>
     <p>You have full control over your data at all times. To delete your data:</p>
     <ul>
@@ -104,9 +105,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>Since we do not hold any of your data on our servers, there is no need to contact us for data deletion.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>6. Data Security</h2>
     <p>Luno implements security measures to protect your data:</p>
     <ul>
@@ -118,18 +119,18 @@ include_once __DIR__ . '/includes/header.php';
     <p>While we employ security measures, no method of electronic storage is 100% secure. Your device's security settings play a crucial role in protecting your data.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>7. Data Retention and Backups</h2>
     <p><strong>Data Retention:</strong> Luno retains your data for as long as you keep the app installed on your device. You can delete all data at any time using the factory reset feature.</p>
     <p><strong>Device Backups:</strong> If you use Android's automatic backup feature (Google Drive, other cloud services), your Luno data may be included based on your device settings. This is subject to those services' privacy policies, not ours.</p>
     <p><strong>Luno-Operated Backups:</strong> Luno does not maintain backups of your data on any servers.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>8. Cookies and Tracking Technologies</h2>
     <p>Luno does NOT use:</p>
     <ul>
@@ -142,9 +143,9 @@ include_once __DIR__ . '/includes/header.php';
     <p>The app's only external network requests are to Google Fonts for font loading, which is governed by Google's privacy policies.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>9. Your Rights</h2>
     <p><strong>Access:</strong> You have full access to all your data stored in Luno at any time through the app.</p>
     <p><strong>Portability:</strong> You can export your data by using the app's data export features or accessing the SQLite database directly through your device's file system.</p>
@@ -153,33 +154,33 @@ include_once __DIR__ . '/includes/header.php';
     <p><strong>Restriction:</strong> You control the scope of data collection by choosing what information you input into the app.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>10. International Data Transfers</h2>
     <p>Since Luno operates entirely on your device, no data transfers occur internationally. Your data never leaves your device or local backups.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>11. Children's Privacy</h2>
     <p>Luno is not directed at children under the age of 13. We do not knowingly collect personal information from children. Since Luno collects no personal information from anyone, this applies equally to all users regardless of age.</p>
     <p>If you believe a child has provided information to Luno, please contact us immediately at hello@nafish.me.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>12. Changes to This Policy</h2>
     <p>We may update this Privacy Policy from time to time. Any changes will be reflected with an updated effective date at the top of this page and within the app's update release notes. Continued use of the app after changes constitutes your acceptance of the revised policy.</p>
     <p>Given the nature of Luno's local-first architecture, changes to this policy are expected to be minimal. Significant changes will be communicated in advance.</p>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>13. Data Safety & Transparency</h2>
+  <div class="legal-body">
+    <h2>13. Data Safety &amp; Transparency</h2>
     <p>As required by Google Play's Data Safety section, we confirm:</p>
     <ul>
       <li><strong>Data Collected:</strong> No personal, financial, or identifying data is collected by Luno or transmitted to any external service (except Google Play for in-app purchases)</li>
@@ -189,12 +190,12 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
-    <h2>14. Contact & Privacy Inquiries</h2>
+  <div class="legal-body">
+    <h2>14. Contact &amp; Privacy Inquiries</h2>
     <p>If you have any questions about this Privacy Policy or our privacy practices, please reach out:</p>
-    <div class="bg-card border border-surface rounded-[12px] py-[28px] px-[32px] mt-[40px] [&>h3]:text-[18px] [&>h3]:font-bold [&>h3]:mb-[8px] [&>p]:text-[14px] [&>p]:text-muted [&>p]:mb-[4px]">
+    <div class="legal-contact">
       <h3>Luno Privacy Contact</h3>
       <p>Email: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
       <p>Subject: Privacy Policy Inquiry</p>
@@ -202,9 +203,9 @@ include_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>15. Play Store Data Safety Compliance</h2>
     <p>As required by Google Play's Data Safety section, Luno provides complete transparency:</p>
     <ul>
@@ -217,9 +218,9 @@ include_once __DIR__ . '/includes/header.php';
     </ul>
   </div>
 
-  <hr class="border-0 border-t border-surface my-[48px]"/>
+  <hr class="legal-hr"/>
 
-  <div class="mb-[48px] [&>h2]:text-[22px] [&>h2]:font-bold [&>h2]:tracking-[-0.02em] [&>h2]:mb-[16px] [&>h2]:pt-[8px] [&>h2]:text-fg [&>h3]:text-[17px] [&>h3]:font-semibold [&>h3]:tracking-[-0.01em] [&>h3]:mt-[24px] [&>h3]:mb-[10px] [&>h3]:text-fg [&>p]:text-[15px] [&>p]:text-muted [&>p]:leading-[1.75] [&>p]:mb-[14px] [&>ul]:pl-[20px] [&>ul]:mb-[14px] [&>ol]:pl-[20px] [&>ol]:mb-[14px] [&_li]:text-[15px] [&_li]:text-muted [&_li]:leading-[1.7] [&_li]:mb-[6px] [&_li::marker]:text-primary">
+  <div class="legal-body">
     <h2>16. California Consumer Privacy Act (CCPA)</h2>
     <p>For California residents: Since Luno collects no personal information, CCPA rights to access, delete, or opt-out do not apply in the traditional sense. However:</p>
     <ul>
@@ -228,6 +229,7 @@ include_once __DIR__ . '/includes/header.php';
       <li><strong>Right to Opt-Out:</strong> N/A — we don't sell data because we don't collect it.</li>
     </ul>
   </div>
+
 </div>
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>
