@@ -71,11 +71,11 @@ $og_image_url  = $favicon_url;
             <li><a href="<?php echo BASE_URL; ?>/#features">Features</a></li>
             <li><a href="<?php echo BASE_URL; ?>/#analytics">Analytics</a></li>
             <li><a href="<?php echo BASE_URL; ?>/#insights">Insights</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/#privacy">Privacy</a></li>
+            <li><a href="<?php echo BASE_URL; ?>/#download">Pro</a></li>
         </ul>
         <div class="nav-end">
             <button id="themeToggle" aria-label="Toggle theme" class="btn-icon">&#9728;</button>
-            <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="btn btn-primary btn-sm">Get the App</a>
+            <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="btn btn-primary btn-sm">Download free</a>
         </div>
     </div>
 </nav>

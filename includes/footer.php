@@ -7,13 +7,46 @@
 ?>
 
 <footer class="footer">
-    <div class="wrap footer-inner">
-        <div class="footer-logo">LUNO<span class="dot">.</span></div>
-        <ul class="footer-links">
-            <li><a href="<?php echo BASE_URL; ?>/privacy">Privacy Policy</a></li>
-            <li><a href="<?php echo BASE_URL; ?>/terms">Terms</a></li>
-        </ul>
-        <p class="footer-copy">&copy; 2026 Luno. All rights reserved.</p>
+    <div class="wrap">
+
+        <div class="footer-top">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+                <div class="footer-logo">LUNO<span class="dot">.</span></div>
+                <p class="footer-tagline">Free = Tracking.<br>Premium = Insights + Control.</p>
+                <a href="https://play.google.com/store/apps/details?id=me.nafish.luno" class="footer-store-btn">
+                    <i class="ph ph-google-play-logo"></i>Google Play
+                </a>
+            </div>
+
+            <!-- Product -->
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="<?php echo BASE_URL; ?>/#features">Features</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/#analytics">Analytics</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/#insights">Insights</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/#download">Luno Pro</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="<?php echo BASE_URL; ?>/privacy">Privacy Policy</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/terms">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; 2026 Luno. All rights reserved.</p>
+            <p class="footer-made">Built by <a href="https://nafish.me">Nafish Ahmed</a></p>
+        </div>
+
     </div>
 </footer>
 
