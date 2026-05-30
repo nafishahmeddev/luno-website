@@ -21,7 +21,7 @@ export function Nav() {
   const { theme, setTheme } = useTheme();
 
   const cycleTheme = () => {
-    const idx = THEME_ORDER.indexOf(theme as typeof THEME_ORDER[number]);
+    const idx = THEME_ORDER.indexOf(theme as (typeof THEME_ORDER)[number]);
     const next = THEME_ORDER[(idx + 1) % THEME_ORDER.length];
     setTheme(next);
   };

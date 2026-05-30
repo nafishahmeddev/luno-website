@@ -10,53 +10,52 @@ const STATS = [
 ];
 
 export function Hero() {
-  const heroAnim = useScrollReveal();
-  const phoneAnim = useScrollReveal('d1');
-  const statsAnim = useScrollReveal('d2');
+  const headlineAnim = useScrollReveal();
+  const descAnim = useScrollReveal('d1');
+  const ctasAnim = useScrollReveal('d2');
+  const phoneAnim = useScrollReveal('d3');
+  const statsAnim = useScrollReveal('d4');
 
   return (
     <section className="hero-s">
+      <div className="hero-bg-grid" />
       <div className="hero-glow-a" />
       <div className="hero-glow-b" />
 
-      <div className="wrap">
+      <div className="wrap" style={{ width: '100%' }}>
         <div className="hero-inner">
-          <div ref={heroAnim.nodeRef} className={heroAnim.className}>
-            <h1 className="hero-headline">
+          <div>
+            <div className="hero-eyebrow" ref={headlineAnim.nodeRef}>
+              Local-first. Privacy-first.
+            </div>
+            <h1 className="hero-headline" ref={headlineAnim.nodeRef}>
               Your money.
               <br />
               <em>Your rules.</em>
             </h1>
-            <p className="hero-desc">
+            <p className="hero-desc" ref={descAnim.nodeRef}>
               Privacy-first personal finance for iOS and Android. Log
               transactions, manage accounts in 160+ currencies, and keep every
-              byte on your device. Free for daily tracking — Pro adds analytics,
-              search, and export.
+              byte on your device.
             </p>
-            <div className="hero-ctas">
-              <a
-                href={SITE.googlePlayUrl}
-                className="btn btn-primary btn-lg"
-              >
+            <div className="hero-ctas" ref={ctasAnim.nodeRef}>
+              <a href={SITE.googlePlayUrl} className="btn btn-primary btn-lg">
                 <GooglePlayLogo weight="fill" size={18} />
-                Google Play
+                Download free
               </a>
               <a href="#features" className="btn btn-ghost btn-lg">
-                See features
+                See features &rarr;
               </a>
             </div>
           </div>
 
-          <div ref={phoneAnim.nodeRef} className={phoneAnim.className}>
-            <div className="hero-phone-wrap">
-              <div className="hero-phone-glow" />
-              <div className="hero-phone-glow-2" />
-              <img
-                src="/images/mint_fresh_3.png"
-                alt="Luno dashboard"
-                className="hero-phone-img"
-              />
-            </div>
+          <div className="hero-phone-wrap" ref={phoneAnim.nodeRef}>
+            <div className="hero-phone-glow" />
+            <img
+              src="/images/mint_fresh_3.png"
+              alt="Luno dashboard"
+              className="hero-phone-img"
+            />
           </div>
         </div>
 

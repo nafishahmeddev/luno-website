@@ -40,63 +40,63 @@ const FEATURES: FeatureCardData[] = [
     icon: <MagnifyingGlass weight="fill" size={18} />,
     name: 'Global Search',
     desc: 'Find any transaction, account, or category instantly across your entire history.',
-    cls: 'fc-search',
+    cls: 'fc-small-a',
     delay: '',
   },
   {
     num: 'Pro',
     icon: <FileCsv weight="fill" size={18} />,
     name: 'CSV Export',
-    desc: 'Export filtered transactions to a spreadsheet. Filter by date, account, and type. Save or share.',
-    cls: 'fc-export',
+    desc: 'Export filtered transactions to a spreadsheet. Filter by date, account, and type.',
+    cls: 'fc-small-b',
     delay: 'd1',
   },
   {
     num: 'Free',
     icon: <Wallet weight="fill" size={18} />,
     name: 'Multi-account',
-    desc: 'Unlimited accounts — bank, cash, wallet. 160+ currencies, custom icons and colours.',
-    cls: 'fc-tracking',
-    delay: 'd2',
+    desc: 'Unlimited accounts. 160+ currencies, custom icons and colours.',
+    cls: 'fc-card-3',
+    delay: '',
   },
   {
     num: 'Free',
     icon: <Stack weight="fill" size={18} />,
     name: '44+ Categories',
-    desc: '44 defaults across Essentials, Food, Transport, Health, and more. Add custom with icons.',
-    cls: 'fc-cats',
-    delay: '',
+    desc: '44 defaults across Essentials, Food, Transport, Health. Add custom with icons.',
+    cls: 'fc-card-4',
+    delay: 'd1',
   },
   {
     num: 'Free',
     icon: <NotePencil weight="fill" size={18} />,
     name: 'Transaction logging',
     desc: 'Log income, expenses, and transfers. Swipe to edit or delete. Grouped by day.',
-    cls: 'fc-logging',
-    delay: 'd1',
+    cls: 'fc-card-5',
+    delay: 'd2',
   },
   {
     num: 'Free',
     icon: <Palette weight="fill" size={18} />,
     name: 'Dark mode + themes',
     desc: 'Light, dark, and system theme. Custom icons and colours per account and category.',
-    cls: 'fc-themes',
-    delay: 'd2',
+    cls: 'fc-card-6',
+    delay: 'd3',
   },
   {
     num: 'Free',
     icon: <Fire weight="fill" size={18} />,
-    name: 'Streak & reminders',
-    desc: 'Track daily logging consistency. Set a reminder notification at your preferred time.',
-    cls: 'fc-streaks',
-    delay: 'd3',
+    name: 'Streak &amp; reminders',
+    desc: 'Track daily logging consistency. Set a reminder at your preferred time.',
+    cls: 'fc-card-7',
+    delay: 'd4',
   },
 ];
 
 function SmallFeatureCard({ feature }: { feature: FeatureCardData }) {
   const anim = useScrollReveal<HTMLDivElement>(feature.delay || undefined);
   return (
-    <div ref={anim.nodeRef} className={`card fc-small ${feature.cls} ${anim.className}`}>
+    <div ref={anim.nodeRef} className={`feat-card fc-small ${feature.cls} ${anim.className}`}>
       <div className="fc-num">{feature.num}</div>
       <div className="fc-icon">{feature.icon}</div>
       <div className="fc-name">{feature.name}</div>
@@ -106,18 +106,24 @@ function SmallFeatureCard({ feature }: { feature: FeatureCardData }) {
 }
 
 export function Features() {
-  const privAnim = useScrollReveal();
-  const analyticsAnim = useScrollReveal<HTMLDivElement>('d1');
+  const sectionAnim = useScrollReveal();
+  const privAnim = useScrollReveal('d1');
+  const analyticsAnim = useScrollReveal<HTMLDivElement>('d2');
 
   return (
     <section id="features" className="features-s">
-      <div className="wrap">
-        <div
-          className="feat-bento"
-          style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 20, overflow: 'hidden' }}
-        >
+      <div className="grid-bg" />
+      <div className="wrap" ref={sectionAnim.nodeRef} style={{ position: 'relative', zIndex: 1 }}>
+        <div className="section-tag">Features</div>
+        <h2 className="section-title">Built different.<br />By design.</h2>
+        <p className="section-sub">
+          Every feature respects your privacy. Free to use daily — Pro unlocks the full picture.
+        </p>
+      </div>
+      <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="feat-bento">
           {/* Privacy */}
-          <div ref={privAnim.nodeRef} className={`card fc-privacy ${privAnim.className}`}>
+          <div ref={privAnim.nodeRef} className={`feat-card fc-privacy ${privAnim.className}`}>
             <div className="fc-priv-icon">
               <LockKey weight="fill" size={22} />
             </div>
@@ -137,14 +143,13 @@ export function Features() {
           </div>
 
           {/* Analytics */}
-          <div ref={analyticsAnim.nodeRef} className={`card fc-analytics ${analyticsAnim.className}`} id="analytics">
+          <div ref={analyticsAnim.nodeRef} className={`feat-card fc-analytics ${analyticsAnim.className}`} id="analytics">
             <div className="fca-head">
               <h3 className="fca-title">Understand your money, deeply.</h3>
               <span className="tag">Pro</span>
             </div>
             <p className="fca-sub">
-              Visual charts, behavioral metrics, and period comparisons — one
-              lifetime unlock.
+              Visual charts, behavioral metrics, and period comparisons — one lifetime unlock.
             </p>
             <div className="metric-table">
               {METRICS.map((m) => (
@@ -156,7 +161,6 @@ export function Features() {
             </div>
           </div>
 
-          {/* Small feature cards */}
           {FEATURES.map((f) => (
             <SmallFeatureCard key={f.name} feature={f} />
           ))}

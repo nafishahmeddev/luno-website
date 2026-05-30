@@ -2,6 +2,7 @@ import { Links, Outlet, Scripts, ScrollRestoration, useLocation } from 'react-ro
 import { ThemeProvider } from '~/hooks/use-theme';
 import { Nav } from '~/components/nav';
 import { Footer } from '~/components/footer';
+import { ScrollProgress } from '~/components/scroll-progress';
 import { META, SITE } from '~/lib/constants';
 
 import '~/styles/app.css';
@@ -130,6 +131,7 @@ export default function Root() {
 
   return (
     <>
+      {!inApp && <ScrollProgress />}
       {!inApp && <Nav />}
       <main>
         <Outlet />

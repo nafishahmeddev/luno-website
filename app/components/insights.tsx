@@ -4,22 +4,22 @@ import { useScrollReveal } from '~/hooks/use-scroll-reveal';
 const INSIGHTS_CARDS = [
   {
     icon: <TrendUp weight="fill" size={16} />,
-    bg: 'rgba(245,158,11,0.12)',
-    color: 'var(--warning)',
+    bg: 'rgba(245,158,11,0.1)',
+    color: 'var(--accent-amber)',
     title: 'Spending spike — Food & Dining',
     text: 'Up 28% vs your 4-week average. You spent \u20B93,240 more than usual this week.',
   },
   {
     icon: <PiggyBank weight="fill" size={16} />,
-    bg: 'rgba(14,159,110,0.12)',
+    bg: 'rgba(46,204,113,0.1)',
     color: 'var(--success)',
     title: 'Savings rate up 12% this week',
     text: 'Your 7-day savings rate reached 76% — your best week this month.',
   },
   {
     icon: <CalendarCheck weight="fill" size={16} />,
-    bg: 'rgba(96,165,250,0.12)',
-    color: 'var(--info)',
+    bg: 'rgba(78,205,196,0.1)',
+    color: 'var(--accent-teal)',
     title: 'Weekly summary ready',
     text: '\u20B914,200 income \u00b7 \u20B93,380 spent \u00b7 \u20B910,820 saved. Best week in 90 days.',
   },
@@ -43,17 +43,14 @@ export function Insights() {
 
   return (
     <section className="insights-s" id="insights">
+      <div className="grid-bg" />
       <div className="insights-bg-glow" />
       <div className="wrap">
         <div className="split split-rev">
-          {/* Left: insight cards */}
           <div className="insight-stack" ref={stackAnim.nodeRef}>
             {INSIGHTS_CARDS.map((card) => (
               <div key={card.title} className="insight-card">
-                <div
-                  className="icard-icon"
-                  style={{ background: card.bg, color: card.color }}
-                >
+                <div className="icard-icon" style={{ background: card.bg, color: card.color }}>
                   {card.icon}
                 </div>
                 <div>
@@ -64,7 +61,6 @@ export function Insights() {
             ))}
           </div>
 
-          {/* Right: text */}
           <div>
             <div className="s-label" ref={labelAnim.nodeRef}>
               Luno Pro
