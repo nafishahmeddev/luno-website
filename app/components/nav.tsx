@@ -36,7 +36,6 @@ export function Nav() {
 
         <nav className="nav-center">
           <a href="/#features">Features</a>
-          <a href="/#analytics">Analytics</a>
           <a href="/#insights">Insights</a>
           <a href="/#download">Pro</a>
         </nav>

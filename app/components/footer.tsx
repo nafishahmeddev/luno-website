@@ -25,7 +25,6 @@ export function Footer() {
             <h4>Product</h4>
             <ul>
               <li><a href="/#features">Features</a></li>
-              <li><a href="/#analytics">Analytics</a></li>
               <li><a href="/#insights">Insights</a></li>
               <li><a href="/#download">Luno Pro</a></li>
             </ul>
