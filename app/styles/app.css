@@ -123,13 +123,14 @@
   }
   .light .nav-bar { border-bottom-color: rgba(0, 0, 0, 0.04); }
   .nav-brand {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 0;
     font-size: 15px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
+    text-transform: uppercase;
     color: var(--fg); line-height: 1;
     flex: 1;
   }
-  .nav-brand .dot { color: var(--primary); letter-spacing: 0; }
+  .nav-brand-name { letter-spacing: 0.14em; }
+  .nav-brand .dot { color: var(--primary); margin-left: -0.04em; }
   .nav-center { display: none; align-items: center; gap: 32px; }
   @media (min-width: 640px) { .nav-center { display: flex; } }
   .nav-center a {
@@ -585,8 +586,9 @@
     display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 3rem;
   }
   @media (min-width: 640px) { .footer-top { grid-template-columns: 2fr 1fr 1fr; } }
-  .footer-logo { font-size: 17px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg); }
-  .footer-logo .dot { color: var(--primary); letter-spacing: 0; }
+  .footer-logo { font-size: 17px; font-weight: 700; text-transform: uppercase; color: var(--fg); }
+  .footer-logo-name { letter-spacing: 0.16em; }
+  .footer-logo .dot { color: var(--primary); margin-left: -0.04em; }
   .footer-tagline { font-size: 14px; line-height: 1.6; color: var(--muted); margin-top: 10px; }
   .footer-store-btn {
     display: inline-flex; align-items: center; gap: 8px;

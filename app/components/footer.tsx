@@ -9,7 +9,7 @@ export function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <div className="footer-logo">
-              LUNO<span className="dot">.</span>
+              <span className="footer-logo-name">LUNO</span><span className="dot">.</span>
             </div>
             <p className="footer-tagline">
               Free = Tracking.<br />
