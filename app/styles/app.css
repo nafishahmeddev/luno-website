@@ -279,7 +279,10 @@
     color: var(--fg); margin-bottom: 1.5rem;
   }
   .hero-headline em {
-    font-style: normal; color: var(--primary);
+    font-style: normal;
+    background: linear-gradient(135deg, var(--primary), var(--accent-teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
     position: relative; display: inline-block;
   }
   .hero-headline em::after {
