@@ -1,16 +1,12 @@
-Options -Indexes
+# Luno Website — Static Site Configuration
+# =========================================
 
 # Enable rewrite engine
 RewriteEngine On
 
-# Force HTTPS (uncomment on production with SSL)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Route all non-file, non-directory requests to index.php
-RewriteCond %{REQUEST_FILENAME} !-f
+# Redirect trailing slashes
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(?!launch-kit/)(.*)$ index.php [QSA,L]
+RewriteRule ^(.+)/$ /$1 [R=301,L]
 
 # Security headers
 <IfModule mod_headers.c>
@@ -21,25 +17,30 @@ RewriteRule ^(?!launch-kit/)(.*)$ index.php [QSA,L]
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
-# Cache static assets
+# Caching
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType text/css "access plus 1 month"
-    ExpiresByType text/javascript "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
 
 # Gzip compression
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript text/plain
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
 </IfModule>
 
-# Deny access to sensitive files
+# SPA fallback — serve __spa-fallback.html for unknown paths
+# This handles client-side routing for non-pre-rendered paths (404s)
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ __spa-fallback.html [L]
+</IfModule>
+
+# Block access to sensitive files
 <FilesMatch "\.(env|git|gitignore|md|json|lock)$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>

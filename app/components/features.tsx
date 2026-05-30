@@ -1,0 +1,167 @@
+import {
+  LockKey,
+  MagnifyingGlass,
+  FileCsv,
+  Wallet,
+  Stack,
+  NotePencil,
+  Palette,
+  Fire,
+} from '@phosphor-icons/react';
+import { useScrollReveal } from '~/hooks/use-scroll-reveal';
+
+const PRIVACY_PILLS = [
+  'No cloud storage',
+  'No account required',
+  'No analytics SDK',
+  'On-device SQLite',
+  'No ads. Ever.',
+];
+
+const METRICS = [
+  { key: 'Daily Burn Rate', val: '-\u20B91,240 / day', ok: false },
+  { key: 'Savings Rate', val: '76.3%', ok: true },
+  { key: 'Financial Runway', val: '2,180 days', ok: true },
+  { key: 'Active Days', val: '28 of 30', ok: true },
+];
+
+interface FeatureCardData {
+  num: string;
+  icon: React.ReactNode;
+  name: string;
+  desc: string;
+  cls: string;
+  delay: string;
+}
+
+const FEATURES: FeatureCardData[] = [
+  {
+    num: 'Pro',
+    icon: <MagnifyingGlass weight="fill" size={18} />,
+    name: 'Global Search',
+    desc: 'Find any transaction, account, or category instantly across your entire history.',
+    cls: 'fc-search',
+    delay: '',
+  },
+  {
+    num: 'Pro',
+    icon: <FileCsv weight="fill" size={18} />,
+    name: 'CSV Export',
+    desc: 'Export filtered transactions to a spreadsheet. Filter by date, account, and type. Save or share.',
+    cls: 'fc-export',
+    delay: 'd1',
+  },
+  {
+    num: 'Free',
+    icon: <Wallet weight="fill" size={18} />,
+    name: 'Multi-account',
+    desc: 'Unlimited accounts — bank, cash, wallet. 160+ currencies, custom icons and colours.',
+    cls: 'fc-tracking',
+    delay: 'd2',
+  },
+  {
+    num: 'Free',
+    icon: <Stack weight="fill" size={18} />,
+    name: '44+ Categories',
+    desc: '44 defaults across Essentials, Food, Transport, Health, and more. Add custom with icons.',
+    cls: 'fc-cats',
+    delay: '',
+  },
+  {
+    num: 'Free',
+    icon: <NotePencil weight="fill" size={18} />,
+    name: 'Transaction logging',
+    desc: 'Log income, expenses, and transfers. Swipe to edit or delete. Grouped by day.',
+    cls: 'fc-logging',
+    delay: 'd1',
+  },
+  {
+    num: 'Free',
+    icon: <Palette weight="fill" size={18} />,
+    name: 'Dark mode + themes',
+    desc: 'Light, dark, and system theme. Custom icons and colours per account and category.',
+    cls: 'fc-themes',
+    delay: 'd2',
+  },
+  {
+    num: 'Free',
+    icon: <Fire weight="fill" size={18} />,
+    name: 'Streak & reminders',
+    desc: 'Track daily logging consistency. Set a reminder notification at your preferred time.',
+    cls: 'fc-streaks',
+    delay: 'd3',
+  },
+];
+
+function SmallFeatureCard({ feature }: { feature: FeatureCardData }) {
+  const anim = useScrollReveal<HTMLDivElement>(feature.delay || undefined);
+  return (
+    <div ref={anim.nodeRef} className={`card fc-small ${feature.cls} ${anim.className}`}>
+      <div className="fc-num">{feature.num}</div>
+      <div className="fc-icon">{feature.icon}</div>
+      <div className="fc-name">{feature.name}</div>
+      <p className="fc-desc">{feature.desc}</p>
+    </div>
+  );
+}
+
+export function Features() {
+  const privAnim = useScrollReveal();
+  const analyticsAnim = useScrollReveal<HTMLDivElement>('d1');
+
+  return (
+    <section id="features" className="features-s">
+      <div className="wrap">
+        <div
+          className="feat-bento"
+          style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 20, overflow: 'hidden' }}
+        >
+          {/* Privacy */}
+          <div ref={privAnim.nodeRef} className={`card fc-privacy ${privAnim.className}`}>
+            <div className="fc-priv-icon">
+              <LockKey weight="fill" size={22} />
+            </div>
+            <h3 className="fc-priv-title">Your data never leaves your device.</h3>
+            <p className="fc-priv-sub">
+              All data encrypted and stored locally via SQLite. No cloud. No
+              account. No tracking. Not even Luno can see it.
+            </p>
+            <div className="fc-pills">
+              {PRIVACY_PILLS.map((p) => (
+                <span key={p} className="fc-pill">
+                  <span className="fc-pill-dot" />
+                  {p}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Analytics */}
+          <div ref={analyticsAnim.nodeRef} className={`card fc-analytics ${analyticsAnim.className}`} id="analytics">
+            <div className="fca-head">
+              <h3 className="fca-title">Understand your money, deeply.</h3>
+              <span className="tag">Pro</span>
+            </div>
+            <p className="fca-sub">
+              Visual charts, behavioral metrics, and period comparisons — one
+              lifetime unlock.
+            </p>
+            <div className="metric-table">
+              {METRICS.map((m) => (
+                <div key={m.key} className="m-row">
+                  <span className="m-key">{m.key}</span>
+                  <span className={`m-val ${m.ok ? 'ok' : 'bad'}`}>{m.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Small feature cards */}
+          {FEATURES.map((f) => (
+            <SmallFeatureCard key={f.name} feature={f} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

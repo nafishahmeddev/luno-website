@@ -1,22 +1,34 @@
 {
   "name": "luno-website",
-  "version": "1.0.0",
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "github-nafish:nafishahmeddev/luno-website.git"
-  },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "watch": "tailwindcss -i ./resources/css/style.css -o ./assets/css/styles.css --watch",
-    "build": "tailwindcss -i ./resources/css/style.css -o ./assets/css/styles.css --minify",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "preview": "vite preview --outDir build/client",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.2.2",
-    "tailwindcss": "^4.2.2"
+    "@phosphor-icons/react": "^2.1.7",
+    "@react-router/node": "^7.6.0",
+    "@react-router/serve": "^7.6.0",
+    "isbot": "^5.1.27",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.6.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@react-router/dev": "^7.6.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^10.4.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.60.0",
+    "vite": "^6.3.0"
   }
 }
