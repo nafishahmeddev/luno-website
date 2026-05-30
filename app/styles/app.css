@@ -27,11 +27,11 @@
     --border: rgba(255, 255, 255, 0.06);
     --border-hi: rgba(255, 255, 255, 0.1);
 
-    --primary: #b8d641;
-    --primary-l: #cae560;
-    --primary-d: #a0c119;
-    --primary-dim: rgba(184, 214, 65, 0.08);
-    --primary-glow: rgba(184, 214, 65, 0.12);
+    --primary: #25d366;
+    --primary-l: #2fe87a;
+    --primary-d: #1da851;
+    --primary-dim: rgba(37, 211, 102, 0.08);
+    --primary-glow: rgba(37, 211, 102, 0.12);
 
     --accent-teal: #4ecdc4;
     --accent-amber: #f5a623;
@@ -60,11 +60,11 @@
     --border: rgba(0, 0, 0, 0.06);
     --border-hi: rgba(0, 0, 0, 0.1);
 
-    --primary: #a0bf26;
-    --primary-l: #b3d53b;
-    --primary-d: #8ca814;
-    --primary-dim: rgba(160, 191, 38, 0.08);
-    --primary-glow: rgba(160, 191, 38, 0.1);
+    --primary: #1da851;
+    --primary-l: #25d366;
+    --primary-d: #128c7e;
+    --primary-dim: rgba(29, 168, 81, 0.08);
+    --primary-glow: rgba(29, 168, 81, 0.1);
 
     --fg: #1a1a1c;
     --muted: #6b6b66;
@@ -192,11 +192,11 @@
     padding: 8px 14px; border-radius: 12px;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 2px 12px rgba(184, 214, 65, 0.2);
+    box-shadow: 0 2px 12px rgba(37, 211, 102, 0.2);
   }
   .nav-cta:hover {
     background: var(--primary-l);
-    box-shadow: 0 4px 20px rgba(184, 214, 65, 0.3);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
     transform: translateY(-1px);
   }
   @media (max-width: 360px) {
@@ -220,7 +220,7 @@
   }
   .btn-primary:hover {
     background: var(--primary-l);
-    box-shadow: 0 6px 32px rgba(184, 214, 65, 0.24);
+    box-shadow: 0 6px 32px rgba(37, 211, 102, 0.28);
     transform: translateY(-1px);
   }
   .btn-ghost {
@@ -284,7 +284,7 @@
   .scroll-progress {
     position: fixed; top: 0; left: 0; z-index: 60;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--accent-teal));
+    background: linear-gradient(90deg, var(--primary), #128c7e);
     transition: width 0.1s linear;
   }
 
@@ -408,7 +408,7 @@
   .stat-n {
     font-size: clamp(30px, 4vw, 48px); font-weight: 800;
     letter-spacing: -0.04em;
-    background: linear-gradient(135deg, var(--primary), var(--accent-teal));
+    background: linear-gradient(135deg, var(--primary), #128c7e);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text; line-height: 1; margin-bottom: 8px;
   }
@@ -668,7 +668,7 @@
   }
   .cta-title em {
     font-style: normal;
-    background: linear-gradient(135deg, var(--primary), var(--accent-teal));
+    background: linear-gradient(135deg, var(--primary), #128c7e);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
