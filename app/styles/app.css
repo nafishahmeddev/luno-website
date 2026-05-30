@@ -121,7 +121,7 @@
   .nav-pill {
     display: flex; align-items: center;
     gap: 32px;
-    max-width: 880px; width: 100%;
+    max-width: 680px; width: 100%;
     padding: 10px 20px 10px 22px;
     background: rgba(10, 11, 16, 0.72);
     backdrop-filter: blur(20px) saturate(1.6);
