@@ -176,7 +176,7 @@
     background: var(--primary-l);
     transform: translateY(-1px);
   }
-  @media (max-width: 360px) {
+  @media (max-width: 640px) {
     .nav-cta-text { display: none; }
   }
 
