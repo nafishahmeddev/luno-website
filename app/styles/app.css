@@ -301,7 +301,7 @@
      HERO
      ═══════════════════════════════════════════════ */
   .hero-s {
-    position: relative; padding-block: 6rem 3rem;
+    position: relative; padding-block: 2rem 3rem;
     overflow: hidden; min-height: 85vh;
     display: flex; align-items: center;
   }
@@ -310,14 +310,14 @@
     background-image:
       radial-gradient(circle, var(--border) 1px, transparent 1px);
     background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 25%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 25%, transparent 70%);
+    mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 25%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 25%, transparent 70%);
   }
   .hero-glow-a {
     position: absolute; pointer-events: none; z-index: 0;
     width: 800px; height: 800px; border-radius: 50%;
     background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
-    top: -200px; left: -100px;
+    top: -100px; left: -100px;
   }
   .hero-glow-b {
     position: absolute; pointer-events: none; z-index: 0;
