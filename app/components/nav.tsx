@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { GooglePlayLogo, Monitor, Moon, Sun, ArrowDown } from '@phosphor-icons/react';
+import { GooglePlayLogo, Monitor, Moon, Sun } from '@phosphor-icons/react';
 import { SITE } from '~/lib/constants';
 import { useTheme } from '~/hooks/use-theme';
 
@@ -48,10 +48,8 @@ export function Nav() {
           >
             {THEME_ICONS[theme]}
           </button>
-          <a href={SITE.googlePlayUrl} className="nav-cta">
-            <GooglePlayLogo weight="fill" size={13} />
-            <span className="nav-cta-text">Download</span>
-            <ArrowDown weight="bold" size={12} />
+          <a href={SITE.googlePlayUrl} className="nav-theme-btn" aria-label="Download on Google Play">
+            <GooglePlayLogo weight="fill" size={15} />
           </a>
         </div>
       </div>

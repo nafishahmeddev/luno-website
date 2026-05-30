@@ -164,21 +164,6 @@
     transition: all 0.2s ease;
   }
   .nav-theme-btn:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
-  .nav-cta {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.01em;
-    color: #0a0b10; background: var(--primary);
-    padding: 8px 14px; border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.25s ease;
-  }
-  .nav-cta:hover {
-    background: var(--primary-l);
-    transform: translateY(-1px);
-  }
-  @media (max-width: 640px) {
-    .nav-cta-text { display: none; }
-  }
 
   /* ── Buttons ── */
   .btn {
