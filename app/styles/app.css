@@ -218,7 +218,7 @@
   .scroll-progress {
     position: fixed; top: 0; left: 0; z-index: 60;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-d));
+    background: linear-gradient(90deg, var(--primary), var(--accent-teal));
     transition: width 0.1s linear;
   }
 
@@ -327,7 +327,7 @@
   .stat-n {
     font-size: clamp(30px, 4vw, 48px); font-weight: 800;
     letter-spacing: -0.04em;
-    background: linear-gradient(135deg, var(--primary), var(--primary-d));
+    background: linear-gradient(135deg, var(--primary), var(--accent-teal));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text; line-height: 1; margin-bottom: 8px;
   }
@@ -576,7 +576,7 @@
   }
   .cta-title em {
     font-style: normal;
-    background: linear-gradient(135deg, var(--primary), var(--primary-d));
+    background: linear-gradient(135deg, var(--primary), var(--accent-teal));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
