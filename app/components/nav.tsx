@@ -4,9 +4,9 @@ import { SITE } from '~/lib/constants';
 import { useTheme } from '~/hooks/use-theme';
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
-  system: <Monitor weight="fill" size={15} />,
-  dark: <Moon weight="fill" size={15} />,
-  light: <Sun weight="fill" size={15} />,
+  system: <Monitor weight="fill" size={16} />,
+  dark: <Moon weight="fill" size={16} />,
+  light: <Sun weight="fill" size={16} />,
 };
 
 const THEME_LABELS: Record<string, string> = {
@@ -28,29 +28,34 @@ export function Nav() {
 
   return (
     <header className="nav-header">
-      <div className="nav-pill">
-        <Link to="/" className="nav-brand">
-          <span className="nav-mark" />
-          LUNO<span className="dot">.</span>
-        </Link>
+      <div className="nav-bar">
+        <div className="nav-left">
+          <Link to="/" className="nav-brand">
+            <span className="nav-mark" />
+            LUNO<span className="dot">.</span>
+          </Link>
+          <nav className="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#insights">Insights</a>
+            <a href="/#download">Pro</a>
+          </nav>
+        </div>
 
-        <nav className="nav-center">
-          <a href="/#features">Features</a>
-          <a href="/#insights">Insights</a>
-          <a href="/#download">Pro</a>
-        </nav>
-
-        <div className="nav-actions">
+        <div className="nav-right">
+          <a
+            href={SITE.googlePlayUrl}
+            className="nav-icon-btn"
+            aria-label="Download on Google Play"
+          >
+            <GooglePlayLogo weight="fill" size={16} />
+          </a>
           <button
             onClick={cycleTheme}
             aria-label={`Theme: ${THEME_LABELS[theme]}`}
-            className="nav-theme-btn"
+            className="nav-icon-btn"
           >
             {THEME_ICONS[theme]}
           </button>
-          <a href={SITE.googlePlayUrl} className="nav-theme-btn" aria-label="Download on Google Play">
-            <GooglePlayLogo weight="fill" size={15} />
-          </a>
         </div>
       </div>
     </header>
