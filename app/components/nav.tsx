@@ -29,26 +29,17 @@ export function Nav() {
   return (
     <header className="nav-header">
       <div className="nav-bar">
-        <div className="nav-left">
-          <Link to="/" className="nav-brand">
-            <span className="nav-mark" />
-            LUNO<span className="dot">.</span>
-          </Link>
-          <nav className="nav-links">
-            <a href="/#features">Features</a>
-            <a href="/#insights">Insights</a>
-            <a href="/#download">Pro</a>
-          </nav>
-        </div>
+        <Link to="/" className="nav-brand">
+          LUNO<span className="dot">.</span>
+        </Link>
+
+        <nav className="nav-center">
+          <a href="/#features">Features</a>
+          <a href="/#insights">Insights</a>
+          <a href="/#download">Pro</a>
+        </nav>
 
         <div className="nav-right">
-          <a
-            href={SITE.googlePlayUrl}
-            className="nav-icon-btn"
-            aria-label="Download on Google Play"
-          >
-            <GooglePlayLogo weight="fill" size={16} />
-          </a>
           <button
             onClick={cycleTheme}
             aria-label={`Theme: ${THEME_LABELS[theme]}`}
@@ -56,6 +47,11 @@ export function Nav() {
           >
             {THEME_ICONS[theme]}
           </button>
+          <span className="nav-sep" />
+          <a href={SITE.googlePlayUrl} className="nav-cta-btn">
+            <GooglePlayLogo weight="fill" size={14} />
+            <span className="nav-cta-label">Download</span>
+          </a>
         </div>
       </div>
     </header>

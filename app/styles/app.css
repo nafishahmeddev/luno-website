@@ -122,30 +122,22 @@
     transition: background 0.4s;
   }
   .light .nav-bar { border-bottom-color: rgba(0, 0, 0, 0.04); }
-  .nav-left { display: flex; align-items: center; gap: 32px; }
   .nav-brand {
     display: flex; align-items: center; gap: 8px;
     font-size: 15px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--fg); line-height: 1;
-    flex-shrink: 0;
+    flex: 1;
   }
   .nav-brand .dot { color: var(--primary); letter-spacing: 0; }
-  .nav-mark {
-    width: 6px; height: 6px;
-    background: var(--primary);
-    border-radius: 1.5px;
-    flex-shrink: 0;
-  }
-  .nav-links { display: none; align-items: center; gap: 24px; }
-  @media (min-width: 640px) { .nav-links { display: flex; } }
-  .nav-links a {
+  .nav-center { display: none; align-items: center; gap: 32px; }
+  @media (min-width: 640px) { .nav-center { display: flex; } }
+  .nav-center a {
     font-size: 13px; font-weight: 500;
-    letter-spacing: 0.02em; color: var(--muted);
-    transition: color 0.2s;
+    color: var(--muted); transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--fg); }
-  .nav-right { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+  .nav-center a:hover { color: var(--fg); }
+  .nav-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; flex: 1; justify-content: flex-end; }
   .nav-icon-btn {
     width: 34px; height: 34px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
@@ -153,6 +145,26 @@
     transition: all 0.2s ease;
   }
   .nav-icon-btn:hover { color: var(--fg); background: var(--glass-bg); }
+  .nav-sep {
+    width: 1px; height: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    margin-inline: 6px;
+  }
+  .light .nav-sep { background: rgba(0, 0, 0, 0.08); }
+  .nav-cta-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Google Sans Flex', 'Google Sans', system-ui, sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: #0a0b10; background: var(--primary);
+    padding: 7px 14px; border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .nav-cta-btn:hover { background: var(--primary-l); }
+  @media (max-width: 639px) {
+    .nav-cta-label { display: none; }
+    .nav-cta-btn { padding: 7px 10px; }
+  }
 
   /* ── Buttons ── */
   .btn {
