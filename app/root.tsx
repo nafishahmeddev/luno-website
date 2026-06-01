@@ -13,27 +13,27 @@ const ROUTE_META: Record<string, { title: string; description: string; robots?: 
     description: META.description,
   },
   '/privacy': {
-    title: 'Privacy Policy — Luno',
-    description: "How Luno handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Numeo',
+    description: "How Numeo handles your data — spoiler: it doesn't.",
   },
   '/terms': {
-    title: 'Terms of Service — Luno',
-    description: 'The rules of engagement for using Luno — kept plain and honest.',
+    title: 'Terms of Service — Numeo',
+    description: 'The rules of engagement for using Numeo — kept plain and honest.',
   },
   '/in-app/privacy': {
-    title: 'Privacy Policy — Luno',
-    description: "How Luno handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Numeo',
+    description: "How Numeo handles your data — spoiler: it doesn't.",
   },
   '/in-app/terms': {
-    title: 'Terms of Service — Luno',
-    description: 'The rules of engagement for using Luno — kept plain and honest.',
+    title: 'Terms of Service — Numeo',
+    description: 'The rules of engagement for using Numeo — kept plain and honest.',
   },
 };
 
 function getMeta(pathname: string) {
   const path = pathname.replace(/\/$/, '') || '/';
   return ROUTE_META[path] ?? {
-    title: 'Page Not Found — Luno',
+    title: 'Page Not Found — Numeo',
     description: META.description,
     robots: 'noindex',
   };
@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: `
 (function() {
-  var saved = localStorage.getItem('luno-theme') || 'system';
+  var saved = localStorage.getItem('numeo-theme') || 'system';
   var root  = document.documentElement;
   root.classList.remove('dark', 'light');
   if (saved === 'dark') {

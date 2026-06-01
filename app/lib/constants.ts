@@ -1,22 +1,22 @@
 export const SITE = {
-  name: 'Luno',
+  name: 'Numeo',
   tagline: 'Your money. Your rules.',
   description:
     'Privacy-first personal finance for iOS and Android. Log transactions, manage accounts in 160+ currencies, and keep every byte on your device.',
-  url: 'https://tryluno.app',
+  url: 'https://numeo.idexa.app',
   author: 'Nafish Ahmed',
   authorUrl: 'https://nafish.me',
-  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.luno',
+  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.numeo',
   gaId: 'G-L39J4VVHHC',
 };
 
 export const META = {
-  title: 'Luno — Personal Finance Manager',
+  title: 'Numeo — Personal Finance Manager',
   description:
     'Local-first personal finance tracking application',
   keywords:
     'personal finance app, expense tracker, budget tracker, money manager, local-first finance, privacy finance app',
-  themeColor: '#06090a',
+  themeColor: '#0D0D0F',
 };
 
 export const PRIVACY_EFFECTIVE = 'April 2, 2026';
