@@ -1,122 +1,123 @@
-# Luno Website — Claude Context
+# Numeo Website — Claude Context
 
 ## What this project is
-Marketing website for **Luno** — a privacy-first, local-first Android personal finance app.
-Built by **Nafish Ahmed** (solo indie dev). App is on Google Play: `me.nafish.luno`.
-
-The website has two purposes:
-1. **Public marketing site** — `luno.nafish.lo` (index, privacy, terms pages)
-2. **Private launch kit** — `/launch-kit/` (marketing dashboard with post content, thumbnails, roadmap, checklist)
+Marketing website for **Numeo** — a privacy-first, local-first personal finance app for iOS & Android.
+Built by **Nafish Ahmed** (solo indie dev). App on Google Play: `me.nafish.numeo`.
 
 ## Stack
-- **Pure PHP** — no framework, no composer, no npm, no build step
-- **Vanilla CSS + JS** — single `assets/css/styles.css`, no preprocessor
-- **No database** — fully static content
-- **Phosphor Icons** (CDN), Google Fonts (CDN)
-- Apache with `.htaccess` for routing
+- **Vite 6** + **React 19** + **React Router v7** + **Tailwind CSS v4** + **TypeScript**
+- **SSG only** — `ssr: false` + `prerender: true` — pure static HTML output to `build/client/`
+- **Phosphor Icons** (React components, no CDN)
+- **Google Fonts** (Google Sans Flex, ROND axis, CDN)
+- **ESLint** + **tsc --noEmit** for code quality
+- **GitHub Actions** for CI/CD — deploys via rsync over SSH
 
 ## File structure
 ```
-luno.nafish.lo/
-├── index.php                  # Homepage + router (handles /privacy and /terms routes)
-├── privacy.php                # Privacy Policy page
-├── terms.php                  # Terms of Service page
-├── .htaccess                  # URL routing, security headers, caching, gzip
-├── favicon.png                # Site icon + OG image
-├── includes/
-│   ├── config.php             # BASE_URL, ASSETS_URL, CSS_URL, IMG_URL constants
-│   ├── header.php             # Shared <head>, nav (requires config.php)
-│   └── footer.php             # Shared footer, closes </body></html>
-├── assets/
-│   ├── css/styles.css         # Global stylesheet (~2000 lines)
-│   └── images/                # App screenshots (mint_fresh_1..5.png)
-└── launch-kit/
-    ├── index.php              # Standalone HTML — launch marketing dashboard
-    └── thumbnails/
-        ├── playstore/         # feature_graphic_1024x500.png + 5 screenshots
-        ├── producthunt/       # ph_1..4.png (gallery images)
-        ├── twitter/           # tw_1..4.png (tweet images)
-        └── reddit/            # reddit_androidapps.png, reddit_privacy.png
+numeo.idexa.app/
+├── app/
+│   ├── root.tsx                    # HTML shell, meta, GA, theme init, Nav + Footer toggle
+│   ├── routes.ts                   # Route definitions
+│   ├── routes/
+│   │   ├── home.tsx                # Homepage (hero + features + insights + cta)
+│   │   ├── privacy.tsx             # Public Privacy Policy
+│   │   ├── terms.tsx               # Public Terms of Service
+│   │   ├── in-app.tsx              # In-app layout (no nav/footer)
+│   │   ├── in-app.privacy.tsx      # In-app Privacy Policy
+│   │   ├── in-app.terms.tsx        # In-app Terms of Service
+│   │   └── $.tsx                   # 404 catch-all
+│   ├── components/
+│   │   ├── nav.tsx                 # Navigation bar (full-width glass)
+│   │   ├── footer.tsx              # Footer
+│   │   ├── hero.tsx                # Hero section (centered, text-only)
+│   │   ├── features.tsx            # Features bento grid
+│   │   ├── insights.tsx            # Pro insights section
+│   │   ├── cta.tsx                 # Call to action
+│   │   ├── scroll-progress.tsx     # Scroll progress bar
+│   │   └── legal-layout.tsx        # Legal page wrapper
+│   ├── hooks/
+│   │   ├── use-theme.tsx           # Dark/light/system theme (localStorage)
+│   │   └── use-scroll-reveal.tsx   # IntersectionObserver scroll animations
+│   ├── data/
+│   │   ├── privacy-content.tsx     # Shared privacy content
+│   │   └── terms-content.tsx       # Shared terms content
+│   ├── lib/constants.ts            # Site metadata, URLs, GA ID
+│   └── styles/app.css              # Tailwind v4 + design tokens + all styles
+├── public/
+│   ├── favicon.png                 # Site icon + OG image
+│   └── images/                     # App screenshots
+├── .github/workflows/deploy.yml    # CI/CD — lint, typecheck, build, rsync deploy
+├── .htaccess                       # Apache — security headers, caching, SPA fallback
+├── react-router.config.ts          # SSG config (ssr: false, prerender: true)
+├── vite.config.ts                  # Vite + Tailwind + React Router plugins
+├── tsconfig.json                   # TypeScript config
+├── eslint.config.js                # ESLint config
+└── package.json                    # Dependencies + scripts
 ```
 
-## Routing
-All routing is in `index.php`:
+## Routing (React Router v7)
 - `/` → homepage
-- `/privacy` → includes privacy.php
-- `/terms` → includes terms.php
-- anything else → 404
-- `/launch-kit/` → served directly by Apache (excluded from rewrite in .htaccess)
+- `/privacy` → public privacy policy
+- `/terms` → public terms of service
+- `/in-app/privacy` → in-app privacy (no nav/footer, for mobile WebView)
+- `/in-app/terms` → in-app terms (no nav/footer)
+- anything else → 404 (SPA fallback)
 
 ## URL helpers
-Always use PHP constants for URLs — never hardcode paths:
-```php
-BASE_URL    // e.g. https://luno.nafish.lo
-ASSETS_URL  // BASE_URL . '/assets'
-CSS_URL     // BASE_URL . '/assets/css'
-IMG_URL     // BASE_URL . '/assets/images'
-```
-These are defined in `includes/config.php` which `header.php` auto-includes.
-
-## Page anatomy
-Every public page follows this pattern:
-```php
-<?php include_once __DIR__ . '/includes/header.php'; ?>
-<!-- page HTML -->
-<?php include_once __DIR__ . '/includes/footer.php'; ?>
-```
-`header.php` outputs everything from `<!DOCTYPE html>` through the `<nav>`. `footer.php` closes `</body></html>`.
-
-Per-page meta overrides go **before** including header.php:
-```php
-<?php
-$page_title = 'Privacy Policy';
-$page_meta  = 'How Luno handles your data...';
-include_once __DIR__ . '/includes/header.php';
-?>
+All site constants in `app/lib/constants.ts`:
+```ts
+SITE.name          // 'Numeo'
+SITE.url           // 'https://numeo.idexa.app'
+SITE.googlePlayUrl // Google Play store link
+SITE.gaId          // 'G-L39J4VVHHC'
+META.title         // 'Numeo — Personal Finance Manager'
+META.description   // 'Local-first personal finance tracking application'
 ```
 
-## CSS conventions
-- Design token CSS variables defined in `:root` — use them, don't hardcode colors
-- Key tokens: `--bg`, `--card`, `--border`, `--accent` (#86C53C mint green), `--text`, `--muted`, `--dim`
-- Typography: `--sans` (Bricolage Grotesque), `--mono` (JetBrains Mono)
-- Mobile breakpoint: `@media (max-width: 768px)`
-- Dark theme only — no light mode toggle
+## Design tokens
+CSS custom properties in `app/styles/app.css` `:root`:
+- **Primary**: emerald green `#059669` (dark) / `#047857` (light)
+- **Background**: `#0D0D0F` (dark) / `#FCFCF9` (light)
+- **Text**: `#F5F5F5` (dark) / `#171717` (light)
+- **Muted**: `#A3A3A3` (dark) / `#737373` (light)
+- Glass cards with `backdrop-filter`
+- Dot grid backgrounds with radial masks
+- Typography: Google Sans Flex (ROND axis)
 
-## Launch kit
-`launch-kit/index.php` is a **self-contained single HTML file** — no PHP, no external dependencies beyond Google Fonts CDN. All CSS is inline `<style>`. All JS is inline `<script>` at the bottom.
+## Theme system
+- `localStorage` key: `luno-theme`
+- Values: `system` / `dark` / `light`
+- Applied as `dark`/`light` class on `<html>`
+- Theme toggle cycles through system → dark → light
+- OS preference listener for auto-switching
 
-Sections (tab-based SPA navigation via `showPage(id)`):
-- `roadmap` — 22-step launch roadmap with cross-links to posts and thumbnails
-- `reddit` — 4 Reddit posts (r/androidapps, r/privacy, r/personalfinance, r/SideProject)
-- `twitter` — 7-tweet launch thread + 4 dev log tweets + hashtag sets
-- `producthunt` — full PH listing copy (name, tagline, description, maker comment, tags)
-- `alternativeto` — directory descriptions + creator outreach email template
-- `thumbs` — visual gallery of all 16 thumbnail assets with specs
-- `checklist` — phase-by-phase launch checklist with timeline
+## In-app layout
+- `/in-app/*` routes render without Nav/Footer (detected via `useLocation` in root.tsx)
+- Same legal content as public pages, shared via `app/data/`
+- Supports `?platform=ios|android` query param for platform-specific styling
 
 ## App details (for writing copy)
-- **Name:** Luno
-- **Tagline (marketing headline):** "Your money. Your rules."
-- **Tagline (product tier):** "Free = Tracking. Premium = Insights + Control."
-- **Version:** 1.1.0
-- **Website:** tryluno.app
-- **Privacy model:** 100% local — SQLite on-device, zero network requests to Luno servers, no account required
-- **Free tier:** transaction tracking (income/expense/transfer), unlimited multi-account (160+ currencies), 44 default categories + unlimited custom, dashboard (net balance, recent txns, top expenses), 7-day analytics (net position, savings rate, income/expense summary), usage streak, daily reminders, dark/light/system theme, local encrypted SQLite storage
-- **Luno Pro:** Dashboard insights (spending spike alerts, saving trends, weekly summaries) · Extended analytics 30D/90D/12M (period flow chart, category breakdown donut, account split, weekday heatmap, behavioral metrics: burn rate + runway + in/out ratio + active days) · Global search (transactions, accounts, categories) · CSV export (filtered by date/account/type, save or share)
-- **Premium model:** lifetime one-time purchase (no subscription, all future updates included)
+- **Name:** Numeo
+- **Tagline:** "Free = Tracking. Premium = Insights + Control."
+- **Version:** 1.1.1
+- **Website:** numeo.idexa.app
+- **Privacy model:** 100% local — SQLite on-device, no servers, no account
+- **Pricing:** Lifetime one-time purchase. No subscriptions.
 - **Stack (app):** React Native + Expo + TypeScript + SQLite + Drizzle ORM + TanStack React Query
-- **Platforms:** iOS & Android (Google Play + App Store)
+- **Platforms:** iOS & Android
 - **Developer:** Nafish Ahmed (solo, indie)
 
-## Production deployment
-- Local dev: `/Users/ahmed/Documents/Projects/Personal/php/luno.nafish.lo`
-- Server root: `/var/www/luno.nafish.lo`
-- Apache + PHP — standard shared hosting setup
-- No build step — deploy by syncing files
+## Commands
+```
+npm run dev        # Dev server at localhost:5173
+npm run build      # SSG build → build/client/
+npm run preview    # Preview production build
+npm run lint       # ESLint
+npm run typecheck  # tsc --noEmit
+```
 
-## Key decisions already made
-- No framework (intentional — simplicity, no dependencies, instant deploy)
-- No database (intentional — aligns with Luno's privacy-first brand)
-- Launch kit is a private tool, not linked from the public site
-- `.htaccess` excludes `/launch-kit/` from the PHP router so it runs standalone
-- All image paths use `IMG_URL` constant (never relative paths like `assets/images/...`)
+## Deployment
+- GitHub Actions workflow triggered on push to `main`
+- Builds, lints, typechecks, then rsyncs `build/client/` to server
+- Secrets: `SSH_PRIVATE_KEY`, `SSH_HOST`, `SSH_USER`, `DEPLOY_PATH`
+- Static files served by Apache with `.htaccess` SPA fallback

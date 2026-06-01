@@ -156,7 +156,7 @@
     display: inline-flex; align-items: center; gap: 6px;
     font-family: 'Google Sans Flex', 'Google Sans', system-ui, sans-serif;
     font-size: 12px; font-weight: 600;
-    color: #0a0b10; background: var(--primary);
+    color: #ffffff; background: var(--primary);
     padding: 7px 14px; border-radius: 10px;
     text-decoration: none;
     transition: all 0.25s ease;
@@ -178,7 +178,7 @@
     transition: all 0.25s ease;
   }
   .btn-primary {
-    background: var(--primary); color: #0a0b10;
+    background: var(--primary); color: #ffffff;
     padding: 13px 28px; font-size: 15px;
   }
   .btn-primary:hover {
