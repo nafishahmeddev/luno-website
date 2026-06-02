@@ -9,7 +9,7 @@ export function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <div className="footer-logo">
-              <span className="footer-logo-name">NUMEO</span><span className="dot">.</span>
+              <span className="footer-logo-name">AUREI</span><span className="dot">.</span>
             </div>
             <p className="footer-tagline">
               Free = Tracking.<br />
@@ -26,7 +26,7 @@ export function Footer() {
             <ul>
               <li><a href="/#features">Features</a></li>
               <li><a href="/#insights">Insights</a></li>
-              <li><a href="/#download">Numeo Pro</a></li>
+              <li><a href="/#download">Aurei Pro</a></li>
             </ul>
           </div>
 
@@ -40,7 +40,7 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p className="footer-copy">&copy; 2026 Numeo. All rights reserved.</p>
+          <p className="footer-copy">&copy; 2026 Aurei. All rights reserved.</p>
           <p className="footer-made">
             Built by{' '}
             <a href={SITE.authorUrl}>{SITE.author}</a>

@@ -1,9 +1,9 @@
-# Code Structure — Numeo Website
+# Code Structure — Aurei Website
 
 ## File Organization
 
 ```
-numeo.idexa.app/
+aurei.idexa.app/
 ├── app/
 │   ├── root.tsx                    # HTML shell — <head>, meta, GA, theme init
 │   │                               # Root component: Nav (conditional), Outlet, Footer
@@ -81,11 +81,11 @@ Per-page `<title>`, `<meta>`, OG tags via `useLocation()` in `root.tsx` Layout:
 
 ```
 ROUTE_META = {
-  '/'           → 'Numeo — Personal Finance Manager'
-  '/privacy'    → 'Privacy Policy — Numeo'
-  '/terms'      → 'Terms of Service — Numeo'
+  '/'           → 'Aurei — Personal Finance Manager'
+  '/privacy'    → 'Privacy Policy — Aurei'
+  '/terms'      → 'Terms of Service — Aurei'
   '/in-app/*'   → Same as public counterparts
-  '*'           → 'Page Not Found — Numeo' (noindex)
+  '*'           → 'Page Not Found — Aurei' (noindex)
 }
 ```
 

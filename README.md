@@ -1,7 +1,7 @@
-# Numeo Website
+# Aurei Website
 
-Marketing website for Numeo — a privacy-first, local-first personal finance app.  
-[https://numeo.idexa.app](https://numeo.idexa.app)
+Marketing website for Aurei — a privacy-first, local-first personal finance app.  
+[https://aurei.idexa.app](https://aurei.idexa.app)
 
 ## Stack
 
@@ -62,6 +62,6 @@ GitHub Actions workflow (`.github/workflows/deploy.yml`) deploys on push to `mai
 
 1. Lint + typecheck
 2. Build static site
-3. Rsync `build/client/` to `/var/www/numeo.idexa.app/`
+3. Rsync `build/client/` to `/var/www/aurei.idexa.app/`
 
 Required secrets: `SSH_PRIVATE_KEY`, `SSH_HOST`, `SSH_USER`, `DEPLOY_PATH`

@@ -1,17 +1,17 @@
 export const SITE = {
-  name: 'Numeo',
+  name: 'Aurei',
   tagline: 'Your money. Your rules.',
   description:
     'Privacy-first personal finance for iOS and Android. Log transactions, manage accounts in 160+ currencies, and keep every byte on your device.',
-  url: 'https://numeo.idexa.app',
+  url: 'https://aurei.idexa.app',
   author: 'Nafish Ahmed',
   authorUrl: 'https://nafish.me',
-  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.numeo',
+  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.aurei',
   gaId: 'G-L39J4VVHHC',
 };
 
 export const META = {
-  title: 'Numeo — Personal Finance Manager',
+  title: 'Aurei — Personal Finance Manager',
   description:
     'Local-first personal finance tracking application',
   keywords:
