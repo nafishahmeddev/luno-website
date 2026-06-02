@@ -113,8 +113,8 @@
   }
   .nav-bar {
     display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-    padding-inline: clamp(1.25rem, 5vw, 2rem);
+    height: 52px;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
     background: var(--nav-bg);
     backdrop-filter: blur(18px) saturate(1.4);
     -webkit-backdrop-filter: blur(18px) saturate(1.4);
@@ -124,20 +124,20 @@
   .light .nav-bar { border-bottom-color: rgba(0, 0, 0, 0.04); }
   .nav-brand {
     display: flex; align-items: center; gap: 0;
-    font-size: 15px; font-weight: 700;
+    font-size: 16px; font-weight: 500;
     color: var(--fg); line-height: 1;
     flex: 1;
   }
   .nav-brand-name { }
-  .nav-brand .dot { color: var(--primary); margin-left: -0.04em; }
-  .nav-center { display: none; align-items: center; gap: 32px; }
+  .nav-brand .dot { color: var(--primary); margin-left: -0.02em; }
+  .nav-center { display: none; align-items: center; gap: 28px; }
   @media (min-width: 640px) { .nav-center { display: flex; } }
   .nav-center a {
-    font-size: 13px; font-weight: 500;
+    font-size: 13px; font-weight: 450;
     color: var(--muted); transition: color 0.2s;
   }
   .nav-center a:hover { color: var(--fg); }
-  .nav-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; flex: 1; justify-content: flex-end; }
+  .nav-right { display: flex; align-items: center; gap: 2px; flex-shrink: 0; flex: 1; justify-content: flex-end; }
   .nav-icon-btn {
     width: 34px; height: 34px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
@@ -146,24 +146,24 @@
   }
   .nav-icon-btn:hover { color: var(--fg); background: var(--glass-bg); }
   .nav-sep {
-    width: 1px; height: 20px;
-    background: rgba(255, 255, 255, 0.08);
+    width: 1px; height: 18px;
+    background: rgba(255, 255, 255, 0.06);
     margin-inline: 6px;
   }
   .light .nav-sep { background: rgba(0, 0, 0, 0.08); }
   .nav-cta-btn {
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 5px;
     font-family: 'Google Sans Flex', 'Google Sans', system-ui, sans-serif;
-    font-size: 12px; font-weight: 600;
+    font-size: 12px; font-weight: 500;
     color: #ffffff; background: var(--primary);
-    padding: 7px 14px; border-radius: 10px;
+    padding: 6px 14px; border-radius: 8px;
     text-decoration: none;
-    transition: all 0.25s ease;
+    transition: background 0.25s ease;
   }
   .nav-cta-btn:hover { background: var(--primary-l); }
   @media (max-width: 639px) {
     .nav-cta-label { display: none; }
-    .nav-cta-btn { padding: 7px 10px; }
+    .nav-cta-btn { padding: 6px 10px; }
   }
 
   /* ── Buttons ── */
