@@ -125,7 +125,6 @@
   .nav-brand {
     display: flex; align-items: center; gap: 0;
     font-size: 15px; font-weight: 700;
-    text-transform: uppercase;
     color: var(--fg); line-height: 1;
     flex: 1;
   }
@@ -595,7 +594,7 @@
     display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 3rem;
   }
   @media (min-width: 640px) { .footer-top { grid-template-columns: 2fr 1fr 1fr; } }
-  .footer-logo { font-size: 17px; font-weight: 700; text-transform: uppercase; color: var(--fg); }
+  .footer-logo { font-size: 17px; font-weight: 700; color: var(--fg); }
   .footer-logo-name { letter-spacing: 0.16em; }
   .footer-logo .dot { color: var(--primary); margin-left: -0.04em; }
   .footer-tagline { font-size: 14px; line-height: 1.6; color: var(--muted); margin-top: 10px; }

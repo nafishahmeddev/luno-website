@@ -30,7 +30,7 @@ export function Nav() {
     <header className="nav-header">
       <div className="nav-bar">
         <Link to="/" className="nav-brand">
-          <span className="nav-brand-name">AUREI</span><span className="dot">.</span>
+          <span className="nav-brand-name">Aurei</span><span className="dot">.</span>
         </Link>
 
         <nav className="nav-center">
