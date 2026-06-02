@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 export type Theme = 'system' | 'dark' | 'light';
 
-const THEME_KEY = 'aurei-theme';
+const THEME_KEY = 'keeep-theme';
 
 function getSystemTheme(): 'dark' | 'light' {
   if (typeof window === 'undefined') return 'dark';

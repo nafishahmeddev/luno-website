@@ -63,7 +63,7 @@ export function Insights() {
 
           <div>
             <div className="s-label" ref={labelAnim.nodeRef}>
-              Aurei Pro
+              Keeep Pro
             </div>
             <h2 className="s-title" ref={titleAnim.nodeRef}>
               Your dashboard,

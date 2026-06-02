@@ -5,11 +5,11 @@ export default function InAppPrivacy() {
   return (
     <LegalLayout
       title="Privacy Policy"
-      subtitle="How Aurei handles your data — spoiler: it doesn't."
+      subtitle="How Keeep handles your data — spoiler: it doesn't."
       version="Effective: April 2, 2026 &middot; Version 1.0.1"
       summary={
         <>
-          <strong>The short version:</strong> Aurei is built local-first. All
+          <strong>The short version:</strong> Keeep is built local-first. All
           your financial data is stored exclusively on your device using SQLite.
           We do not collect, transmit, store, or sell any personal or financial
           information. There are no servers, no accounts, and no tracking of any

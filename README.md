@@ -1,7 +1,7 @@
-# Aurei Website
+# Keeep Website
 
-Marketing website for Aurei — a privacy-first, local-first personal finance app.  
-[https://aurei.idexa.app](https://aurei.idexa.app)
+Marketing website for Keeep — a privacy-first, local-first personal finance app.  
+[https://keeep.idexa.app](https://keeep.idexa.app)
 
 ## Stack
 
@@ -62,6 +62,6 @@ GitHub Actions workflow (`.github/workflows/deploy.yml`) deploys on push to `mai
 
 1. Lint + typecheck
 2. Build static site
-3. Rsync `build/client/` to `/var/www/aurei.idexa.app/`
+3. Rsync `build/client/` to `/var/www/keeep.idexa.app/`
 
 Required secrets: `SSH_PRIVATE_KEY`, `SSH_HOST`, `SSH_USER`, `DEPLOY_PATH`

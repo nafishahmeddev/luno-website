@@ -1,8 +1,8 @@
-# Aurei Website — Claude Context
+# Keeep Website — Claude Context
 
 ## What this project is
-Marketing website for **Aurei** — a privacy-first, local-first personal finance app for iOS & Android.
-Built by **Nafish Ahmed** (solo indie dev). App on Google Play: `me.nafish.aurei`.
+Marketing website for **Keeep** — a privacy-first, local-first personal finance app for iOS & Android.
+Built by **Nafish Ahmed** (solo indie dev). App on Google Play: `me.nafish.keeep`.
 
 ## Stack
 - **Vite 6** + **React 19** + **React Router v7** + **Tailwind CSS v4** + **TypeScript**
@@ -14,7 +14,7 @@ Built by **Nafish Ahmed** (solo indie dev). App on Google Play: `me.nafish.aurei
 
 ## File structure
 ```
-aurei.idexa.app/
+keeep.idexa.app/
 ├── app/
 │   ├── root.tsx                    # HTML shell, meta, GA, theme init, Nav + Footer toggle
 │   ├── routes.ts                   # Route definitions
@@ -66,11 +66,11 @@ aurei.idexa.app/
 ## URL helpers
 All site constants in `app/lib/constants.ts`:
 ```ts
-SITE.name          // 'Aurei'
-SITE.url           // 'https://aurei.idexa.app'
+SITE.name          // 'Keeep'
+SITE.url           // 'https://keeep.idexa.app'
 SITE.googlePlayUrl // Google Play store link
 SITE.gaId          // 'G-L39J4VVHHC'
-META.title         // 'Aurei — Personal Finance Manager'
+META.title         // 'Keeep — Personal Finance Manager'
 META.description   // 'Local-first personal finance tracking application'
 ```
 
@@ -97,10 +97,10 @@ CSS custom properties in `app/styles/app.css` `:root`:
 - Supports `?platform=ios|android` query param for platform-specific styling
 
 ## App details (for writing copy)
-- **Name:** Aurei
+- **Name:** Keeep
 - **Tagline:** "Free = Tracking. Premium = Insights + Control."
 - **Version:** 1.1.1
-- **Website:** aurei.idexa.app
+- **Website:** keeep.idexa.app
 - **Privacy model:** 100% local — SQLite on-device, no servers, no account
 - **Pricing:** Lifetime one-time purchase. No subscriptions.
 - **Stack (app):** React Native + Expo + TypeScript + SQLite + Drizzle ORM + TanStack React Query

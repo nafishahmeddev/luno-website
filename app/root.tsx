@@ -13,27 +13,27 @@ const ROUTE_META: Record<string, { title: string; description: string; robots?: 
     description: META.description,
   },
   '/privacy': {
-    title: 'Privacy Policy — Aurei',
-    description: "How Aurei handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Keeep',
+    description: "How Keeep handles your data — spoiler: it doesn't.",
   },
   '/terms': {
-    title: 'Terms of Service — Aurei',
-    description: 'The rules of engagement for using Aurei — kept plain and honest.',
+    title: 'Terms of Service — Keeep',
+    description: 'The rules of engagement for using Keeep — kept plain and honest.',
   },
   '/in-app/privacy': {
-    title: 'Privacy Policy — Aurei',
-    description: "How Aurei handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Keeep',
+    description: "How Keeep handles your data — spoiler: it doesn't.",
   },
   '/in-app/terms': {
-    title: 'Terms of Service — Aurei',
-    description: 'The rules of engagement for using Aurei — kept plain and honest.',
+    title: 'Terms of Service — Keeep',
+    description: 'The rules of engagement for using Keeep — kept plain and honest.',
   },
 };
 
 function getMeta(pathname: string) {
   const path = pathname.replace(/\/$/, '') || '/';
   return ROUTE_META[path] ?? {
-    title: 'Page Not Found — Aurei',
+    title: 'Page Not Found — Keeep',
     description: META.description,
     robots: 'noindex',
   };
@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: `
 (function() {
-  var saved = localStorage.getItem('aurei-theme') || 'system';
+  var saved = localStorage.getItem('keeep-theme') || 'system';
   var root  = document.documentElement;
   root.classList.remove('dark', 'light');
   if (saved === 'dark') {

@@ -121,7 +121,7 @@ export function Features() {
             <h3 className="fc-priv-title">Your data never leaves your device.</h3>
             <p className="fc-priv-sub">
               All data encrypted and stored locally via SQLite. No cloud. No
-              account. No tracking. Not even Aurei can see it.
+              account. No tracking. Not even Keeep can see it.
             </p>
             <div className="fc-pills">
               {PRIVACY_PILLS.map((p) => (

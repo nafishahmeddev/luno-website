@@ -1,9 +1,9 @@
-# Code Structure — Aurei Website
+# Code Structure — Keeep Website
 
 ## File Organization
 
 ```
-aurei.idexa.app/
+keeep.idexa.app/
 ├── app/
 │   ├── root.tsx                    # HTML shell — <head>, meta, GA, theme init
 │   │                               # Root component: Nav (conditional), Outlet, Footer
@@ -81,11 +81,11 @@ Per-page `<title>`, `<meta>`, OG tags via `useLocation()` in `root.tsx` Layout:
 
 ```
 ROUTE_META = {
-  '/'           → 'Aurei — Personal Finance Manager'
-  '/privacy'    → 'Privacy Policy — Aurei'
-  '/terms'      → 'Terms of Service — Aurei'
+  '/'           → 'Keeep — Personal Finance Manager'
+  '/privacy'    → 'Privacy Policy — Keeep'
+  '/terms'      → 'Terms of Service — Keeep'
   '/in-app/*'   → Same as public counterparts
-  '*'           → 'Page Not Found — Aurei' (noindex)
+  '*'           → 'Page Not Found — Keeep' (noindex)
 }
 ```
 

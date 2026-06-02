@@ -4,21 +4,21 @@ export function PrivacyContent() {
   return (
     <>
       <LegalSection title="1. Information We Collect">
-        <p>Aurei does not collect any personal information. The app operates entirely offline and on-device. Specifically:</p>
+        <p>Keeep does not collect any personal information. The app operates entirely offline and on-device. Specifically:</p>
         <ul>
           <li>We do not collect your name, email address, or any identifying information.</li>
           <li>We do not collect financial data, transaction records, or account balances.</li>
           <li>We do not collect device identifiers, IP addresses, or location data.</li>
           <li>We do not use analytics SDKs, crash reporting tools, or advertising frameworks.</li>
         </ul>
-        <p>The only data that exists in relation to Aurei is data you create yourself, stored locally on your device.</p>
+        <p>The only data that exists in relation to Keeep is data you create yourself, stored locally on your device.</p>
       </LegalSection>
 
       <LegalSection title="2. How Your Data Is Stored">
-        <p>All data you enter into Aurei — including transactions, account details, categories, and preferences — is stored in a SQLite database on your device. This data:</p>
+        <p>All data you enter into Keeep — including transactions, account details, categories, and preferences — is stored in a SQLite database on your device. This data:</p>
         <ul>
           <li>Never leaves your device.</li>
-          <li>Is not backed up to any Aurei-operated cloud service.</li>
+          <li>Is not backed up to any Keeep-operated cloud service.</li>
           <li>Is not accessible to us or any third party.</li>
           <li>Is fully under your control at all times.</li>
         </ul>
@@ -26,12 +26,12 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="3. Third-Party Services">
-        <p>Aurei does not integrate with any third-party analytics, advertising, or data services for tracking. However, we do use:</p>
+        <p>Keeep does not integrate with any third-party analytics, advertising, or data services for tracking. However, we do use:</p>
         <ul>
-          <li><strong>Google Play Billing:</strong> For processing in-app purchases (Premium features). Google Play Billing handles payment information but does NOT have access to your financial data stored in Aurei.</li>
+          <li><strong>Google Play Billing:</strong> For processing in-app purchases (Premium features). Google Play Billing handles payment information but does NOT have access to your financial data stored in Keeep.</li>
           <li><strong>Google Fonts:</strong> For typography. This is a web request that may send minimal data to Google per their privacy policy.</li>
         </ul>
-        <p>The following are NOT included in Aurei:</p>
+        <p>The following are NOT included in Keeep:</p>
         <ul>
           <li>Advertising networks or SDKs</li>
           <li>Analytics platforms (Google Analytics, Firebase, Mixpanel, etc.)</li>
@@ -42,7 +42,7 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="4. In-App Purchases and Premium Features">
-        <p>Aurei offers both free and Aurei Pro features. Aurei Pro includes Dashboard insights (spending alerts, saving trends, weekly summaries), extended analytics (30-day, 90-day, 12-month ranges, period charts, category breakdowns, behavioral metrics), global search, and CSV export.</p>
+        <p>Keeep offers both free and Keeep Pro features. Keeep Pro includes Dashboard insights (spending alerts, saving trends, weekly summaries), extended analytics (30-day, 90-day, 12-month ranges, period charts, category breakdowns, behavioral metrics), global search, and CSV export.</p>
         <p><strong>Pricing Options:</strong></p>
         <ul>
           <li>Lifetime purchase: One-time payment for permanent premium access</li>
@@ -51,7 +51,7 @@ export function PrivacyContent() {
         <p><strong>Payment Processing:</strong></p>
         <ul>
           <li>All payments are processed through Google Play Billing</li>
-          <li>Payment information (credit card, billing address) is handled by Google and is NOT stored in Aurei</li>
+          <li>Payment information (credit card, billing address) is handled by Google and is NOT stored in Keeep</li>
           <li>We do NOT have access to your payment details</li>
           <li>For refund policies, please refer to Google Play's refund policy at: <a href="https://support.google.com/googleplay/answer/134336">https://support.google.com/googleplay/answer/134336</a></li>
         </ul>
@@ -59,8 +59,8 @@ export function PrivacyContent() {
         <ul>
           <li>We track whether you have premium lifetime access locally on your device</li>
           <li>This information is stored only on your device</li>
-          <li>Aurei receives no information about your payment method or billing details</li>
-          <li>Your purchase status is tied to your Google Play account, not to Aurei's servers</li>
+          <li>Keeep receives no information about your payment method or billing details</li>
+          <li>Your purchase status is tied to your Google Play account, not to Keeep's servers</li>
         </ul>
       </LegalSection>
 
@@ -75,24 +75,24 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="6. Data Security">
-        <p>Aurei implements security measures to protect your data:</p>
+        <p>Keeep implements security measures to protect your data:</p>
         <ul>
           <li>All data is stored locally on your device using SQLite with file-level encryption available through your device's OS</li>
           <li>No data is transmitted to external servers</li>
           <li>No network requests expose your financial information</li>
-          <li>Your device's built-in security features (lock screen, biometric authentication) protect access to Aurei</li>
+          <li>Your device's built-in security features (lock screen, biometric authentication) protect access to Keeep</li>
         </ul>
         <p>While we employ security measures, no method of electronic storage is 100% secure. Your device's security settings play a crucial role in protecting your data.</p>
       </LegalSection>
 
       <LegalSection title="7. Data Retention and Backups">
-        <p><strong>Data Retention:</strong> Aurei retains your data for as long as you keep the app installed on your device. You can delete all data at any time using the factory reset feature.</p>
-        <p><strong>Device Backups:</strong> If you use Android's automatic backup feature (Google Drive, other cloud services), your Aurei data may be included based on your device settings. This is subject to those services' privacy policies, not ours.</p>
-        <p><strong>Aurei-Operated Backups:</strong> Aurei does not maintain backups of your data on any servers.</p>
+        <p><strong>Data Retention:</strong> Keeep retains your data for as long as you keep the app installed on your device. You can delete all data at any time using the factory reset feature.</p>
+        <p><strong>Device Backups:</strong> If you use Android's automatic backup feature (Google Drive, other cloud services), your Keeep data may be included based on your device settings. This is subject to those services' privacy policies, not ours.</p>
+        <p><strong>Keeep-Operated Backups:</strong> Keeep does not maintain backups of your data on any servers.</p>
       </LegalSection>
 
       <LegalSection title="8. Cookies and Tracking Technologies">
-        <p>Aurei does NOT use:</p>
+        <p>Keeep does NOT use:</p>
         <ul>
           <li>Cookies</li>
           <li>Web beacons or tracking pixels</li>
@@ -104,7 +104,7 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="9. Your Rights">
-        <p><strong>Access:</strong> You have full access to all your data stored in Aurei at any time through the app.</p>
+        <p><strong>Access:</strong> You have full access to all your data stored in Keeep at any time through the app.</p>
         <p><strong>Portability:</strong> You can export your data by using the app's data export features or accessing the SQLite database directly through your device's file system.</p>
         <p><strong>Rectification:</strong> You can modify any data in the app directly.</p>
         <p><strong>Erasure (Right to be Forgotten):</strong> You can delete all your data using the factory reset feature.</p>
@@ -112,23 +112,23 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="10. International Data Transfers">
-        <p>Since Aurei operates entirely on your device, no data transfers occur internationally. Your data never leaves your device or local backups.</p>
+        <p>Since Keeep operates entirely on your device, no data transfers occur internationally. Your data never leaves your device or local backups.</p>
       </LegalSection>
 
       <LegalSection title="11. Children's Privacy">
-        <p>Aurei is not directed at children under the age of 13. We do not knowingly collect personal information from children. Since Aurei collects no personal information from anyone, this applies equally to all users regardless of age.</p>
-        <p>If you believe a child has provided information to Aurei, please contact us immediately at hello@nafish.me.</p>
+        <p>Keeep is not directed at children under the age of 13. We do not knowingly collect personal information from children. Since Keeep collects no personal information from anyone, this applies equally to all users regardless of age.</p>
+        <p>If you believe a child has provided information to Keeep, please contact us immediately at hello@nafish.me.</p>
       </LegalSection>
 
       <LegalSection title="12. Changes to This Policy">
         <p>We may update this Privacy Policy from time to time. Any changes will be reflected with an updated effective date at the top of this page and within the app's update release notes. Continued use of the app after changes constitutes your acceptance of the revised policy.</p>
-        <p>Given the nature of Aurei's local-first architecture, changes to this policy are expected to be minimal. Significant changes will be communicated in advance.</p>
+        <p>Given the nature of Keeep's local-first architecture, changes to this policy are expected to be minimal. Significant changes will be communicated in advance.</p>
       </LegalSection>
 
       <LegalSection title="13. Data Safety & Transparency">
         <p>As required by Google Play's Data Safety section, we confirm:</p>
         <ul>
-          <li><strong>Data Collected:</strong> No personal, financial, or identifying data is collected by Aurei or transmitted to any external service (except Google Play for in-app purchases)</li>
+          <li><strong>Data Collected:</strong> No personal, financial, or identifying data is collected by Keeep or transmitted to any external service (except Google Play for in-app purchases)</li>
           <li><strong>Data Sharing:</strong> No data is shared with third parties</li>
           <li><strong>Data Security:</strong> Your data is protected by your device's security features and stored locally using SQLite</li>
           <li><strong>User Controls:</strong> You can delete all app data using the factory reset feature at any time</li>
@@ -138,7 +138,7 @@ export function PrivacyContent() {
       <LegalSection title="14. Contact & Privacy Inquiries">
         <p>If you have any questions about this Privacy Policy or our privacy practices, please reach out:</p>
         <div className="legal-contact">
-          <h3>Aurei Privacy Contact</h3>
+          <h3>Keeep Privacy Contact</h3>
           <p>Email: <a href="mailto:hello@nafish.me">hello@nafish.me</a></p>
           <p>Subject: Privacy Policy Inquiry</p>
           <p>We will respond to privacy inquiries within 30 days.</p>
@@ -146,19 +146,19 @@ export function PrivacyContent() {
       </LegalSection>
 
       <LegalSection title="15. Play Store Data Safety Compliance">
-        <p>As required by Google Play's Data Safety section, Aurei provides complete transparency:</p>
+        <p>As required by Google Play's Data Safety section, Keeep provides complete transparency:</p>
         <ul>
-          <li><strong>Data Collected:</strong> None. Aurei does not collect, access, or transmit any personal or financial data about you.</li>
+          <li><strong>Data Collected:</strong> None. Keeep does not collect, access, or transmit any personal or financial data about you.</li>
           <li><strong>Data Shared:</strong> No data is shared with any third party (except Google Play for in-app purchases, governed by Google's privacy policy).</li>
           <li><strong>Data Retention:</strong> We do not retain any user data on external servers.</li>
           <li><strong>Data Deletion:</strong> Use Factory Reset in Settings to permanently delete all your app data immediately.</li>
           <li><strong>Data Encryption:</strong> Your device's SQLite encryption protects your data.</li>
-          <li><strong>Secure Transmission:</strong> No data is transmitted from your device for Aurei purposes.</li>
+          <li><strong>Secure Transmission:</strong> No data is transmitted from your device for Keeep purposes.</li>
         </ul>
       </LegalSection>
 
       <LegalSection title="16. California Consumer Privacy Act (CCPA)">
-        <p>For California residents: Since Aurei collects no personal information, CCPA rights to access, delete, or opt-out do not apply in the traditional sense. However:</p>
+        <p>For California residents: Since Keeep collects no personal information, CCPA rights to access, delete, or opt-out do not apply in the traditional sense. However:</p>
         <ul>
           <li><strong>Right to Know:</strong> You can see all data in the app — it's all yours, stored locally.</li>
           <li><strong>Right to Delete:</strong> Use Factory Reset to delete all data immediately.</li>

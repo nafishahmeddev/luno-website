@@ -1,17 +1,17 @@
 export const SITE = {
-  name: 'Aurei',
+  name: 'Keeep',
   tagline: 'Your money. Your rules.',
   description:
     'Privacy-first personal finance for iOS and Android. Log transactions, manage accounts in 160+ currencies, and keep every byte on your device.',
-  url: 'https://aurei.idexa.app',
+  url: 'https://keeep.idexa.app',
   author: 'Nafish Ahmed',
   authorUrl: 'https://nafish.me',
-  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.aurei',
+  googlePlayUrl: 'https://play.google.com/store/apps/details?id=me.nafish.keeep',
   gaId: 'G-L39J4VVHHC',
 };
 
 export const META = {
-  title: 'Aurei — Personal Finance Manager',
+  title: 'Keeep — Personal Finance Manager',
   description:
     'Local-first personal finance tracking application',
   keywords:
