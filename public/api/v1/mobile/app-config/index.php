@@ -2,7 +2,7 @@
 // Enable CORS
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, X-App-Name, X-App-Platform, X-App-Build-Number, X-App-Version, X-App-Country, X-App-Timezone, X-App-Locale, X-App-Current-Time");
+header("Access-Control-Allow-Headers: Content-Type, X-App-Name, X-App-Platform, X-App-Build-Number, X-App-Country, X-App-Timezone, X-App-Locale, X-App-Current-Time");
 header("Content-Type: application/json");
 
 // Handle preflight requests
@@ -54,7 +54,6 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 // Retrieve custom headers
 $platform = strtolower(trim(getRequestHeader('X-App-Platform') ?? ''));
 $buildNumber = getRequestHeader('X-App-Build-Number');
-$version = trim(getRequestHeader('X-App-Version') ?? '');
 
 // If platform is invalid or not in config, default to 'android' or handle error
 if (empty($platform) || !isset($configData[$platform])) {
@@ -76,17 +75,6 @@ if ($buildNumber !== null && is_numeric($buildNumber)) {
         $action = 'force-update';
         $message = $rules['force_update_message'] ?? '';
     } elseif ($clientBuild < $latestBuild) {
-        $action = 'suggest-update';
-        $message = $rules['suggest_update_message'] ?? '';
-    }
-} elseif (!empty($version)) {
-    $minVersion = $rules['min_version'] ?? '0.0.0';
-    $latestVersion = $rules['latest_version'] ?? '0.0.0';
-
-    if (version_compare($version, $minVersion, '<')) {
-        $action = 'force-update';
-        $message = $rules['force_update_message'] ?? '';
-    } elseif (version_compare($version, $latestVersion, '<')) {
         $action = 'suggest-update';
         $message = $rules['suggest_update_message'] ?? '';
     }
