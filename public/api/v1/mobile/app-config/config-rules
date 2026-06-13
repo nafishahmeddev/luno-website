@@ -1,14 +1,14 @@
 {
   "ios": {
-    "min_build": 36,
-    "latest_build": 36,
+    "min_build": 37,
+    "latest_build": 37,
     "store_url": "https://apps.apple.com/app/id123456",
     "force_update_message": "A critical upgrade is required. Please update to the latest version to keep tracking your finances securely.",
     "suggest_update_message": "A new version of Keeep is available! Update now to experience our brand new charts and visual layout optimizations."
   },
   "android": {
-    "min_build": 36,
-    "latest_build": 36,
+    "min_build": 37,
+    "latest_build": 37,
     "store_url": "https://play.google.com/store/apps/details?id=me.nafish.luno",
     "force_update_message": "A critical upgrade is required. Please update to the latest version to keep tracking your finances securely.",
     "suggest_update_message": "A new version of Keeep is available! Update now to experience our brand new charts and visual layout optimizations."
