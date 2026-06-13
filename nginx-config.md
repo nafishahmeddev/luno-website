@@ -1,33 +1,31 @@
-# Nginx Configuration for tryluno.lo
+# Updated Nginx Configuration for keeep.idexa.app
 
-Add the following server block to your Nginx configuration files (e.g., in `/etc/nginx/sites-available/tryluno.lo` or `/opt/homebrew/etc/nginx/servers/tryluno.lo` depending on your setup).
+Here is the updated configuration for your existing Nginx server block. This config includes the PHP 8.4 block to execute the controller, the rule to secure your `config-rules` file, and routes requests properly.
 
 ```nginx
 server {
-    listen 80;
-    server_name tryluno.lo; # Your local development domain
+    server_name keeep.idexa.app;
 
-    # Set root path to the build/client output directory
-    root /Users/ahmed/Documents/Projects/PHP/tryluno.lo/build/client;
+    root /var/www/keeep.idexa.app;
     index index.html index.php;
 
     # Secure: Block public access to the app-config config-rules file
     location = /api/v1/mobile/app-config/config-rules {
         deny all;
-        return 404; # Optional: hides the existence of the file
+        return 404;
     }
 
-    # API Endpoint: Route app-config to index.php
+    # API Endpoint: Route app-config requests to the directory's index.php
     location /api/v1/mobile/app-config/ {
         try_files $uri $uri/ /api/v1/mobile/app-config/index.php$is_args$args;
     }
 
     # SPA Router fallback and static files routing
     location / {
-        try_files $uri $uri/ /__spa-fallback.html;
+        try_files $uri $uri/ /index.html;
     }
 
-    # PHP-FPM Configuration for PHP 8.4
+    # PHP-FPM Configuration for PHP 8.4 (Added)
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         
@@ -41,14 +39,26 @@ server {
         fastcgi_param PATH_INFO $fastcgi_path_info;
     }
 
-    # Optional: Cache control for static assets
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
-        expires 30d;
-        add_header Cache-Control "public, no-transform";
+    # Deny htaccess access
+    location ~ /\.ht {
+        deny all;
     }
 
-    # Optional: Log configurations
-    error_log  /var/log/nginx/tryluno.lo.error.log error;
-    access_log /var/log/nginx/tryluno.lo.access.log;
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/keeep.idexa.app/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/keeep.idexa.app/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    if ($host = keeep.idexa.app) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name keeep.idexa.app;
+
+    listen 80;
+    return 404; # managed by Certbot
 }
 ```
