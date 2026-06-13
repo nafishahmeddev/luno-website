@@ -22,11 +22,16 @@ jobs:
       - run: npm run build
 
       - name: Deploy via rsync
-        uses: easingthemes/ssh-deploy@main
-        with:
+        env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: '-avz --delete --no-t'
-          SOURCE: 'build/client/'
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ secrets.DEPLOY_PATH }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          rsync -avz --delete --no-t \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            build/client/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH"
