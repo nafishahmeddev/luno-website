@@ -31,7 +31,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
-          rsync -avz --delete --no-t \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
-            build/client/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH"
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          for i in 1 2 3; do
+            rsync -avz --delete --no-t \
+              -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=30" \
+              build/client/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH" && break
+            echo "Attempt $i failed, retrying in 15s..."
+            sleep 15
+          done
