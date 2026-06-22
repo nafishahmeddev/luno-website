@@ -1,12 +1,12 @@
-# Updated Nginx Configuration for keeep.idexa.app
+# Updated Nginx Configuration for fintraq.idexa.app
 
 Here is the updated configuration for your existing Nginx server block. This config includes the PHP 8.4 block to execute the controller, the rule to secure your `config-rules` file, and routes requests properly.
 
 ```nginx
 server {
-    server_name keeep.idexa.app;
+    server_name fintraq.idexa.app;
 
-    root /var/www/keeep.idexa.app;
+    root /var/www/fintraq.idexa.app;
     index index.html index.php;
 
     # Secure: Block public access to the app-config config-rules file
@@ -45,18 +45,18 @@ server {
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/keeep.idexa.app/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/keeep.idexa.app/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/fintraq.idexa.app/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/fintraq.idexa.app/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
-    if ($host = keeep.idexa.app) {
+    if ($host = fintraq.idexa.app) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
-    server_name keeep.idexa.app;
+    server_name fintraq.idexa.app;
 
     listen 80;
     return 404; # managed by Certbot

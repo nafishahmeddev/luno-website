@@ -63,7 +63,7 @@ export function Insights() {
 
           <div>
             <div className="s-label" ref={labelAnim.nodeRef}>
-              Keeep Pro
+              Fintraq Pro
             </div>
             <h2 className="s-title" ref={titleAnim.nodeRef}>
               Your dashboard,

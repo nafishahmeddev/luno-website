@@ -6,7 +6,7 @@ const STATS = [
   { n: '160+', l: 'Currencies' },
   { n: '44+', l: 'Categories' },
   { n: '0', l: 'Cloud Servers' },
-  { n: '1\u00d7', l: 'Pay. Forever.' },
+  { n: '1×', l: 'Pay. Forever.' },
 ];
 
 export function Hero() {
@@ -14,6 +14,7 @@ export function Hero() {
   const descAnim = useScrollReveal('d1');
   const ctasAnim = useScrollReveal('d2');
   const statsAnim = useScrollReveal('d3');
+  const showcaseAnim = useScrollReveal('d1');
 
   return (
     <section className="hero-s">
@@ -22,26 +23,43 @@ export function Hero() {
       <div className="hero-glow-b" />
 
       <div className="wrap hero-inner">
-        <div ref={headlineAnim.nodeRef} className="hero-content">
-          <div className="hero-eyebrow">Local-first. Privacy-first.</div>
-          <h1 className="hero-headline">
-            Your money.
-            <br />
-            <em>Your rules.</em>
-          </h1>
-          <p className="hero-desc" ref={descAnim.nodeRef}>
-            Privacy-first personal finance for iOS and Android. Log
-            transactions, manage accounts in 160+ currencies, and keep every
-            byte on your device.
-          </p>
-          <div className="hero-ctas" ref={ctasAnim.nodeRef}>
-            <a href={SITE.googlePlayUrl} className="btn btn-primary btn-lg">
-              <GooglePlayLogo weight="fill" size={18} />
-              Download free
-            </a>
-            <a href="#features" className="btn btn-ghost btn-lg">
-              See features &rarr;
-            </a>
+        <div className="hero-grid">
+          <div ref={headlineAnim.nodeRef} className="hero-content">
+            <div className="hero-eyebrow">Local-first. Privacy-first.</div>
+            <h1 className="hero-headline">
+              Your money.
+              <br />
+              <em>Your rules.</em>
+            </h1>
+            <p className="hero-desc" ref={descAnim.nodeRef}>
+              Privacy-first personal finance for iOS and Android. Log
+              transactions, manage accounts in 160+ currencies, and keep every
+              byte on your device.
+            </p>
+            <div className="hero-ctas" ref={ctasAnim.nodeRef}>
+              <a href={SITE.googlePlayUrl} className="btn btn-primary btn-lg">
+                <GooglePlayLogo weight="fill" size={18} />
+                Download free
+              </a>
+              <a href="#features" className="btn btn-ghost btn-lg">
+                See features &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div ref={showcaseAnim.nodeRef} className={`hero-showcase ${showcaseAnim.className}`}>
+            <div className="device-mockup mockup-1">
+              <div className="screen">
+                <img src="/images/analytics.jpeg" alt="Fintraq Analytics" />
+              </div>
+              <div className="island" />
+            </div>
+            <div className="device-mockup mockup-2">
+              <div className="screen">
+                <img src="/images/dashboard.jpeg" alt="Fintraq Dashboard" />
+              </div>
+              <div className="island" />
+            </div>
           </div>
         </div>
 

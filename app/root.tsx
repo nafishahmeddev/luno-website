@@ -13,27 +13,27 @@ const ROUTE_META: Record<string, { title: string; description: string; robots?: 
     description: META.description,
   },
   '/privacy': {
-    title: 'Privacy Policy — Keeep',
-    description: "How Keeep handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Fintraq',
+    description: "How Fintraq handles your data — spoiler: it doesn't.",
   },
   '/terms': {
-    title: 'Terms of Service — Keeep',
-    description: 'The rules of engagement for using Keeep — kept plain and honest.',
+    title: 'Terms of Service — Fintraq',
+    description: 'The rules of engagement for using Fintraq — kept plain and honest.',
   },
   '/in-app/privacy': {
-    title: 'Privacy Policy — Keeep',
-    description: "How Keeep handles your data — spoiler: it doesn't.",
+    title: 'Privacy Policy — Fintraq',
+    description: "How Fintraq handles your data — spoiler: it doesn't.",
   },
   '/in-app/terms': {
-    title: 'Terms of Service — Keeep',
-    description: 'The rules of engagement for using Keeep — kept plain and honest.',
+    title: 'Terms of Service — Fintraq',
+    description: 'The rules of engagement for using Fintraq — kept plain and honest.',
   },
 };
 
 function getMeta(pathname: string) {
   const path = pathname.replace(/\/$/, '') || '/';
   return ROUTE_META[path] ?? {
-    title: 'Page Not Found — Keeep',
+    title: 'Page Not Found — Fintraq',
     description: META.description,
     robots: 'noindex',
   };
@@ -73,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={`${SITE.url}/favicon.png`} />
         <link
-          href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ROND,wght@0..100,300..800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         />
         <Links />
@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: `
 (function() {
-  var saved = localStorage.getItem('keeep-theme') || 'system';
+  var saved = localStorage.getItem('fintraq-theme') || 'system';
   var root  = document.documentElement;
   root.classList.remove('dark', 'light');
   if (saved === 'dark') {

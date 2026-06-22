@@ -1,9 +1,9 @@
-# Code Structure — Keeep Website
+# Code Structure — Fintraq Website
 
 ## File Organization
 
 ```
-keeep.idexa.app/
+fintraq.idexa.app/
 ├── app/
 │   ├── root.tsx                    # HTML shell — <head>, meta, GA, theme init
 │   │                               # Root component: Nav (conditional), Outlet, Footer
@@ -81,11 +81,11 @@ Per-page `<title>`, `<meta>`, OG tags via `useLocation()` in `root.tsx` Layout:
 
 ```
 ROUTE_META = {
-  '/'           → 'Keeep — Personal Finance Manager'
-  '/privacy'    → 'Privacy Policy — Keeep'
-  '/terms'      → 'Terms of Service — Keeep'
+  '/'           → 'Fintraq — Personal Finance Manager'
+  '/privacy'    → 'Privacy Policy — Fintraq'
+  '/terms'      → 'Terms of Service — Fintraq'
   '/in-app/*'   → Same as public counterparts
-  '*'           → 'Page Not Found — Keeep' (noindex)
+  '*'           → 'Page Not Found — Fintraq' (noindex)
 }
 ```
 

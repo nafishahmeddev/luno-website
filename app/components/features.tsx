@@ -6,6 +6,9 @@ import {
   NotePencil,
   Palette,
   Fire,
+  Users,
+  Fingerprint,
+  ArrowsClockwise,
 } from '@phosphor-icons/react';
 import { useScrollReveal } from '~/hooks/use-scroll-reveal';
 
@@ -38,7 +41,7 @@ const FEATURES: FeatureCardData[] = [
     num: 'Pro',
     icon: <MagnifyingGlass weight="fill" size={18} />,
     name: 'Global Search',
-    desc: 'Find any transaction, account, or category instantly across your entire history.',
+    desc: 'Find any transaction, account, category, or note instantly across your entire history.',
     cls: 'fc-small-a',
     delay: '',
   },
@@ -52,35 +55,59 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Wallet weight="fill" size={18} />,
-    name: 'Multi-account',
-    desc: 'Unlimited accounts. 160+ currencies, custom icons and colours.',
+    icon: <Users weight="fill" size={18} />,
+    name: 'Splits & Debts',
+    desc: 'Keep track of shared splits, lending, and borrowing with friends and family.',
     cls: 'fc-card-3',
+    delay: 'd2',
+  },
+  {
+    num: 'Free',
+    icon: <Wallet weight="fill" size={18} />,
+    name: 'Multi-account Ledger',
+    desc: 'Unlimited ledgers for cash, banks, cards, and investments with custom icons.',
+    cls: 'fc-card-4',
     delay: '',
   },
   {
     num: 'Free',
-    icon: <NotePencil weight="fill" size={18} />,
-    name: 'Transaction logging',
-    desc: 'Log income, expenses, and transfers. Swipe to edit or delete. Grouped by day.',
-    cls: 'fc-card-4',
+    icon: <Fingerprint weight="fill" size={18} />,
+    name: 'Biometric Lock',
+    desc: 'Secure your financial data with an on-device PIN, FaceID, or fingerprint lock.',
+    cls: 'fc-card-5',
     delay: 'd1',
   },
   {
     num: 'Free',
     icon: <Palette weight="fill" size={18} />,
-    name: 'Dark mode + themes',
-    desc: 'Light, dark, and system theme. Custom icons and colours per account and category.',
-    cls: 'fc-card-5',
+    name: 'Dark Mode & Themes',
+    desc: 'Light, dark, and system themes with custom accent colors and account colors.',
+    cls: 'fc-card-6',
     delay: 'd2',
   },
   {
     num: 'Free',
+    icon: <NotePencil weight="fill" size={18} />,
+    name: 'Transaction Logging',
+    desc: 'Log income, expenses, and transfers. Swipe to delete. Grouped beautifully by day.',
+    cls: 'fc-card-7',
+    delay: '',
+  },
+  {
+    num: 'Free',
     icon: <Fire weight="fill" size={18} />,
-    name: 'Streak &amp; reminders',
-    desc: 'Track daily logging consistency. Set a reminder at your preferred time.',
-    cls: 'fc-card-6',
-    delay: 'd3',
+    name: 'Streak & Reminders',
+    desc: 'Build logging habits with streaks and custom notifications at your preferred time.',
+    cls: 'fc-card-8',
+    delay: 'd1',
+  },
+  {
+    num: 'Pro',
+    icon: <ArrowsClockwise weight="fill" size={18} />,
+    name: 'Backup & Restore',
+    desc: 'Export full JSON backups. Import to restore your data on any device, anytime.',
+    cls: 'fc-card-9',
+    delay: 'd2',
   },
 ];
 
@@ -121,7 +148,7 @@ export function Features() {
             <h3 className="fc-priv-title">Your data never leaves your device.</h3>
             <p className="fc-priv-sub">
               All data encrypted and stored locally via SQLite. No cloud. No
-              account. No tracking. Not even Keeep can see it.
+              account. No tracking. Not even Fintraq can see it.
             </p>
             <div className="fc-pills">
               {PRIVACY_PILLS.map((p) => (

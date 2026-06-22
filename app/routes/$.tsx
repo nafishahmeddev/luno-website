@@ -1,5 +1,5 @@
 export const handle = {
-  title: 'Page Not Found — Keeep',
+  title: 'Page Not Found — Fintraq',
   robots: 'noindex',
 };
 
