@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { PlayStoreIcon, Shield01Icon } from '@hugeicons/core-free-icons';
+import { PlayStoreIcon } from '@hugeicons/core-free-icons';
 import { SITE } from '~/lib/constants';
 import { useScrollReveal } from '~/hooks/use-scroll-reveal';
 
@@ -11,12 +11,17 @@ const STATS = [
   { n: '1×', l: 'Pay, forever' },
 ];
 
-const SCREENS = [
-  { src: '/images/raw_dashboard.jpeg', alt: 'Fintraq dashboard' },
-  { src: '/images/raw_analytics.jpeg', alt: 'Fintraq analytics' },
-  { src: '/images/raw_accounts.jpeg', alt: 'Fintraq accounts' },
-  { src: '/images/raw_transaction.jpeg', alt: 'Fintraq transaction detail' },
-  { src: '/images/raw_splits.jpeg', alt: 'Fintraq splits & debts' },
+// Left mockup cycles these
+const SCREENS_LEFT = [
+  '/images/raw_analytics.jpeg',
+  '/images/raw_transaction.jpeg',
+];
+
+// Right mockup cycles these
+const SCREENS_RIGHT = [
+  '/images/raw_dashboard.jpeg',
+  '/images/raw_accounts.jpeg',
+  '/images/raw_splits.jpeg',
 ];
 
 export function Hero() {
@@ -26,16 +31,22 @@ export function Hero() {
   const statsAnim = useScrollReveal('d3');
   const showcaseAnim = useScrollReveal('d1');
 
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [leftIdx, setLeftIdx] = useState(0);
+  const [rightIdx, setRightIdx] = useState(0);
 
-  const next = useCallback(() => {
-    setActiveIdx((prev) => (prev + 1) % SCREENS.length);
+  const nextLeft = useCallback(() => {
+    setLeftIdx((prev) => (prev + 1) % SCREENS_LEFT.length);
+  }, []);
+
+  const nextRight = useCallback(() => {
+    setRightIdx((prev) => (prev + 1) % SCREENS_RIGHT.length);
   }, []);
 
   useEffect(() => {
-    const t = setInterval(next, 3800);
-    return () => clearInterval(t);
-  }, [next]);
+    const lt = setInterval(nextLeft, 4200);
+    const rt = setInterval(nextRight, 3800);
+    return () => { clearInterval(lt); clearInterval(rt); };
+  }, [nextLeft, nextRight]);
 
   return (
     <section className="hero-s">
@@ -45,10 +56,10 @@ export function Hero() {
 
       <div className="wrap hero-inner">
         <div className="hero-grid">
+          {/* Left: content */}
           <div ref={headlineAnim.nodeRef} className="hero-content">
             <div className="hero-eyebrow">
-              <HugeiconsIcon icon={Shield01Icon} size={16} />
-              Local-first · Privacy-first
+              Local-first. Privacy-first.
             </div>
             <h1 className="hero-headline">
               Your money.
@@ -56,8 +67,9 @@ export function Hero() {
               <em>Your rules.</em>
             </h1>
             <p className="hero-desc" ref={descAnim.nodeRef}>
-              Track transactions, manage accounts across 160+ currencies, and
-              keep every byte on your device. No cloud. No account. No catch.
+              Privacy-first personal finance for iOS and Android. Log
+              transactions, manage accounts in 160+ currencies, and keep every
+              byte on your device.
             </p>
             <div className="hero-ctas" ref={ctasAnim.nodeRef}>
               <a href={SITE.googlePlayUrl} className="btn btn-primary btn-lg">
@@ -70,38 +82,36 @@ export function Hero() {
             </div>
           </div>
 
+          {/* Right: two overlapping phone mockups */}
           <div ref={showcaseAnim.nodeRef} className={`hero-showcase ${showcaseAnim.className}`}>
-            {/* Main phone mockup */}
-            <div className="device-mockup mockup-main">
+            {/* Back phone — analytics, tilted */}
+            <div className="device-mockup mockup-1">
               <div className="screen">
-                {SCREENS.map((s, idx) => (
+                {SCREENS_LEFT.map((src, idx) => (
                   <img
-                    key={s.src}
-                    src={s.src}
-                    alt={s.alt}
-                    style={{ opacity: idx === activeIdx ? 1 : 0 }}
+                    key={src}
+                    src={src}
+                    alt="Fintraq analytics"
+                    style={{ opacity: idx === leftIdx ? 1 : 0 }}
                   />
                 ))}
               </div>
               <div className="island" />
             </div>
 
-            {/* Dot indicators */}
-            <div className="mockup-dots">
-              {SCREENS.map((s, idx) => (
-                <button
-                  key={s.src}
-                  className={`mockup-dot${idx === activeIdx ? ' active' : ''}`}
-                  onClick={() => setActiveIdx(idx)}
-                  aria-label={`Show ${s.alt}`}
-                />
-              ))}
-            </div>
-
-            {/* Floating pill badge */}
-            <div className="hero-float-badge">
-              <span className="badge-pulse-dot" />
-              100% on-device
+            {/* Front phone — dashboard, upright */}
+            <div className="device-mockup mockup-2">
+              <div className="screen">
+                {SCREENS_RIGHT.map((src, idx) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt="Fintraq dashboard"
+                    style={{ opacity: idx === rightIdx ? 1 : 0 }}
+                  />
+                ))}
+              </div>
+              <div className="island" />
             </div>
           </div>
         </div>
