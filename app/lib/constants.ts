@@ -11,11 +11,11 @@ export const SITE = {
 };
 
 export const META = {
-  title: 'Fintraq — Personal Finance Manager',
+  title: 'Fintraq — Personal Finance, On Your Terms',
   description:
-    'Local-first personal finance tracking application',
+    'Privacy-first personal finance app for iOS & Android. Track spending, manage accounts across 160+ currencies, and keep every byte on your device. No cloud, no account required.',
   keywords:
-    'personal finance app, expense tracker, budget tracker, money manager, local-first finance, privacy finance app',
+    'personal finance app, expense tracker, budget tracker, money manager, local-first finance, privacy finance app, offline finance, no cloud finance',
   themeColor: '#141412',
 };
 

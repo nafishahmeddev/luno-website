@@ -1,12 +1,13 @@
 import { Link } from 'react-router';
-import { GooglePlayLogo, Monitor, Moon, Sun } from '@phosphor-icons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PlayStoreIcon, ComputerIcon, Moon01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 import { SITE } from '~/lib/constants';
 import { useTheme } from '~/hooks/use-theme';
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
-  system: <Monitor weight="fill" size={16} />,
-  dark: <Moon weight="fill" size={16} />,
-  light: <Sun weight="fill" size={16} />,
+  system: <HugeiconsIcon icon={ComputerIcon} size={20} />,
+  dark: <HugeiconsIcon icon={Moon01Icon} size={20} />,
+  light: <HugeiconsIcon icon={Sun01Icon} size={20} />,
 };
 
 const THEME_LABELS: Record<string, string> = {
@@ -49,7 +50,7 @@ export function Nav() {
           </button>
           <span className="nav-sep" />
           <a href={SITE.googlePlayUrl} className="nav-cta-btn">
-            <GooglePlayLogo weight="fill" size={14} />
+            <HugeiconsIcon icon={PlayStoreIcon} size={18} />
             <span className="nav-cta-label">Download</span>
           </a>
         </div>

@@ -1,27 +1,28 @@
-import { TrendUp, PiggyBank, CalendarCheck, CheckCircle } from '@phosphor-icons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ChartUpIcon, PiggyBankIcon, CalendarCheckIcon, CheckmarkCircle01Icon } from '@hugeicons/core-free-icons';
 import { useScrollReveal } from '~/hooks/use-scroll-reveal';
 
 const INSIGHTS_CARDS = [
   {
-    icon: <TrendUp weight="fill" size={16} />,
+    icon: <HugeiconsIcon icon={ChartUpIcon} size={20} />,
     bg: 'rgba(245,158,11,0.1)',
     color: 'var(--accent-amber)',
     title: 'Spending spike — Food & Dining',
-    text: 'Up 28% vs your 4-week average. You spent \u20B93,240 more than usual this week.',
+    text: 'Up 28% vs your 4-week average. You spent ₹3,240 more than usual this week.',
   },
   {
-    icon: <PiggyBank weight="fill" size={16} />,
+    icon: <HugeiconsIcon icon={PiggyBankIcon} size={20} />,
     bg: 'rgba(46,204,113,0.1)',
     color: 'var(--success)',
     title: 'Savings rate up 12% this week',
     text: 'Your 7-day savings rate reached 76% — your best week this month.',
   },
   {
-    icon: <CalendarCheck weight="fill" size={16} />,
+    icon: <HugeiconsIcon icon={CalendarCheckIcon} size={20} />,
     bg: 'rgba(78,205,196,0.1)',
     color: 'var(--accent-teal)',
     title: 'Weekly summary ready',
-    text: '\u20B914,200 income \u00b7 \u20B93,380 spent \u00b7 \u20B910,820 saved. Best week in 90 days.',
+    text: '₹14,200 income · ₹3,380 spent · ₹10,820 saved. Best week in 90 days.',
   },
 ];
 
@@ -78,7 +79,7 @@ export function Insights() {
             <ul className="checklist" ref={checkAnim.nodeRef}>
               {CHECKLIST.map((item) => (
                 <li key={item}>
-                  <CheckCircle weight="fill" size={16} color="var(--primary)" />
+                  <HugeiconsIcon icon={CheckmarkCircle01Icon} size={20} color="var(--primary)" />
                   {item}
                 </li>
               ))}

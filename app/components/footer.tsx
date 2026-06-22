@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
-import { GooglePlayLogo } from '@phosphor-icons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PlayStoreIcon } from '@hugeicons/core-free-icons';
 import { SITE } from '~/lib/constants';
 
 export function Footer() {
@@ -12,11 +13,11 @@ export function Footer() {
               <span className="footer-logo-name">Fintraq</span><span className="dot">.</span>
             </div>
             <p className="footer-tagline">
-              Free = Tracking.<br />
-              Premium = Insights + Control.
+              Privacy-first finance.<br />
+              No cloud. No subscription. Just you.
             </p>
             <a href={SITE.googlePlayUrl} className="footer-store-btn">
-              <GooglePlayLogo weight="fill" size={14} />
+              <HugeiconsIcon icon={PlayStoreIcon} size={18} />
               Google Play
             </a>
           </div>

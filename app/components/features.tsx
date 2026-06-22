@@ -1,15 +1,16 @@
+import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  LockKey,
-  MagnifyingGlass,
-  FileCsv,
-  Wallet,
-  NotePencil,
-  Palette,
-  Fire,
-  Users,
-  Fingerprint,
-  ArrowsClockwise,
-} from '@phosphor-icons/react';
+  LockIcon,
+  Search01Icon,
+  Csv01Icon,
+  UserGroupIcon,
+  Wallet01Icon,
+  FingerPrintIcon,
+  ColorsIcon,
+  ReceiptTextIcon,
+  FlameIcon,
+  DatabaseIcon,
+} from '@hugeicons/core-free-icons';
 import { useScrollReveal } from '~/hooks/use-scroll-reveal';
 
 const PRIVACY_PILLS = [
@@ -39,7 +40,7 @@ interface FeatureCardData {
 const FEATURES: FeatureCardData[] = [
   {
     num: 'Pro',
-    icon: <MagnifyingGlass weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={Search01Icon} size={22} />,
     name: 'Global Search',
     desc: 'Find any transaction, account, category, or note instantly across your entire history.',
     cls: 'fc-small-a',
@@ -47,7 +48,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Pro',
-    icon: <FileCsv weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={Csv01Icon} size={22} />,
     name: 'CSV Export',
     desc: 'Export filtered transactions to a spreadsheet. Filter by date, account, and type.',
     cls: 'fc-small-b',
@@ -55,7 +56,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Users weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={UserGroupIcon} size={22} />,
     name: 'Splits & Debts',
     desc: 'Keep track of shared splits, lending, and borrowing with friends and family.',
     cls: 'fc-card-3',
@@ -63,7 +64,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Wallet weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={Wallet01Icon} size={22} />,
     name: 'Multi-account Ledger',
     desc: 'Unlimited ledgers for cash, banks, cards, and investments with custom icons.',
     cls: 'fc-card-4',
@@ -71,7 +72,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Fingerprint weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={FingerPrintIcon} size={22} />,
     name: 'Biometric Lock',
     desc: 'Secure your financial data with an on-device PIN, FaceID, or fingerprint lock.',
     cls: 'fc-card-5',
@@ -79,7 +80,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Palette weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={ColorsIcon} size={22} />,
     name: 'Dark Mode & Themes',
     desc: 'Light, dark, and system themes with custom accent colors and account colors.',
     cls: 'fc-card-6',
@@ -87,7 +88,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <NotePencil weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={ReceiptTextIcon} size={22} />,
     name: 'Transaction Logging',
     desc: 'Log income, expenses, and transfers. Swipe to delete. Grouped beautifully by day.',
     cls: 'fc-card-7',
@@ -95,7 +96,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Free',
-    icon: <Fire weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={FlameIcon} size={22} />,
     name: 'Streak & Reminders',
     desc: 'Build logging habits with streaks and custom notifications at your preferred time.',
     cls: 'fc-card-8',
@@ -103,7 +104,7 @@ const FEATURES: FeatureCardData[] = [
   },
   {
     num: 'Pro',
-    icon: <ArrowsClockwise weight="fill" size={18} />,
+    icon: <HugeiconsIcon icon={DatabaseIcon} size={22} />,
     name: 'Backup & Restore',
     desc: 'Export full JSON backups. Import to restore your data on any device, anytime.',
     cls: 'fc-card-9',
@@ -133,9 +134,9 @@ export function Features() {
       <div className="grid-bg" />
       <div className="wrap" ref={sectionAnim.nodeRef} style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-tag">Features</div>
-        <h2 className="section-title">Built different.<br />By design.</h2>
+        <h2 className="section-title">Everything you need.<br />Nothing you don't.</h2>
         <p className="section-sub">
-          Every feature respects your privacy. Free to use daily — Pro unlocks the full picture.
+          Core tracking is free, forever. Unlock Pro once to get powerful insights, search, export, and backup — no subscription.
         </p>
       </div>
       <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
@@ -143,12 +144,11 @@ export function Features() {
           {/* Privacy */}
           <div ref={privAnim.nodeRef} className={`feat-card fc-privacy ${privAnim.className}`}>
             <div className="fc-priv-icon">
-              <LockKey weight="fill" size={22} />
+              <HugeiconsIcon icon={LockIcon} size={28} />
             </div>
             <h3 className="fc-priv-title">Your data never leaves your device.</h3>
             <p className="fc-priv-sub">
-              All data encrypted and stored locally via SQLite. No cloud. No
-              account. No tracking. Not even Fintraq can see it.
+              Everything lives in on-device SQLite — encrypted, local, yours. No cloud sync, no account signup, no telemetry. Not even Fintraq can read your data.
             </p>
             <div className="fc-pills">
               {PRIVACY_PILLS.map((p) => (

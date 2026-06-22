@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hugeicons/core-free-icons": "^4.2.1",
     "@hugeicons/react": "^1.1.7",
-    "@phosphor-icons/react": "^2.1.7",
     "@react-router/node": "^7.6.0",
     "@react-router/serve": "^7.6.0",
     "isbot": "^5.1.27",
