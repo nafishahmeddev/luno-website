@@ -30,17 +30,21 @@ export function Nav() {
   return (
     <header className="nav-header">
       <div className="nav-bar">
+        {/* Brand */}
         <Link to="/" className="nav-brand">
           <span className="nav-brand-name">Fintraq</span><span className="dot">.</span>
         </Link>
 
+        {/* Center links — desktop only */}
         <nav className="nav-center">
           <a href="/#features">Features</a>
           <a href="/#insights">Insights</a>
           <a href="/#download">Pro</a>
         </nav>
 
+        {/* Right actions */}
         <div className="nav-right">
+          {/* Theme toggle — always visible */}
           <button
             onClick={cycleTheme}
             aria-label={`Theme: ${THEME_LABELS[theme]}`}
@@ -48,7 +52,8 @@ export function Nav() {
           >
             {THEME_ICONS[theme]}
           </button>
-          <span className="nav-sep" />
+
+          {/* Download CTA — text hidden on mobile, icon always visible */}
           <a href={SITE.googlePlayUrl} className="nav-cta-btn">
             <HugeiconsIcon icon={PlayStoreIcon} size={18} />
             <span className="nav-cta-label">Download</span>
